@@ -36,3 +36,6 @@
 
 추가할 수 있는 부분 : 시간이 되면 반응형으로 만들기 - 나의 경우 PC버젼 폰버젼으로 보는게 맞을듯
 
+
+https://velog.io/@eunjios/React-Redux-Toolkit-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
+리덕스 툴킷 사용전 참고하기.
