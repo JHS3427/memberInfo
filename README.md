@@ -41,4 +41,4 @@ https://velog.io/@eunjios/React-Redux-Toolkit-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%
 리덕스 툴킷 사용전 참고하기.
 
 
-깃허브 SSH를 이용한 팀원 간 프로젝트 공유 방법 찾아보기
+깃허브 SSH 원격 접속 방법 -> 팀원 간 프로젝트 공유 방법 찾아보기
