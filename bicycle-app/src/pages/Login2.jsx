@@ -1,7 +1,6 @@
 import {useState,useRef} from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { getLogin } from '../feature/authAPI.js';
-import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 //외부 로그인의 경우 카톡/네이버/구글 정도? - 이건 다 완료하고 추가사항으로
 

@@ -1,3 +1,6 @@
+import axios from 'axios';
+
+
 export const validateFormCheck = ({idRef,passRef,setErrors,errors}) => {
     if(idRef.current.value===""){
         setErrors({...errors,id:"아이디를 입력하세요"})
@@ -10,4 +13,9 @@ export const validateFormCheck = ({idRef,passRef,setErrors,errors}) => {
         return false;
     }
     return true;
+    
 }
+export const axiosPost = async(url,formData) =>{
+    const response = await axios.post(url,formData,{"Content-Type":"application/json"});
+    return response.data;
+} 
