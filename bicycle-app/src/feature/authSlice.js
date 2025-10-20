@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { Login } from '../pages/Login2'
 
 const initialState = {
-    isLogin : false
+    isLogin : false,
+    accessKakao : false,
 }
 
 export const authSlice = createSlice({

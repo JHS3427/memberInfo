@@ -1,18 +1,21 @@
 import {useState,useRef} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { getLogin } from '../feature/authAPI.js';
+import { getLogin,getFlatformName } from '../feature/authAPI.js';
 import { Link } from 'react-router-dom';
 //외부 로그인의 경우 카톡/네이버/구글 정도? - 이건 다 완료하고 추가사항으로
 
 export function Login(){
 
-    const Rest_api_key='ef9794cb2ff6a12a26f6432f5ec9a04b' //REST API KEY
+    const Rest_api_key='ef9794cb2ff6a12a26f6432f5ec9a04b' //카카오 EST API KEY
+    const NAVER_CLIENT_ID = "qxdiERkzD3t06kqHGYdp"; // 네이버 발급받은 Client ID
+    const STATE = "flase";
+
     const redirect_uri = 'http://localhost:3000/auth' //Redirect URI
+    
     // oauth 요청 URL
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
-    const handleLogin = ()=>{
-        window.location.href = kakaoURL
-    }
+    const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${redirect_uri}`;
+
 
     const isLogin = useSelector((state)=>state.auth.isLogin)
     
@@ -24,6 +27,18 @@ export function Login(){
     const dispatch = useDispatch();
 
 
+    const handleLogin = (e)=>{
+        const flatformName = e.target.id;
+        //디스패치로 현재 접속시도한 플랫폼 이름 넘겨주고, auth파일에서 해당 플랫폼에 따라 접속시도 바꿔주기.
+        if(flatformName === "kakao")
+        {
+            window.location.href = kakaoURL;
+        }
+        else if (flatformName === "naver")
+        {
+            window.location.href = NAVER_AUTH_URL;
+        }
+    }
 
     const handleformchange=(e)=>{
         const{name,value} = e.target;//인풋타입의 네임과 벨류값 추출
@@ -72,7 +87,8 @@ export function Login(){
                 </form>
             </ul>
             <h2>외부 로그인</h2>
-            <button onClick={handleLogin}>카카오 로그인</button>
+            <button onClick={handleLogin} id = "kakao">카카오 로그인</button>
+            <button onClick={handleLogin} id = "naver">네이버 로그인</button>
             <>
                 {isLogin?
                 <>
