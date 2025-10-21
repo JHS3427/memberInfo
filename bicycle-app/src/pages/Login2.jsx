@@ -32,10 +32,12 @@ export function Login(){
         //디스패치로 현재 접속시도한 플랫폼 이름 넘겨주고, auth파일에서 해당 플랫폼에 따라 접속시도 바꿔주기.
         if(flatformName === "kakao")
         {
+            sessionStorage.setItem("social","kakao");
             window.location.href = kakaoURL;
         }
         else if (flatformName === "naver")
         {
+            sessionStorage.setItem("social","naver");
             window.location.href = NAVER_AUTH_URL;
         }
     }

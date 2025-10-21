@@ -7,10 +7,13 @@ export function Auth(){
     const navigate=useNavigate()
     const dispatch=useDispatch();
     const code = new URL(window.location.href).searchParams.get("code");
+    const social = sessionStorage.getItem('social');
     console.log("authcode: ",code);
 
     useEffect(()=>{
-        dispatch(getkakaotoken(code))
+        console.log(code);
+        console.log(social);
+        dispatch(getkakaotoken(code,social))
         if(localStorage.getItem("loginInfo"))
         {
             navigate('/')

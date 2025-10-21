@@ -14,12 +14,12 @@ export const getLogout = () => async(dispatch) =>{
     dispatch(logout());
 }
 
-export const getkakaotoken=(token_json) => async(dispatch) =>{
-    const json_code = {"authCode": token_json,"id":"1234"};
+export const getkakaotoken=(token_json,social) => async(dispatch) =>{
+    const json_code = {"authCode": token_json,"social":social};
     const url = "http://localhost:8080/token";
     const kkotoken = await axiosPost(url,json_code);
     console.log("token : ",kkotoken)
-    dispatch(kakaoLogin({"token":kkotoken}));
+    // dispatch(kakaoLogin({"token":kkotoken}));
     
 }
 
