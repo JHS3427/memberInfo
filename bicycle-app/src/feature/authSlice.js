@@ -20,15 +20,15 @@ export const authSlice = createSlice({
             state.isLogin=!state.isLogin;
 
         },
-        kakaoLogin(state,action){
+        socialLogin(state,action){
             state.isLogin=!state.isLogin;
-            const {token} = action.payload;
-            const loginInfo = {"token":token,"userId":"kakao"}
+            const {token , social} = action.payload;
+            const loginInfo = {"token":token,"userId":"kakao_or_naver","social": social}
             localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
         }
     }
 })
 
-export const {login,logout,kakaoLogin} = authSlice.actions
+export const {login,logout,socialLogin} = authSlice.actions
 
 export default authSlice.reducer

@@ -1,4 +1,4 @@
-import { login,logout,kakaoLogin } from "./authSlice";
+import { login,logout,socialLogin } from "./authSlice";
 import {validateFormCheck,axiosPost} from "../utils/validate.js"
 
 export const getLogin = (formData,param) => async(dispatch) => {
@@ -17,9 +17,9 @@ export const getLogout = () => async(dispatch) =>{
 export const getkakaotoken=(token_json,social) => async(dispatch) =>{
     const json_code = {"authCode": token_json,"social":social};
     const url = "http://localhost:8080/token";
-    const kkotoken = await axiosPost(url,json_code);
-    console.log("token : ",kkotoken)
-    // dispatch(kakaoLogin({"token":kkotoken}));
+    const authtoken = await axiosPost(url,json_code);
+    console.log("token : ",authtoken)
+    dispatch(socialLogin({"token":authtoken,"social":social}));
     
 }
 
