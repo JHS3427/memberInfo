@@ -1,44 +1,79 @@
-# bicycle-app
+# Getting Started with Create React App
 
-내가 맡은 부분 : 회원정보 관리
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-내용 : 메인 - 회원가입 / 회원정보 수정(및 조회)/ 로그인 / 아이디,비밀번호 찾기
-      다른 분들과 협의 필요 - 사용자 : 자전거 장바구니/ 판매자 : 내 판매기록/ 내 판매목록
-                           - 사용자 : 대여 기록 및 목록(아직 수령 안한건 따로 위로 뺴기) / 판매자 : 내 판매기록/ 내 판매목록
-                           - 사용자 : 방문 여행지 기록 및 예정 목록 / 판매자 : 방문자 기록
-                            / 나의 고객센터 문의 목록(답변 왔는데 안읽었으면 ! 띄우기)
+<<<<<<< HEAD
+<<<<<<< HEAD
+## Available Scripts
 
-구체적인 내용
+In the project directory, you can run:
 
-메인
+### `npm start`
 
-로그인 - 아이디, 비밀번호 입력창 + 하단에 아이디/비밀번호찾기,회원가입 넣어두기 + 맨 밑엔 푸터 넣어두기
-        - 틀릴경우 빨간색으로 뭐가 틀렸는지 알려주기
-        - 아이디는 맞으면 냅두기(선택사항)
-        - 특정아이디 접근시도 횟수제한(선택사항)
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-회원정보 조회 및 수정 - 수정 시도할 경우 비밀번호 재입력 필요.
-                    - 사용자 나이, 성별,비밀번호 수정(이름,아이디는 고정)/ 핸드폰, 이메일 정보 수정/ 주소 수정/ 회원 탈퇴
-                    - 보안 설정(카톡으로 보안 확인)(선택사항) / 접속 이력 관리(선택사항)
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-아이디 비밀번호 찾기 : 아이디는 생년월일로 찾게 하고, 비밀번호는 입력한 이메일로 하기. 단, 이메일 없으면 카톡같은거로 해야할듯
+### `npm test`
 
-회원가입 - 페이지 관리자, 판매 및 대여자, 일반사용자로 나누어서 가입받기/
-         - 필수정보 : 아이디/비밀번호/사용자 이름
-         - 추가정보 : 핸드폰 번호/이메일/ 나이/성별/주소/보안
-         
-구조
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-마이페이지로 통합해서 첫 페이지에서 회원정보 띄워주고, 좌측 사이드에 구체적인 내용 넣기.
+### `npm run build`
 
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-기본 너비 : 1400px
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-추가할 수 있는 부분 : 시간이 되면 반응형으로 만들기 - 나의 경우 PC버젼 폰버젼으로 보는게 맞을듯
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run eject`
 
-https://velog.io/@eunjios/React-Redux-Toolkit-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
-리덕스 툴킷 사용전 참고하기.
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-깃허브 SSH 원격 접속 방법 -> 팀원 간 프로젝트 공유 방법 찾아보기
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+조해성이 테스트중 입니다.
+>>>>>>> df9afbc9340bb5d34102ab61cb2839344b0b9035
+=======
+조해성이 테스트중 입니다.
+권용빈 테스트중 입니다.
+>>>>>>> 78818bc3a084c200d66023274f0d9be85eb5e56c
