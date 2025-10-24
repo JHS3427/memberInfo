@@ -24,11 +24,11 @@ export const getLogout = () => async(dispatch) => {
                      타 플랫폼이 완료되면 이름 및 내부 코드를
                      일부 개선할 예정입니다.
 */
-export const getkakaotoken=(token_json,social) => async(dispatch) =>{
-    const json_code = {"authCode": token_json,"social":social};
+export const getSocialToken=(token_json,social) => async(dispatch) =>{
+    const auth_info = {"authCode": token_json,"social":social};
     const url = "http://localhost:8080/token";
-    const authtoken = await axiosPost(url,json_code);
-    console.log("token : ",authtoken)
-    dispatch(socialLogin({"token":authtoken,"social":social}));
+    const socialId = await axiosPost(url,auth_info);
+    console.log("socialId : ",socialId)
+    dispatch(socialLogin({"socialId":socialId,"social":social}));
     
 }

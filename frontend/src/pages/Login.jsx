@@ -37,14 +37,14 @@ export function Login() {
         if(flatformName === "kakao")
         {
             // 팀프로젝트 업로드를 위해 백엔드쪽으로 가는 길 임시 차단.
-            // sessionStorage.setItem("social","kakao");
-            // window.location.href = kakaoURL;
+            sessionStorage.setItem("social","kakao");
+            window.location.href = kakaoURL;
         }
         else if (flatformName === "naver")
         {
             // 팀프로젝트 업로드를 위해 백엔드쪽으로 가는 길 임시 차단.
-            // sessionStorage.setItem("social","naver");
-            // window.location.href = NAVER_AUTH_URL;
+            sessionStorage.setItem("social","naver");
+            window.location.href = NAVER_AUTH_URL;
         }
     }
 
