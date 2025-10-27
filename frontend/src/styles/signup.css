@@ -1,0 +1,38 @@
+.signUpPage{
+    display:flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: center;
+    flex-direction: column; 
+    font-size: 30px;
+}
+
+.signUpPage input{ 
+    font-size: 30px;
+    
+}
+
+.signUpId{
+    display:flex;
+}
+
+.signUpIdPassBox{
+    border : 10px solid red;
+}
+
+.idPosition{
+    position: absolute;
+}
+
+
+
+
+
+
+
+
+.signUpButton{
+    display:flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: center;
+    flex-direction: row; 
+}

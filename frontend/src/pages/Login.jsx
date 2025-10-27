@@ -3,8 +3,7 @@
     소셜 로그인의 경우 현재 백엔드로 가는 길을 막기 위해 무력화시켜둔 상태입니다.
     일반 로그인의 경우 아이디(test), 비밀번호(1234)를 입력하면 islogin=true로 바뀌고, 이에따라 페이지 하단이 변경됩니다. 
 */
-
-
+import '../styles/loginpage.css';
 
 import {useState,useRef} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
@@ -73,42 +72,58 @@ export function Login() {
 
     return (
         <>
-            <h1>로그인 페이지</h1>
-            <ul>
-                <form onSubmit={handleLoginSubmit}>
-                    <li>
-                        <div>아이디 <input type="text" 
-                                name="id"
-                                onChange={handleformchange}
-                                ref = {idRef}/>
+        
+            <div className='loginCenter'>
+                <div className='loginAllBox'>
+                    <ul>
+                        <h1 className = "LoginPage">로그인 페이지</h1>
+                        <form onSubmit={handleLoginSubmit}>
+                            <li>
+                                {/* 아이디와 비밀번호를 네이버처럼 floating label을 해보려 시도했지만, 상당한 시간이 걸렸음에도 진행되지 아니하여 다른거 먼저함 */}
+                                <div className='loginDataBox'>아이디 : <input type="text" 
+                                        name="id"
+                                        onChange={handleformchange}
+                                        ref = {idRef}
+                                        placeholder='아이디'/>
+                                </div>
+                                <span>{errors.id}</span>
+                            </li>
+                            <li>
+                                <div className='loginDataBox'>비밀번호 : <input type="password"
+                                        name="pass"
+                                        onChange={handleformchange}
+                                        ref= {passRef}/>
+                                </div>
+                                <span>{errors.pass}</span>
+                            </li>
+                            <ul>
+                                <li><button type = "submit">로그인</button></li>
+                                <li><button type = "reset">비우기</button></li>
+                            </ul>
+                        </form>
+                    </ul>
+                    <div>
+                        <h2 className = "OuterLoginPage">외부 로그인</h2>
+                        <div className='socialButtonWrapper'>
+                            <button onClick={handleSocialLogin} id = "kakao">카카오 로그인</button>
+                            <button onClick={handleSocialLogin} id = "naver">네이버 로그인</button>
+                            <button onClick={handleSocialLogin} id = "google">구글 로그인</button> {/* ⭐ 구글 버튼 추가 */}
                         </div>
-                        <span>{errors.id}</span>
-                    </li>
-                    <li>
-                        <div>비밀번호 <input type="password"
-                                name="pass"
-                                onChange={handleformchange}
-                                ref= {passRef}/>
-                        </div>
-                        <span>{errors.pass}</span>
-                    </li>
-                    <li><button type = "submit">로그인</button></li>
-                    <li><button type = "reset">비우기</button></li>
-                </form>
-            </ul>
-            <h2>외부 로그인</h2>
-            <button onClick={handleSocialLogin} id = "kakao">카카오 로그인</button>
-            <button onClick={handleSocialLogin} id = "naver">네이버 로그인</button>
-            <>
-                {isLogin?
-                <>
-                <h1>12123213</h1>
-                <Link to="/">홈</Link>
-                </>:
-                <h1>44444444444444</h1>}
-            </>
-            <div>
-                <Link to ="/signUp">회원가입</Link>
+                    </div>
+                    <>
+                        {isLogin?
+                        <>
+                        <h1>12123213</h1>
+                        <Link to="/">홈</Link>
+                        </>:
+                        <h1>44444444444444</h1>}
+                    </>
+                </div>
+                <div className='loginBottomLinks'> 
+                    <Link to="/signUp" className='loginLinkBtn'>회원가입</Link>
+                    <Link to="/findId" className='loginLinkBtn'>아이디 찾기</Link>
+                    <Link to="/findPass" className='loginLinkBtn'>비밀번호 찾기</Link>
+                </div>
             </div>
         </>
     );

@@ -3,6 +3,7 @@
     설명 : 회원가입 페이지이지만 현재 틀만 만들어 둔 상태.
     후일 개선 사항 : 해당 내용을 작성 중 에러 처리, 저장 기능 등 기능 추가 예정.
 */
+import '../styles/signup.css';
 
 export function SignUp(){
 
@@ -10,13 +11,20 @@ export function SignUp(){
 
     return(
         <>
-        <div>
+        <div className="signUpPage">
             <h1>회원가입 페이지</h1>
             <ul>
-                <li>아이디 <input type="text" name="id"/></li>
-                <li><button type="button">중복확인</button></li>
-                <li>비밀번호 <input type="password" name="pass"/></li>
-                <li>비밀번호 확인<input type="password" name="passcheck"/></li>
+                <div className="signUpIdPassBox">
+                    <div className="signUpId">
+                        <li className="idAPosition">
+                            <span className="idPosition">아이디</span>
+                            <input type="text" name="id"/>
+                        </li>
+                        <li><button type="button">중복확인</button></li>
+                    </div>
+                    <li>비밀번호 <input type="password" name="pass"/></li>
+                    <li>비밀번호 확인<input type="password" name="passcheck"/></li>
+                </div>
                 <li>이름 <input type="text" name="name"/></li>
                 <li>나이 <input type="text" name="age"/></li>
                 <li>주소 <input type="text" name="address"/></li>
@@ -32,8 +40,10 @@ export function SignUp(){
                     </select>
                 </li>
                 <li>휴대폰 번호 <input type="text" name="phone"/></li>
-                <li><button type = "submit">가입</button></li>
-                <li><button type = "reset">비우기</button></li>
+                <div className = "signUpButton">
+                    <li><button type = "submit">가입</button></li>
+                    <li><button type = "reset">비우기</button></li>
+                </div>
             </ul>
         </div>
         </>
