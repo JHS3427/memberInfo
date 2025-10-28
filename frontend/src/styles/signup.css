@@ -1,3 +1,15 @@
+.inputID{
+    width: 100%;
+    height : 100px;
+}
+
+
+
+
+
+
+
+
 .signUpPage{
     display:flex;
     justify-content: center; /* 가로 중앙 */
@@ -19,11 +31,14 @@
     border : 10px solid red;
 }
 
-.idPosition{
+.idAPosition{
     position: absolute;
 }
 
-
+.idPosition{
+    position: relative;
+    
+}
 
 
 

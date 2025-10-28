@@ -4,7 +4,6 @@
     일반 로그인의 경우 아이디(test), 비밀번호(1234)를 입력하면 islogin=true로 바뀌고, 이에따라 페이지 하단이 변경됩니다. 
 */
 import '../styles/loginpage.css';
-
 import {useState,useRef} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { getLogin,getFlatformName} from '../feature/auth/authAPI';
@@ -72,7 +71,6 @@ export function Login() {
 
     return (
         <>
-        
             <div className='loginCenter'>
                 <div className='loginAllBox'>
                     <ul>

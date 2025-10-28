@@ -28,8 +28,8 @@ export const authSlice = createSlice({
         */
         socialLogin(state,action){
             state.isLogin=!state.isLogin;
-            const {socialId , social} = action.payload;
-            const loginInfo = {"socialId":socialId,"social": social}
+            const {token , social} = action.payload;
+            const loginInfo = {"token":token,"userId":"kakao_or_naver","social": social}
             localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
         }
     }
