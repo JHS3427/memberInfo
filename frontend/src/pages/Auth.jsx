@@ -7,7 +7,7 @@
     */
 
 import { useEffect } from "react";
-import { getkakaotoken } from "../feature/auth/authAPI.js";
+import { getsocialtoken } from "../feature/auth/authAPI.js";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
@@ -21,13 +21,8 @@ export function Auth(){
 
     
     useEffect(()=>{
-        dispatch(getkakaotoken(code,social))
-        if(localStorage.getItem("loginInfo"))
-        {
-            navigate('/')
-        }
-        else{
-        }
+        dispatch(getsocialtoken(code,social))
+        navigate('/')
     },[])
 
     return(<></>);
