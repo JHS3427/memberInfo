@@ -44,8 +44,8 @@ public class OauthServiceImpl implements OauthService{
                 sb.append("&redirect_uri=http://localhost:3000/auth"); // TODO 인가코드 받은 redirect_uri 입력
                 }
             else if(token.getSocial().equals("naver")){
-                sb.append("&client_id=qxdiERkzD3t06kqHGYdp");
-                sb.append("&client_secret=0jzlDIssrs");
+                sb.append("&client_id=qxdiERkzD3t06kqHGYdp");//네이버 클라이언트ID
+                sb.append("&client_secret=0jzlDIssrs");//네이버 클라이언트 비밀번호
             }
             sb.append("&code=" + token.getAuthCode());
 
