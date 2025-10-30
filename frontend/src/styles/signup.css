@@ -8,12 +8,13 @@
 }
 
 .SignTitle{
+    padding-bottom: 10px;
+    margin-top: 5%;
     margin-bottom: 5%;
 }
 
-.IdPassSection{
+.IdPassSection, .PrivateInfoSection{
     width : 80%;
-    height : 200px;
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -28,25 +29,118 @@
 .IdPassSection input{
     width: 100%;
     height: 45px;
+    text-align: center;
+    font-size: 2rem;
 }
-.IdPassSection .IdBox .NamePlaceholder,
-.IdPassSection .IdBox .NamePlaceholder2{
+.IdPassSection .IdBox .NamePlaceholderIn,
+.IdPassSection .IdBox .NamePlaceholderOut{
+    text-align: center;
+    font-size: 1.3rem;
     position: absolute;
-    left : 0px;
+    left : 50%;
     transition: top 0.5s ease-out;
+    transform: translateX(-50%);
 }
-.IdPassSection .IdBox .NamePlaceholder{
+.IdPassSection .IdBox .NamePlaceholderIn{
     top : 0rem;
 }
-.IdPassSection .IdBox .NamePlaceholder2{
-    top : -1.5rem;
+.IdPassSection .IdBox .NamePlaceholderOut{
+    top : -2rem;
 }
+
 
 .IdDuplCheck{
     position: absolute;
-    right : 0rem;/* 1. 인풋 박스 높이의 50% 지점으로 이동 */
+    right : 2rem;/* 1. 인풋 박스 높이의 50% 지점으로 이동 */
     top: 50%;
      
     /* 2. 버튼 자신의 높이의 절반만큼 다시 위로 이동하여 정확한 중앙에 위치 */
     transform: translateY(-50%);
+}
+
+.PassBox{
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+.PassBox #pass.NamePlaceholderIn,
+.PassBox #pass.NamePlaceholderOut{
+    width: 100%;
+    text-align: center;
+    font-size: 1.3rem;
+    position: absolute;
+    left : 50%;
+    transition: top 0.5s ease-out;
+    transform: translateX(-50%);
+
+}
+.PassBox #pass.NamePlaceholderIn{
+    top : 0rem;
+}
+.PassBox #pass.NamePlaceholderOut{
+    top : -2rem;
+}
+
+.PassBox #passcheck.NamePlaceholderIn,
+.PassBox #passcheck.NamePlaceholderOut{
+    width: 100%;
+    text-align: center;
+    font-size: 1.3rem;
+    position: absolute;
+    left : 50%;
+    transition: top 0.5s ease-out;
+    transform: translateX(-50%);
+}
+.PassBox #passcheck.NamePlaceholderIn{
+    top : 3.5rem;
+}
+.PassBox #passcheck.NamePlaceholderOut{
+    top : 6rem;
+}
+.PrivateInfoBox{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-items: center;
+    position: relative;
+}
+
+.PrivateInfoBox input{
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.PrivateInfoBox #name.NamePlaceholderIn,
+.PrivateInfoBox #name.NamePlaceholderOut,
+.PrivateInfoBox #age.NamePlaceholderIn,
+.PrivateInfoBox #age.NamePlaceholderOut{
+    width: 100%;
+    text-align: center;
+    font-size: 1.3rem;
+    position: absolute;
+    left : 50%;
+    transition: top 0.5s ease-out;
+    transform: translateX(-50%);
+}
+.PrivateInfoBox #name.NamePlaceholderIn{
+    top: 0rem;
+}
+.PrivateInfoBox #name.NamePlaceholderOut{
+    top: -2rem;
+}
+
+.PrivateInfoBox #age{
+    margin-bottom: 5rem;;
+}
+
+.PrivateInfoBox #age.NamePlaceholderIn{
+    top : 3.5rem;
+}
+.PrivateInfoBox #age.NamePlaceholderOut{
+    top : 6rem;
 }

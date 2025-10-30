@@ -22,7 +22,7 @@ export function Auth(){
     
     useEffect(()=>{
         dispatch(getsocialtoken(code,social))
-        navigate('/')
+        // navigate('/')
     },[])
 
     return(<></>);
