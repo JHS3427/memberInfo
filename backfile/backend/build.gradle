@@ -23,7 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     runtimeOnly 'mysql:mysql-connector-java:8.0.31'
     //lombok
-    compileOnly("org.projectlombok:lombok:1.18.42")
+    compileOnly("org.projectlombok:lombok:1.18.42")d
     annotationProcessor("org.projectlombok:lombok:1.18.42")
     //security
     implementation 'org.springframework.boot:spring-boot-starter-security'

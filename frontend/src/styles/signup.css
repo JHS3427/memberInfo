@@ -1,3 +1,4 @@
+/*메인페이지 세팅 시작 --------------------->*/
 .SignUpPage{
     width: 100%;
     display: flex;
@@ -9,46 +10,102 @@
 
 .SignTitle{
     padding-bottom: 10px;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 2rem;
 }
-
-.IdPassSection, .PrivateInfoSection{
+/*--------------------->메인페이지 세팅 끝 */
+/*아이디 패스워드 // 개인 신상 정보 // 개인 연락처 정보 입력칸 및 인풋박스 설정--------------------->*/
+.IdPassSection, .PrivateInfoSection, .PrivateConnInfoSection{
     width : 80%;
     display: flex;
     flex-direction: column; 
     align-items: center;
     justify-items: center;
+    border : 2px solid var(--color-blue);;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
 }
 
+.IdPassSection input,
+.PrivateInfoBox input,
+.PrivateConnInfoBox input{
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    font-size: 2rem;
+    border-radius: 1rem;
+}
+
+/*--------------------->아이디 패스워드 // 개인 신상 정보 // 개인 연락처 정보 입력칸 및 인풋박스 설정*/
 .IdBox{
     position: relative;
     width: 100%;
 }
 
-.IdPassSection input{
-    width: 100%;
-    height: 45px;
-    text-align: center;
-    font-size: 2rem;
+.IdPassSection .IdPassTitle{
+    margin-bottom: 2rem;
 }
+
+/*패스워드 박스 크기 및 위치 css*/
+.PassBox{
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+/*각 인풋 박스의 정보 전달 또는 경보용 CSS*/
 .IdPassSection .IdBox .NamePlaceholderIn,
-.IdPassSection .IdBox .NamePlaceholderOut{
+.IdPassSection .IdBox .NamePlaceholderOut,
+.IdPassSection .IdBox .NamePlaceholderOutWaring,
+.PassBox #pass.NamePlaceholderIn,
+.PassBox #pass.NamePlaceholderOut,
+.PassBox #pass.NamePlaceholderOutWaring,
+.PassBox #passcheck.NamePlaceholderIn,
+.PassBox #passcheck.NamePlaceholderOut,
+.PassBox #passcheck.NamePlaceholderOutWaring,
+.PrivateInfoBox #name.NamePlaceholderIn,
+.PrivateInfoBox #name.NamePlaceholderOut,
+.PrivateInfoBox #name.NamePlaceholderOutWaring,
+.PrivateInfoBox #age.NamePlaceholderIn,
+.PrivateInfoBox #age.NamePlaceholderOut,
+.PrivateInfoBox #age.NamePlaceholderOutWaring,
+.PrivateInfoBox #detailAddress.NamePlaceholderIn,
+.PrivateInfoBox #detailAddress.NamePlaceholderOut,
+.PrivateInfoBox #detailAddress.NamePlaceholderOutWaring,
+.PrivateConnInfoBox #phone.NamePlaceholderIn,
+.PrivateConnInfoBox #phone.NamePlaceholderOut,
+.PrivateConnInfoBox #phone.NamePlaceholderOutWaring{
+    width: 100%;
     text-align: center;
     font-size: 1.3rem;
     position: absolute;
     left : 50%;
-    transition: top 0.5s ease-out;
+    transition: top 0.5s ease-out, bottom 0.5s ease-in-out;
     transform: translateX(-50%);
 }
-.IdPassSection .IdBox .NamePlaceholderIn{
+
+/*정보 전달 문자열 위치*/
+.IdPassSection .IdBox .NamePlaceholderIn,
+.PassBox #pass.NamePlaceholderIn,
+.PrivateInfoBox #name.NamePlaceholderIn,
+.PrivateConnInfoBox #emailAddress.NamePlaceholderIn{
     top : 0rem;
 }
-.IdPassSection .IdBox .NamePlaceholderOut{
+/*경보 전달 문자열 위치*/
+.IdPassSection .IdBox .NamePlaceholderOut,
+.IdPassSection .IdBox .NamePlaceholderOutWaring,
+.PassBox #pass.NamePlaceholderOut,
+.PassBox #pass.NamePlaceholderOutWaring,
+.PrivateInfoBox #name.NamePlaceholderOut,
+.PrivateInfoBox #name.NamePlaceholderOutWaring,
+.PrivateConnInfoBox #emailAddress.NamePlaceholderOut,
+.PrivateConnInfoBox #emailAddress.NamePlaceholderOutWaring{
     top : -2rem;
 }
 
-
+/*아이디 중복 확인 버튼 css*/
 .IdDuplCheck{
     position: absolute;
     right : 2rem;/* 1. 인풋 박스 높이의 50% 지점으로 이동 */
@@ -58,47 +115,23 @@
     transform: translateY(-50%);
 }
 
-.PassBox{
-    width: 100%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    position: relative;
-}
-.PassBox #pass.NamePlaceholderIn,
-.PassBox #pass.NamePlaceholderOut{
-    width: 100%;
-    text-align: center;
-    font-size: 1.3rem;
-    position: absolute;
-    left : 50%;
-    transition: top 0.5s ease-out;
-    transform: translateX(-50%);
 
-}
-.PassBox #pass.NamePlaceholderIn{
-    top : 0rem;
-}
-.PassBox #pass.NamePlaceholderOut{
-    top : -2rem;
-}
-
+/*패스워드, 나이 관련 정보 전달 문자열 위치*/
 .PassBox #passcheck.NamePlaceholderIn,
-.PassBox #passcheck.NamePlaceholderOut{
-    width: 100%;
-    text-align: center;
-    font-size: 1.3rem;
-    position: absolute;
-    left : 50%;
-    transition: top 0.5s ease-out;
-    transform: translateX(-50%);
-}
-.PassBox #passcheck.NamePlaceholderIn{
+.PrivateInfoBox #age.NamePlaceholderIn{
     top : 3.5rem;
 }
-.PassBox #passcheck.NamePlaceholderOut{
+
+/*패스워드, 나이 관련 경보 전달 문자열 위치*/
+.PassBox #passcheck.NamePlaceholderOut,
+.PassBox #passcheck.NamePlaceholderOutWaring,
+.PrivateInfoBox #age.NamePlaceholderOut,
+.PrivateInfoBox #age.NamePlaceholderOutWaring{
     top : 6rem;
 }
-.PrivateInfoBox{
+
+/*개인정보, 개인 연락처 정보 박스 css*/
+.PrivateInfoBox, .PrivateConnInfoBox{
     margin-top: 2rem;
     width: 100%;
     display: flex;
@@ -107,40 +140,92 @@
     justify-items: center;
     position: relative;
 }
-
-.PrivateInfoBox input{
-    width: 100%;
-    height: 45px;
-    text-align: center;
-    font-size: 2rem;
+/*개인정보 박스*/
+.PrivateInfoBox{
+    flex-direction: column; 
+    margin-bottom: 2rem;
 }
 
-.PrivateInfoBox #name.NamePlaceholderIn,
-.PrivateInfoBox #name.NamePlaceholderOut,
-.PrivateInfoBox #age.NamePlaceholderIn,
-.PrivateInfoBox #age.NamePlaceholderOut{
+/*개인정보-나이 박스*/
+.PrivateInfoBox #age{
+    margin-bottom: 4rem;;
+}
+
+.PrivateInfoBox #detailAddress.NamePlaceholderIn{
+    bottom : 1rem;
+}
+.PrivateInfoBox #detailAddress.NamePlaceholderOut,
+.PrivateInfoBox #detailAddress.NamePlaceholderOutWaring{
+    bottom : -2rem;
+}
+
+.PrivateInfoBox #gender{
     width: 100%;
+    color : var(--color-blue);
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.NamePlaceholderOutWaring{
+    color:red;
+}
+.PrivateConnInfoBox{
+    margin-bottom: 2rem;
+}
+
+
+
+.PrivateConnInfoBox #emailAddress.NamePlaceholderIn,
+.PrivateConnInfoBox #emailAddress.NamePlaceholderOut,
+.PrivateConnInfoBox #emailAddress.NamePlaceholderOutWaring{
+    width: 70%;
     text-align: center;
     font-size: 1.3rem;
     position: absolute;
     left : 50%;
-    transition: top 0.5s ease-out;
+    transition: top 0.5s ease-out, bottom 0.5s ease-in-out;
     transform: translateX(-50%);
-}
-.PrivateInfoBox #name.NamePlaceholderIn{
-    top: 0rem;
-}
-.PrivateInfoBox #name.NamePlaceholderOut{
-    top: -2rem;
+
 }
 
-.PrivateInfoBox #age{
-    margin-bottom: 5rem;;
+
+.EmailAddressBox{
+    display: flex;
+    flex-direction: row;
+    width : 100%;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.PrivateInfoBox #age.NamePlaceholderIn{
-    top : 3.5rem;
+.EmailAddressBox .EmailAddressFront{
+    
+    /* grow: 0, shrink: 1, basis: 85% - 고정된 85%를 유지하고 싶을 때 */
+    flex: 0 1 85%; 
+    width: 85%; /* flex-basis와 동일하게 설정 */
+
 }
-.PrivateInfoBox #age.NamePlaceholderOut{
-    top : 6rem;
+.EmailAddressBox .EmailAddressBack{
+    /* grow: 1, shrink: 1, basis: 15% */
+    /* flex-grow: 1 을 주어 남은 공간을 채우고 늘어나도록 합니다. */
+    flex: 1; /* flex: 1 1 0; 와 동일하며, 남은 공간을 채웁니다. */
+    width : 15%; /* 이 width는 flex-basis로 사용될 수 있지만, flex: 1이 우선합니다. */
+    display: flex;
+    flex-direction: row;
+}
+
+.EmailAddressBox #emailList{
+    font-size: 1.7rem;
+    min-width: 0; /* ✨필수: 콘텐츠 길이로 인한 너비 고정 방지 */
+    width: 100%; /* 부모(.EmailAddressBack)의 늘어난 너비를 꽉 채웁니다. */
+}
+
+.PrivateConnInfoBox #phone.NamePlaceholderIn{
+    bottom:0.5rem;
+}
+
+.PrivateConnInfoBox #phone.NamePlaceholderOut,
+.PrivateConnInfoBox #phone.NamePlaceholderOutWaring{
+    bottom:-1.8rem;
 }
