@@ -55,6 +55,14 @@
     position: relative;
 }
 
+
+.passlook{
+    font-size: 1rem;
+    position: absolute;
+    top:0.5rem;
+    right:0.5rem;
+}
+
 /*각 인풋 박스의 정보 전달 또는 경보용 CSS*/
 .IdPassSection .IdBox .NamePlaceholderIn,
 .IdPassSection .IdBox .NamePlaceholderOut,
@@ -113,6 +121,7 @@
      
     /* 2. 버튼 자신의 높이의 절반만큼 다시 위로 이동하여 정확한 중앙에 위치 */
     transform: translateY(-50%);
+    font-size: 1rem;
 }
 
 
@@ -144,6 +153,8 @@
 .PrivateInfoBox{
     flex-direction: column; 
     margin-bottom: 2rem;
+    display: flex;
+    text-align: center;
 }
 
 /*개인정보-나이 박스*/
@@ -174,7 +185,13 @@
     margin-bottom: 2rem;
 }
 
-
+.MainAddress{
+    font-size: 2rem;
+    width: 100%;
+}
+button.MainAddress{
+    background-color: var(--color-blue);
+}
 
 .PrivateConnInfoBox #emailAddress.NamePlaceholderIn,
 .PrivateConnInfoBox #emailAddress.NamePlaceholderOut,
@@ -228,4 +245,21 @@
 .PrivateConnInfoBox #phone.NamePlaceholderOut,
 .PrivateConnInfoBox #phone.NamePlaceholderOutWaring{
     bottom:-1.8rem;
+}
+
+.lastButtoBox{
+    display: flex;
+    justify-content: center;
+}
+
+.lastButton{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row; 
+}
+
+.lastButton button{
+    width: 40%;
+    font-size : 2rem;
 }

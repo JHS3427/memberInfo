@@ -6,8 +6,9 @@
 
 import '../styles/signup.css';
 import React, {useState} from 'react'
-import { useDaumPostcodePopup } from 'react-daum-postcode';
+import { usePostCode} from '../feature/auth/authAPI';
 
+//입력창 생성 함수
 const ConsoleBox = ({ 
     id, type, name, 
     formData, focusIn, focusOut, handleChange, placeholderJudge}) =>{
@@ -44,12 +45,12 @@ const ConsoleBox = ({
         <label id={id} htmlFor={id} className="NamePlaceholderIn">{stringPlacer[id][0]}</label>:
           placeholderJudge[id]==="true"?
             <label id={id} className="NamePlaceholderOut">{stringPlacer[id][0]}</label>:
-            id != "passcheck"?
-              (formData[id]!=""?
+            id !== "passcheck"?
+              (formData[id]!==""?
                 <label id={id} className="NamePlaceholderOut">{stringPlacer[id][1]}</label>:
                 <label id={id} htmlFor={id} className="NamePlaceholderOutWaring">{stringPlacer[id][0]}</label>
               ):
-              (formData.pass!=formData.passcheck?
+              (formData.pass!==formData.passcheck?
                 <label id={id} htmlFor={id} className="NamePlaceholderOutWaring">{stringPlacer[id][1]}</label>:
                 formData.passcheck===""?
                 <label id={id} htmlFor={id} className="NamePlaceholderOutWaring">{stringPlacer[id][3]}</label>:
@@ -63,50 +64,16 @@ const ConsoleBox = ({
 
 export const SignUp = () => {
 
-  /**
-   * 얘는 나중에 auth api로 빼고, 후일 개인정보 수정때 가져다 쓰기
-   */
-  const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-  const open = useDaumPostcodePopup(postcodeScriptUrl);
-  const [address, setAddress] = useState('');//얘는 state로 빼야할듯
-  const [zonecode, setZonecode] = useState('');//얘는 state로 빼야할듯
-
-  /**
-   * 얘는 나중에 auth api로 빼고, 후일 개인정보 수정때 가져다 쓰기
-   */
-  const handleComplete = (data) => {
-    let fullAddress = data.address;
-    let placezonecode = data.zonecode;
-    let extraAddress = '';
-    let localAddress = data.sido + ' ' + data.sigungu;
-
-    if (data.addressType === 'R') {
-        if (data.bname !== '') {
-            extraAddress += data.bname;
-        }
-        if (data.buildingName !== '') {
-            extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-        }
-        fullAddress = fullAddress.replace(localAddress, '');
-        fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
-    }
-
-    setAddress(fullAddress); // setAddress를 호출하여 부모 컴포넌트의 상태를 업데이트
-    setZonecode(placezonecode)
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",fullAddress,placezonecode)
-  };
-
-  /**
-   * 얘도 나중에 auth api로 빼고, 후일 개인정보 수정때 가져다 쓰기
-   */
-  const handleClick = () => {
-    open({ onComplete: handleComplete });
-  };
-
-  const initialArray =  {id : "", pass : "", passcheck:"", name : "", age:"", gender:"", detailAddress:"", emailAddress:"",emailList:"", phone:""};
+  //초기값 세팅을 위한 initialArray선언 및 초기값 선언
+  const initialArray =  {id : "", pass : "", passcheck:"", name : "", age:"", gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"", phone:""};
   const [formData, setFormData]=useState(initialArray);
   const [placeholderJudge, setPlaceholderJudge] = useState(initialArray);
+  const [passLook,setPassLook] = useState(false);
 
+  // 주소값을 가져오기 위한 선언 - authAPI
+  const {handleClick} = usePostCode(formData, setFormData);
+
+  //입력, 마우스 클릭, 마우스 떼기 등 진행 시 변화 감지 코드
   const handleChange = (e) =>{
     const {name,value} = e.target;
     setFormData({...formData,  [name] : value})
@@ -122,6 +89,7 @@ export const SignUp = () => {
     setPlaceholderJudge({...placeholderJudge,  [name] : "aftertrue"})
   }
 
+  //입력창 생성 함수에 들어가는 변수, 함수 할당용 변수
   const sharedData = {
     "formData":formData,
     "focusIn":focusIn,
@@ -130,12 +98,68 @@ export const SignUp = () => {
     "placeholderJudge" :  placeholderJudge
   }
 
+  // 제출버튼을 누를 경우 빈값 확인 후 필수 요소에 빈값이 있는 경우 경보 발동
+  // 비밀번호가 다를 경우 경보 발동
+  // 이후 입력받은 정보들을 백으로 전달 예정-현재(11.03) 미구현
+  const signupOnSubmit = (e) =>{
+    e.preventDefault();
+    console.log(formData);
+    const keys = Object.keys(initialArray)
+
+    //필수 입력 항목을 key값으로, 해당 항목이 비었을 때의 출력 값을 value로 갖는 배열 생성
+    const mainKey={"id":"아이디","pass":"비밀번호",
+                    "passcheck":"비밀번호 확인","name":"이름",
+                    "age":"나이","gender":"성별",
+                    "mainAddress":"도로명 주소","detailAddress":"상세 주소"};
+    let mainAlertMessage = "";
+    let newEmptyCheck={}
+    let isempty = false;
+    for (const key of keys){
+      const value = formData[key];
+      if(value===""){
+        newEmptyCheck[key] = "empty"
+        isempty=true;
+        if(Object.keys(mainKey).includes(key)){
+          mainAlertMessage=mainAlertMessage+mainKey[key]+" 값이 비었습니다.\n";
+        }
+      }
+      else{
+        newEmptyCheck[key] = "full"
+      }
+    }
+    //비밀번호와 비밀번호 확인란 차이 확인
+    if(formData.pass !== formData.passcheck)
+    {
+      mainAlertMessage = mainAlertMessage+"\n비밀번호가 다릅니다. 확인해주세요."
+    }
+    console.log("newEmptyCheck : ",newEmptyCheck);
+    //경보 메세지가 비어있지 않을 경우(필수 입력 항목이 비었거나 비밀번호가 다른 경우) 경보 메세지 출력
+    if(mainAlertMessage!="")
+    {
+      alert(mainAlertMessage);
+    }
+  }
+
+  //리셋 버튼. 누르면 전부 초기화
+  const resetButton =(e)=>{
+    setFormData(initialArray);
+    setPlaceholderJudge(initialArray);
+  }
+
+  //아이디 중복확인 버튼 - 미구현
+  const IdDupleCheck = () => {
+
+  }
+
+//이메일 입력 항목의 경우 페이지가 좁아지면 selectbox가 너무 좁아짐
+//해당 부분은 일정 px이하로 내려갈 경우 밑으로 내린 후 선택하게 하는 방법을 고려중.
   return (
     <>
-    <form>
+    <form onSubmit={signupOnSubmit}>
       <div className="SignUpPage">
         <h1 className="SignTitle">회원가입 페이지입니다.</h1>
         <div className = "IdPassSection">
+          <h3>반드시 입력해주세요</h3>
           <h1 className="IdPassTitle">접속 정보란입니다</h1>
           <div className="IdBox">          
             <ConsoleBox id="id" type="text" name="id" {...sharedData}/>
@@ -144,14 +168,27 @@ export const SignUp = () => {
             className = 'IdDuplCheck'>중복확인</button>
           </div>
           <div className="PassBox">
-            <ConsoleBox id="pass" type="password" name="pass" {...sharedData}/>
-            <ConsoleBox id="passcheck" type="password" name="passcheck" {...sharedData}/>
+            {passLook?
+            <>
+              <ConsoleBox id="pass" type="text" name="pass" {...sharedData}/>
+              <ConsoleBox id="passcheck" type="text" name="passcheck" {...sharedData}/>
+            </>:
+            <>
+              <ConsoleBox id="pass" type="password" name="pass" {...sharedData}/>
+              <ConsoleBox id="passcheck" type="password" name="passcheck" {...sharedData}/>
+            </>}
+            {passLook?
             <button 
             type='button'
-            className = 'passlook'>비번보기</button>
+            className = 'passlook' onClick={()=>setPassLook(!passLook)}>비밀번호 가리기</button>:
+            <button 
+            type='button'
+            className = 'passlook' onClick={()=>setPassLook(!passLook)}>비밀번호 확인</button>}
+            
           </div>
         </div>
         <div className= "PrivateInfoSection">
+          <h3>반드시 입력 및 선택해주세요</h3>
           <h1>개인 정보란 입니다</h1>
           <div className = "PrivateInfoBox">
             <ConsoleBox id="name" type="text" name="name" {...sharedData}/>
@@ -160,12 +197,20 @@ export const SignUp = () => {
               <option value="default">성별 선택</option>
               <option value="남자">남성</option>
               <option value="여자">여성</option>
-              <option value="기타 혹은 선택거부">통기타/일렉기타/성별기타</option>
+              <option value="기타 혹은 선택거부">기타 혹은 선택거부</option>
             </select>
             <button
+              className = "MainAddress"
               type="button" 
-              onClick={handleClick}>주소검색</button>
-            {address}
+              onClick={handleClick}>주소 검색 버튼</button>
+            <input
+              type="text"
+              className="MainAddress"
+              id="mainAddress"
+              value={formData.mainAddress}
+              placeholder='위의 버튼으로 주소를 검색하세요.'
+              readOnly
+            />
             <ConsoleBox id="detailAddress" type="text" name="detailAddress" {...sharedData}/>
           </div>
         </div>
@@ -177,7 +222,7 @@ export const SignUp = () => {
                 <ConsoleBox id="emailAddress" type="text" name="emailAddress" {...sharedData}/>
               </div>
               <div className = "EmailAddressBack">
-                {formData.emailList==="default" ||formData.emailList=== ""?<span></span>:<span>@</span>}
+                <span>@</span>
                 <select id="emailList" name="emailList" value={formData.emailList} onChange={handleChange}>
                   <option value="default">직접 입력</option>
                   <option value="naver.com">naver.com</option>
@@ -190,8 +235,12 @@ export const SignUp = () => {
           </div>
         </div>
       </div>
-      <button type='submit' onSubmit={""}>제출</button>
-
+      <div className="lastButtoBox">
+        <div className="lastButton">
+          <button type='reset' onClick={resetButton}>리셋</button>
+          <button type='submit'>제출</button>
+        </div>
+      </div>
     </form>
     </>
   );
