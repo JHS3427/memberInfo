@@ -1,10 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-
 const initialState = {
-    // productList: [],  //출력용 - 2차원 배열
-    products: [],  //원본 - 1차원 배열
-    product: {}
+    products: [],
+    product: {} // 1. (중요) {} 대신 null로 초기화
 }
 
 export const productSlice = createSlice({
@@ -13,24 +11,20 @@ export const productSlice = createSlice({
     reducers: {
         createProduct(state, action) {
             const { products } = action.payload;
-            // state.productList = productList;
             state.products = products;
         },
+
+        setProduct(state, action) {
+            state.product = action.payload;
+        },
+
         filterProduct(state, action) {
-            // const pid = action.payload.pid;
             const { pid } = action.payload;
-
-            //1. productList가 2차원 배열이므로 flat() 함수를 이용하여 1차원 변경 후 filter
-            // const [filterProduct] = productList.flat().filter((item) => item.pid === pid);
-            // state.product = filterProduct;
-
-            //2. products 1차원 배열에서 find 함수
             state.product = state.products.find(item=> item.pid === pid);
         }
     },
 })
 
-export const {  createProduct, filterProduct
-} = productSlice.actions   //API 함수 또는 컴포넌트에서 dispatch(액션함수)
+export const { createProduct, setProduct, filterProduct } = productSlice.actions
 
-export default productSlice.reducer  //store  import
+export default productSlice.reducer

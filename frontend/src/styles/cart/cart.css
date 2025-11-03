@@ -1,0 +1,280 @@
+/* --- 기본 및 전체 레이아웃 --- */
+.cart-page-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* --- 1. CartHeader --- */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-top: 50px;
+}
+
+.cart-header h1 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.cart-stepper {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.step-item:not(:last-child)::after {
+    content: '>';
+    margin: 0 15px;
+    color: #ccc;
+}
+
+.step-item.active {
+    color: #d00; /* 활성 스텝 (빨간색) */
+    font-weight: bold;
+}
+
+/* (아이콘은 SVG나 폰트 아이콘으로 대체 필요) */
+.step-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    background-color: #eee; /* 임시 아이콘 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.step-item.active .step-icon {
+    background-color: #d00;
+    border-color: #d00;
+}
+
+
+/* --- 2. CartList --- */
+.cart-list-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+}
+
+.btn-delete-selected {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #333;
+    font-size: 14px;
+}
+
+.cart-table th,
+.cart-table td {
+    padding: 15px 10px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-table th {
+    background-color: #f9f9f9;
+    font-weight: normal;
+    color: #555;
+}
+
+.cart-table th:nth-child(2), /* 제품정보 */
+.cart-table td:nth-child(2) {
+    text-align: left;
+    width: 40%;
+}
+
+.cart-empty {
+    padding: 50px 0;
+    color: #888;
+}
+
+/* --- 3. CartItem --- */
+.product-info {
+    display: flex;
+    align-items: center;
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #eee;
+    margin-right: 15px;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.product-options {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.option-link {
+    font-size: 12px;
+    color: #555;
+    text-decoration: underline;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.btn-modify {
+    border: 1px solid #aaa;
+    background: #fff;
+    padding: 5px 8px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.cart-item-row strong {
+    color: #d00;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* --- 4. CartSummary --- */
+.cart-summary-container {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.summary-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.summary-label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.summary-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.summary-item.final .summary-value-final {
+    font-size: 28px;
+    font-weight: bold;
+    color: #d00;
+}
+
+.summary-operator {
+    font-size: 20px;
+    color: #aaa;
+    margin: 0 20px;
+}
+
+.summary-note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #888;
+}
+
+/* --- 5. Footer Buttons --- */
+.cart-footer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+/* --- 공용 버튼 스타일 --- */
+.btn-primary {
+    background-color: #d00;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-secondary {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-primary-small {
+    background-color: #d00;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.btn-secondary-small {
+    background-color: #fff;
+    color: #555;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+}

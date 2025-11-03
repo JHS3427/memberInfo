@@ -1,0 +1,247 @@
+@charset "UTF-8";
+
+/*
+    Rental.jsx
+    Style
+*/
+.rental_box {
+    position: relative;
+}
+.map_marker_data_info {
+    position: relative;
+    width: 25%;
+    height: calc(100vh - 52px);
+    background-color: #fff;
+    color: #000;
+    padding: 16px;
+    z-index: 10000;
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+}
+.map_marker_data_info h3{
+    padding: 15px 0;
+    background-color: var(--color-blue);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    border-radius: 10px;
+    text-align: center;
+    color: var(--color-white);
+}
+.map_marker_data_info > button {
+    cursor: pointer;
+}
+.map_marker_data_info .map_marker_data_info_img{
+    width: 100%;
+    height: 300px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    border-radius: 10px;
+}
+.map_marker_data_info .map_marker_data_info_list li {
+    padding: 20px 0;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+}
+.map_marker_data_info .map_marker_data_info_list li:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+.map_marker_data_info .map_marker_data_info_list li:first-child span em{
+    display: block;
+    font-style: normal;
+    color: var(--color-blue);
+}
+.map_marker_data_info .map_marker_data_info_list li:first-child span:first-child {
+    padding-left: 50px;
+}
+.map_marker_data_info .map_marker_data_info_list li:first-child span:last-child {
+    padding-right: 50px;
+}
+
+.map_marker_data_info .map_marker_data_info_list li:nth-child(2){
+    display: flex;
+    justify-content: space-between;
+}
+.map_marker_data_info .map_marker_data_info_list li:nth-child(2) span{
+    display: inline-block;
+}
+.map_marker_data_info .map_marker_data_info_list li:nth-child(2) span:first-child {
+    padding-left: 50px;
+}
+.map_marker_data_info .map_marker_data_info_list li:nth-child(2) span:last-child {
+    padding-right: 50px;
+}
+.map_marker_data_info .map_marker_data_info_list li:last-child {
+    padding-left: 50px;
+}
+
+.map_marker_data_info form button {
+    width: 100%;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    background-color: var(--color-blue);
+    border: 0;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: var(--color-white);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+.map_marker_data_info form button:hover {
+    color: var(--color-blue);
+    background-color: var(--color-white);
+}
+
+/*
+    Rental.jsx
+    Style
+*/
+
+/*************************************************************************/
+
+/*
+    RentalPayment.jsx
+    Style
+*/
+.map_marker_data_info .bike_rental_payment_info {
+    width: 100%;
+    height: calc(100vh - 52px);
+    padding: 15px;
+    position: absolute;
+    top: 0; left: 100%;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+}
+
+.bike_rental_payment_info {
+    background-color: var(--color-white);
+    text-align: center;
+}
+
+.bike_rental_payment_info > h3 {
+    margin-bottom: 20px;
+}
+
+.bike_rental_payment_info .payment_info_close {
+    width: 100%;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    background-color: var(--color-blue);
+    border: 0;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: var(--color-white);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+.payment_info_close:hover {
+    color: var(--color-blue);
+    background-color: var(--color-white);
+}
+.bike_rental_payment_info .payment_time_event {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-top: 1px solid #0000003b
+}
+.bike_rental_payment_info .payment_time_event > button {
+    width: 50px;
+    height: 50px;
+    background-color: var(--color-blue);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    border: 0;
+    font-size: 30px;
+    color: var(--color-white);
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.bike_rental_payment_info .payment_time_event > button:hover {
+    background-color: var(--color-white);
+    color: var(--color-blue);
+
+}
+.bike_rental_payment_info .payment_time_event > span{
+    display: inline-block;
+    width: 50px;
+    font-size: 30px;
+}
+.bike_rental_payment_info .payment_time_allday_box {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #0000003d;
+}
+.bike_rental_payment_info .payment_time_allday_box > button {
+    width: 70%;
+    height: 50px;
+    background-color: var(--color-blue);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    border: 0;
+    font-size: 30px;
+    color: var(--color-white);
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.bike_rental_payment_info .payment_time_allday_box > button:hover {
+    background-color: var(--color-white);
+    color: var(--color-blue);
+}
+.payment_price_info ul .price_info {
+    display: flex;
+    padding: 20px 0;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+.payment_price_info ul .price_info em {
+    display: inline-block;
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 700;
+}
+.payment_price_info ul .price_info span {
+    display: inline-block;
+    font-size: 30px;
+}
+.payment_price_info div {
+    margin: 20px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    text-align: left;
+}
+.payment_price_info div > strong {
+    display: block;
+    padding-bottom: 20px;
+    font-weight: 700;
+    font-size: 20px;
+}
+.payment_price_info ul li input {
+    width: 15px;
+    height: 15px;
+    appearance: inherit ;
+    border: 1px solid rgb(0, 0, 0, 0.5);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+}
+.payment_price_info ul li input:checked {
+    background-color: var(--color-blue);
+    border: 0;
+}
+.payment_price_info .payment_choice li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+.payment_price_info .payment_choice li:last-child {
+    padding-bottom: 20px;
+}
+/*
+    RentalPayment.jsx
+    Style
+*/

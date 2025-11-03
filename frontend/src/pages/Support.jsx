@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FaQuestionCircle } from "react-icons/fa";
+import { getChatbotResponse } from "../api/chatbot.js"; // 👈 챗봇 API
 import "../styles/support.css";
 
 export function Support() {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("faq");
   const [showChatbot, setShowChatbot] = useState(false);
-  const [messages, setMessages] = useState([
-    { sender: "bot", text: "안녕하세요 😊 무엇을 도와드릴까요?" },
-  ]);
-  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState(() => {
+    // localStorage -> sessionStorage 변경 시 브라우저를 닫으면 메시지 초기화
+    const saved = localStorage.getItem("chatMessages");
+    return saved
+      ? JSON.parse(saved)
+      : [{ sender: "bot", text: "안녕하세요 😊 무엇을 도와드릴까요?" }];
+  });
+  const [input, setInput] = useState(() => localStorage.getItem("chatInput") || "");
+  const [loading, setLoading] = useState(false);
+  const [scrollPos, setScrollPos] = useState(() => Number(localStorage.getItem("chatScroll")) || 0);
+  const chatBodyRef = useRef(null);
 
   // Footer에서 전달된 탭 초기화
   useEffect(() => {
@@ -18,32 +26,58 @@ export function Support() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.state]);
 
-  // 간단한 자동응답 규칙
-  const handleBotResponse = (userInput) => {
-    const lower = userInput.toLowerCase();
-    if (lower.includes("a/s") || lower.includes("as"))
-      return "A/S 관련 문의는 고객센터 > A/S 안내 탭을 참고해주세요.";
-    if (lower.includes("자료") || lower.includes("다운로드"))
-      return "자료실 탭에서 관련 문서를 다운로드할 수 있습니다.";
-    if (lower.includes("문의") || lower.includes("상담"))
-      return "문의사항은 고객센터 페이지 하단의 연락처를 이용해주세요.";
-    if (lower.includes("운영시간"))
-      return "고객센터 운영시간은 평일 09:00 ~ 18:00 입니다.";
-    return "죄송합니다. 그 부분은 아직 학습되지 않았어요 😅";
+  // ✅ 메시지 저장
+  useEffect(() => {
+    localStorage.setItem("chatMessages", JSON.stringify(messages));
+  }, [messages]);
+
+  // ✅ 입력 중 내용 저장
+  useEffect(() => {
+    localStorage.setItem("chatInput", input);
+  }, [input]);
+
+  // ✅ 스크롤 위치 저장
+  useEffect(() => {
+    localStorage.setItem("chatScroll", scrollPos);
+  }, [scrollPos]);
+
+  // ✅ 챗봇 닫을 때 스크롤 저장
+  const handleCloseChatbot = () => {
+    if (chatBodyRef.current) {
+      const pos = chatBodyRef.current.scrollTop;
+      setScrollPos(pos);
+      localStorage.setItem("chatScroll", pos);
+    }
+    setShowChatbot(false);
   };
 
-  const handleSend = () => {
+  // ✅ 챗봇 다시 열면 스크롤 복원
+  useEffect(() => {
+    if (showChatbot && chatBodyRef.current) {
+      const savedPos = Number(localStorage.getItem("chatScroll")) || 0;
+      chatBodyRef.current.scrollTo({ top: savedPos, behavior: "smooth" });
+    }
+  }, [showChatbot]);
+
+  // ✅ 새 메시지 추가 시 맨 아래로 스크롤
+  useEffect(() => {
+    if (chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  // ✅ 메시지 전송
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const newMessage = { sender: "user", text: input };
     setMessages((prev) => [...prev, newMessage]);
-
-    setTimeout(() => {
-      const reply = handleBotResponse(input);
-      setMessages((prev) => [...prev, { sender: "bot", text: reply }]);
-    }, 600);
-
     setInput("");
+    setLoading(true);
+
+    const reply = await getChatbotResponse(input);
+    setMessages((prev) => [...prev, { sender: "bot", text: reply }]);
+    setLoading(false);
   };
 
   return (
@@ -86,14 +120,9 @@ export function Support() {
         <p>평일 오전 9시 ~ 오후 6시</p>
         <p>토요일, 일요일, 공휴일 휴무</p>
         <div className="support-buttons">
-          <button onClick={() => setShowChatbot(true)}>1:1 문의하기</button>
+          <button onClick={() => setShowChatbot(true)}>챗봇 상담</button>
         </div>
       </div>
-
-      {/* 💬 챗봇 아이콘 버튼 */}
-      {/* <button className="chatbot-toggle" onClick={() => setShowChatbot(true)}>
-        <FaQuestionCircle size={30} />
-      </button> */}
 
       {/* 챗봇 팝업 */}
       {showChatbot && (
@@ -101,17 +130,20 @@ export function Support() {
           <div className="chatbot-window">
             <div className="chatbot-header">
               <h4>고객센터 챗봇</h4>
-              <button className="close-btn" onClick={() => setShowChatbot(false)}>
+              <button className="close-btn" onClick={handleCloseChatbot}>
                 ✕
               </button>
             </div>
 
-            <div className="chatbot-body">
+            <div className="chatbot-body" ref={chatBodyRef}>
               {messages.map((msg, idx) => (
                 <div key={idx} className={`chat-msg ${msg.sender}`}>
                   {msg.text}
                 </div>
               ))}
+              {loading && (
+                <div className="chat-msg bot loading">⌛ 답변을 작성 중입니다...</div>
+              )}
             </div>
 
             <div className="chatbot-input">
@@ -122,7 +154,9 @@ export function Support() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
               />
-              <button onClick={handleSend}>전송</button>
+              <button onClick={handleSend} disabled={loading}>
+                {loading ? "응답 중" : "전송"}
+              </button>
             </div>
           </div>
         </div>
@@ -196,7 +230,12 @@ function ASInfo() {
     <div className="as-section">
       <div className="as-div main">
         <div className="as-img-box">
-          <img src="/images/as_process_pc.jpg" alt="as process" />
+          <picture>
+            {/* 모바일 우선 */}
+            <source srcSet="/images/as_process_mobile.jpg" media="(max-width: 768px)" />
+            {/* 기본(PC) */}
+            <img src="/images/as_process_pc.jpg" alt="A/S 진행 절차" />
+          </picture>
         </div>
         <ul>
           <li>1. 구입 대리점에서 A/S 접수</li>
@@ -226,7 +265,10 @@ function ASInfo() {
         <p className="as-title">3. 품질보증 신청방법</p>
         <p className="as-desc">제품의 하자 및 제품 이상 발생시에는 1차 구매하신 대리점으로 A/S신청 및 문의 바랍니다.</p>
         <div className="as-img-box">
-          <img src="/images/as_apply_pc.jpg" alt="as process" />
+          <picture>
+            <source srcSet="/images/as_apply_mobile.jpg" media="(max-width: 768px)" />
+            <img src="/images/as_apply_pc.jpg" alt="A/S 신청 방법" />
+          </picture>
         </div>
       </div>
       <div className="as-div">

@@ -1,20 +1,16 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ProductAvatar } from './ProductAvatar.jsx';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductList } from '../../feature/product/productAPI.js';
-import '../../styles/productList.css';
+import '../../styles/product/productList.css';
 
-export function ProductList() {
+export function ProductList({category}) {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.product.products);
 
     useEffect(()=>{
-
-        dispatch(getProductList());
-    }, [dispatch]);
-    // --- 데이터 정렬 로직 추가 ---
+        dispatch(getProductList(category));
+    }, [dispatch, category]);
     const sortedProducts = products
         .slice()
         .sort((a, b) => parseInt(a.pid) - parseInt(b.pid));
@@ -22,7 +18,7 @@ export function ProductList() {
     return (
         <div className="product-grid-container">
             {sortedProducts && sortedProducts.map((product) => (
-                    <Link to={`/products/${product.pid}`} key={product.pid} className="product-card-link">
+                    <Link to={`/products/${category}/${product.pid}`} key={product.pid} className="product-card-link">
                         <div className="product-card">
                             <div className="product-card-image">
                                 <img src={product.image} alt={product.name} />
@@ -35,7 +31,6 @@ export function ProductList() {
                     </Link>
                 )
             )}
-            {sortedProducts.length === 0 && <p>상품 목록을 불러오는 중...</p>}
         </div>
     );
 }

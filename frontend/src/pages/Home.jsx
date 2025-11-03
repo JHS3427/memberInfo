@@ -66,7 +66,7 @@ export function Home() {
               <img src={`/images/${bike.img}`} alt={bike.name} />
               <h3>{bike.name}</h3>
               <p>{bike.desc}</p>
-              <Link to="/purchase" className="btn-outline">구매하기</Link>
+              <Link to="/products/mountain" className="btn-outline">구매하기</Link>
             </div>
           ))}
         </div>
@@ -76,6 +76,7 @@ export function Home() {
       <section className="section rental">
         <h2>자전거 대여 서비스</h2>
         <p>가볍게 떠나고 싶을 때, 가까운 대여소에서 손쉽게 이용하세요.</p>
+        <p>자전거 위치를 한눈에 확인하고, 원하는 장소에서 편리하게 대여할 수 있습니다.</p>
         <Link to="/rental" className="btn-primary">대여하러 가기</Link>
       </section>
 
@@ -100,7 +101,9 @@ export function Home() {
       {/* 고객센터 */}
       <section className="section support">
         <h2>도움이 필요하신가요?</h2>
-        <p>제품 등록, A/S, 문의사항은 고객센터에서 빠르게 해결하세요.</p>
+        <p>자주 묻는 질문에서 빠르게 답을 찾고,</p>
+        <p>A/S 안내와 자료실로 필요한 정보를 확인하세요.</p>
+        <p>궁금한 점은 챗봇이 실시간으로 도와드립니다.</p>
         <Link to="/support" className="btn-outline2">고객센터 바로가기</Link>
       </section>
     </div>

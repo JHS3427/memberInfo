@@ -270,7 +270,7 @@
   transform: translateY(-3px);
 }
 
-/* 💻 태블릿 (768px~1024px) → 2열 구조 */
+/* 💻 태블릿 (769px~1024px) → 2열 구조 */
 @media (max-width: 1024px) {
   .footer {
     padding: 40px 40px 20px;
@@ -297,8 +297,8 @@
   }
 }
 
-/* 📱 모바일 (767px 이하) → 세로 1열 */
-@media (max-width: 767px) {
+/* 📱 모바일 (768px 이하) → 세로 1열 */
+@media (max-width: 768px) {
   .footer {
     padding: 40px 20px 20px;
   }
@@ -358,112 +358,27 @@
   }
 }
 
-/* 페이지 공통 */
-.common-page {
+/* -----------------------------
+   📄 정책 페이지 공통 스타일
+------------------------------ */
+.policy-page {
   text-align: left;
   padding: 60px 20px;
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.7;
+  font-family: "Pretendard", sans-serif;
+  color: #333;
 }
 
-.common-title {
+.policy-container h1 {
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
   margin-bottom: 40px;
 }
 
-/* 이용약관 페이지 */
-.terms-container h2 {
-  margin-top: 40px;
-  font-size: 1.3rem;
-  color: #0077cc;
-  border-bottom: 2px solid #0077cc;
-  padding-bottom: 5px;
-}
-
-.terms-container h3 {
-  margin-top: 25px;
-  font-size: 1.1rem;
-  color: #333;
-}
-
-.terms-container p,
-.terms-container li {
-  margin: 6px 0;
-  list-style-type: decimal;
-}
-
-.terms-container ul,
-.terms-container ol {
-  
-  margin-left: 20px;
-  padding: 0;
-}
-
-.terms-footer {
-  margin-top: 50px;
-  font-weight: 600;
-  text-align: right;
-  color: #555;
-}
-
-/* 개인정보 취급방침 페이지 */
-.privacy-page {
-  max-width: 800px;
-  margin: 60px auto;
-  padding: 20px;
-  line-height: 1.7;
-  font-family: "Pretendard", sans-serif;
-  color: #333;
-}
-
-.privacy-page h1 {
-  font-size: 1.8rem;
-  text-align: center;
-  margin-bottom: 40px;
-  color: #0077cc;
-}
-
-.privacy-page h2 {
-  font-size: 1.2rem;
-  margin-top: 30px;
-  color: #005fa3;
-}
-
-.privacy-page ul {
-  margin-left: 20px;
-  padding: 0;
-  list-style: disc;
-}
-
-.privacy-page li {
-  list-style-type: circle;
-}
-
-.privacy-page p {
-  margin: 10px 0;
-}
-
-/* 내부정보 관리규정 */
-.internalpolicy-page {
-  max-width: 900px;
-  margin: 60px auto;
-  padding: 30px;
-  line-height: 1.8;
-  font-family: "Pretendard", sans-serif;
-  color: #333;
-}
-
-.internalpolicy-page h1 {
-  text-align: center;
-  font-size: 1.8rem;
-  color: #0077cc;
-  margin-bottom: 40px;
-}
-
-.internalpolicy-page h2 {
+.policy-container h2 {
   font-size: 1.3rem;
   color: #005fa3;
   margin-top: 40px;
@@ -471,24 +386,41 @@
   padding-bottom: 5px;
 }
 
-.internalpolicy-page h3 {
-  font-size: 1.1rem;
-  color: #222;
+.policy-container h3 {
   margin-top: 25px;
+  font-size: 1.1rem;
+  color: #333;
 }
 
-.internalpolicy-page p {
+.policy-container p {
   margin: 10px 0;
-  white-space: pre-line;
 }
 
-.internalpolicy-page ol {
-  margin-left: 20px;
-  padding: 0;
+.policy-container ul,
+.policy-container ol {
+  margin-left: 7px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.policy-container li {
+  list-style-type: decimal;
+  margin: 4px 0;
+  line-height: 1.6;
+}
+
+.policy-list-none > li {
+  list-style-type: none;
+}
+
+.policy-list-decimal > li {
   list-style-type: decimal;
 }
 
-.internalpolicy-page li {
-  padding: 0;
-  list-style-type: decimal;
+.policy-footer {
+  margin-top: 50px;
+  font-weight: 600;
+  text-align: right;
+  color: #555;
 }
+

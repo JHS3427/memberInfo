@@ -26,7 +26,7 @@ export function Footer() {
         
         {/* 왼쪽 로고 */}
         <div className="footer-logo">
-          <img src="/logo192.png" alt="Bicycle Logo" />
+          <img src="/logo.png" alt="Bicycle Logo" />
         </div>
 
         {/* 중앙 링크 섹션 */}

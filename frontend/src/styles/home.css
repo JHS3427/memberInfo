@@ -7,7 +7,7 @@
 .hero-section {
   position: relative;
   width: 100%;
-  height: calc(100vh - 52px);
+  height: calc(100vh - 49px);
   transition: opacity 0.4s ease;
 }
 
@@ -70,7 +70,7 @@
 
 /* --- 공통 섹션 --- */
 .section {
-  padding: 80px 100px;
+  padding: 120px 20px;
   text-align: center;
 }
 
@@ -88,7 +88,7 @@
 }
 
 .bike-card {
-  width: 280px;
+  width: 400px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
@@ -115,16 +115,20 @@
   padding: 10px 24px;
   text-decoration: none;
   transition: 0.3s;
-  margin-top: 15px;
+  margin-top: 40px;
 }
 
 .btn-primary {
   background-color: #0077cc;
   color: white;
+  border: 1px solid transparent;
 }
 
 .btn-primary:hover {
-  background-color: #005fa3;
+  /* background-color: #005fa3; */
+  background-color: #fff;
+  color: #0077cc;
+  border: 1px solid #0077cc;
 }
 
 .btn-outline {
@@ -149,25 +153,59 @@
 
 /* --- 대여 섹션 --- */
 .rental {
-  background: #f8f9fb;
+  position: relative;
+  background: url('/public/images/home_travel_bike_pc.png') center/cover no-repeat;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .rental {
+    background: url('/public/images/home_travel_bike_mobile.png') center/cover no-repeat;
+  }
+}
+
+/* 밝은 반투명 흰색 오버레이 */
+.rental::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(2px) brightness(0.9);
+  z-index: 1;
+}
+
+/* 콘텐츠는 위로 */
+.rental * {
+  position: relative;
+  z-index: 2;
+}
+
+.rental h2 {
+  color: #004a99;
+  font-weight: 700;
+}
+
+.rental p {
+  color: #1a1a1a;
+  opacity: 0.8;
 }
 
 /* --- 여행지 추천 --- */
 .travel-cards {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 40px;
   flex-wrap: wrap;
 }
 
 .travel-card {
-  width: 300px;
+  width: 400px;
   text-align: center;
 }
 
 .travel-card img {
   width: 100%;
-  height: 200px;
+  height: 300px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -175,6 +213,8 @@
 
 /* --- 고객센터 --- */
 .support {
-  background: #0077cc;
+  background: linear-gradient(135deg, #0077cc 0%, #66c2ff 100%);
   color: white;
+  text-align: center;
+  padding: 120px 20px;
 }

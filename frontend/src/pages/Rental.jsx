@@ -1,84 +1,67 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
-import { axiosData } from '../utils/dataFetch.js';
-import { Maps } from '../components/Maps.jsx';
+import { Maps } from '../components/rental/Maps.jsx';
+import { addData } from '../feature/rental/rentalMarkerSlice.js';
+import { showMarkerAPI } from '../feature/rental/rentalMarkerAPI.js';
 
-const apiUrl = "https://api.citybik.es/v2/networks/"; // 공통된 API 기본 주소
-const stations = [
-  // 각 도시별 세부 경로 주소 배열로 저장
+const Rantal = ({ center, ...restProps }) => {
 
-  //서울 따릉이
-  "seoul-bike",
+    //로직을 리덕스로 변경하기 전까지 사용하던 상태관리 함수
+    const [maps, setMaps] = useState([]);
+    const [latLon, setLatLon] = useState({ lat: 37.575877, lng: 126.976897 });
 
-  // 세종 어울링
-  // "eoulling-sejong",
+    //마커의 정보를 담고있는 컴포넌트 파일을 useState로 관리
+    const [selectedMarker, setSelectedMarker] = useState(null);
 
-  // 대전 타슈
-  // "tashu",
+    // 지도의 중심좌표 설정 변수
+    // const initialCenter = center || {lat: 37.575877, lng: 126.976897};
 
-  // 창원 누비자
-  // "nubija-changwon"
+    // useDispatch()를 사용하기 위해서 dispatch 변수 선언 그리고 할당 함.
+    const dispatch = useDispatch();
 
-];
+    // store에 등록된 데이터를 사용하기 위해서 useSelector 함수와 함수가 호함하고 있는 state객체를 이용해 데이터를 추출하고 변수에 값을 할당 함.
+    // const maps = useSelector((state) => state.rentalData.bikeList);
 
-const Rantal = ({center, ...restProps}) => {
+    useEffect(() => {
+        const pullData = async () => {
+            const data = await showMarkerAPI();
+            setMaps(data);
 
-  const [maps, setMaps] = useState([]);
-  const [selectedMarker, setSelectedMarker] = useState(null); //마커의 정보를 담고있는 컴포넌트 파일을 useState로 관리
+            // 전체 지역 중, 한 지역만 호출 - 전체 지역을 로딩했을 시 에러가 상당히 심해서 일단 한개의 지역만 로딩(작업을 위해서) 추후 제거 후 아래 변수 활성 예정
 
-  const initialCenter = center || {lat: 37.575877, lng: 126.976897};
+            // 4개의 전체 지역을 호출 - 추후 활성화 예정
+            // const stations = data.flatMap(item => item.network.stations)
 
-  useEffect(() => {
-    const fetchAllData = async () => {
-      const dataPromises = stations.map((stationName) => {
-        const url = `${apiUrl}${stationName}`;
-        return axiosData(url);
-      });
+            // 상태관리 함수에 저장하기 위해 사용하던 상태관리 함수
+            // setMaps(stations);
 
-      try {
-        const allData = await Promise.all(dataPromises);
+            // 불러온 자전거 데이터를 Redux store에 저장 (전역 상태 관리용)
+            dispatch(addData(data));
 
-        const mapStations = allData.flatMap(data => {
-          return data.network.stations;
-        });
-        setMaps(mapStations);
+            navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords
+                setLatLon({ lat: latitude, lng: longitude })
+            });
 
-      } catch (error) {
-        console.error("데이터를 불러오는데 실패하였습니다.");
-      }
+        };
+        pullData();
+    }, [])
 
-    };
-    fetchAllData();
-  }, [])
-
-  return (
-    <div style={{ display: "flex", justifyContent: "flex-end" }}>
-      <Maps data={selectedMarker} onClose={() => { setSelectedMarker(null) }} />
-      <Map center={initialCenter} style={{width:"100%", height: "100vh"}}>
-        {maps && maps.map((station) => {
-          console.log(station)
-          return <MapMarker
-            key={`${station.id}-${station.latitude}-${station.longitude}`}
-            position={{ lat: station.latitude, lng: station.longitude }}
-            onClick={() => setSelectedMarker(station)}
-          >
-          </MapMarker>
-        })
-        }
-      </Map>
-    </div>
-  )
+    return (
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Maps data={selectedMarker} onClose={() => { setSelectedMarker(null) }} />
+            <Map center={latLon} style={{ width: "100%", height: "calc(100vh - 52px)" }}>
+                {
+                    maps && maps.map((station, index) => {
+                        return <MapMarker key={`${station.id}-${index}`}
+                            position={{ lat: station.latitude, lng: station.longitude }}
+                            onClick={() => setSelectedMarker(station)}>
+                        </MapMarker>
+                    })
+                }
+            </Map>
+        </div>
+    )
 }
 export default Rantal;
-
-// "stations": [
-//       {
-//         "name": "1426. 면목도시개발아파트 1동 앞", 현재 공유 바이크 스테이션의 주소
-//         "latitude": 37.57358932, // 스테이션의 위도 값
-//         "longitude": 127.08682251, // 스테이션의 경도 값
-//         "timestamp": "2025-10-17T08:51:36.508211+00:00Z", 보류 //최근 반영된 스테이션의 상황 시간
-//         "empty_slots": 0, //현재 자전거를 반남할 수 있는 슬롯
-//         "extra": {
-//           "kid_bikes": 2, // 스테이션에 어린이를 탑승할 수 있는 자전거의 대수
-//           "slots": 10, // 스테이션의 남은 자리
-//         }
