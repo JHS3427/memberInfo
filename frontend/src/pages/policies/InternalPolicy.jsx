@@ -2,7 +2,7 @@ export function InternalPolicy() {
   return (
     <div className="policy-page">
       <div className="policy-container">
-        <h1>내부정보관리규정</h1>
+        <h1>내부정보 관리규정</h1>
 
         <h2>제 1장 총칙</h2>
 

@@ -13,7 +13,9 @@ export function Support() {
     const saved = localStorage.getItem("chatMessages");
     return saved
       ? JSON.parse(saved)
-      : [{ sender: "bot", text: "안녕하세요 😊 무엇을 도와드릴까요?" }];
+      : [{ sender: "bot", text: `안녕하세요 😊 Bicycle-App 고객센터입니다.  
+                          다음과 같은 키워드를 입력하시면 빠르게 답변을 받을 수 있어요!  
+                          👉 예: '배송', '환불', 'A/S', '자료실', '회원가입'` }];
   });
   const [input, setInput] = useState(() => localStorage.getItem("chatInput") || "");
   const [loading, setLoading] = useState(false);
@@ -51,6 +53,25 @@ export function Support() {
     setShowChatbot(false);
   };
 
+  const handleResetChatbot = () => {
+    // 저장된 메시지, 입력, 스크롤 모두 초기화
+    localStorage.removeItem("chatMessages");
+    localStorage.removeItem("chatInput");
+    localStorage.removeItem("chatScroll");
+
+    // 기본 메시지로 되돌리기
+    setMessages([
+      {
+        sender: "bot",
+        text: `안녕하세요 😊 Bicycle-App 고객센터입니다.  
+  다음과 같은 키워드를 입력하시면 빠르게 답변을 받을 수 있어요!  
+  👉 예: '배송', '환불', 'A/S', '자료실', '회원가입'`,
+      },
+    ]);
+    setInput("");
+    setScrollPos(0);
+  };
+
   // ✅ 챗봇 다시 열면 스크롤 복원
   useEffect(() => {
     if (showChatbot && chatBodyRef.current) {
@@ -75,8 +96,15 @@ export function Support() {
     setInput("");
     setLoading(true);
 
-    const reply = await getChatbotResponse(input);
-    setMessages((prev) => [...prev, { sender: "bot", text: reply }]);
+    const botResponse = await getChatbotResponse(input);
+    const botMessage = {
+      sender: "bot",
+      text: botResponse.reply,
+      linkText: botResponse.linkText,
+      linkUrl: botResponse.linkUrl,
+    };
+
+    setMessages((prev) => [...prev, botMessage]);
     setLoading(false);
   };
 
@@ -130,17 +158,50 @@ export function Support() {
           <div className="chatbot-window">
             <div className="chatbot-header">
               <h4>고객센터 챗봇</h4>
-              <button className="close-btn" onClick={handleCloseChatbot}>
-                ✕
-              </button>
+              <div className="chatbot-header-buttons">
+                <button className="refresh-btn" onClick={handleResetChatbot}>
+                  <i class="fa-solid fa-rotate-right"></i>
+                </button>
+                <button className="close-btn" onClick={handleCloseChatbot}>
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
             </div>
 
+            {/* ✅ 챗봇 메시지 렌더링 */}
             <div className="chatbot-body" ref={chatBodyRef}>
               {messages.map((msg, idx) => (
                 <div key={idx} className={`chat-msg ${msg.sender}`}>
-                  {msg.text}
+                  <p>{msg.text}</p>
+
+                  {/* ✅ 여러 개의 링크 버튼 자동 처리 */}
+                  {msg.linkText && msg.linkUrl && (() => {
+                    const urls = msg.linkUrl.split(",").map((u) => u.trim());
+                    const texts = msg.linkText.split(",").map((t) => t.trim());
+                    // linkText가 하나뿐이면 url 개수만큼 복제
+                    const displayTexts =
+                      texts.length === urls.length ? texts : Array(urls.length).fill(texts[0]);
+
+                    return (
+                      <div className="chatbot-links">
+                        {urls.map((url, i) => (
+                          <a
+                            key={i}
+                            href={url.startsWith("/") ? url : `/${url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="chatbot-link-btn"
+                          >
+                            <i className="fa-solid fa-link"></i>
+                            {displayTexts[i]}
+                          </a>
+                        ))}
+                      </div>
+                    );
+                  })()}
                 </div>
               ))}
+
               {loading && (
                 <div className="chat-msg bot loading">⌛ 답변을 작성 중입니다...</div>
               )}

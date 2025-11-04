@@ -18,8 +18,18 @@ export const updateCart = (cid, type) => async (dispatch) => {
 
 
 export const showCart = () => async (dispatch) => {
-    const jsonData = await axiosData("/data/products.json");
-    dispatch(showCartItem({"items": jsonData}));
+    const [mountainData, roadData,lifeStyleData,electricData] = await Promise.all([
+        axiosData("/data/mountain/mountainData.json"),
+        axiosData("/data/road/roadData.json"),
+        axiosData("/data/lifestyle/lifeStyleData.json"),
+        axiosData("/data/electric/electricData.json")
+    ]);
+
+    // 2. (수정) 받아온 모든 데이터를 하나의 '전체' 배열로 합칩니다.
+    const allProducts = [...mountainData, ...roadData, ...lifeStyleData, ...electricData]; // (lifestyleData 등도 추가)
+
+    // 3. '전체' 배열을 리듀서로 보냅니다.
+    dispatch(showCartItem({"items": allProducts}));
     dispatch(updateTotalPrice());
 }
 

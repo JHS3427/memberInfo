@@ -386,12 +386,24 @@
   font-weight: 600;
 }
 
+.chatbot-header-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.refresh-btn,
 .close-btn {
   background: none;
   border: none;
   color: white;
   font-size: 1.2rem;
   cursor: pointer;
+  margin-left: 10px;
+}
+
+.refresh-btn {
+  font-size: 1rem;
 }
 
 /* ===========================
@@ -485,4 +497,34 @@
   background: #f1f1f1;
   font-style: italic;
   color: #555;
+}
+
+.chatbot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.chatbot-link-btn {
+  display: inline-flex; /* flex로 변경 */
+  align-items: center; /* 수직 가운데 정렬 */
+  justify-content: center;
+  gap: 5px; /* 아이콘과 글자 간격 */
+  margin-top: 6px;
+  padding: 6px 12px;
+  background-color: #0077cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.chatbot-link-btn:hover {
+  background-color: #005fa3;
+}
+
+.chatbot-link-btn i {
+  font-size: 0.75rem;
 }

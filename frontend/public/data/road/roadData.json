@@ -2,7 +2,7 @@
     {
         "pid" : "1",
         "category" : "road",
-        "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-SCARLATTI-H1_BLACK.jpg",
+        "image" : "/bicycleimages/road/CELLOBIKE/700C-SCARLATTI-H1_BLACK.jpg",
         "name" : "스칼라티 H1",
         "price" : 720000,
         "color" : "블랙",
@@ -15,7 +15,7 @@
     {
         "pid" : "2",
         "category" : "road",
-        "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-ELLIOT-E7_FLAME-RED.png",
+        "image" : "/bicycleimages/road/CELLOBIKE/700C-ELLIOT-E7_FLAME-RED.png",
         "name" : "700C 엘리엇 E7",
         "price" : 3900000,
         "color" : "플레임 레드",
@@ -29,7 +29,7 @@
     {
         "pid" : "3",
         "category" : "road",
-        "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-ELLIOT-E7_TEAM-BLACK.png",
+        "image" : "/bicycleimages/road/CELLOBIKE/700C-ELLIOT-E7_TEAM-BLACK.png",
         "name" : "700C 엘리엇 E7 팀 프로",
         "price" : 4200000,
         "color" : "팀 프로",
@@ -43,7 +43,7 @@
     {
         "pid" : "4",
         "category" : "road",
-        "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/CAYIN-E7_SPACE-BLACKGLOSSY-COSMO-BLACKMATT.png",
+        "image" : "/bicycleimages/road/CELLOBIKE/CAYIN-E7_SPACE-BLACKGLOSSY-COSMO-BLACKMATT.png",
         "name" : "700C 케인 E7",
         "price" : 3120000,
         "color" : "스페이스 블랙(유광) / 코스모 블랙 (무광)",
@@ -57,7 +57,7 @@
     {
         "pid" : "5",
         "category" : "road",
-        "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-ELLIOT-E8_DIGITAL-OPALCARBON_RE.png",
+        "image" : "/bicycleimages/road/CELLOBIKE/700C-ELLIOT-E8_DIGITAL-OPALCARBON_RE.png",
         "name" : "700C 엘리엇 E8",
         "price" : 4800000,
         "color" : "디지털 오팔 / 카본",
@@ -71,7 +71,7 @@
     {
         "pid" : "6",
         "category" : "road",
-        "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/2023-700C-ELLIOT-D8_1.-RAINBOW-IRON-GLOSSY-l-BLACK-MATT.png",
+        "image" : "/bicycleimages/road/CELLOBIKE/2023-700C-ELLIOT-D8_1.-RAINBOW-IRON-GLOSSY-l-BLACK-MATT.png",
         "name" : "700C 엘리엇 D8",
         "price" : 3400000,
         "color" : "레인보우 아이언 (유광) / 블랙 (무광)",
@@ -84,7 +84,7 @@
   {
     "pid" : "7",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-SCARLATTI-H1_BLACK.jpg",
+    "image" : "/bicycleimages/road/CELLOBIKE/700C-SCARLATTI-H1_BLACK.jpg",
     "name" : "스칼라티 H1",
     "price" : 720000,
     "color" : "블랙",
@@ -97,7 +97,7 @@
   {
     "pid" : "8",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-ELLIOT-E7_FLAME-RED.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/700C-ELLIOT-E7_FLAME-RED.png",
     "name" : "700C 엘리엇 E7",
     "price" : 3900000,
     "color" : "플레임 레드",
@@ -111,7 +111,7 @@
   {
     "pid" : "9",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-ELLIOT-E7_TEAM-BLACK.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/700C-ELLIOT-E7_TEAM-BLACK.png",
     "name" : "700C 엘리엇 E7 팀 프로",
     "price" : 4200000,
     "color" : "팀 프로",
@@ -125,7 +125,7 @@
   {
     "pid" : "10",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/CAYIN-E7_SPACE-BLACKGLOSSY-COSMO-BLACKMATT.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/CAYIN-E7_SPACE-BLACKGLOSSY-COSMO-BLACKMATT.png",
     "name" : "700C 케인 E7",
     "price" : 3120000,
     "color" : "스페이스 블랙(유광) / 코스모 블랙 (무광)",
@@ -139,7 +139,7 @@
   {
     "pid" : "11",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-ELLIOT-E8_DIGITAL-OPALCARBON_RE.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/700C-ELLIOT-E8_DIGITAL-OPALCARBON_RE.png",
     "name" : "700C 엘리엇 E8",
     "price" : 4800000,
     "color" : "디지털 오팔 / 카본",
@@ -153,7 +153,7 @@
   {
     "pid" : "12",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/2023-700C-ELLIOT-D8_1.-RAINBOW-IRON-GLOSSY-l-BLACK-MATT.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/2023-700C-ELLIOT-D8_1.-RAINBOW-IRON-GLOSSY-l-BLACK-MATT.png",
     "name" : "700C 엘리엇 D8",
     "price" : 3400000,
     "color" : "레인보우 아이언 (유광) / 블랙 (무광)",
@@ -166,7 +166,7 @@
   {
     "pid" : "13",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-SCARLATTI-H1_BLACK.jpg",
+    "image" : "/bicycleimages/road/CELLOBIKE/700C-SCARLATTI-H1_BLACK.jpg",
     "name" : "스칼라티 H1",
     "price" : 720000,
     "color" : "블랙",
@@ -179,7 +179,7 @@
   {
     "pid" : "14",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-ELLIOT-E7_FLAME-RED.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/700C-ELLIOT-E7_FLAME-RED.png",
     "name" : "700C 엘리엇 E7",
     "price" : 3900000,
     "color" : "플레임 레드",
@@ -193,7 +193,7 @@
   {
     "pid" : "15",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-ELLIOT-E7_TEAM-BLACK.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/700C-ELLIOT-E7_TEAM-BLACK.png",
     "name" : "700C 엘리엇 E7 팀 프로",
     "price" : 4200000,
     "color" : "팀 프로",
@@ -207,7 +207,7 @@
   {
     "pid" : "16",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/CAYIN-E7_SPACE-BLACKGLOSSY-COSMO-BLACKMATT.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/CAYIN-E7_SPACE-BLACKGLOSSY-COSMO-BLACKMATT.png",
     "name" : "700C 케인 E7",
     "price" : 3120000,
     "color" : "스페이스 블랙(유광) / 코스모 블랙 (무광)",
@@ -221,7 +221,7 @@
   {
     "pid" : "17",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/700C-ELLIOT-E8_DIGITAL-OPALCARBON_RE.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/700C-ELLIOT-E8_DIGITAL-OPALCARBON_RE.png",
     "name" : "700C 엘리엇 E8",
     "price" : 4800000,
     "color" : "디지털 오팔 / 카본",
@@ -235,7 +235,7 @@
   {
     "pid" : "18",
     "category" : "road",
-    "image" : "/bicycleimages/road/CELLOBIKE - 첼로자전거/2023-700C-ELLIOT-D8_1.-RAINBOW-IRON-GLOSSY-l-BLACK-MATT.png",
+    "image" : "/bicycleimages/road/CELLOBIKE/2023-70    0C-ELLIOT-D8_1.-RAINBOW-IRON-GLOSSY-l-BLACK-MATT.png",
     "name" : "700C 엘리엇 D8",
     "price" : 3400000,
     "color" : "레인보우 아이언 (유광) / 블랙 (무광)",

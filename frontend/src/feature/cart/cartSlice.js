@@ -24,8 +24,16 @@ export const cartSlice = createSlice({
         },
         updateTotalPrice (state) {
             state.totalPrice
-                = state.cartList.reduce((total, item) => total + (item.qty * item.price), 0);
+                = state.cartList
+                    .filter(item => item.checked)
+                    .reduce((total, item) => total + (item.qty * item.price), 0);
         },
+        // checkCartItem (state,action){
+        //       const {cid} = action.payload;
+        //       state.cartList = state.cartList.map(item =>
+        //
+        //       );
+        // },
         updateCartItem (state, action) {
             const { cid, type } = action.payload;
             state.cartList = state.cartList.map((item) =>

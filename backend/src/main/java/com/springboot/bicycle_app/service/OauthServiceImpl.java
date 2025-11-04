@@ -1,11 +1,14 @@
 package com.springboot.bicycle_app.service;
 
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.springboot.bicycle_app.dto.Token;
+import com.springboot.bicycle_app.dto.UserInfo;
+import com.springboot.bicycle_app.repository.UserInfoRepository;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -14,6 +17,12 @@ import java.net.URL;
 
 @Service
 public class OauthServiceImpl implements OauthService{
+    private UserInfoRepository userInfoRepository;
+
+    @Autowired
+    public OauthServiceImpl(UserInfoRepository userInfoRepository){
+        this.userInfoRepository = userInfoRepository;
+    }
 
     @Override
     public String getSocialAccessToken (Token token) {
@@ -157,4 +166,13 @@ public class OauthServiceImpl implements OauthService{
         return id;
     }
 
+    @Override
+    public boolean idDuplChecker(String incomeId){
+        return userInfoRepository.idDuplChecker(incomeId);
+    }
+
+    @Override
+    public int signUp(UserInfo userInfo){
+        return userInfoRepository.signup(userInfo);
+    }
 }

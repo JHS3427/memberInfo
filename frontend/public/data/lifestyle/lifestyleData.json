@@ -3,7 +3,7 @@
     {
         "pid" : "1",
         "category" : "lifestyle",
-        "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-20-TOMO-SE-9_1.-DARK-CHAMELEON.png",
+        "image" : "/bicycleimages/life/CELLOBIKE/2023-20-TOMO-SE-9_1.-DARK-CHAMELEON.png",
         "name" : "20 토모 SE 9",
         "price" : 750000,
         "color" : "다크 카멜레온",
@@ -16,7 +16,7 @@
     {
         "pid" : "2",
         "category" : "lifestyle",
-        "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-700C-DIO-D5_BLACK-MATT.png",
+        "image" : "/bicycleimages/life/CELLOBIKE/2023-700C-DIO-D5_BLACK-MATT.png",
         "name" : "700C 디오 D5",
         "price" : 890000,
         "color" : "블랙 (무광)",
@@ -30,7 +30,7 @@
     {
         "pid" : "3",
         "category" : "lifestyle",
-        "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-20-TOMO-SE-8_2.-CRYSTAL-GRAY.png",
+        "image" : "/bicycleimages/life/CELLOBIKE/2023-20-TOMO-SE-8_2.-CRYSTAL-GRAY.png",
         "name" : "20 토모 SE 8",
         "price" : 650000,
         "color" : "크리스탈 그레이",
@@ -43,7 +43,7 @@
     {
         "pid" : "4",
         "category" : "lifestyle",
-        "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-20-TOMO-SE-7_2.-CHAMELEON-MID-SILVER.png",
+        "image" : "/bicycleimages/life/CELLOBIKE/2023-20-TOMO-SE-7_2.-CHAMELEON-MID-SILVER.png",
         "name" : "20 토모 SE 7",
         "price" : 550000,
         "color" : "카멜레온 미드 실버",
@@ -56,7 +56,7 @@
   {
     "pid" : "5",
     "category" : "lifestyle",
-    "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-20-TOMO-SE-9_1.-DARK-CHAMELEON.png",
+    "image" : "/bicycleimages/life/CELLOBIKE/2023-20-TOMO-SE-9_1.-DARK-CHAMELEON.png",
     "name" : "20 토모 SE 9",
     "price" : 750000,
     "color" : "다크 카멜레온",
@@ -69,7 +69,7 @@
   {
     "pid" : "6",
     "category" : "lifestyle",
-    "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-700C-DIO-D5_BLACK-MATT.png",
+    "image" : "/bicycleimages/life/CELLOBIKE/2023-700C-DIO-D5_BLACK-MATT.png",
     "name" : "700C 디오 D5",
     "price" : 890000,
     "color" : "블랙 (무광)",
@@ -83,7 +83,7 @@
   {
     "pid" : "7",
     "category" : "lifestyle",
-    "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-20-TOMO-SE-8_2.-CRYSTAL-GRAY.png",
+    "image" : "/bicycleimages/life/CELLOBIKE/2023-20-TOMO-SE-8_2.-CRYSTAL-GRAY.png",
     "name" : "20 토모 SE 8",
     "price" : 650000,
     "color" : "크리스탈 그레이",
@@ -96,7 +96,7 @@
   {
     "pid" : "8",
     "category" : "lifestyle",
-    "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-20-TOMO-SE-7_2.-CHAMELEON-MID-SILVER.png",
+    "image" : "/bicycleimages/life/CELLOBIKE/2023-20-TOMO-SE-7_2.-CHAMELEON-MID-SILVER.png",
     "name" : "20 토모 SE 7",
     "price" : 550000,
     "color" : "카멜레온 미드 실버",
@@ -109,7 +109,7 @@
   {
     "pid" : "9",
     "category" : "lifestyle",
-    "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-20-TOMO-SE-9_1.-DARK-CHAMELEON.png",
+    "image" : "/bicycleimages/life/CELLOBIKE/2023-20-TOMO-SE-9_1.-DARK-CHAMELEON.png",
     "name" : "20 토모 SE 9",
     "price" : 750000,
     "color" : "다크 카멜레온",
@@ -122,7 +122,7 @@
   {
     "pid" : "10",
     "category" : "lifestyle",
-    "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-700C-DIO-D5_BLACK-MATT.png",
+    "image" : "/bicycleimages/life/CELLOBIKE/2023-700C-DIO-D5_BLACK-MATT.png",
     "name" : "700C 디오 D5",
     "price" : 890000,
     "color" : "블랙 (무광)",
@@ -136,7 +136,7 @@
   {
     "pid" : "11",
     "category" : "lifestyle",
-    "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-20-TOMO-SE-8_2.-CRYSTAL-GRAY.png",
+    "image" : "/bicycleimages/life/CELLOBIKE/2023-20-TOMO-SE-8_2.-CRYSTAL-GRAY.png",
     "name" : "20 토모 SE 8",
     "price" : 650000,
     "color" : "크리스탈 그레이",
@@ -149,7 +149,7 @@
   {
     "pid" : "12",
     "category" : "lifestyle",
-    "image" : "/bicycleimages/life/CELLOBIKE - 첼로자전거/2023-20-TOMO-SE-7_2.-CHAMELEON-MID-SILVER.png",
+    "image" : "/bicycleimages/life/CELLOBIKE/2023-20-TOMO-SE-7_2.-CHAMELEON-MID-SILVER.png",
     "name" : "20 토모 SE 7",
     "price" : 550000,
     "color" : "카멜레온 미드 실버",

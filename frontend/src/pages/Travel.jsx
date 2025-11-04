@@ -21,11 +21,11 @@ export function Travel() {
 
     // console.log(travelMenuList);
     // console.log(travelFoodList);
-    console.log(travelFoodDetailList);
+//     console.log(travelFoodDetailList);
     // console.log(travelWalkList);
 
     const [number, setNumber] = useState(3);
-  
+
     useEffect(() => {
             dispatch(getTravelMenuList(number));
             dispatch(getTravelFoodList(number));
@@ -40,26 +40,32 @@ export function Travel() {
     const [showWalks, setShowWalks] = useState(false);
     const [selectedPid, setSelectedPid] = useState(null); //클릭된 pid 저장
 
-    const handleClick = (type) => {        
+    const handleClick = (type) => {
+        const travel_left_menus = document.querySelector('.travel-left-menus');
+        const travel_left_Detail = document.querySelector('.travel-left-detail');
+
         // 마커 클릭 시 버튼 출력
         if(type === "coord"){
-          setShowMenus(true); 
+          setShowMenus(true);
+          travel_left_menus.style.top = "0";
         }
 
         // 타입에 맞는 정보 출력
         if(type === "food") {
-          setShowFoods(true); 
+          setShowFoods(true);
           setShowWalks(false);
+          travel_left_Detail.style.left = "0";
         }else if(type === "walk"){
           setShowWalks(true);
-          setShowFoods(false); 
+          setShowFoods(false);
+          travel_left_Detail.style.left = "0";
         }
-        
+
     }
 
-    const handleDetail = (type, pid = null) => {      
+    const handleDetail = (type, pid = null) => {
       const detail_back = document.getElementById("travel_detail_back");
-      const detail = document.getElementById("travel_detail"); 
+      const detail = document.getElementById("travel_detail");
 
       // 상세 정보창 출력
       if(detail && type === "food" || type === "walk") {
@@ -67,18 +73,18 @@ export function Travel() {
           setSelectedPid(pid);
         }
         detail_back.style.display = "block";
-        detail.style.display = "block"; 
+        detail.style.display = "block";
       }
 
       // 상세 정보창 닫기
       if(detail && type === "close"){
         detail_back.style.display = "none";
-        detail.style.display = "none"; 
-        setSelectedPid(null); 
+        detail.style.display = "none";
+        setSelectedPid(null);
       }
-      
+
     }
-    
+
     //선택된 pid에 맞는 상세 데이터 찾기
     let selectedDetail;
     if (travelFoodDetailList) {
@@ -97,23 +103,24 @@ export function Travel() {
                         {showMenus && (
                           <>
                             {travelMenuList && travelMenuList.map((rowArray, idx) =>
-                                { return rowArray && rowArray.map((travelMenu, idx) =>                 
-                                    <TravelMenu name={travelMenu.name} type={travelMenu.type} handleClick={handleClick} key={idx} />
+                                { return rowArray && rowArray.map((travelMenu, idx) =>
+                                    <TravelMenu name={travelMenu.name} type={travelMenu.type} icon={travelMenu.icon} handleClick={handleClick} key={idx} />
                                 )}
-                            )}                     
+                            )}
                           </>
                         )}
                     </nav>
                     <div className="travel-left-detail">
                         {/* showFoods, showWalks가 true일 때만 버튼 보이기 */}
                         {showFoods && (
-                          <div className='food-list'>
+                          <ul className='food-list'>
                             {travelFoodList && travelFoodList.map((rowArray, idx) =>
-                                { return rowArray && rowArray.map((travelFood, idx) =>          
-                                  <TravelFood pid={travelFood.pid} name={travelFood.name} like={travelFood.like} tag={travelFood.tag} image1={travelFood.image1} image2={travelFood.image2} image3={travelFood.image3} description={travelFood.description} handleDetail={handleDetail} type="food" /> 
+                                { return rowArray && rowArray.map((travelFood, idx) =>
+                                    /** TravelFood를 TravelFoodList인 컴포넌트(<TravelFoodList>)를 생성하여 그 안에 넣어서 말하자면 한번 더 컴포넌트화 햇어야한다. 그래야 Travel.jsx도 보기 편하고 교체가 수월하다.  */
+                                  <TravelFood pid={travelFood.pid} name={travelFood.name} like={travelFood.like} tag={travelFood.tag} image1={travelFood.image1} image2={travelFood.image2} image3={travelFood.image3} description={travelFood.description} handleDetail={handleDetail} type="food" />
                                )}
                             )}                              
-                          </div>
+                          </ul>
                         )}
                         {showWalks && (
                           <ul className='walk-list'>
@@ -132,24 +139,27 @@ export function Travel() {
                 <div id="travel_detail_back" className="travel-detail-back" />
                 <div id="travel_detail" className="travel-detail">
                   {showFoods && selectedDetail && (
-                    <div>                    
-                      <TravelDetail pid={selectedDetail.pid}
-                                    image1={selectedDetail.image1}
-                                    image2={selectedDetail.image2}
-                                    image3={selectedDetail.image3}
-                                    name={selectedDetail.name}
-                                    location={selectedDetail.location}
-                                    food={selectedDetail.food}
-                                    like={selectedDetail.like}
-                                    address={selectedDetail.address} 
-                                    businessHouers={selectedDetail.businessHouers} 
-                                    lastOrder={selectedDetail.lastOrder}
-                                    phone={selectedDetail.phone}
-                                    tag={selectedDetail.tag}
-                                    other={selectedDetail.other}
-                                    handleDetail={handleDetail} 
-                                    type="close"/>
-                    </div>   
+                    <>
+                      <li className="detail-close-box"><button className="detail-close-button" onClick={() => handleDetail("close")}><i class="fa-solid fa-xmark"></i></button></li> 
+                      <div>              
+                        <TravelDetail pid={selectedDetail.pid}
+                                      image1={selectedDetail.image1}
+                                      image2={selectedDetail.image2}
+                                      image3={selectedDetail.image3}
+                                      name={selectedDetail.name}
+                                      location={selectedDetail.location}
+                                      food={selectedDetail.food}
+                                      like={selectedDetail.like}
+                                      address={selectedDetail.address} 
+                                      businessHouers={selectedDetail.businessHouers} 
+                                      lastOrder={selectedDetail.lastOrder}
+                                      phone={selectedDetail.phone}
+                                      tag={selectedDetail.tag}
+                                      other={selectedDetail.other}
+                                      review = {selectedDetail.review}
+                                      handleDetail={handleDetail} />
+                      </div>  
+                    </> 
                   )}
                 </div>                
             </div>

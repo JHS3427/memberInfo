@@ -5,13 +5,14 @@
 */
 
 import '../styles/signup.css';
-import React, {useState} from 'react'
-import { usePostCode} from '../feature/auth/authAPI';
+import React, {useState,useMemo, useRef} from 'react'
+import { usePostCode, idDuplCheck, sendSignUpData} from '../feature/auth/authAPI';
 
 //입력창 생성 함수
 const ConsoleBox = ({ 
     id, type, name, 
-    formData, focusIn, focusOut, handleChange, placeholderJudge}) =>{
+    formData, focusIn, focusOut, handleChange, placeholderJudge,inputRefs}) =>{
+      //클릭 전,후,입력 후 등 상황에 따라 나오는 문자를 바꾸기 위해 선언
       const stringPlacer = {
         id : ["ID를 입력해주세요","ID를 입력하셨습니다"], 
         pass : ["비밀번호를 입력해주세요","비밀번호를 입력하셨습니다"], 
@@ -23,11 +24,14 @@ const ConsoleBox = ({
         emailAddress:["이메일 주소를 입력해주세요","이메일 주소를 입력하셨습니다"], 
         phone:["전화번호를 입력해주세요","전화번호를 입력하셨습니다"]
       }
+    //focus를 하기 위해 ref값(이름) 세팅
+    const refToConnect = inputRefs[`${id}Ref`];
 
   return(
     <>
       {placeholderJudge[id]==="aftertrue" && formData[id]===""?
       <input id={id} type={type} name ={name} // id 사용이유 : 하단의 label에서 htmlfor쓰려고. name : 폼 데이터에 쓰려고. 나눠둔 이유 : 같이쓰면 헤깔려서.
+        ref={refToConnect}
         value = {formData[id]}
         onFocus={focusIn}
         onBlur={focusOut}
@@ -35,6 +39,7 @@ const ConsoleBox = ({
         style={{border : "2px solid red"}}
         />:
       <input id={id} type={type} name ={name} // id 사용이유 : 하단의 label에서 htmlfor쓰려고. name : 폼 데이터에 쓰려고. 나눠둔 이유 : 같이쓰면 헤깔려서.
+        ref={refToConnect}
         value = {formData[id]}
         onFocus={focusIn}
         onBlur={focusOut}
@@ -65,10 +70,21 @@ const ConsoleBox = ({
 export const SignUp = () => {
 
   //초기값 세팅을 위한 initialArray선언 및 초기값 선언
-  const initialArray =  {id : "", pass : "", passcheck:"", name : "", age:"", gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"", phone:""};
+  const initialArray = {id : "", pass : "", passcheck:"", name : "", age:"", gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"", phone:""};
   const [formData, setFormData]=useState(initialArray);
   const [placeholderJudge, setPlaceholderJudge] = useState(initialArray);
   const [passLook,setPassLook] = useState(false);
+  const [idDupl,setIdDupl] = useState(false)
+  
+    const inputRefs = useMemo(() => {
+        const keys = Object.keys(initialArray); 
+        // reduce를 사용하여 각 키에 대응하는 Ref 객체들을 생성합니다.
+        return keys.reduce((acc, currentKey) => {
+            // 필드 이름(id, pass 등)을 키로 사용하여 createRef()를 할당합니다.
+            acc[`${currentKey}Ref`] = React.createRef();
+            return acc;
+        }, {});
+    }, []); // 빈 의존성 배열 []: SignUp 컴포넌트가 마운트될 때 딱 한 번만 실행되도록 보장합니다.
 
   // 주소값을 가져오기 위한 선언 - authAPI
   const {handleClick} = usePostCode(formData, setFormData);
@@ -77,7 +93,11 @@ export const SignUp = () => {
   const handleChange = (e) =>{
     const {name,value} = e.target;
     setFormData({...formData,  [name] : value})
-    console.log(formData)
+    if(name === "id")
+    {
+      setIdDupl(false);//아이디 값이 새로 입력될 경우 중복확인 다시 하게 만듬.
+    }
+    // console.log(formData)
   }
   const focusIn = (e) =>{
     const {name} = e.target;
@@ -95,15 +115,30 @@ export const SignUp = () => {
     "focusIn":focusIn,
     "focusOut":focusOut,
     "handleChange":handleChange,
-    "placeholderJudge" :  placeholderJudge
+    "placeholderJudge" :  placeholderJudge,
+    "inputRefs" : inputRefs
   }
 
+  //아이디 중복확인 버튼
+  const IdDupleCheck = async() => {
+    const duplResult = await idDuplCheck(formData.id);
+    
+    if(!duplResult){//duplResult=true면 중복있음, false면 중복없음
+      //!duplResult은 중복이 없을때 true가 됨
+      setIdDupl(true);
+    }
+    else{
+      formData.id="";
+      alert("아이디 중복! 다시 입력해주세요");
+      inputRefs.idRef.current.focus();
+    }
+  }
   // 제출버튼을 누를 경우 빈값 확인 후 필수 요소에 빈값이 있는 경우 경보 발동
   // 비밀번호가 다를 경우 경보 발동
   // 이후 입력받은 정보들을 백으로 전달 예정-현재(11.03) 미구현
   const signupOnSubmit = (e) =>{
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     const keys = Object.keys(initialArray)
 
     //필수 입력 항목을 key값으로, 해당 항목이 비었을 때의 출력 값을 value로 갖는 배열 생성
@@ -112,19 +147,14 @@ export const SignUp = () => {
                     "age":"나이","gender":"성별",
                     "mainAddress":"도로명 주소","detailAddress":"상세 주소"};
     let mainAlertMessage = "";
-    let newEmptyCheck={}
     let isempty = false;
     for (const key of keys){
       const value = formData[key];
       if(value===""){
-        newEmptyCheck[key] = "empty"
         isempty=true;
         if(Object.keys(mainKey).includes(key)){
           mainAlertMessage=mainAlertMessage+mainKey[key]+" 값이 비었습니다.\n";
         }
-      }
-      else{
-        newEmptyCheck[key] = "full"
       }
     }
     //비밀번호와 비밀번호 확인란 차이 확인
@@ -132,11 +162,17 @@ export const SignUp = () => {
     {
       mainAlertMessage = mainAlertMessage+"\n비밀번호가 다릅니다. 확인해주세요."
     }
-    console.log("newEmptyCheck : ",newEmptyCheck);
+    if(!idDupl){//중복확인 통과시 문제없음. 안했거나 통과 못하면 경고 메시지
+      mainAlertMessage = mainAlertMessage+"\아이디 중복확인을 해주세요."
+    }
+
+    // console.log("newEmptyCheck : ",newEmptyCheck);
     //경보 메세지가 비어있지 않을 경우(필수 입력 항목이 비었거나 비밀번호가 다른 경우) 경보 메세지 출력
-    if(mainAlertMessage!="")
-    {
+    if(mainAlertMessage!=""){
       alert(mainAlertMessage);
+    }
+    else{
+      sendSignUpData(formData);
     }
   }
 
@@ -146,10 +182,6 @@ export const SignUp = () => {
     setPlaceholderJudge(initialArray);
   }
 
-  //아이디 중복확인 버튼 - 미구현
-  const IdDupleCheck = () => {
-
-  }
 
 //이메일 입력 항목의 경우 페이지가 좁아지면 selectbox가 너무 좁아짐
 //해당 부분은 일정 px이하로 내려갈 경우 밑으로 내린 후 선택하게 하는 방법을 고려중.
@@ -163,9 +195,9 @@ export const SignUp = () => {
           <h1 className="IdPassTitle">접속 정보란입니다</h1>
           <div className="IdBox">          
             <ConsoleBox id="id" type="text" name="id" {...sharedData}/>
-            <button 
-            type='button'
-            className = 'IdDuplCheck'>중복확인</button>
+            {idDupl?
+            <button type='button' className = 'IdDuplCheck'>중복확인 성공</button>:
+            <button type='button' className = 'IdDuplCheck' onClick={IdDupleCheck}>중복확인</button>}
           </div>
           <div className="PassBox">
             {passLook?
@@ -195,8 +227,8 @@ export const SignUp = () => {
             <ConsoleBox id="age" type="text" name="age" {...sharedData}/>
             <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
               <option value="default">성별 선택</option>
-              <option value="남자">남성</option>
-              <option value="여자">여성</option>
+              <option value="남성">남성</option>
+              <option value="여성">여성</option>
               <option value="기타 혹은 선택거부">기타 혹은 선택거부</option>
             </select>
             <button

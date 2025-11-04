@@ -6,9 +6,10 @@ export const getChatbotResponse = async (userMessage) => {
     const response = await axios.post("http://localhost:8080/api/chatbot", {
       message: userMessage,
     });
-    return response.data.reply;
+    // ✅ reply, linkText, linkUrl 전부 반환
+    return response.data;
   } catch (error) {
     console.error("Chatbot API Error:", error);
-    return "죄송합니다. 서버 연결에 문제가 발생했습니다 😢";
+    return { reply: "죄송합니다 😢 서버 연결에 문제가 발생했습니다." };
   }
 };

@@ -2,7 +2,7 @@ export function Privacy() {
   return (
     <div className="policy-page">
       <div className="policy-container">
-        <h1>개인정보취급방침</h1>
+        <h1>개인정보 취급방침</h1>
 
         <p>
           삼천리자전거㈜(이하 ‘회사’는)는 고객님의 개인정보를 중요시하며,

@@ -25,7 +25,7 @@ export function ProductDetail() {
     }
     const goToCart = () => {
         alert("장바구니에 해당 제품이 담겼습니다.")
-        dispatch(addCart(product));
+        dispatch(addCart(product.pid));
     }
 
     const goToPurchase = () => {

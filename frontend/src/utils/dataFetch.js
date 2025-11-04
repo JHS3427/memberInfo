@@ -35,3 +35,24 @@ export const fetchData = async(url) => {
     const jsonData = await response.json(); 
     return jsonData;
 }
+
+////////////////////////////////////////////////
+
+/**
+ * axios 함수를 이용하여 백엔드 연동 처리 //DB 경우
+ */
+
+export const axiosGet = async (url) => {
+    console.log("url => ", url);
+    const response = await axios.get(url);
+    console.log(response);
+
+//    위 방식 또는
+//    const response = await axios({
+//        method:"GET",
+//        url: url,
+//        data: formData
+//    })
+
+    return response.data;
+}

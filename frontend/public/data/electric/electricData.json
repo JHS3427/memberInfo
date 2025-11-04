@@ -3,7 +3,7 @@
     {
         "pid" : "1",
         "category" : "electric",
-        "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/2025-29-BULLET-FX-90_GALAXY-BLUE-1.png",
+        "image" : "/bicycleimages/electric/CELLOBIKE/2025-29-BULLET-FX-90_GALAXY-BLUE-1.png",
         "name" : "29 불렛 FX 90",
         "price" : 7990000,
         "color" : "갤럭시 블루 그린",
@@ -19,7 +19,7 @@
     {
         "pid" : "2",
         "category" : "electric",
-        "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/main-1_2023-27.5-BULLET-FX-80-1.png",
+        "image" : "/bicycleimages/electric/CELLOBIKE/main-1_2023-27.5-BULLET-FX-80-1.png",
         "name" : "27.5 불렛 FX 80",
         "price" : 5900000,
         "color" : "클라우드 실버(무광) / 블랙(무광)",
@@ -35,7 +35,7 @@
     {
         "pid" : "3",
         "category" : "electric",
-        "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/MAIN-2025-29-BULLET-XC-50_CHAMELEON-BLACK.png",
+        "image" : "/bicycleimages/electric/CELLOBIKE/MAIN-2025-29-BULLET-XC-50_CHAMELEON-BLACK.png",
         "name" : "29 불렛 XC 50",
         "price" : 3700000,
         "color" : "카멜레온 블랙 (무광)",
@@ -49,7 +49,7 @@
     {
         "pid" : "4",
         "category" : "electric",
-        "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
+        "image" : "/bicycleimages/electric/CELLOBIKE/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
         "name" : "27.5 불렛 XC 40",
         "price" : 3200000,
         "color" : "메탈 블루 / 블랙",
@@ -63,7 +63,7 @@
     {
         "pid" : "5",
         "category" : "electric",
-        "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg ",
+        "image" : "/bicycleimages/electric/CELLOBIKE/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg ",
         "name" : "27.5 불렛 XC 30",
         "price" : 2400000,
         "color" : "갤럭시 블루 그린",
@@ -77,7 +77,7 @@
   {
     "pid" : "6",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/2025-29-BULLET-FX-90_GALAXY-BLUE-1.png",
+    "image" : "/bicycleimages/electric/CELLOBIKE/2025-29-BULLET-FX-90_GALAXY-BLUE-1.png",
     "name" : "29 불렛 FX 90",
     "price" : 7990000,
     "color" : "갤럭시 블루 그린",
@@ -93,7 +93,7 @@
   {
     "pid" : "7",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/main-1_2023-27.5-BULLET-FX-80-1.png",
+    "image" : "/bicycleimages/electric/CELLOBIKE/main-1_2023-27.5-BULLET-FX-80-1.png",
     "name" : "27.5 불렛 FX 80",
     "price" : 5900000,
     "color" : "클라우드 실버(무광) / 블랙(무광)",
@@ -109,7 +109,7 @@
   {
     "pid" : "8",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/MAIN-2025-29-BULLET-XC-50_CHAMELEON-BLACK.png",
+    "image" : "/bicycleimages/electric/CELLOBIKE/MAIN-2025-29-BULLET-XC-50_CHAMELEON-BLACK.png",
     "name" : "29 불렛 XC 50",
     "price" : 3700000,
     "color" : "카멜레온 블랙 (무광)",
@@ -123,7 +123,7 @@
   {
     "pid" : "9",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
+    "image" : "/bicycleimages/electric/CELLOBIKE/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
     "name" : "27.5 불렛 XC 40",
     "price" : 3200000,
     "color" : "메탈 블루 / 블랙",
@@ -137,7 +137,7 @@
   {
     "pid" : "10",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
+    "image" : "/bicycleimages/electric/CELLOBIKE/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
     "name" : "27.5 불렛 XC 30",
     "price" : 2400000,
     "color" : "갤럭시 블루 그린",
@@ -151,7 +151,7 @@
   {
     "pid" : "11",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/2025-29-BULLET-FX-90_GALAXY-BLUE-1.png",
+    "image" : "/bicycleimages/electric/CELLOBIKE/2025-29-BULLET-FX-90_GALAXY-BLUE-1.png",
     "name" : "29 불렛 FX 90",
     "price" : 7990000,
     "color" : "갤럭시 블루 그린",
@@ -167,7 +167,7 @@
   {
     "pid" : "12",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/main-1_2023-27.5-BULLET-FX-80-1.png",
+    "image" : "/bicycleimages/electric/CELLOBIKE/main-1_2023-27.5-BULLET-FX-80-1.png",
     "name" : "27.5 불렛 FX 80",
     "price" : 5900000,
     "color" : "클라우드 실버(무광) / 블랙(무광)",
@@ -183,7 +183,7 @@
   {
     "pid" : "13",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/MAIN-2025-29-BULLET-XC-50_CHAMELEON-BLACK.png",
+    "image" : "/bicycleimages/electric/CELLOBIKE/MAIN-2025-29-BULLET-XC-50_CHAMELEON-BLACK.png",
     "name" : "29 불렛 XC 50",
     "price" : 3700000,
     "color" : "카멜레온 블랙 (무광)",
@@ -197,7 +197,7 @@
   {
     "pid" : "14",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
+    "image" : "/bicycleimages/electric/CELLOBIKE/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
     "name" : "27.5 불렛 XC 40",
     "price" : 3200000,
     "color" : "메탈 블루 / 블랙",
@@ -211,7 +211,7 @@
   {
     "pid" : "15",
     "category" : "electric",
-    "image" : "/bicycleimages/electric/CELLOBIKE - 첼로자전거/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
+    "image" : "/bicycleimages/electric/CELLOBIKE/27.5-BULLET-XC-40_METAL-BLUE-BLACK.jpg",
     "name" : "27.5 불렛 XC 30",
     "price" : 2400000,
     "color" : "갤럭시 블루 그린",
