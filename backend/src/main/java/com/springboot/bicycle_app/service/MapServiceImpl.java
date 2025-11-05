@@ -20,7 +20,7 @@ public class MapServiceImpl implements MapService{
 
     @Override
     public List<Map> findAll(){
-        System.out.println("service ==> ");
+        // System.out.println("service ==> ");
         List<Map> list = mapRepository.findAll();
         return list;
     }

@@ -106,7 +106,7 @@
 .food-list-item {
   list-style-type: none;
   margin-top: 1rem;
-  padding-left: 1rem;
+  padding: 0 1rem;
 }
 
 .food-list-item:hover {
@@ -114,18 +114,61 @@
   cursor: pointer;
 }
 
-.food-title {
-  font-size: 18px;
-  font-weight: bold;
+.food-title-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 0.3rem;
 }
+.food-title {
+  font-size: 18px;
+  font-weight: bold; 
+}
 
-.food-title span {
+.food-title-fid {
   color: gray;
 }
 
-.food-tag {
+.food-title-score {
+  color: var(--color-blue);
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.food-title-flike, .food-title-evaluation {
+  margin-left: 0.3rem;
+  font-size: 15px;
+}
+
+.fa-star {
+  color: var(--color-blue);
+  font-size: 13px;
+}
+
+.food-title-evaluation {
+  color: gray;
+}
+
+.food-tag-box {
+  display: flex;
+  align-items: center;
   margin-bottom: 0.3rem;
+}
+
+.food-tag {
+  margin-left: 0.3rem;
+  background-color: #c2e2f8;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  color: var(--color-black);
+}
+
+.food-tag-sub {
+  background-color: rgb(231, 231, 231);
 }
 
 .food-image {
@@ -138,7 +181,8 @@
 }
 
 .food-description {
-
+  font-size: 14px;
+  color: rgb(66, 66, 66)
 }
 
 /**

@@ -91,12 +91,12 @@ insert into marker(mname, lat, lng, type) values("춘천 공지천", 37.8733, 12
 show variables like 'secure_file_priv';
 
 
+/*********************************************
+	     회원정보 테이블 : userinfo 테이블
+*********************************************/
 use bicycle;
--- 3) 현재 선택된 데이터베이스 확인
 select database();
--- 4) 테이블 목록 확인
 show tables;
-
 select * from userinfo;
 desc userinfo;
 

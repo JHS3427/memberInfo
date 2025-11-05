@@ -1,38 +1,84 @@
 [
   {
-    "pid" : "1",
-    "name": "우래옥 본점",
-    "like": "★☆☆",
-    "tag": "냉면",
-    "image1": "/images/food1_1.webp",
-    "image2": "/images/food1_2.webp",
-    "image3": "/images/food1_3.webp",
-    "description": [
-      "맛집 상세 설명"
-    ]
+    "fname": "고도식 송리단길",
+    "flike": "4.7",
+    "score": "90",
+    "evaluation": "57",
+    "tag": [
+      "고깃집",
+      "알등심",
+      "다코숨은맛집",
+      "식사모임",
+      "시끌벅적한"
+    ],
+    "image1": "/images/travel_foods/godosic_1.webp",
+    "image2": "/images/travel_foods/godosic_2.webp",
+    "image3": "/images/travel_foods/godosic_3.webp",
+    "fullImage1": "/images/travel_foods/godosic_full_1.webp",
+    "fullImage2": "/images/travel_foods/godosic_full_2.webp",
+    "fullImage3": "/images/travel_foods/godosic_full_3.webp",
+    "description": "다코 90점 넘는거 보고 방문했는데 굉장히 만족스러운 식사를 했습니다! 고기가 참 맛있네요 된장술밥과 볶음밥은 고기보다는 살짝..."
   },
   {
-    "pid" : "2",
-    "name": "만포면옥 본점",
-    "like": "★★☆",
-    "tag": "만두",
-    "image1": "/images/food2_1.webp",
-    "image2": "/images/food2_2.webp",
-    "image3": "/images/food2_3.webp",
-    "description": [
-      "맛집 상세 설명"
-    ]
+    "fname": "별미곱창 2호점",
+    "flike": "4.2",
+    "score": "88",
+    "evaluation": "73",
+    "tag": [
+      "곱창",
+      "소곱창",
+      "술모임",
+      "시끌벅적한",
+      "테라스"
+    ],
+    "image1": "/images/travel_foods/byeolmi_1.webp",
+    "image2": "/images/travel_foods/byeolmi_2.webp",
+    "image3": "/images/travel_foods/byeolmi_3.webp",
+    "fullImage1": "/images/travel_foods/byeolmi_full_1.webp",
+    "fullImage2": "/images/travel_foods/byeolmi_full_2.webp",
+    "fullImage3": "/images/travel_foods/byeolmi_full_3.webp",
+    "description": "별미는 언제먹어도 맛있어요 볶음밥 1인분인데 양많고 맛있어요"
   },
   {
-    "pid" : "3",
-    "name": "능동미나리 용리단길",
-    "like": "★★★",
-    "tag": "수육전골",
-    "image1": "/images/food3_1.webp",
-    "image2": "/images/food3_2.webp",
-    "image3": "/images/food3_3.webp",
-    "description": [
-      "맛집 상세 설명"
-    ]
+    "fname": "단디 송리단길",
+    "flike": "4.3",
+    "score": "88",
+    "evaluation": "88",
+    "tag": [
+      "덮밥",
+      "호르몬동",
+      "다코숨은맛집",
+      "데이트",
+      "깔끔한",
+      "바자리"
+    ],
+    "image1": "/images/travel_foods/dandi_1.webp",
+    "image2": "/images/travel_foods/dandi_2.webp",
+    "image3": "/images/travel_foods/dandi_3.webp",
+    "fullImage1": "/images/travel_foods/dandi_full_1.webp",
+    "fullImage2": "/images/travel_foods/dandi_full_2.webp",
+    "fullImage3": "/images/travel_foods/dandi_full_3.webp",
+    "description": "한끼한상으로 딱 적당하게 잘 나오기때문에 혼밥손님들도 많고 점심시간에도 북적북적합니다 느끼하지않게 곁들임과의 조화가 좋으요"
+  },
+  {
+    "fname": "미엔아이 송리단길",
+    "flike": "4.3",
+    "score": "87",
+    "evaluation": "51",
+    "tag": [
+      "우육면",
+      "꿔바로우",
+      "다코숨은맛집",
+      "혼밥",
+      "캐주얼한",
+      "바자리"
+    ],
+    "image1": "/images/travel_foods/meandi_1.webp",
+    "image2": "/images/travel_foods/meandi_2.webp",
+    "image3": "/images/travel_foods/meandi_3.webp",
+    "fullImage1": "/images/travel_foods/meandi_full_1.webp",
+    "fullImage2": "/images/travel_foods/meandi_full_2.webp",
+    "fullImage3": "/images/travel_foods/meandi_full_3.webp",
+    "description": "꿔바로우위에 콩가루를 뿌려주셨는데 맛나요!! 내부인테리어도 대만느낌으로 잘꾸며져있고 네이버 리뷰하면 망고맥주도 서비스로 줍니다..."
   }
 ]

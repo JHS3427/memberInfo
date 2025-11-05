@@ -21,7 +21,7 @@ public class MapController {
 
     @GetMapping("/all")
     public List<Map> all(){
-        System.out.println("controller ==> ");
+        // System.out.println("controller ==> ");
         return mapService.findAll();
     }
 }

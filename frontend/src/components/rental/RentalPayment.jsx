@@ -57,13 +57,16 @@ const RentalPayment = ({ className, onClose }) => {
     // 결제 버튼 클릭 시 결제 정보를 API 파일로 전송
     const handlePayment = async () => {
         const result = await getRentalPayment(calculatedPrice);
+        return result;
     }
 
     return (
         <>
             <div className={className}>
-                <RentalBikeList />
                 <h3>결제 화면</h3>
+                <RentalBikeList
+                    className={`bike_station_name_list`}
+                />
                 <div className='payment_time_event'>
                     <button
                         className='payment_handletime_decrease'

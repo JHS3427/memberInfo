@@ -41,7 +41,7 @@ function Map({ handleClick }) {
                 const markers = [];
                 let activeOverlay = null;
 
-                data.forEach(({ mname, lat, lng, type }) => {
+                data.forEach(({ mname, lat, lng, mlink, type }) => {
                   const markerPosition = new window.kakao.maps.LatLng(lat, lng);
 
                   const marker = new window.kakao.maps.Marker({
@@ -55,7 +55,7 @@ function Map({ handleClick }) {
                     <div class="map-marker-overlay-box" >
                         <ul class="map-marker-overlay">
                           <li class="map-marker-title" ><span>${mname}</span></li>
-                          <li class="map-marker-link" ><a href="https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=97fc93d4-e259-4a38-bdb1-45bfcb8691ba" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                          <li class="map-marker-link" ><a href="${mlink}" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
                         </ul>
                     </div>
                   `;

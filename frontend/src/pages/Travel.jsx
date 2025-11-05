@@ -14,25 +14,30 @@ import { getTravelFoodDetailList } from '../feature/travel/travelFoodAPI.js';
 export function Travel() {
     const dispatch = useDispatch();
     const travelMenuList = useSelector((state) => state.travelMenu.travelMenuList);
-    const travelFoodList = useSelector((state) => state.travelFood.travelFoodList);
+    // const travelFoodList = useSelector((state) => state.travelFood.travelFoodList);
     const travelWalkList = useSelector((state) => state.travelWalk.travelWalkList);
     const travelFoodDetailList = useSelector((state) => state.travelFood.travelFoodDetailList);
     // const travelWalkDetailList = useSelector((state) => state.travelWalkDetail.travelWalkDetailList);
-
-    // console.log(travelMenuList);
-    // console.log(travelFoodList);
-//     console.log(travelFoodDetailList);
-    // console.log(travelWalkList);
-
+ 
+    const [travelFoodList, setTravelFoodList] = useState([]);
     const [number, setNumber] = useState(3);
 
     useEffect(() => {
             dispatch(getTravelMenuList(number));
-            dispatch(getTravelFoodList(number));
+            // dispatch(getTravelFoodList(number));      
             dispatch(getTravelWalkList(number));
             dispatch(getTravelFoodDetailList(number));
             // dispatch(getTravelWalkDetailList(number));
+
+            async function fetchData() {
+              const data = await getTravelFoodList(number); 
+              console.log(data); 
+              setTravelFoodList(data); 
+            }
+            fetchData();
     }, [number]);
+
+    console.log(travelFoodList);
 
     // 버튼들 보이기/숨기기 상태 관리
     const [showMenus, setShowMenus] = useState(false);
@@ -113,12 +118,25 @@ export function Travel() {
                     <div className="travel-left-detail">
                         {/* showFoods, showWalks가 true일 때만 버튼 보이기 */}
                         {showFoods && (
-                          <ul className='food-list'>
-                            {travelFoodList && travelFoodList.map((rowArray, idx) =>
-                                { return rowArray && rowArray.map((travelFood, idx) =>
+                          <ul className='food-list'>                            
+                            {travelFoodList && travelFoodList.map((travelFood, idx) =>
                                     /** TravelFood를 TravelFoodList인 컴포넌트(<TravelFoodList>)를 생성하여 그 안에 넣어서 말하자면 한번 더 컴포넌트화 햇어야한다. 그래야 Travel.jsx도 보기 편하고 교체가 수월하다.  */
-                                  <TravelFood pid={travelFood.pid} name={travelFood.name} like={travelFood.like} tag={travelFood.tag} image1={travelFood.image1} image2={travelFood.image2} image3={travelFood.image3} description={travelFood.description} handleDetail={handleDetail} type="food" />
-                               )}
+                                  <TravelFood 
+                                              pid={travelFood.fid}
+                                              fname={travelFood.fname} 
+                                              flike={travelFood.flike} 
+                                              score={travelFood.score} 
+                                              evaluation={travelFood.evaluation} 
+                                              tag={travelFood.tag} 
+                                              image1={travelFood.image1} 
+                                              image2={travelFood.image2} 
+                                              image3={travelFood.image3} 
+                                              fullImage1={travelFood.fullImage1}
+                                              fullImage2={travelFood.fullImage2}
+                                              fullImage3={travelFood.fullImage3}
+                                              description={travelFood.description} 
+                                              handleDetail={handleDetail} 
+                                              type="food" />
                             )}                              
                           </ul>
                         )}
