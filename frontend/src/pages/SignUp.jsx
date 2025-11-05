@@ -67,7 +67,7 @@ const ConsoleBox = ({
 }
 
 
-export const SignUp = () => {
+export const SignUp = ({excludeItems=[]}) => {
 
   //초기값 세팅을 위한 initialArray선언 및 초기값 선언
   const initialArray = {id : "", pass : "", passcheck:"", name : "", age:"", gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"", phone:""};
@@ -76,6 +76,8 @@ export const SignUp = () => {
   const [passLook,setPassLook] = useState(false);
   const [idDupl,setIdDupl] = useState(false)
   
+  const showIdPass = !excludeItems.includes('social');//소셜로그인인 경우 아이디 비번 제거를 위해 선언
+
     const inputRefs = useMemo(() => {
         const keys = Object.keys(initialArray); 
         // reduce를 사용하여 각 키에 대응하는 Ref 객체들을 생성합니다.
@@ -142,8 +144,13 @@ export const SignUp = () => {
     const keys = Object.keys(initialArray)
 
     //필수 입력 항목을 key값으로, 해당 항목이 비었을 때의 출력 값을 value로 갖는 배열 생성
-    const mainKey={"id":"아이디","pass":"비밀번호",
+    const mainKey=showIdPass?
+                    {"id":"아이디","pass":"비밀번호",
                     "passcheck":"비밀번호 확인","name":"이름",
+                    "age":"나이","gender":"성별",
+                    "mainAddress":"도로명 주소","detailAddress":"상세 주소"}
+                    :
+                    {"name":"이름",
                     "age":"나이","gender":"성별",
                     "mainAddress":"도로명 주소","detailAddress":"상세 주소"};
     let mainAlertMessage = "";
@@ -162,7 +169,7 @@ export const SignUp = () => {
     {
       mainAlertMessage = mainAlertMessage+"\n비밀번호가 다릅니다. 확인해주세요."
     }
-    if(!idDupl){//중복확인 통과시 문제없음. 안했거나 통과 못하면 경고 메시지
+    if(!idDupl && showIdPass){//중복확인 통과시 문제없음. 안했거나 통과 못하면 경고 메시지
       mainAlertMessage = mainAlertMessage+"\아이디 중복확인을 해주세요."
     }
 
@@ -190,35 +197,39 @@ export const SignUp = () => {
     <form onSubmit={signupOnSubmit}>
       <div className="SignUpPage">
         <h1 className="SignTitle">회원가입 페이지입니다.</h1>
-        <div className = "IdPassSection">
-          <h3>반드시 입력해주세요</h3>
-          <h1 className="IdPassTitle">접속 정보란입니다</h1>
-          <div className="IdBox">          
-            <ConsoleBox id="id" type="text" name="id" {...sharedData}/>
-            {idDupl?
-            <button type='button' className = 'IdDuplCheck'>중복확인 성공</button>:
-            <button type='button' className = 'IdDuplCheck' onClick={IdDupleCheck}>중복확인</button>}
-          </div>
-          <div className="PassBox">
-            {passLook?
-            <>
-              <ConsoleBox id="pass" type="text" name="pass" {...sharedData}/>
-              <ConsoleBox id="passcheck" type="text" name="passcheck" {...sharedData}/>
-            </>:
-            <>
-              <ConsoleBox id="pass" type="password" name="pass" {...sharedData}/>
-              <ConsoleBox id="passcheck" type="password" name="passcheck" {...sharedData}/>
-            </>}
-            {passLook?
-            <button 
-            type='button'
-            className = 'passlook' onClick={()=>setPassLook(!passLook)}>비밀번호 가리기</button>:
-            <button 
-            type='button'
-            className = 'passlook' onClick={()=>setPassLook(!passLook)}>비밀번호 확인</button>}
-            
-          </div>
-        </div>
+        { showIdPass &&
+          <>
+            <div className = "IdPassSection">
+              <h3>반드시 입력해주세요</h3>
+              <h1 className="IdPassTitle">접속 정보란입니다</h1>
+              <div className="IdBox">          
+                <ConsoleBox id="id" type="text" name="id" {...sharedData}/>
+                {idDupl?
+                <button type='button' className = 'IdDuplCheck'>중복확인 성공</button>:
+                <button type='button' className = 'IdDuplCheck' onClick={IdDupleCheck}>중복확인</button>}
+              </div>
+              <div className="PassBox">
+                {passLook?
+                <>
+                  <ConsoleBox id="pass" type="text" name="pass" {...sharedData}/>
+                  <ConsoleBox id="passcheck" type="text" name="passcheck" {...sharedData}/>
+                </>:
+                <>
+                  <ConsoleBox id="pass" type="password" name="pass" {...sharedData}/>
+                  <ConsoleBox id="passcheck" type="password" name="passcheck" {...sharedData}/>
+                </>}
+                {passLook?
+                <button 
+                type='button'
+                className = 'passlook' onClick={()=>setPassLook(!passLook)}>비밀번호 가리기</button>:
+                <button 
+                type='button'
+                className = 'passlook' onClick={()=>setPassLook(!passLook)}>비밀번호 확인</button>}
+                
+              </div>
+            </div>
+          </>
+        }
         <div className= "PrivateInfoSection">
           <h3>반드시 입력 및 선택해주세요</h3>
           <h1>개인 정보란 입니다</h1>

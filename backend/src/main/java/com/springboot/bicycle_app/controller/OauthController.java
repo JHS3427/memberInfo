@@ -28,7 +28,6 @@ public class OauthController {
 
     @PostMapping("/idDuplCheck")
     public boolean idDuplCheck(@RequestBody UserInfo userInfo){
-        System.out.println("ID : "+userInfo.getUid());
         return oauthService.idDuplChecker(userInfo.getUid());
     }
 
