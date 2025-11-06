@@ -5,9 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.springboot.bicycle_app.dto.Token;
-import com.springboot.bicycle_app.dto.UserInfo;
+import com.springboot.bicycle_app.dto.UserInfoDto;
 import com.springboot.bicycle_app.repository.UserInfoRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -172,7 +171,7 @@ public class OauthServiceImpl implements OauthService{
     }
 
     @Override
-    public int signUp(UserInfo userInfo){
+    public int signUp(UserInfoDto userInfo){
         return userInfoRepository.signup(userInfo);
     }
 }

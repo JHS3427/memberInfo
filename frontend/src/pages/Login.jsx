@@ -23,7 +23,7 @@ export function Login() {
     const isLogin = useSelector((state)=>state.auth.isLogin)
     
     //소셜로그인이 아닌 일반 로그인을 위한 값 세팅.
-    const initialsetting = {id:"",pass : ""};
+    const initialsetting = {uid:"",upass : ""};
     const [formData,setFormData] = useState(initialsetting);
     const [errors,setErrors] = useState(initialsetting);
     const idRef = useRef(null);
@@ -79,7 +79,7 @@ export function Login() {
                             <li>
                                 {/* 아이디와 비밀번호를 네이버처럼 floating label을 해보려 시도했지만, 상당한 시간이 걸렸음에도 진행되지 아니하여 다른거 먼저함 */}
                                 <div className='loginDataBox'>아이디 : <input type="text" 
-                                        name="id"
+                                        name="uid"
                                         onChange={handleformchange}
                                         ref = {idRef}
                                         placeholder='아이디'/>
@@ -88,9 +88,10 @@ export function Login() {
                             </li>
                             <li>
                                 <div className='loginDataBox'>비밀번호 : <input type="password"
-                                        name="pass"
+                                        name="upass"
                                         onChange={handleformchange}
-                                        ref= {passRef}/>
+                                        ref= {passRef}
+                                        placeholder='비밀번호'/>
                                 </div>
                                 <span>{errors.pass}</span>
                             </li>

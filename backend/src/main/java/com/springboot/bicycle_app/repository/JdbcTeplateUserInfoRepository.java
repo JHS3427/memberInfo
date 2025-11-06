@@ -1,6 +1,6 @@
 package com.springboot.bicycle_app.repository;
 
-import com.springboot.bicycle_app.dto.UserInfo;
+import com.springboot.bicycle_app.dto.UserInfoDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +26,7 @@ public class JdbcTeplateUserInfoRepository implements UserInfoRepository{
     }
 
     @Override
-    public int signup(UserInfo userInfo){
+    public int signup(UserInfoDto userInfo){
         String sql = """
                 insert into 
                 userInfo

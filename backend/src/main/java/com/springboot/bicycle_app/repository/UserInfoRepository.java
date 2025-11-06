@@ -1,9 +1,9 @@
 package com.springboot.bicycle_app.repository;
 
-import com.springboot.bicycle_app.dto.UserInfo;
+import com.springboot.bicycle_app.dto.UserInfoDto;
 
 public interface UserInfoRepository {
 
     boolean idDuplChecker(String id);
-    int signup(UserInfo userInfo);
+    int signup(UserInfoDto userInfo);
 }

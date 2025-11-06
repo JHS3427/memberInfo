@@ -11,3 +11,9 @@
 
 
 
+.requestMatchers("/member/**","/product/**","/auth/**","/cart/**","/support/**", "/api/chatbot/**", "/map/**", "/travel/**").permitAll()
+
+securityconfig
+membercontroller
+customuserDetailService
+jpamemberRepository

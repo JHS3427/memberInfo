@@ -2,15 +2,37 @@ import { login, logout,socialLogin } from './authSlice.js';
 import { validateFormCheck,axiosPost } from "../../utils/validate.js";
 import { useDaumPostcodePopup } from 'react-daum-postcode'; // 주소 찾기 관련 import
 
-export const getLogin = (formData, param) => async(dispatch) => {
-    if(validateFormCheck(param)) {
-        if("test" === formData.id && "1234" === formData.pass) {
-            dispatch(login({"userId": formData.id}));
+// export const getLogin = (formData, param) => async(dispatch) => {
+//     if(validateFormCheck(param)) {
+//         if("test" === formData.id && "1234" === formData.pass) {
+//             dispatch(login({"userId": formData.id}));
+//             return true;
+//         }
+//     }
+//     return false;
+// }
+
+export const getLogin = (formData,param) => async(dispatch) => {
+    if(validateFormCheck(param))
+    {
+        const url = "/auth/login";
+        const result = await axiosPost(url,formData); //axios라 await 안걸면 promise pending이 뜰 수 있다.
+        console.log(result);
+        if(result)
+        {
+            // await refreshCsrfToken(); -해제 예정
+            //"로그인 성공"
+            dispatch(login({"userId":formData.id}));
+
+            //장바구니 갯수를 카운트하는 함수 호출
+//            const count = await getCartCount(formData.id);
+            // dispatch(getCartCount(formData.id)) -해제 예정
             return true;
         }
-    }
     return false;
+    }
 }
+
 
 export const getLogout = () => async(dispatch) => {
     dispatch(logout());
