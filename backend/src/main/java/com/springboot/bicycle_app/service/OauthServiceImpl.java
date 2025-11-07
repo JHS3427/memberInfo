@@ -5,10 +5,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.springboot.bicycle_app.dto.Token;
+import com.springboot.bicycle_app.entity.UserInfo;
 import com.springboot.bicycle_app.dto.UserInfoDto;
 import com.springboot.bicycle_app.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import com.springboot.bicycle_app.repository.JpaUserInfoRepository;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -16,11 +19,17 @@ import java.net.URL;
 
 @Service
 public class OauthServiceImpl implements OauthService{
-    private UserInfoRepository userInfoRepository;
+    private final UserInfoRepository userInfoRepository;
+    private final JpaUserInfoRepository jpaUserInfoRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public OauthServiceImpl(UserInfoRepository userInfoRepository){
+    public OauthServiceImpl(UserInfoRepository userInfoRepository,
+                            JpaUserInfoRepository jpaUserInfoRepository,
+                            PasswordEncoder passwordEncoder){
         this.userInfoRepository = userInfoRepository;
+        this.jpaUserInfoRepository = jpaUserInfoRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -171,7 +180,17 @@ public class OauthServiceImpl implements OauthService{
     }
 
     @Override
-    public int signUp(UserInfoDto userInfo){
-        return userInfoRepository.signup(userInfo);
+    public int signUp(UserInfoDto UserInfoDto){
+        int result = 0;
+        String encodePwd = passwordEncoder.encode(UserInfoDto.getUpass());//UUID타입으로 생성됨
+        UserInfoDto.setUpass(encodePwd);
+
+        UserInfo userinfo = new UserInfo(UserInfoDto);
+        UserInfo saveUserinfo = jpaUserInfoRepository.save(userinfo);
+        if(saveUserinfo!=null) {
+            result = 1;
+        }
+        return result;
+        
     }
 }

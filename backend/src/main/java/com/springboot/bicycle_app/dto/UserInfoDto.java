@@ -1,6 +1,6 @@
 package com.springboot.bicycle_app.dto;
 
-
+import com.springboot.bicycle_app.entity.UserInfo;
 import lombok.Data;
 
 @Data
@@ -18,5 +18,16 @@ public class UserInfoDto {
     public UserInfoDto(String uid, String upass) {
         this.uid = uid;
         this.upass = upass;
+    }
+    public UserInfoDto(UserInfo entity){
+        this.uid = entity.getUid();
+        this.upass = entity.getUpass();
+        this.uname = entity.getUname();
+        this.uage = entity.getUage();
+        this.ugender = entity.getUgender();
+        this.uaddress = entity.getUaddress();        
+        this.uemail = entity.getUemail();
+        this.uphone = entity.getUphone();
+        
     }
 }

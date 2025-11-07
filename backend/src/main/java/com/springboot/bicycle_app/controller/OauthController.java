@@ -61,14 +61,17 @@ public class OauthController {
                                    HttpServletRequest request,
                                    HttpServletResponse response) {
         try {
+            System.out.println("인증 성공1 ");
             //1. 인증 요청
             Authentication authenticationRequest =
                     UsernamePasswordAuthenticationToken.unauthenticated(userInfo.getUid(), userInfo.getUpass());
+            System.out.println("authenticationResponse2 "+userInfo.getUid()+ userInfo.getUpass());
 
             //2. 인증 처리
             Authentication authenticationResponse =
                     this.authenticationManager.authenticate(authenticationRequest);
 
+            System.out.println("authenticationResponse3 "+userInfo.getUid()+ userInfo.getUpass());
             System.out.println("인증 성공: " + authenticationResponse.getPrincipal());
 
             //3. 컨텍스트에 보관: 세션과 함께 저장, 만료때까지 저장됨.

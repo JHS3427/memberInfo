@@ -1,7 +1,7 @@
 import { login, logout,socialLogin } from './authSlice.js';
 import { validateFormCheck,axiosPost } from "../../utils/validate.js";
 import { useDaumPostcodePopup } from 'react-daum-postcode'; // 주소 찾기 관련 import
-
+import { refreshCsrfToken} from '../csrf/manageCsrfToken.js';
 // export const getLogin = (formData, param) => async(dispatch) => {
 //     if(validateFormCheck(param)) {
 //         if("test" === formData.id && "1234" === formData.pass) {
@@ -17,10 +17,10 @@ export const getLogin = (formData,param) => async(dispatch) => {
     {
         const url = "/auth/login";
         const result = await axiosPost(url,formData); //axios라 await 안걸면 promise pending이 뜰 수 있다.
-        console.log(result);
-        if(result)
+        console.log("result :: ", result);
+        if(result.login)
         {
-            // await refreshCsrfToken(); -해제 예정
+            await refreshCsrfToken();
             //"로그인 성공"
             dispatch(login({"userId":formData.id}));
 
@@ -29,8 +29,8 @@ export const getLogin = (formData,param) => async(dispatch) => {
             // dispatch(getCartCount(formData.id)) -해제 예정
             return true;
         }
-    return false;
     }
+    return false;
 }
 
 

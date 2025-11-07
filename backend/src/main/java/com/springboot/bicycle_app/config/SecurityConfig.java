@@ -63,7 +63,7 @@ public class SecurityConfig {
                 .requestCache(rc -> rc.disable()) //로그인 후 리다이렉트 방지
 //                .securityContext(sc -> sc.requireExplicitSave(true)) //인증정보 세션 자동저장 방지
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/member/**","/product/**","/auth/**","/cart/**","/support/**", "/api/chatbot/**", "/map/**", "/travel/**").permitAll()
+                        .requestMatchers("/member/**","/product/**","/auth/**","/cart/**","/support/**", "/api/chatbot/**", "/map/**", "/travel/**","/csrf/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

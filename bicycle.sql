@@ -189,6 +189,7 @@ create table userinfo(
     uphone	varchar(100) default null
 );
 
+
 insert into userinfo(uid, upass, uname, uage, ugender, uaddress, uemail, uphone)
 value ("test12345",12345,"테스터2",1001,"여성","서울 강남구 강남대로78길 8 한국빌딩 4F, 404호","abcde@naver.com","010-1234-5678"),
 ("test1234",1234,"테스터",100,"남성","서울 강남구 강남대로78길 8 한국빌딩 4F, 404호","abcd@naver.com","010-1234-5678");
