@@ -56,6 +56,7 @@ public class OauthController {
             Social_reuslt_s = "duplicate off" + token.getSocial();
             socialIdChecker.setSocialDupl(false);
         }
+        //여기서 암호화 해서 보내자
         return socialIdChecker;
     }
 

@@ -69,6 +69,8 @@ export const getsocialtoken=(token_json,social) => async(dispatch) =>{
     else{//전달받은 내용을 저장하고, 그걸 이용해서 가입시키기.
         // const navigate=useNavigate()순서 문제로
         // navigate('/socialsignUp')얘네 둘은 에러 생김
+        // 보안상 잠시 가지고 있는것은 상관없음. - sha256으로 암호화?
+        // 보안은 백으로 넘기자.
     }
     // dispatch(socialLogin({"token":authtoken,"social":social}));테스트를 위해 임시 차단
 }
