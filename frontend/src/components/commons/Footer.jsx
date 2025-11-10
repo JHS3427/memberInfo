@@ -73,8 +73,8 @@ export function Footer() {
         {/* 오른쪽 회사 정보 */}
         <div className="footer-info">
           <div className="footer-social">
-            <a href="https://www.youtube.com/channel/UCgb2432J7dUqZXaWe39FqQw"><i className="fab fa-instagram"></i></a>
-            <a href="https://www.instagram.com/cellobike_official/"><i className="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/cellobike_official/"><i className="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UCgb2432J7dUqZXaWe39FqQw"><i className="fab fa-youtube"></i></a>
             <a href="https://blog.naver.com/celloblog"><i className="fab fa-facebook"></i></a>
           </div>
           <p>

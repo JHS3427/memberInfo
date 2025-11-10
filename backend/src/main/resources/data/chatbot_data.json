@@ -4,7 +4,7 @@
     "question": "환불이나 교환은 어떻게 하나요?",
     "answer": "제품 환불 및 교환은 배송 완료 후 7일 이내 고객센터(☎ 02-1234-5678)로 문의해주세요.",
     "linkText": "교환/반품 안내 보기",
-    "linkUrl": "/support"
+    "linkUrl": "support:faq"
   },
   {
     "keyword": "배송,택배,배송비",
@@ -18,14 +18,14 @@
     "question": "제 키에 맞는 자전거 사이즈를 알고 싶어요",
     "answer": "자전거 사이즈는 키와 인심 길이에 따라 달라요. 평균적으로 170cm면 52~54cm가 적당합니다. 🚴‍♂️",
     "linkText": "사이즈 가이드 보기",
-    "linkUrl": "/support"
+    "linkUrl": "support:faq"
   },
   {
     "keyword": "고장,수리,as,a/s",
     "question": "자전거가 고장 났어요. A/S 받을 수 있나요?",
     "answer": "A/S는 구매일로부터 1년간 무상 제공됩니다. 자세한 내용은 고객센터로 문의해주세요. ☎ 02-1234-5678",
-    "linkText": "A/S 안내",
-    "linkUrl": "/support"
+    "linkText": "A/S 안내 바로가기",
+    "linkUrl": "support:as"
   },
   {
     "keyword": "영업시간,운영시간,문의,고객센터",
@@ -39,14 +39,14 @@
     "question": "주문을 취소하고 싶어요",
     "answer": "주문 취소는 결제 완료 후 상품 준비 전까지만 가능합니다. 자세한 내용은 아래에서 확인해주세요.",
     "linkText": "주문 취소 안내",
-    "linkUrl": "/support"
+    "linkUrl": "/cart"
   },
   {
     "keyword": "자료실,카탈로그,설명서,사용법",
     "question": "자전거 설명서나 카탈로그를 보고 싶어요",
     "answer": "카탈로그 및 사용설명서는 아래 자료실에서 확인하실 수 있습니다. 📘",
     "linkText": "자료실 바로가기",
-    "linkUrl": "/support"
+    "linkUrl": "support:data"
   },
   {
     "keyword": "회원가입,로그인,비밀번호,계정",
@@ -60,7 +60,7 @@
     "question": "결제 수단은 어떤 게 있나요?",
     "answer": "신용카드, 카카오페이, 무통장입금이 가능합니다 💳 영수증은 마이페이지에서 출력하실 수 있습니다.",
     "linkText": "결제 안내 보기",
-    "linkUrl": "/support"
+    "linkUrl": "/cart"
   },
   {
     "keyword": "리뷰,후기,평가,별점",

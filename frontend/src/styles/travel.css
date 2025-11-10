@@ -96,8 +96,38 @@
   color: orangered;
 }
 
-.fa-shoe-prints {
+.fa-hotel {
   color: brown;
+}
+
+.fa-screwdriver-wrench {
+  color: gray;
+}
+
+.fa-store {
+  color: green;
+}
+
+/**
+  map
+*/
+.goback-button {
+    position: absolute;
+    top: -3rem;
+    right: 0.3rem;
+    z-index: 10;
+    background-color: var(--color-white);
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.7rem;
+    border: none;
+    user-select: none;
+    box-shadow: 0px 1px 4px gray;
+}
+
+.goback-button:hover {
+    background-color: var(--color-blue);
+    color: var(--color-white);
 }
 
 /**
@@ -145,6 +175,11 @@
   font-size: 13px;
 }
 
+.fa-nostar {
+  color: gray;
+  font-size: 13px;
+}
+
 .food-title-evaluation {
   color: gray;
 }
@@ -186,35 +221,35 @@
 }
 
 /**
-  walk
+  hotel
 */
-.walk-list-item {
+.hotel-list-item {
   list-style-type: none;
   margin-top: 1rem;
   padding-left: 1rem;
 }
 
-.walk-list-item:hover {
+.hotel-list-item:hover {
   background-color: lightgray;
   cursor: pointer;
 }
 
-.walk-title {
+.hotel-title {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 0.3rem;
   cursor: pointer;
 }
 
-.walk-title span {
+.hotel-title span {
   color: gray;
 }
 
-.walk-tag {
+.hotel-tag {
   margin-bottom: 0.3rem;
 }
 
-.walk-image {
+.hotel-image {
   user-select: none;
   width:150px;
   height:150px;
@@ -223,7 +258,7 @@
   cursor: pointer;
 }
 
-.walk-description {
+.hotel-description {
 
 }
 
@@ -379,7 +414,10 @@
 
 .detail-title-like {
   margin-top: 10px;
-  font-size: 25px;
+}
+
+.detail-title-like .fa-star {
+    font-size: 25px;
 }
 
 .detail-title-likeNum {
@@ -416,6 +454,26 @@
   background-color: transparent;
 }
 
+.detail-title-localAddress-box {
+    display: flex;
+}
+
+.detail-title-localAddress-title, .detail-title-localAddress {
+    display: none;
+}
+
+.detail-title-localAddress-title {
+    width: 2rem;
+    padding: 0.1rem 0.2rem;
+    font-size: 12px;
+    border: 1px solid lightgray;
+    margin-left:12px;
+}
+
+.detail-title-localAddress {
+    font-size: 15px;
+}
+
 .detail-title-support {
   color: gray;
 }
@@ -432,8 +490,25 @@
 }
 
 .detail-menu-item {
+  display: flex;
+  align-items: center;
   font-size: 18px;
   margin-top: 10px;
+}
+
+.detail-menu-item-name {
+  white-space: nowrap;
+}
+
+.detail-menu-item-price {
+  white-space: nowrap;
+}
+
+.detail-menu-item-dash {
+  flex-grow: 1;
+  border-bottom: 1px dashed #999;  /* ← 여기서 줄 느낌으로 표시 */
+  margin: 0 8px;
+  height: 1px;
 }
 
 .detail-menu-more-box {

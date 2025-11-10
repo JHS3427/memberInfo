@@ -25,15 +25,15 @@ export const cartSlice = createSlice({
         updateTotalPrice (state) {
             state.totalPrice
                 = state.cartList
-                    .filter(item => item.checked)
+                    .filter(item => item.checked === true)
                     .reduce((total, item) => total + (item.qty * item.price), 0);
         },
-        // checkCartItem (state,action){
-        //       const {cid} = action.payload;
-        //       state.cartList = state.cartList.map(item =>
-        //
-        //       );
-        // },
+        checkCartItem (state,action){
+              const {cid} = action.payload;
+              state.cartList = state.cartList.map(item =>
+                item.cid === cid ? {...item, checked : !item.checked} : item
+              );
+        },
         updateCartItem (state, action) {
             const { cid, type } = action.payload;
             state.cartList = state.cartList.map((item) =>
@@ -46,12 +46,17 @@ export const cartSlice = createSlice({
         removeCartItem (state, action) {
             const { cid } = action.payload;
             state.cartList = state.cartList.filter(item => !(item.cid === cid));
+        },
+        clearCart(state){
+            state.cartCount = 0;
+            state.cartList = [];
+            state.totalPrice = 0;
         }
     },
 })
 
 export const {  addCartItem, updateCartCount, showCartItem, updateTotalPrice,
-    updateCartItem, removeCartItem
+    updateCartItem, removeCartItem, checkCartItem, clearCart
 } = cartSlice.actions   //API 함수 또는 컴포넌트에서 dispatch(액션함수)
 
 export default cartSlice.reducer  //store  import

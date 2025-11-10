@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './pages/Layout.jsx';
 import { Home } from './pages/Home.jsx';
-import { Travel } from './pages/Travel.jsx';
+import { Travel } from './pages/travel/Travel.jsx';
 import Rental from './pages/Rental.jsx';
 import { Support } from './pages/Support.jsx';
 import { Login } from './pages/Login.jsx';
@@ -19,20 +19,17 @@ import './styles/travel.css';
 import './styles/rental.css';
 import {StoreLocation} from "./pages/StoreLocation.jsx";
 import {Cart} from "./pages/Cart.jsx";
+import {ComparedProduct} from "./pages/ComparedProduct.jsx";
+import {CheckoutInfo} from "./pages/CheckoutInfo.jsx";
 
 import { useEffect } from 'react';
 import { createCsrfToken} from './feature/csrf/manageCsrfToken.js';
 
 export default function App() {
 
-  
-    //App이 최초로 호출되면 CSRF 토큰 발급
     useEffect(()=>{
         createCsrfToken();
-        console.log("aaaaaaaaaaaaaabbbbbbbbbbb");
     },[])
-
-
 
   return (
     <BrowserRouter>
@@ -44,9 +41,9 @@ export default function App() {
           <Route path="travel" element={<Travel />} />
           <Route path="support" element={<Support />} />
           <Route path="login" element={<Login />} />
-          <Route path="auth" element={<Auth />} />   
+          <Route path="auth" element={<Auth />} /> 
+          <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />    
           <Route path="signUp" element={<SignUp />} />          
-          <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />          
           <Route path="policies/terms" element={<Terms />} />
           <Route path="policies/privacy" element={<Privacy />} />
           <Route path="policies/internalpolicy" element={<InternalPolicy />} />
@@ -54,6 +51,8 @@ export default function App() {
           <Route path="products/:category/:pid" element={<ProductDetail />} />
           <Route path="location" element={<StoreLocation/>}/>
           <Route path="cart" element={<Cart/>}/>
+          <Route path="compare" element={<ComparedProduct/>}/>
+          <Route path="checkout" element={<CheckoutInfo/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

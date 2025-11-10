@@ -8,10 +8,11 @@ import com.springboot.bicycle_app.dto.Token;
 import com.springboot.bicycle_app.entity.UserInfo;
 import com.springboot.bicycle_app.dto.UserInfoDto;
 import com.springboot.bicycle_app.repository.UserInfoRepository;
+import com.springboot.bicycle_app.repository.JpaUserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.springboot.bicycle_app.repository.JpaUserInfoRepository;
+
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -59,7 +60,7 @@ public class OauthServiceImpl implements OauthService{
             if( token.getSocial().equals("kakao")){
                 sb.append("&client_id=ef9794cb2ff6a12a26f6432f5ec9a04b"); // TODO REST_API_KEY 입력
                 sb.append("&redirect_uri=http://localhost:3000/auth"); // TODO 인가코드 받은 redirect_uri 입력
-                }
+            }
             else if(token.getSocial().equals("naver")){
                 sb.append("&client_id=qxdiERkzD3t06kqHGYdp");
                 sb.append("&client_secret=0jzlDIssrs");
@@ -191,6 +192,6 @@ public class OauthServiceImpl implements OauthService{
             result = 1;
         }
         return result;
-        
+
     }
 }

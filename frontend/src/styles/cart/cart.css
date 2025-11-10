@@ -36,11 +36,6 @@
     font-size: 0.9rem;
     color: #999; /* 비활성 색상 */
 }
-/* 첫 번째 스텝만 활성화 (스크린샷 기준) */
-.step-item:first-child {
-    color: #000;
-    font-weight: 700;
-}
 .step-item + .step-item::before {
     content: '>';
     margin: 0 10px;
@@ -161,4 +156,52 @@
     font-size: 1.8rem; /* 가격을 더 크게 */
     font-weight: 700;
     color: #333; /* 스크린샷처럼 검은색 */
+}
+.cart-item-checkbox {
+    /* 1. 크기 조절 (원하는 크기로 변경하세요) */
+    width: 20px;
+    height: 20px;
+
+    /* 2. (정렬) 이미지와 간격을 줍니다 */
+    margin-right: 15px;
+
+    /* 3. (UX) 마우스 커서를 포인터로 변경 */
+    cursor: pointer;
+
+    /* (선택) 체크박스를 세로 중앙에 맞춥니다 */
+    align-self: center;
+}
+.cart-empty-message {
+    /* .cart-total-summary와 동일한 테두리/여백 적용 */
+    border-top: 1px solid #ccc;
+    margin-top: -1px;
+    padding: 4rem 1rem; /* 위아래로 넉넉한 여백 */
+
+    /* 내부 요소(p, button)들을 중앙 정렬 */
+    text-align: center;
+}
+
+.cart-empty-message p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #888;
+    margin: 0 0 1.5rem 0; /* 버튼과 간격 띄우기 */
+}
+
+/* '자전거 구매' 버튼 스타일 */
+.cart-empty-message button {
+    /* '주문하기' 버튼과 동일한 스타일 적용 */
+    background-color: #d9534f; /* 붉은색 */
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cart-empty-message button:hover {
+    background-color: #c9302c;
 }

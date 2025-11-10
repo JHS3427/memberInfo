@@ -22,6 +22,7 @@ public class JdbcTeplateUserInfoRepository implements UserInfoRepository{
         if(count>0){
             result = true;
         }
+        System.out.println("jdbc iddupl");
         return result;
     }
 

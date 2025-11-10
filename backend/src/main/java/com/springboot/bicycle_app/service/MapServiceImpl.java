@@ -1,6 +1,6 @@
 package com.springboot.bicycle_app.service;
 
-import com.springboot.bicycle_app.dto.Map;
+import com.springboot.bicycle_app.dto.travel.Map;
 import com.springboot.bicycle_app.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

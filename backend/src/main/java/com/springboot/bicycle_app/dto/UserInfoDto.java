@@ -13,6 +13,7 @@ public class UserInfoDto {
     private String uaddress;
     private String uemail;
     private String uphone;
+    private boolean socialDupl;
 
     public UserInfoDto(){}
     public UserInfoDto(String uid, String upass) {
@@ -25,9 +26,9 @@ public class UserInfoDto {
         this.uname = entity.getUname();
         this.uage = entity.getUage();
         this.ugender = entity.getUgender();
-        this.uaddress = entity.getUaddress();        
+        this.uaddress = entity.getUaddress();
         this.uemail = entity.getUemail();
         this.uphone = entity.getUphone();
-        
+
     }
 }

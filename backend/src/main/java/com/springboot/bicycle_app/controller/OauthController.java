@@ -3,6 +3,7 @@ package com.springboot.bicycle_app.controller;
 import com.springboot.bicycle_app.dto.Token;
 import com.springboot.bicycle_app.dto.UserInfoDto;
 import com.springboot.bicycle_app.service.OauthService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,13 +37,26 @@ public class OauthController {
     }
 
     @PostMapping("/token")
-    public String gettoken(@RequestBody Token token){
+    public UserInfoDto gettoken(@RequestBody Token token){
         System.out.println("social : "+token.getSocial());
         System.out.println("auth : "+token.getAuthCode());
         String authcode = oauthService.getSocialAccessToken(token);
         String socialId = oauthService.socialIdCatcher(authcode,token.getSocial());
 
-        return socialId;
+        UserInfoDto socialIdChecker = new UserInfoDto();
+        socialIdChecker.setUid(socialId);
+
+        boolean Social_reuslt_b = idDuplCheck(socialIdChecker);//false면 겹치는거 없음. true면 겹치는거 있음
+        String Social_reuslt_s;
+        if(Social_reuslt_b){
+            Social_reuslt_s = "duplicate on " + token.getSocial();
+            socialIdChecker.setSocialDupl(true);
+            }
+        else{
+            Social_reuslt_s = "duplicate off" + token.getSocial();
+            socialIdChecker.setSocialDupl(false);
+        }
+        return socialIdChecker;
     }
 
     @PostMapping("/idDuplCheck")
@@ -51,9 +65,9 @@ public class OauthController {
     }
 
     @PostMapping("/signup")
-    public int signup(@RequestBody UserInfoDto userInfo){
+    public int signup(@RequestBody UserInfoDto userInfoDto){
 
-        return oauthService.signUp(userInfo);
+        return oauthService.signUp(userInfoDto);
     }
 
     @PostMapping("/login")
@@ -100,5 +114,42 @@ public class OauthController {
             return ResponseEntity.ok(Map.of("login", false));
         }
     }
+    
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request,
+                                    HttpServletResponse response) {
+
+        // 1. 세션이 없으면 생성하지 않고 null 반환 (로그아웃 시 표준 방식)
+        HttpSession session = request.getSession(false);
+
+        // 2. 세션이 존재하면 무효화
+        if(session != null) {
+            session.invalidate(); // 서버 세션 무효화 (JSESSIONID 삭제 명령 포함)
+        }
+
+        // 3. JSESSIONID 만료 쿠키 전송 (Path/Domain 꼭 기존과 동일)
+        var cookie = new Cookie("JSESSIONID", null);
+        cookie.setPath("/");               // ← 기존과 동일
+        cookie.setMaxAge(0);               // ← 즉시 만료
+        cookie.setHttpOnly(true);          // 개발 중에도 HttpOnly 유지 권장
+        // cookie.setSecure(true);         // HTTPS에서만. 로컬 http면 주석
+        // cookie.setDomain("localhost");  // 기존 쿠키가 domain=localhost였다면 지정
+        response.addCookie(cookie);
+
+        // 4. CSRF 토큰을 재발행하여 출력
+        var xsrf = new Cookie("XSRF-TOKEN", null);
+        xsrf.setPath("/");               // ← 기존과 동일
+        xsrf.setMaxAge(0);               // ← 즉시 만료
+        xsrf.setHttpOnly(false);          // 개발 중에도 HttpOnly 유지 권장
+        // xsrf.setSecure(true);         // HTTPS에서만. 로컬 http면 주석
+        // xsrf.setDomain("localhost");  // 기존 쿠키가 domain=localhost였다면 지정
+        response.addCookie(xsrf);
+
+
+        // 3. 응답: 세션이 있었든 없었든, 클라이언트에게 로그아웃 요청이 성공했음을 알림 (200 OK)
+        //    JSESSIONID 쿠키 삭제는 session.invalidate() 시 서블릿 컨테이너가 처리합니다.
+        return ResponseEntity.ok(Map.of("logout", true));
+    }
+
 
 }

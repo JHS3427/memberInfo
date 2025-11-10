@@ -1,8 +1,8 @@
 package com.springboot.bicycle_app.service;
 
 import com.springboot.bicycle_app.dto.UserInfoDto;
-import com.springboot.bicycle_app.repository.JpaUserInfoRepository;
 //import com.springboot.bicycle_app.repository.MemberRepository;
+import com.springboot.bicycle_app.repository.JpaUserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

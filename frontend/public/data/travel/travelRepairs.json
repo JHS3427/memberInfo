@@ -1,0 +1,82 @@
+[
+  {
+    "rname": "자전거정비소",
+    "rlike": "0.0",
+    "score": "0",
+    "evaluation": "24",
+    "tag": [
+      "자전거수리",
+      "자전거세차",
+      "자전거분해",
+      "정비자전거",
+      "셀프수리자전거정비"
+    ],
+    "image1": "/images/travel_repairs/repair_1.jfif",
+    "image2": "/images/travel_repairs/repair_2.jfif",
+    "image3": "/images/travel_repairs/repair_3.jfif",
+    "fullImage1": "/images/travel_foods/godosic_full_1.webp",
+    "fullImage2": "/images/travel_foods/godosic_full_2.webp",
+    "fullImage3": "/images/travel_foods/godosic_full_3.webp",
+    "description": "지하에 있어 자전거 입고 및 출고를 해드리고 있습니다. 감사합니다."
+  },
+  {
+    "rname": "경태의 자전거 이야기",
+    "rlike": "0.0",
+    "score": "0",
+    "evaluation": "943",
+    "tag": [
+      "자양동자전거",
+      "광진구자전거",
+      "서울자전거수리",
+      "한강자전거수리",
+      "화양동자전거"
+    ],
+    "image1": "/images/travel_repairs/gyeongtae_1.jfif",
+    "image2": "/images/travel_repairs/gyeongtae_2.jfif",
+    "image3": "/images/travel_repairs/gyeongtae_3.jfif",
+    "fullImage1": "/images/travel_foods/byeolmi_full_1.webp",
+    "fullImage2": "/images/travel_foods/byeolmi_full_2.webp",
+    "fullImage3": "/images/travel_foods/byeolmi_full_3.webp",
+    "description": "방문 하시기전 문의 주시고 예약 방문 해주세요."
+  },
+  {
+    "rname": "로드는오늘도뚠뚠",
+    "rlike": "0.0",
+    "score": "0",
+    "evaluation": "20",
+    "tag": [
+      "자전거세차",
+      "구동계분해세차",
+      "자전거분해세차",
+      "자전거구동계세차",
+      "구동계세차"
+    ],
+    "image1": "/images/travel_repairs/ddunddun_1.jpg",
+    "image2": "/images/travel_repairs/ddunddun_2.jpg",
+    "image3": "/images/travel_repairs/ddunddun_3.jpg",
+    "fullImage1": "/images/travel_foods/dandi_full_1.webp",
+    "fullImage2": "/images/travel_foods/dandi_full_2.webp",
+    "fullImage3": "/images/travel_foods/dandi_full_3.webp",
+    "description": "100% 예약제 자전거 세차 전용샵입니다."
+  },
+  {
+    "rname": "닥터모빌리티",
+    "rlike": "0.0",
+    "score": "0",
+    "evaluation": "10",
+    "tag": [
+      "전동제품판매",
+      "전동제품수리",
+      "일반자전거판매",
+      "자전거수리",
+      "자전거용품"
+    ],
+    "image1": "/images/travel_repairs/doctor_1.jpg",
+    "image2": "/images/travel_repairs/doctor_2.jpg",
+    "image3": "/images/travel_repairs/doctor_3.jpg",
+    "fullImage1": "/images/travel_foods/meandi_full_1.webp",
+    "fullImage2": "/images/travel_foods/meandi_full_2.webp",
+    "fullImage3": "/images/travel_foods/meandi_full_3.webp",
+    "description": "각종 전기자전거 및 전동킥보드 등 전동관련 모든 제품 판매 및 수리가능..."
+  }
+]

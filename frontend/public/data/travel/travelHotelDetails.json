@@ -1,0 +1,83 @@
+[
+  {
+    "hname": "잠실 라운지 호텔 - LOUNGE",
+    "hlike": "9.9",
+    "tag": [
+      "냉면",
+      "수요미식회",
+      "한국인의밥상",
+      "가족외식",
+      "혼밥"
+    ],
+    "location": "몽촌토성(평화의문)역 도보 5분",
+    "food": "평양냉면",
+    "address": "서울 송파구 방이동 37-3",
+    "localAddress": "서울특별시 중구 주교동 118-1",
+    "businessHouers": "11:30 - 21:00",
+    "lastOrder": "20:20",
+    "phone": "02-2265-0151",
+    "other": [
+      "고급스러운",
+      "깔끔한",
+      "점심식사",
+      "저녁식사",
+      "무료주차",
+      "발렛파킹"
+    ],
+    "menu": [
+      {
+        "mname": "평양냉면",
+        "price": "16000"
+      },
+      {
+        "mname": "비빔냉면",
+        "price": "16000"
+      },
+      {
+        "mname": "온면",
+        "price": "16000"
+      },
+      {
+        "mname": "김치말이냉면",
+        "price": "16000"
+      }
+    ],
+    "image1": "/images/travel_foods/food1_1.webp",
+    "image2": "/images/travel_foods/food1_2.webp",
+    "image3": "/images/travel_foods/food1_3.webp",
+    "review": [
+      {
+        "userProfile" : "/images/review_user1.jpg",
+        "userId" : "user01",
+        "userLike" : "5.0",
+        "userTotalReview" : "120",
+        "userFllowers" : "1",
+        "reviewImage": "/images/travel_foods/food1_review1.webp",
+        "reviewDate" : "2024-05-01",
+        "reviewDescription" : "2-3년전에 가보고 이전해서는 처음 간곳. 삼겹살은 여전히 맛있고 D806은 종업원에게 말하면 테이블당 1인분 가능. 호불호가 갈릴듯 한 맛.\n그러나 기본 삼겹살은 아주 좋음\n맛: 맛있음 가격: 보통 응대: 친절함\n주문한 메뉴\nA506 숙성 삼겹살 150g, D806 숙성 삼겹살 150g, 된장찌개\n키워드\n점심식사, 데이트, 캐주얼한, 고급스러운, 주차비50프로 지원\n"
+
+      },
+      {
+        "userProfile" : "/images/review_user1.jpg",
+        "userId" : "user01",
+        "userLike" : "4.0",
+        "userTotalReview" : "130",
+        "userFllowers" : "2",
+        "reviewImage": "/images/travel_foods/food1_review1.webp",
+        "reviewDate" : "2024-05-02",
+        "reviewDescription" : "2-3년전에 가보고 이전해서는 처음 간곳. 삼겹살은 여전히 맛있고 D806은 종업원에게 말하면 테이블당 1인분 가능. 호불호가 갈릴듯 한 맛.\n그러나 기본 삼겹살은 아주 좋음\n맛: 맛있음 가격: 보통 응대: 친절함\n주문한 메뉴\nA506 숙성 삼겹살 150g, D806 숙성 삼겹살 150g, 된장찌개\n키워드\n점심식사, 데이트, 캐주얼한, 고급스러운, 주차비50프로 지원\n"
+
+      },
+      {
+        "userProfile" : "/images/review_user1.jpg",
+        "userId" : "user01",
+        "userLike" : "3.0",
+        "userTotalReview" : "140",
+        "userFllowers" : "3",
+        "reviewImage": "/images/travel_foods/food1_review1.webp",
+        "reviewDate" : "2024-05-03",
+        "reviewDescription" : "2-3년전에 가보고 이전해서는 처음 간곳. 삼겹살은 여전히 맛있고 D806은 종업원에게 말하면 테이블당 1인분 가능. 호불호가 갈릴듯 한 맛.\n그러나 기본 삼겹살은 아주 좋음\n맛: 맛있음 가격: 보통 응대: 친절함\n주문한 메뉴\nA506 숙성 삼겹살 150g, D806 숙성 삼겹살 150g, 된장찌개\n키워드\n점심식사, 데이트, 캐주얼한, 고급스러운, 주차비50프로 지원\n"
+      }
+    ]
+  }
+]

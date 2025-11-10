@@ -67,7 +67,7 @@
     /* .header-content-wrapper와 동일한 좌우 여백을 주어 정렬을 맞춤 */
     max-width: 1440px; /* (예시) 사이트 최대 너비 */
     margin: 0 auto;
-    padding: 15px 480px; /* 상하 15px, 좌우 40px */
+    padding: 15px 440px; /* 상하 15px, 좌우 40px */
 }
 
 /* 4-3. 서브메뉴 내부 링크 <a> 스타일 */

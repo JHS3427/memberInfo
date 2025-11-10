@@ -12,14 +12,12 @@ import jakarta.servlet.http.HttpServletRequest;
 public class CsrfController {
     @GetMapping("/create")
     public ResponseEntity<?> create(HttpServletRequest request){
-        System.out.println("aaaaaaaaaaaaaaaaaaaa");
         /* CSRF 토큰을 생성하여 쿠키에 실어서 보냄 - 쿠키는 Response~~ 응답객체에 자동 실림*/
         CsrfToken token = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         return ResponseEntity.ok(token);
     }
     @GetMapping("/refresh")//프론트에서 로그아웃 발생시 토큰을 재발급함.
     public ResponseEntity<?> refresh(HttpServletRequest request){
-        System.out.println("aaaaaaaaaaaaaaaaaaabbbbbbbbbbbba");
 //        request.changeSessionId();
         CsrfToken token = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         return ResponseEntity.ok(token);

@@ -1,11 +1,15 @@
 package com.springboot.bicycle_app.controller;
 
-import com.springboot.bicycle_app.dto.Travel;
+import com.springboot.bicycle_app.dto.travel.TravelFoodDto;
+import com.springboot.bicycle_app.dto.travel.TravelHotelDto;
+import com.springboot.bicycle_app.dto.travel.TravelRepairDto;
+import com.springboot.bicycle_app.dto.travel.TravelFoodDetailDto;
 import com.springboot.bicycle_app.service.TravelService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +24,26 @@ public class TravelController {
     }
 
     @GetMapping("/food")
-    public List<Travel> food(){
-        System.out.println("controller ==> ");
+    public List<TravelFoodDto> food(){
+        // System.out.println("controller ==> ");
         return travelService.findFood();
+    }
+
+    @GetMapping("/hotel")
+    public List<TravelHotelDto> hotel(){
+//         System.out.println("controller ==> ");
+        return travelService.findHotel();
+    }
+
+    @GetMapping("/repair")
+    public List<TravelRepairDto> repair(){
+        // System.out.println("controller ==> ");
+        return travelService.findRepair();
+    }
+
+    @PostMapping("/foodDetail")
+    public TravelFoodDetailDto foodDetail(@RequestBody TravelFoodDetailDto travelFoodDetail){
+//        System.out.println("controller ==> ");
+        return travelService.findFoodDetail(travelFoodDetail.getDid());
     }
 }

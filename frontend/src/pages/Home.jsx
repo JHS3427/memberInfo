@@ -43,30 +43,42 @@ export function Home() {
 
       {/* 자전거 판매 */}
       <section className="section sale">
+        <span className="section-subtitle">Products</span>
         <h2>인기 자전거</h2>
         <div className="bike-grid">
           {[
             {
-              img: "bike1.png",
-              name: "불렛",
-              desc: "강력한 퍼포먼스로 최고의 주행력을 선사하는 전기자전거 모델",
+              img: "home_bicycle1.png",
+              name: "산악",
+              category: "mountain",
+              desc: "험난한 지형도 두렵지 않은 강력한 서스펜션과 견고한 프레임으로 완벽한 산악 주행을 즐겨보세요.",
             },
             {
-              img: "bike2.png",
-              name: "엘리엇",
-              desc: "수많은 대회 우승을 통해 성능을 검증한 엘리엇은 더욱 높은 에어로 성능을 갖추었습니다.",
+              img: "home_bicycle2.png",
+              name: "로드",
+              category: "road",
+              desc: "속도와 퍼포먼스를 극대화한 초경량 프레임, 장거리 라이딩에 최적화된 로드 바이크입니다.",
             },
             {
-              img: "bike3.png",
-              name: "케인",
-              desc: "풀체인지를 통해 넘치는 개성을 표현한 새로운 케인 시리즈",
+              img: "home_bicycle3.png",
+              name: "라이프스타일",
+              category: "lifestyle",
+              desc: "출퇴근부터 주말 나들이까지, 일상 속 라이딩을 스타일리시하게 완성하는 도심형 자전거입니다.",
+            },
+            {
+              img: "home_bicycle4.png",
+              name: "전기",
+              category: "electric",
+              desc: "페달링의 부담을 줄여주는 강력한 전동 모터 탑재, 어디서나 손쉽게 즐기는 스마트 라이딩 경험.",
             },
           ].map((bike, idx) => (
             <div className="bike-card" key={idx}>
               <img src={`/images/${bike.img}`} alt={bike.name} />
               <h3>{bike.name}</h3>
               <p>{bike.desc}</p>
-              <Link to="/products/mountain" className="btn-outline">구매하기</Link>
+              <Link to={`/products/${bike.category}`} className="btn-outline">
+                구매하기
+              </Link>
             </div>
           ))}
         </div>
@@ -74,6 +86,7 @@ export function Home() {
 
       {/* 대여 */}
       <section className="section rental">
+        <span className="section-subtitle">Rental</span>
         <h2>자전거 대여 서비스</h2>
         <p>가볍게 떠나고 싶을 때, 가까운 대여소에서 손쉽게 이용하세요.</p>
         <p>자전거 위치를 한눈에 확인하고, 원하는 장소에서 편리하게 대여할 수 있습니다.</p>
@@ -82,16 +95,30 @@ export function Home() {
 
       {/* 여행지 추천 */}
       <section className="section travel">
+        <span className="section-subtitle">Travel</span>
         <h2>추천 라이딩 코스</h2>
         <div className="travel-cards">
           {[
-            { img: "travel1.png", name: "제주 해안도로 코스" },
-            { img: "travel2.jpg", name: "한강 라이딩 코스" },
-            { img: "travel3.jpg", name: "남이섬 코스" },
+            { 
+              img: "home_travel1.jpg", 
+              name: "한강 라이딩 코스", 
+              desc: "서울의 중심을 따라 흐르는 한강을 따라 달리며 도시 속 여유를 만끽해보세요." 
+            },
+            { 
+              img: "home_travel2.jpg", 
+              name: "강원도 미시령 코스", 
+              desc: "굽이진 산길을 오르내리며 짜릿한 업힐과 아름다운 산맥 경관을 즐길 수 있는 코스입니다." 
+            },
+            { 
+              img: "home_travel3.jpg", 
+              name: "남이섬 코스", 
+              desc: "호수와 숲길을 함께 달리며 낭만적인 풍경 속 라이딩을 경험해보세요." 
+            }
           ].map((course, idx) => (
             <div className="travel-card" key={idx}>
               <img src={`/images/${course.img}`} alt={course.name} />
               <h3>{course.name}</h3>
+              <p>{course.desc}</p> {/* ✅ 설명 추가 */}
             </div>
           ))}
         </div>
@@ -100,6 +127,7 @@ export function Home() {
 
       {/* 고객센터 */}
       <section className="section support">
+        <span className="section-subtitle">Support</span>
         <h2>도움이 필요하신가요?</h2>
         <p>자주 묻는 질문에서 빠르게 답을 찾고,</p>
         <p>A/S 안내와 자료실로 필요한 정보를 확인하세요.</p>

@@ -15,7 +15,7 @@ export function updateCartItemsQty(cartItems, cid, type) {
 export function getTotalPrice(products, items) {
     return items.reduce((total, item) => {
         const product = products.find((product) =>
-            product.pid.toString() === item.pid.toString()
+            product.pid === item.pid
         );
 
         // (안전 장치) product가 없으면 0원을 더함
@@ -30,7 +30,10 @@ export function getTotalPrice(products, items) {
  */
 export function cartItemsAddInfo(products, items) {
     return items.map((item)=> { 
-        const product = products.find((product) => item.pid.toString() === product.pid.toString());
+        const product = products.find((product) =>
+            item.pid.toString() === product.pid.toString() &&
+            product.category === item.category
+        );
         return {
             ...item,
             image: product.image,
@@ -47,13 +50,14 @@ export function cartItemsAddInfo(products, items) {
  */
 export function cartItemsCheck(prevItems, cartItem) {
     //존재여부 체크
-    const existItem = prevItems.find((item) => 
-                            item.pid === cartItem.pid);
+    const existItem = prevItems.find((item) =>
+        item.pid.toString() === cartItem.pid.toString() &&
+        item.category === cartItem.category);
 
     if(existItem) { //존재하면 map으로 순회하면서 pid 동일한 item에 qty +1 증가
         return prevItems.map((item) =>  //map은 새로운 배열 반환
         item.pid === cartItem.pid
-            ? { ...item, qty: item.qty + 1 } 
+            ? { ...item, qty: item.qty + 1, checked: true }
             : item
         );
     } else {        

@@ -5,6 +5,7 @@ import {getProduct} from "../feature/product/productAPI.js";
 import {ImageList} from "../components/commons/ImageList.jsx";
 import {addCart} from "../feature/cart/cartAPI.js";
 import '../styles/product/productdetail.css';
+import {addCompareItem} from "../feature/compare/compareSlice.js";
 
 export function ProductDetail() {
     const {category, pid} = useParams();
@@ -25,12 +26,17 @@ export function ProductDetail() {
     }
     const goToCart = () => {
         alert("장바구니에 해당 제품이 담겼습니다.")
-        dispatch(addCart(product.pid));
+        dispatch(addCart(product.pid, category));
     }
 
     const goToPurchase = () => {
         navigate("/cart")
-        // dispatch(addCart(product));
+    }
+
+    const goToCompare =() => {
+        dispatch(addCompareItem(product));
+        alert("비교함에 상품이 담겼습니다.")
+        // navigate("/compare")
     }
 
     return (
@@ -60,16 +66,20 @@ export function ProductDetail() {
                     </li>
 
                     {/* 비교하기 버튼 */}
-                    <li className='button-wrapper'>
-                        <button type="button" className="compare-button" disabled>
+                    <li className='button-wrapper product-action-buttons'>
+                        <button type="button"
+                                className="action-button btn-secondary"
+                                onClick={goToCompare}>
                             + 비교하기
                         </button>
-                    </li>
-                    <li className='button-wrapper product-action-buttons'>
-                        <button type="button" className="action-button add-to-cart" onClick={goToCart}>
+                        <button type="button"
+                                className="action-button btn-secondary"
+                                onClick={goToCart}>
                             장바구니
                         </button>
-                        <button type="button" className="action-button buy-now" onClick={goToPurchase}>
+                        <button type="button"
+                                className="action-button btn-primary"
+                                onClick={goToPurchase}>
                             구매
                         </button>
                     </li>

@@ -1,6 +1,6 @@
 package com.springboot.bicycle_app.controller;
 
-import com.springboot.bicycle_app.dto.Map;
+import com.springboot.bicycle_app.dto.travel.Map;
 import com.springboot.bicycle_app.service.MapService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

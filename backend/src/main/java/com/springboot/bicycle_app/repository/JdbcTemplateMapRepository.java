@@ -1,6 +1,6 @@
 package com.springboot.bicycle_app.repository;
 
-import com.springboot.bicycle_app.dto.Map;
+import com.springboot.bicycle_app.dto.travel.Map;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

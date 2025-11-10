@@ -75,36 +75,92 @@
   text-align: center;
 }
 
+.home .section-subtitle {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0077cc;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.home .section-subtitle::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: #0077cc;
+  margin: 6px auto 0;
+  opacity: 0.6;
+}
+
+.home .support .section-subtitle {
+  color: #ffffff;
+}
+
+.home .support .section-subtitle::after {
+  background: #ffffff;
+}
+
 .home .section h2 {
-  font-size: 28px;
+  font-size: 2rem;
   margin-bottom: 40px;
 }
 
 /* --- 자전거 판매 --- */
 .home .bike-grid {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 40px;
-  flex-wrap: wrap;
+}
+
+.home .bike-grid h3 {
+  margin-bottom: 10px;
 }
 
 .home .bike-card {
-  width: 400px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* 카드 기본 크기 (데스크톱 기준: 4개 한 줄) */
+.home .bike-card {
+  flex: 1 1 calc(25% - 40px); /* 4개 */
+  max-width: 400px;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 100, 200, 0.08);
   padding: 20px;
-  transition: transform 0.3s;
+  transition: all 0.3s ease;
 }
 
 .home .bike-card:hover {
   transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 
 .home .bike-card img {
   width: 100%;
   border-radius: 10px;
   margin-bottom: 15px;
+}
+
+/* 📱 모바일 (1×4) */
+@media (max-width: 767px) {
+  .home .bike-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* 💻 태블릿 (2×2) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .home .bike-card {
+    flex: 1 1 calc(50% - 40px);
+    max-width: 48%;
+  }
 }
 
 /* --- 버튼 스타일 --- */
@@ -159,7 +215,7 @@
   overflow: hidden;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .home .rental {
     background: url('/public/images/home_travel_bike_mobile.png') center/cover no-repeat;
   }
@@ -195,21 +251,57 @@
 .home .travel-cards {
   display: flex;
   justify-content: center;
-  gap: 40px;
   flex-wrap: wrap;
+  gap: 40px;
+  overflow-x: visible;
 }
 
+/* 카드 기본 스타일 */
 .home .travel-card {
   width: 400px;
   text-align: center;
+  flex-shrink: 1; /* ✅ 카드 줄바꿈 허용 */
 }
 
 .home .travel-card img {
   width: 100%;
-  height: 300px;
+  height: 550px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 16px;
   margin-bottom: 10px;
+}
+
+.home .travel-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #004a99;
+  margin: 0 auto;
+  max-width: 90%;
+  padding-bottom: 10px;
+  text-align: left;
+}
+
+.home .travel-card p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 90%;
+  text-align: left;
+}
+
+/* 💻 태블릿 이하 (반응형 크기 조정) */
+@media (max-width: 1023px) {
+  .home .travel-card {
+    width: 48%;
+  }
+}
+
+/* 📱 모바일 (1×4) */
+@media (max-width: 767px) {
+  .home .travel-card {
+    width: 100%;
+  }
 }
 
 /* --- 고객센터 --- */

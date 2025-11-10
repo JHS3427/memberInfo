@@ -6,7 +6,7 @@
 import '../styles/loginpage.css';
 import {useState,useRef} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { getLogin,getFlatformName} from '../feature/auth/authAPI';
+import { getLogin,getLogout} from '../feature/auth/authAPI';
 import { Link } from 'react-router-dom';
 export function Login() {
     //플랫폼에 oauth 요청을 위한 필요 정보 값.
@@ -69,6 +69,9 @@ export function Login() {
         
     }
 
+    const handleLogout = (e) =>{
+        const out = dispatch(getLogout());
+    }
     return (
         <>
             <div className='loginCenter'>
@@ -90,8 +93,7 @@ export function Login() {
                                 <div className='loginDataBox'>비밀번호 : <input type="password"
                                         name="upass"
                                         onChange={handleformchange}
-                                        ref= {passRef}
-                                        placeholder='비밀번호'/>
+                                        ref= {passRef}/>
                                 </div>
                                 <span>{errors.pass}</span>
                             </li>
@@ -114,6 +116,7 @@ export function Login() {
                         <>
                         <h1>12123213</h1>
                         <Link to="/">홈</Link>
+                        <button onClick={handleLogout}>로그아웃</button>
                         </>:
                         <h1>44444444444444</h1>}
                     </>
