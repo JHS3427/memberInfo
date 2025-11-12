@@ -6,7 +6,7 @@
 
 import '../styles/signup.css';
 import React, {useState,useMemo, useRef} from 'react'
-import { usePostCode, idDuplCheck, sendSignUpData} from '../feature/auth/authAPI';
+import { usePostCode, idDuplCheck, sendSignUpData, randomString8to16} from '../feature/auth/authAPI';
 import { useLocation,useNavigate } from 'react-router-dom';
 
 //입력창 생성 함수
@@ -74,7 +74,7 @@ export const SignUp = ({excludeItems=[]}) => {
 
   const location = useLocation();
   const { authid } = location.state || {};
-
+  const randompassword = randomString8to16();
   const navigate=useNavigate();
 
   const initialArray = showIdPass?

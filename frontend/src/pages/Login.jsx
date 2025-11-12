@@ -6,7 +6,7 @@
 import '../styles/loginpage.css';
 import {useState,useRef,useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { getLogin,getFlatformName} from '../feature/auth/authAPI';
+import { getLogin,getFlatformName,randomString8to16} from '../feature/auth/authAPI';
 import { Link,useLocation,useNavigate } from 'react-router-dom';
 export function Login() {
     const navigate=useNavigate();
@@ -47,7 +47,8 @@ export function Login() {
     //플랫폼에 oauth 요청을 위한 필요 정보 값.
     const Rest_api_key='ef9794cb2ff6a12a26f6432f5ec9a04b';//카카오 EST API KEY
     const NAVER_CLIENT_ID = "qxdiERkzD3t06kqHGYdp"; // 네이버 발급받은 Client ID
-    const STATE = "flase";//이거 무작위 값으로 바꿔야함;
+    const STATE = randomString8to16();
+
 
     const redirect_uri = 'http://localhost:3000/auth' //Redirect URI
     // 플랫폼별 oauth 요청 URL
