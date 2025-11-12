@@ -14,7 +14,7 @@ export const getProductList = (category) => async(dispatch) => {
     const jsonData = await axiosData(`/data/${category}/${category}Data.json`);
     return dispatch(createProduct({"products":jsonData}));
 }
-export const getStore = (pid) => async(dispatch) => {
+export const getStore = (sid) => async(dispatch) => {
     const jsonData = await axiosData("/data/productLocation.json");
 
     dispatch(setProduct(jsonData));

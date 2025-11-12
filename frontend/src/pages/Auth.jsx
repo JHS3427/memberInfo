@@ -21,8 +21,32 @@ export function Auth(){
 
     
     useEffect(()=>{
-        dispatch(getsocialtoken(code,social))
-        navigate('/')
+        const handleSocialtoken = async () =>{
+            const authtoken = await getsocialtoken(code,social);
+            console.log("authtoken_auth",authtoken.uid,authtoken.pass)
+            if(authtoken.socialDupl)//중복값이 있다 = 이미 등록된 아이디이다.
+            {
+                navigate('/login',{
+                                      state: {
+                                          // 전달하려는 데이터를 객체 형태로 지정합니다.
+                                          // authtoken 객체 전체를 전달하거나, uid만 전달할 수 있습니다.
+                                          uid: authtoken.uid,
+                                          upass : authtoken.upass
+                                      }
+                                  });
+            }
+            else
+            {
+                navigate('/socialsignUp',{
+                                             state: {
+                                                 // 전달하려는 데이터를 객체 형태로 지정합니다.
+                                                 // authtoken 객체 전체를 전달하거나, uid만 전달할 수 있습니다.
+                                                 authid: authtoken.uid
+                                             }
+                                         });
+            }
+        };
+        handleSocialtoken();
     },[])
 
     return(<></>);

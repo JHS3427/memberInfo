@@ -7,8 +7,14 @@ import '../../styles/purchaseheader.css';
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [purchaseMenuOpen,setPurchaseMenuOpen] = useState(null);
+    const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState(false);
     const [showChatbot, setShowChatbot] = useState(false);
     const location = useLocation();
+
+    const closeAllMenus = () => {
+        setMenuOpen(false);
+        setMobileSubmenuOpen(false);
+    };
 
     useEffect(() => {
         // 🔵 Support에서 발생한 이벤트를 수신
@@ -33,18 +39,38 @@ export function Header() {
                 {/* 중앙 메뉴 (데스크톱용) */}
                 <nav className={`header-center ${menuOpen ? "open" : ""}`}>
                     <ul>
-                        <li onMouseEnter={() => setPurchaseMenuOpen('purchase')}>
-                            <NavLink to="/products/mountain" onClick={() => setMenuOpen(false)}>
+                        <li className="desktop-only" onMouseEnter={() => setPurchaseMenuOpen('purchase')}>
+                            <NavLink to="/products/mountain" onClick={closeAllMenus}>
                                 자전거 구매
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to="/rental" onClick={() => setMenuOpen(false)}>
+                        <li className="nav-item mobile-only">
+                            <button
+                                type="button"
+                                className={`accordion-toggle ${mobileSubmenuOpen ? "active" : ""}`}
+                                onClick={() => setMobileSubmenuOpen(!mobileSubmenuOpen)}
+                            >
+                                자전거 구매
+                                <span className="accordion-arrow">{mobileSubmenuOpen ? '▲' : '▼'}</span>
+                            </button>
+                            {/* 모바일 아코디언 서브메뉴 */}
+                            {mobileSubmenuOpen && (
+                                <div className="mobile-submenu">
+                                    <Link to="/products/mountain" onClick={closeAllMenus}>산악</Link>
+                                    <Link to="/products/road" onClick={closeAllMenus}>로드</Link>
+                                    <Link to="/products/lifestyle" onClick={closeAllMenus}>라이프스타일</Link>
+                                    <Link to="/products/electric" onClick={closeAllMenus}>전기</Link>
+                                    <Link to="/compare" onClick={closeAllMenus}>비교하기</Link>
+                                </div>
+                            )}
+                        </li>
+                        <li onMouseEnter={() => setPurchaseMenuOpen(null)}>
+                            <NavLink to="/rental" onClick={closeAllMenus}>
                                 자전거 대여
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to="/travel" onClick={() => setMenuOpen(false)}>
+                        <li onMouseEnter={() => setPurchaseMenuOpen(null)}>
+                            <NavLink to="/travel" onClick={closeAllMenus}>
                                 여행지 추천
                             </NavLink>
                         </li>
@@ -88,7 +114,7 @@ export function Header() {
                 </div>
 
                 {purchaseMenuOpen === 'purchase' && (
-                    <div className="submenu-container">
+                    <div className="submenu-container desktop-only">
                         <div className="submenu-content">
                             <Link to="/products/mountain">산악</Link>
                             <Link to="/products/road">로드</Link>

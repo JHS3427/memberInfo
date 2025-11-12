@@ -15,14 +15,12 @@ public class TravelFoodDetailDto {
     private String food;
     private String address;
     private String localAddress;
-    private String businessHouers;
-    private String lastOrder;
+    private String business;
     private String phone;
     private String other;
     private String menu;
-    private String image1;
-    private String image2;
-    private String image3;
+    private String mainImages;
+    private String imageList;
     private String review;
 
     //Entity <=> Dto 변환
@@ -36,14 +34,12 @@ public class TravelFoodDetailDto {
         this.food = entity.getFood();
         this.address = entity.getAddress();
         this.localAddress = entity.getLocalAddress();
-        this.businessHouers = entity.getBusinessHouers();
-        this.lastOrder = entity.getLastOrder();
+        this.business = entity.getBusiness();
         this.phone = entity.getPhone();
         this.other = entity.getOther();
         this.menu = entity.getMenu();
-        this.image1 = entity.getImage1();
-        this.image2 = entity.getImage2();
-        this.image3 = entity.getImage3();
+        this.mainImages = entity.getMainImages();
+        this.imageList = entity.getImageList();
         this.review = entity.getReview();
     }
 }

@@ -4,13 +4,57 @@
     Rental.jsx
     Style
 */
+.rental_map_box {
+    position: relative;
+}
+.rental_map_box::before{
+    content: '';
+    width: 60px;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-blue);
+    z-index: 9999;
+}.rental_map_box::after{
+    content: '';
+    width: 2px;
+    height: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%);
+    background: var(--color-blue);
+    z-index: 9999;
+}
+.rental_map_target {
+    width:50px;
+    height:50px;
+    position:absolute;
+    bottom:50px; right:50px;
+    z-Index:10000;
+    border:3px solid var(--color-blue);
+    background-color: var(--color-white);
+    border-radius:50%;
+    transition: all 0.3s ease-in-out;
+    cursor:pointer;
+    font-size:50px;
+    color:var(--color-blue);
+    line-height:50px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+}
+.rental_map_target:hover {
+    color:var(--color-white);
+    background-color:var(--color-blue);
+}
 .rental_box {
     position: relative;
 }
 .map_marker_data_info {
     position: relative;
     width: 25%;
-    height: calc(100vh - 52px);
+    height: calc(100vh - 55px);
     background-color: #fff;
     color: #000;
     padding: 16px;
@@ -23,6 +67,7 @@
     background-color: var(--color-blue);
     box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
     border-radius: 10px;
+    font-size: 18px;
     text-align: center;
     color: var(--color-white);
 }
@@ -35,46 +80,30 @@
     margin-top: 10px;
     margin-bottom: 20px;
     font-size: 18px;
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
     border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    border: 2px solid var(--color-blue);
 }
 .map_marker_data_info .map_marker_data_info_list li {
-    padding: 20px 0;
-    margin-bottom: 15px;
-    border-radius: 10px;
+    text-align: center;
+}
+.map_marker_data_info .map_marker_data_info_list li > span {
+    display: block;
+    padding: 10px 30px;
+    margin-bottom: 20px;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    border-radius: 10px;
+    border: 2px solid var(--color-blue);
 }
-.map_marker_data_info .map_marker_data_info_list li:first-child {
-    display: flex;
-    justify-content: space-between;
-}
-.map_marker_data_info .map_marker_data_info_list li:first-child span em{
+.map_marker_data_info .map_marker_data_info_list li > span > em {
     display: block;
     font-style: normal;
+    line-height: 15px;
     color: var(--color-blue);
+    font-weight: bold;
 }
-.map_marker_data_info .map_marker_data_info_list li:first-child span:first-child {
-    padding-left: 50px;
-}
-.map_marker_data_info .map_marker_data_info_list li:first-child span:last-child {
-    padding-right: 50px;
-}
-
-.map_marker_data_info .map_marker_data_info_list li:nth-child(2){
-    display: flex;
-    justify-content: space-between;
-}
-.map_marker_data_info .map_marker_data_info_list li:nth-child(2) span{
-    display: inline-block;
-}
-.map_marker_data_info .map_marker_data_info_list li:nth-child(2) span:first-child {
-    padding-left: 50px;
-}
-.map_marker_data_info .map_marker_data_info_list li:nth-child(2) span:last-child {
-    padding-right: 50px;
-}
-.map_marker_data_info .map_marker_data_info_list li:last-child {
-    padding-left: 50px;
+.map_marker_data_info .map_marker_data_info_list li > span > strong {
+    color: var(--color-blue);
 }
 
 .map_marker_data_info form button {
@@ -109,11 +138,12 @@
 */
 .map_marker_data_info .bike_rental_payment_info {
     width: 100%;
-    height: calc(100vh - 52px);
+    height: calc(100vh - 55px);
     padding: 15px;
     position: absolute;
     top: 0; left: 100%;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+    transition: all 0.3s ease-in-out;
 }
 
 .bike_rental_payment_info {
@@ -236,7 +266,6 @@
 .payment_price_info .payment_choice li {
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
 }
 .payment_price_info .payment_choice li:last-child {
     padding-bottom: 20px;
@@ -244,7 +273,7 @@
 /*
     RentalPayment.jsx
     Style
-*/
+*
 
 /*************************************************************************/
 
@@ -277,4 +306,14 @@
 .bike_station_name_list > ul > li:hover {
     background-color: var(--color-blue);
     color: var(--color-white);
+}
+
+
+@media(max-width: 1594px) {
+    .map_marker_data_info {width: 400px;}
+}
+@media(max-width: 793px) {
+    .map_marker_data_info .bike_rental_payment_info {
+    top: 0; left: 0;
+}
 }

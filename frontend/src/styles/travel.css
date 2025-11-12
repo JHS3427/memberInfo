@@ -133,6 +133,38 @@
 /**
   food
 */
+.search-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0.4rem 0 0;
+}
+
+.search-input-back{
+  border: 2px solid var(--color-blue);
+  border-radius: 15px;
+  padding: 0 1rem;
+}
+
+.search-input {
+  background: transparent;
+  border:none;
+  outline:none;
+}
+
+.search-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding-bottom: 0.3rem;
+}
+
+.no-results {
+    margin-top: 2rem;
+    text-align: center;
+}
+
 .food-list-item {
   list-style-type: none;
   margin-top: 1rem;
@@ -398,9 +430,18 @@
   right: 80px;
 }
 
+.fa-pushBookmark {
+    color: red;
+}
+
 .detail-title-share {
   top: 10px;
   right: 20px;
+}
+
+.detail-title-like-box,
+.detail-title-like {
+  margin-top: 0.4rem;
 }
 
 .detail-title-likeNum,
@@ -410,10 +451,6 @@
 }
 .detail-title-location{
   color: gray;
-}
-
-.detail-title-like {
-  margin-top: 10px;
 }
 
 .detail-title-like .fa-star {
@@ -430,6 +467,7 @@
   font-size: 15px;
   border-right: 1px solid gray;
   padding-right: 10px;
+  color: gray;
 }
 
 .detail-title-likeScore {
@@ -446,20 +484,25 @@
   font-size: 15px;
 }
 
+.detail-title-last {
+    margin-left: 1.1rem;
+}
+
 .detail-title-address-button,
 .detail-title-time-button{
-  margin-left: 10px;
+  margin-left: 0.7rem;
   cursor: pointer;
   border: none;
   background-color: transparent;
 }
 
-.detail-title-localAddress-box {
-    display: flex;
+.detail-title-allTime-box{
+  margin-left: 1rem;
+  font-size: 15px;
 }
 
-.detail-title-localAddress-title, .detail-title-localAddress {
-    display: none;
+.detail-title-localAddress-box {
+    display: flex;
 }
 
 .detail-title-localAddress-title {
@@ -539,11 +582,12 @@
 }
 
 .detail-image-button-box {
-  margin-top: 10px;
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.4rem;
 }
 
 .detail-image-button {
-  margin-left: 10px;
   font-size: 15px;
   padding: 0.5rem 1.5rem;
   border-radius: 0.7rem;
@@ -553,11 +597,16 @@
   cursor: pointer;
 }
 
-.detail-image-button:nth-child(1){
-   margin-left: 0;
+.detail-image-button-active{
+   font-size: 15px;
+   padding: 0.5rem 1.5rem;
+   border-radius: 0.7rem;
    background-color: var(--color-blue);
-   color: white;
    border: 1px solid var(--color-blue);
+   user-select: none;
+   cursor: pointer;
+   color: white;
+
 }
 
 .detail-image-box {
@@ -591,11 +640,13 @@
 }
 
 .detail-review-button-box {
-  margin-top: 10px;
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 0.4rem;
 }
 
-.detail-review-button {
-  margin-left: 10px;
+.detail-review-button,
+.detail-review-button-active {
   padding: 0.3rem;
   border-radius: 0.7rem;
   background-color: var(--color-white);
@@ -604,8 +655,7 @@
   cursor: pointer;
 }
 
-.detail-review-button:nth-child(1) {
-  margin-left: 0;
+.detail-review-button-active {
   color: var(--color-blue);
   border: 1px solid var(--color-blue);
 }
@@ -655,4 +705,8 @@
 
 .detail-review-date {
   margin-top: 10px;
+}
+
+.detail-review-description {
+    white-space: pre-line;
 }

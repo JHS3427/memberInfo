@@ -58,7 +58,8 @@ export const axiosGet = async (url) => {
 }
 
 /**
- * axios 함수를 이용하여 백엔드 연동 처리 //JSON 경우
+<<<<<<< HEAD
+ * axiosPost 함수를 이용한 백엔드 연동 처리
  */
 
 export const axiosPost = async (url, formData) => { //axios는 json()으로 파싱작업 필요없음 (자동으로 해줌)
@@ -73,6 +74,5 @@ export const axiosPost = async (url, formData) => { //axios는 json()으로 파�
 //        headers: { "Content-Type": "application/json" },
 //        data: formData
 //    })
-
     return response.data;
 }

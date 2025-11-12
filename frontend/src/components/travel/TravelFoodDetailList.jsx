@@ -31,14 +31,12 @@ export function TravelFoodDetailList({ selectedDid }) {
                         food={travelFoodDetailList.food}
                         address={travelFoodDetailList.address}
                         localAddress={travelFoodDetailList.localAddress}
-                        businessHouers={travelFoodDetailList.businessHouers} 
-                        lastOrder={travelFoodDetailList.lastOrder}
+                        business={travelFoodDetailList.business}
                         phone={travelFoodDetailList.phone}
                         other={travelFoodDetailList.other}
                         menu={travelFoodDetailList.menu}
-                        image1={travelFoodDetailList.image1}
-                        image2={travelFoodDetailList.image2}
-                        image3={travelFoodDetailList.image3}
+                        mainImages={travelFoodDetailList.mainImages}
+                        imageList={travelFoodDetailList.imageList}
                         review = {travelFoodDetailList.review}                        
                     />
             }  

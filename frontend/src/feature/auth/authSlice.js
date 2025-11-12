@@ -11,7 +11,7 @@ export const authSlice = createSlice({
         login(state, action) {
             state.isLogin = !state.isLogin;
             const { userId } = action.payload;
-            const loginInfo = { "userId": userId};
+            const loginInfo = { "userId": userId, "islogin":state.isLogin};
             localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
         },
         logout(state, action) {

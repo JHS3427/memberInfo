@@ -24,6 +24,8 @@ import {CheckoutInfo} from "./pages/CheckoutInfo.jsx";
 
 import { useEffect } from 'react';
 import { createCsrfToken} from './feature/csrf/manageCsrfToken.js';
+import {SuccessPage} from "./pages/SuccessPage.jsx";
+import {FailPage} from "./pages/FailPage.jsx";
 
 export default function App() {
 
@@ -41,9 +43,9 @@ export default function App() {
           <Route path="travel" element={<Travel />} />
           <Route path="support" element={<Support />} />
           <Route path="login" element={<Login />} />
-          <Route path="auth" element={<Auth />} /> 
-          <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />    
-          <Route path="signUp" element={<SignUp />} />          
+          <Route path="auth" element={<Auth />} />   
+          <Route path="signUp" element={<SignUp />} /> 
+          <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />             
           <Route path="policies/terms" element={<Terms />} />
           <Route path="policies/privacy" element={<Privacy />} />
           <Route path="policies/internalpolicy" element={<InternalPolicy />} />
@@ -53,6 +55,8 @@ export default function App() {
           <Route path="cart" element={<Cart/>}/>
           <Route path="compare" element={<ComparedProduct/>}/>
           <Route path="checkout" element={<CheckoutInfo/>}/>
+          <Route path="checkout/success" element={<SuccessPage/>}/>
+          <Route path="checkout/fail" element={<FailPage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

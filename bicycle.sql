@@ -406,7 +406,7 @@ drop table userinfo;
 
 create table userinfo(
 	unum 		int				auto_increment primary key,
-    uid   		varchar(30) not null,
+    uid   		varchar(100) not null,
     upass		varchar(100) not null,
     uname	    varchar(50) not null,
     uage		int not null,

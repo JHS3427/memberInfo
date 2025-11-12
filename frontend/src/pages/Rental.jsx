@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
+import { BiTargetLock } from "react-icons/bi";
 import { Maps } from '../components/rental/Maps.jsx';
 import { addData, setFilteredList, setSelectedStation } from '../feature/rental/rentalMarkerSlice.js';
 import { showMarkerAPI } from '../feature/rental/rentalMarkerAPI.js';
@@ -43,6 +44,10 @@ const Rantal = () => {
 
     // 사용자가 위치 사용 권한을 거부했을 시 기본 좌표 반영
     const [latLon, setLatLon] = useState({ lat: 37.575877, lng: 126.976897 });
+
+    const [mapCenter, setMapCenter] = useState(latLon);
+
+    const [showSearchButton, setShowSearchButton] = useState(false);
 
     //마커의 정보를 담고있는 store에 등록된 데이터
     const selectedMarker = useSelector((state)=> state.rentalData.selectedStation);
@@ -106,19 +111,28 @@ const Rantal = () => {
         }
     }, [allBikeStations, latLon]);
 
+    const handleReSearch = () => {
+        setLatLon(mapCenter);
+        setShowSearchButton(false)
+    }
+
     return (
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div className='rental_map_box' style={{ display: "flex", justifyContent: "flex-end" }}>
             <Maps data={selectedMarker} onClose={() => { dispatch(setSelectedStation(null)) }} />
-            <Map center={latLon} style={{ width: "100%", height: "calc(100vh - 52px)" }}
+            <Map center={latLon} style={{ width: "100%", height: "calc(100vh - 55px)"}}
                 onDragEnd={(map)=>{
+
                     //지도의 새로운 중심 좌표를 가져와서 latLon 상태 업데이트
                     const newCenter = map.getCenter();
-                    setLatLon({
+                    setMapCenter({
                         lat: newCenter.getLat(),
                         lng: newCenter.getLng(),
                     });
+
+                    setShowSearchButton(true);
                 }}
             >
+                <button onClick={handleReSearch}><BiTargetLock className='rental_map_target' /></button>
                 {
                     filteredMaps && filteredMaps.map((station, index) => {
                         return <MapMarker key={`${station.id}-${index}`}

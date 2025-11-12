@@ -36,8 +36,8 @@ export function StoreLocation() {
                     <ul className="store-list store-list-styled">
                         {filterStoreList.map((store) => (
                             <li
-                                key={store.pid}
-                                className={`store-list-item ${selectedStore?.pid === store.pid ? 'active' : ''}`}
+                                key={store.sid}
+                                className={`store-list-item ${selectedStore?.sid === store.sid ? 'active' : ''}`}
                                 onClick={() => handleClick(store)}
                             >
                                 <strong>{store.name}</strong>

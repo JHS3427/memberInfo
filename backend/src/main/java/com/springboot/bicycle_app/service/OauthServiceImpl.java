@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Optional;
 
 @Service
 public class OauthServiceImpl implements OauthService{
@@ -177,7 +178,14 @@ public class OauthServiceImpl implements OauthService{
 
     @Override
     public boolean idDuplChecker(String incomeId){
-        return userInfoRepository.idDuplChecker(incomeId);
+//        return userInfoRepository.idDuplChecker(incomeId);
+        boolean result = false;
+        Optional<UserInfoDto> newone = jpaUserInfoRepository.findByUserInfo(incomeId);
+        if(newone.isPresent()){//중복이 있으면 true
+            System.out.println("newone is : "+newone.get().getUid());
+            result = true;
+        }
+        return result;
     }
 
     @Override
@@ -192,6 +200,13 @@ public class OauthServiceImpl implements OauthService{
             result = 1;
         }
         return result;
-
     }
+
+    @Override
+    public String encryptString(String socialId){
+        String encrypt_socialId=passwordEncoder.encode(socialId);
+
+        return encrypt_socialId;
+    }
+
 }

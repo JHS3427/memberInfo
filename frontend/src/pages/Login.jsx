@@ -4,15 +4,50 @@
     일반 로그인의 경우 아이디(test), 비밀번호(1234)를 입력하면 islogin=true로 바뀌고, 이에따라 페이지 하단이 변경됩니다. 
 */
 import '../styles/loginpage.css';
-import {useState,useRef} from 'react';
+import {useState,useRef,useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { getLogin,getLogout} from '../feature/auth/authAPI';
-import { Link } from 'react-router-dom';
+import { getLogin,getFlatformName} from '../feature/auth/authAPI';
+import { Link,useLocation,useNavigate } from 'react-router-dom';
 export function Login() {
+    const navigate=useNavigate();
+    const location = useLocation();
+    const state = location.state;
+    const initialized = useRef(false)
+
+    useEffect(() => {//소셜 로그인 시 자동 로그인을 통해 세션 아이디 발급받기.
+        if(!initialized.current)
+        {
+            initialized.current = true;
+            console.log("attemptAutoLogin");
+            if(state)
+            {
+                const autoUid = state.uid; // 👈 state에서 uid를 직접 꺼냅니다.
+                const autoUpass = "1234"; //state.upass;
+                console.log("아이디와 패스워드",autoUid,autoUpass);
+                const param = null;
+                const autoFormData = { uid: autoUid, upass: autoUpass };
+                console.log(autoFormData)
+                const attemptAutoLogin = async () => {
+                    console.log("attemptAutoLogin123123123");
+                    const success = await dispatch(getLogin(autoFormData, param));
+                    if (success) {
+                        console.log("lego");
+                        navigate('/');
+                    }
+                    else {
+                        console.log("attemptfail");
+                        navigate('/login');
+                    }
+                }
+                attemptAutoLogin();
+            }
+        }
+    },[location.state]);
+
     //플랫폼에 oauth 요청을 위한 필요 정보 값.
-    const Rest_api_key='ef9794cb2ff6a12a26f6432f5ec9a04b' //카카오 EST API KEY
+    const Rest_api_key='ef9794cb2ff6a12a26f6432f5ec9a04b';//카카오 EST API KEY
     const NAVER_CLIENT_ID = "qxdiERkzD3t06kqHGYdp"; // 네이버 발급받은 Client ID
-    const STATE = "flase";
+    const STATE = "flase";//이거 무작위 값으로 바꿔야함;
 
     const redirect_uri = 'http://localhost:3000/auth' //Redirect URI
     // 플랫폼별 oauth 요청 URL
@@ -34,13 +69,11 @@ export function Login() {
         const flatformName = e.target.id;
         if(flatformName === "kakao")
         {
-            // 팀프로젝트 업로드를 위해 백엔드쪽으로 가는 길 임시 차단.
             sessionStorage.setItem("social","kakao");
             window.location.href = kakaoURL;
         }
         else if (flatformName === "naver")
         {
-            // 팀프로젝트 업로드를 위해 백엔드쪽으로 가는 길 임시 차단.
             sessionStorage.setItem("social","naver");
             window.location.href = NAVER_AUTH_URL;
         }
@@ -69,9 +102,6 @@ export function Login() {
         
     }
 
-    const handleLogout = (e) =>{
-        const out = dispatch(getLogout());
-    }
     return (
         <>
             <div className='loginCenter'>
@@ -116,7 +146,6 @@ export function Login() {
                         <>
                         <h1>12123213</h1>
                         <Link to="/">홈</Link>
-                        <button onClick={handleLogout}>로그아웃</button>
                         </>:
                         <h1>44444444444444</h1>}
                     </>

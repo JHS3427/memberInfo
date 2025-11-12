@@ -7,6 +7,7 @@
 import '../styles/signup.css';
 import React, {useState,useMemo, useRef} from 'react'
 import { usePostCode, idDuplCheck, sendSignUpData} from '../feature/auth/authAPI';
+import { useLocation,useNavigate } from 'react-router-dom';
 
 //입력창 생성 함수
 const ConsoleBox = ({ 
@@ -66,17 +67,25 @@ const ConsoleBox = ({
   );
 }
 
-
 export const SignUp = ({excludeItems=[]}) => {
+  // 소셜로그인인 경우 아이디 비번 제거를 위해 선언
+  // showIdPass==true 인 경우 : 소셜 로그인 아님 ||| showIdPass==false 인 경우 : 소셜 로그인임
+  const showIdPass = !excludeItems.includes('social');
 
+  const location = useLocation();
+  const { authid } = location.state || {};
+
+  const navigate=useNavigate();
+
+  const initialArray = showIdPass?
+                        {id : "", pass : "", passcheck:"", name : "", age:"", gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"", phone:""} :
+                        {id : authid, pass : "1234", passcheck:"1234", name : "", age:"", gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"", phone:""};
   //초기값 세팅을 위한 initialArray선언 및 초기값 선언
-  const initialArray = {id : "", pass : "", passcheck:"", name : "", age:"", gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"", phone:""};
   const [formData, setFormData]=useState(initialArray);
   const [placeholderJudge, setPlaceholderJudge] = useState(initialArray);
   const [passLook,setPassLook] = useState(false);
   const [idDupl,setIdDupl] = useState(false)
-  
-  const showIdPass = !excludeItems.includes('social');//소셜로그인인 경우 아이디 비번 제거를 위해 선언
+
 
     const inputRefs = useMemo(() => {
         const keys = Object.keys(initialArray); 
@@ -95,6 +104,7 @@ export const SignUp = ({excludeItems=[]}) => {
   const handleChange = (e) =>{
     const {name,value} = e.target;
     setFormData({...formData,  [name] : value})
+    console.log(formData);
     if(name === "id")
     {
       setIdDupl(false);//아이디 값이 새로 입력될 경우 중복확인 다시 하게 만듬.
@@ -180,6 +190,8 @@ export const SignUp = ({excludeItems=[]}) => {
     }
     else{
       sendSignUpData(formData);
+      alert("가입 완료. 홈페이지로 돌아갑니다")
+      navigate('/')
     }
   }
 

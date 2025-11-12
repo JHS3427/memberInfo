@@ -14,7 +14,8 @@ export function CheckoutInfo(){
             <CheckoutForm/>
             <CheckoutOrder cartList={cartList}
                             totalPrice={totalPrice}/>
-            <CheckoutPayment totalPrice={totalPrice}/>
+            <CheckoutPayment totalPrice={totalPrice}
+                            cartList={cartList}/>
         </div>
     );
 }

@@ -9,4 +9,5 @@ public interface OauthService {
     String socialIdCatcher(String authcode,String social);
     boolean idDuplChecker(String id);
     int signUp(UserInfoDto userInfo);
+    String encryptString(String socialId);
 }
