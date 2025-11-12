@@ -46,7 +46,7 @@ public class OauthController {
         UserInfoDto socialIdChecker = new UserInfoDto();
         socialIdChecker.setUid(socialId);
 
-        //socialIdChecker의 uid를 jwt생성에 넣고, 이걸 프론트로 올리고, 다시 받아서 
+        //socialIdChecker의 uid를 jwt생성에 넣고, 이걸 프론트로 올리고, 다시 받아서
 
         boolean Social_reuslt_b = idDuplCheck(socialIdChecker);//false면 겹치는거 없음. true면 겹치는거 있음
         String Social_reuslt_s;
