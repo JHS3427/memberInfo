@@ -4,6 +4,7 @@ import com.springboot.bicycle_app.entity.travel.TravelFood;
 import com.springboot.bicycle_app.entity.travel.TravelHotel;
 import com.springboot.bicycle_app.entity.travel.TravelRepair;
 import com.springboot.bicycle_app.entity.travel.TravelFoodDetail;
+import com.springboot.bicycle_app.entity.travel.TravelHotelDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,4 +26,7 @@ public interface JpaTravelRepository extends JpaRepository<TravelFood, Integer> 
 
     @Query("select d from TravelFoodDetail d where d.did = :did")
     TravelFoodDetail findFoodDetail(@Param("did") int did);
+
+    @Query("select d from TravelHotelDetail d where d.did = :did")
+    TravelHotelDetail findHotelDetail(@Param("did") int did);
 }

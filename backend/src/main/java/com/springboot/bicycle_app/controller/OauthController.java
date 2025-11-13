@@ -2,7 +2,10 @@ package com.springboot.bicycle_app.controller;
 
 import com.springboot.bicycle_app.dto.Token;
 import com.springboot.bicycle_app.dto.UserInfoDto;
+import com.springboot.bicycle_app.service.OauthJWTService;
+import com.springboot.bicycle_app.service.OauthJWTServiceImpl;
 import com.springboot.bicycle_app.service.OauthService;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,15 +28,17 @@ public class OauthController {
     private final OauthService oauthService;
     private final AuthenticationManager authenticationManager;
     private final HttpSessionSecurityContextRepository contextRepository;
-
+    private final OauthJWTService oauthJWTService;
 
     public OauthController(OauthService oauthService,
                            AuthenticationManager authenticationManager,
-                           HttpSessionSecurityContextRepository contextRepository)
+                           HttpSessionSecurityContextRepository contextRepository,
+                           OauthJWTService oauthJWTService)
     {
         this.oauthService = oauthService;
         this.authenticationManager = authenticationManager;
         this.contextRepository = contextRepository;
+        this.oauthJWTService = oauthJWTService;
     }
 
     @PostMapping("/token")
@@ -45,8 +50,8 @@ public class OauthController {
 
         UserInfoDto socialIdChecker = new UserInfoDto();
         socialIdChecker.setUid(socialId);
-
-        //socialIdChecker의 uid를 jwt생성에 넣고, 이걸 프론트로 올리고, 다시 받아서
+        String jwToken = oauthJWTService.createToken(socialId,"Role_USSR");
+        socialIdChecker.setJwToken(jwToken);
 
         boolean Social_reuslt_b = idDuplCheck(socialIdChecker);//false면 겹치는거 없음. true면 겹치는거 있음
         String Social_reuslt_s;
@@ -56,6 +61,7 @@ public class OauthController {
             }
         else{
             Social_reuslt_s = "duplicate off" + token.getSocial();
+            socialIdChecker.setUid("");
             socialIdChecker.setSocialDupl(false);
         }
         return socialIdChecker;
@@ -68,8 +74,17 @@ public class OauthController {
 
     @PostMapping("/signup")
     public int signup(@RequestBody UserInfoDto userInfoDto){
-
-        return oauthService.signUp(userInfoDto);
+        if(userInfoDto.isSocialDupl())//true면 일반 회원가입
+        {
+            return oauthService.signUp(userInfoDto);
+        }
+        else{//false면 소셜로그인 해서 겹치는 게 없어서 들어온 회원가입
+            String JWToken = userInfoDto.getJwToken();
+            Claims claim = oauthJWTService.getClaims(JWToken);
+            userInfoDto.setUid(claim.getSubject());
+            userInfoDto.setUpass("");
+            return oauthService.signUp(userInfoDto);
+        }
     }
 
     @PostMapping("/login")
@@ -78,6 +93,17 @@ public class OauthController {
                                    HttpServletResponse response) {
         try {
             System.out.println("인증 성공1 ");
+
+            if(userInfo.isSocialDupl())
+            {
+                System.out.println("change start ");
+                //jw토큰 받아다가 바꿔서 id에 넣기, 패스워드는 빈칸으로 세팅
+                userInfo.setJwToken(userInfo.getUid());
+                String JWToken = userInfo.getUid();//uid에 토큰 넣어옴
+                Claims claim = oauthJWTService.getClaims(JWToken);
+                userInfo.setUid(claim.getSubject());
+                userInfo.setUpass("");
+            }
             //1. 인증 요청
             Authentication authenticationRequest =
                     UsernamePasswordAuthenticationToken.unauthenticated(userInfo.getUid(), userInfo.getUpass());
@@ -108,9 +134,14 @@ public class OauthController {
             response.addCookie(xsrf);
 
 
-            return ResponseEntity.ok(Map.of("login", true,
-                    "userId", userInfo.getUid()));
-
+            if(userInfo.isSocialDupl()) {
+                return ResponseEntity.ok(Map.of("login", true,
+                        "userId", userInfo.getJwToken()));
+            }
+            else {
+                return ResponseEntity.ok(Map.of("login", true,
+                        "userId", userInfo.getUid()));
+            }
         }catch(Exception e) {
             //로그인 실패
             return ResponseEntity.ok(Map.of("login", false));

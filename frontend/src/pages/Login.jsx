@@ -6,7 +6,7 @@
 import '../styles/loginpage.css';
 import {useState,useRef,useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
-import { getLogin,getFlatformName,randomString8to16} from '../feature/auth/authAPI';
+import { getLogin,getFlatformName,randomString8to16,getLogout} from '../feature/auth/authAPI';
 import { Link,useLocation,useNavigate } from 'react-router-dom';
 export function Login() {
     const navigate=useNavigate();
@@ -21,12 +21,10 @@ export function Login() {
             console.log("attemptAutoLogin");
             if(state)
             {
-                const autoUid = state.uid; // 👈 state에서 uid를 직접 꺼냅니다.
-                const autoUpass = "1234"; //state.upass;
-                console.log("아이디와 패스워드",autoUid,autoUpass);
+                const autoauthjwToken = state.authjwToken; // state에서 authjwToken 추출.
                 const param = null;
-                const autoFormData = { uid: autoUid, upass: autoUpass };
-                console.log(autoFormData)
+                const autoFormData = {uid : autoauthjwToken , socialDupl: true}
+
                 const attemptAutoLogin = async () => {
                     console.log("attemptAutoLogin123123123");
                     const success = await dispatch(getLogin(autoFormData, param));
@@ -59,7 +57,7 @@ export function Login() {
     const isLogin = useSelector((state)=>state.auth.isLogin)
     
     //소셜로그인이 아닌 일반 로그인을 위한 값 세팅.
-    const initialsetting = {uid:"",upass : ""};
+    const initialsetting = {uid:"",upass : ""};//이쪽은 param이 null이 아니라 socialDupl 넣을 필요 없다
     const [formData,setFormData] = useState(initialsetting);
     const [errors,setErrors] = useState(initialsetting);
     const idRef = useRef(null);
@@ -102,7 +100,11 @@ export function Login() {
         const succ = dispatch(getLogin(formData,param));
         
     }
-
+    const handleLogOut= () =>{
+        dispatch(getLogout());
+        alert("로그아웃 하셨습니다.")
+        navigate('/')
+        }
     return (
         <>
             <div className='loginCenter'>
@@ -147,6 +149,7 @@ export function Login() {
                         <>
                         <h1>12123213</h1>
                         <Link to="/">홈</Link>
+                        <button onClick={handleLogOut}>로그아웃</button>
                         </>:
                         <h1>44444444444444</h1>}
                     </>

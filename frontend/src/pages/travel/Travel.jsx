@@ -5,6 +5,7 @@ import { TravelFoodList } from "../../components/travel/TravelFoodList.jsx";
 import { TravelHotelList } from "../../components/travel/TravelHotelList.jsx";
 import { TravelRepairList } from "../../components/travel/TravelRepairList.jsx";
 import { TravelFoodDetailList } from "../../components/travel/TravelFoodDetailList.jsx";
+import { TravelHotelDetailList } from "../../components/travel/TravelHotelDetailList.jsx";
 import { TravelDetail } from "../../components/travel/TravelFoodDetail.jsx";
 import Map from './Map.jsx';
 
@@ -121,6 +122,14 @@ export function Travel() {
                         <TravelFoodDetailList selectedDid={selectedDid}/>          
                       </div>  
                     </> 
+                  )}
+                  {showHotels && selectedDid && (
+                    <>
+                      <li className="detail-close-box"><button className="detail-close-button" onClick={() => handleListDetail("close")}><i class="fa-solid fa-xmark"></i></button></li>
+                      <div>
+                        <TravelHotelDetailList selectedDid={selectedDid}/>
+                      </div>
+                    </>
                   )}
                 </div>                
             </div>

@@ -8,6 +8,8 @@ import com.springboot.bicycle_app.dto.travel.TravelRepairDto;
 import com.springboot.bicycle_app.entity.travel.TravelRepair;
 import com.springboot.bicycle_app.dto.travel.TravelFoodDetailDto;
 import com.springboot.bicycle_app.entity.travel.TravelFoodDetail;
+import com.springboot.bicycle_app.dto.travel.TravelHotelDetailDto;
+import com.springboot.bicycle_app.entity.travel.TravelHotelDetail;
 import com.springboot.bicycle_app.jpa_repository.JpaTravelRepository;
 import com.springboot.bicycle_app.repository.TravelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +64,12 @@ public class TravelServiceImpl implements TravelService{
 //        System.out.println("service ==> ");
         TravelFoodDetail entity = jpaTravelRepository.findFoodDetail(did);
         return new TravelFoodDetailDto(entity);
+    }
+
+    @Override
+    public TravelHotelDetailDto findHotelDetail(int did){
+//        System.out.println("service ==> ");
+        TravelHotelDetail entity = jpaTravelRepository.findHotelDetail(did);
+        return new TravelHotelDetailDto(entity);
     }
 }

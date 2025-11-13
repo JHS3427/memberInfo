@@ -17,6 +17,7 @@ export const getLogin = (formData,param) => async(dispatch) => {
     if(param==null)//소셜로그인을 이용한 자동 로그인인 경우
     {
         const url = "/auth/login";
+        console.log("formData : >> :",formData);
         const result = await axiosPost(url,formData); //axios라 await 안걸면 promise pending이 뜰 수 있다.
         if(result.login)
         {
@@ -79,7 +80,7 @@ export const getsocialtoken = async(token_json,social) =>{
     const json_code = {"authCode": token_json,"social":social};
     const url = "/auth/token";
     const authtoken = await axiosPost(url,json_code);//authtoken이 dto객체 받음.
-
+    console.log("authtoken : ", authtoken );
     return authtoken;
     // dispatch(socialLogin({"token":authtoken,"social":social}));테스트를 위해 임시 차단
 }
@@ -137,10 +138,14 @@ export const sendSignUpData = async(formData) =>
         ugender : formData.gender,
         uaddress : formData.mainAddress+ " " +formData.detailAddress,
         uemail : formData.emailAddress + "@" + formData.emailList,
-        uphone : formData.phone
+        uphone : formData.phone,
+        jwToken : formData.jwToken
     }
     
     const url = "/auth/signup";
+    console.log("signUpData:>>>>>",signUpData);
+    if(signUpData.socialDupl){console.log("signUpData.socialDupl:>>>>>true");}
+    else{console.log("signUpData.socialDupl:>>>>>false");}
     const signUpResult = await axiosPost(url,signUpData)
 }
 

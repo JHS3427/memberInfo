@@ -30,8 +30,7 @@ export function Auth(){
                                       state: {
                                           // 전달하려는 데이터를 객체 형태로 지정합니다.
                                           // authtoken 객체 전체를 전달하거나, uid만 전달할 수 있습니다.
-                                          uid: authtoken.uid,
-                                          upass : authtoken.upass
+                                          authjwToken: authtoken.jwToken,
                                       }
                                   });
             }
@@ -41,7 +40,8 @@ export function Auth(){
                                              state: {
                                                  // 전달하려는 데이터를 객체 형태로 지정합니다.
                                                  // authtoken 객체 전체를 전달하거나, uid만 전달할 수 있습니다.
-                                                 authid: authtoken.uid
+                                                 authjwToken: authtoken.jwToken,
+                                                 authsocialDupl:authtoken.socialDupl
                                              }
                                          });
             }

@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+const saveAuth = JSON.parse(localStorage.getItem("loginInfo"));
+
+const initialState = saveAuth || {
     isLogin: false
 }
 
@@ -11,7 +13,7 @@ export const authSlice = createSlice({
         login(state, action) {
             state.isLogin = !state.isLogin;
             const { userId } = action.payload;
-            const loginInfo = { "userId": userId, "islogin":state.isLogin};
+            const loginInfo = { "userId": userId, "isLogin":state.isLogin};
             localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
         },
         logout(state, action) {
@@ -29,7 +31,7 @@ export const authSlice = createSlice({
         socialLogin(state,action){
             state.isLogin=!state.isLogin;
             const {token , social} = action.payload;
-            const loginInfo = {"token":token,"userId":"kakao_or_naver","social": social}
+            const loginInfo = {"token":token,"userId":"kakao_or_naver","social": social,"isLogin":state.isLogin}
             localStorage.setItem("loginInfo",JSON.stringify(loginInfo));
         }
     }

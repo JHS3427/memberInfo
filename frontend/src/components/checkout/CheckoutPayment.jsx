@@ -47,7 +47,7 @@ export function CheckoutPayment({ totalPrice, cartList }) {
         initializeWidget();
         return () => {
             if (paymentMethodsWidgetRef.current) {
-                paymentMethodsWidgetRef.current.cleanup();
+//                 paymentMethodsWidgetRef.current.cleanup();
             }
             if (agreementWidgetRef.current) {
                 agreementWidgetRef.current.cleanup();

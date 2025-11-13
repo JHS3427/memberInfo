@@ -23,23 +23,23 @@ export function TravelFoodList({ handleListDetail }) {
         handleListDetail(type, fid);
     }
 
-     const handleSearch = () => {
-         if (!searchKeyword.trim()) {
-             setFilteredList(travelFoodList);
-             return;
-         }
+    const handleSearch = () => {
+        if (!searchKeyword.trim()) {
+            setFilteredList(travelFoodList);
+            return;
+        }
 
-         const filtered = travelFoodList.filter(food => {
-             const nameMatch = food.fname.toLowerCase().includes(searchKeyword.toLowerCase());
-             const tagArray = food.tag ? JSON.parse(food.tag) : [];
-             const tagMatch = tagArray.some(tagItem =>
-                 tagItem.toLowerCase().includes(searchKeyword.toLowerCase())
-             );
-             return nameMatch || tagMatch;
-         });
+        const filtered = travelFoodList.filter(food => {
+            const nameMatch = food.fname.toLowerCase().includes(searchKeyword.toLowerCase());
+            const tagArray = food.tag ? JSON.parse(food.tag) : [];
+            const tagMatch = tagArray.some(tagItem =>
+                tagItem.toLowerCase().includes(searchKeyword.toLowerCase())
+            );
+            return nameMatch || tagMatch;
+        });
 
-         setFilteredList(filtered);
-     };
+        setFilteredList(filtered);
+    };
 
     return(
         <div className="travel-food-container">

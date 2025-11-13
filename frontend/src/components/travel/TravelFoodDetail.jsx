@@ -225,6 +225,7 @@ export function TravelFoodDetail({did,
                               .filter((_, idx) => idx > 0)
                               .map((businessDetail, idx) => (
                             <>
+                                <span className="detail-title-allDay">({businessDetail.day})</span>
                                 <span className="detail-title-allTime"> 영업시간: {businessDetail.houers}</span><br/>
                                 <span className="detail-title-allLast"> 라스트 오더: {businessDetail.last}</span><br/>
                             </>
@@ -290,7 +291,7 @@ export function TravelFoodDetail({did,
               </ul>
           </div>
           <ul className="detail-image">
-              <li className="detail-image-title"><span>맛집명</span> 사진(손님이 찍은사진)</li>
+              <li className="detail-image-title"><span>{fname}</span> 사진(손님이 찍은사진)</li>
               <li className="detail-image-button-box">
                   <li className="detail-image-button-box">
                     {imageButtons.map((imageBtnName, idx) => (
@@ -367,7 +368,7 @@ export function TravelFoodDetail({did,
           </ul>
 
           <ul className="detail-review">
-              <li className="detail-review-title">맛집명 방문자 리뷰</li>
+              <li className="detail-review-title">{fname} 방문자 리뷰</li>
               <li className="detail-review-button-box">
                   {reviewButtons.map((reviewBtnName, idx) => (
                     <button

@@ -73,13 +73,17 @@ export const SignUp = ({excludeItems=[]}) => {
   const showIdPass = !excludeItems.includes('social');
 
   const location = useLocation();
-  const { authid } = location.state || {};
+  const { authjwToken,authsocialDupl } = location.state || {};
   const randompassword = randomString8to16();
   const navigate=useNavigate();
 
   const initialArray = showIdPass?
-                        {id : "", pass : "", passcheck:"", name : "", age:"", gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"", phone:""} :
-                        {id : authid, pass : "1234", passcheck:"1234", name : "", age:"", gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"", phone:""};
+                        {id : "", pass : "", passcheck:"", name : "", age:"",
+                            gender:"",mainAddress:"", detailAddress:"", emailAddress:"",
+                            emailList:"", phone:"", jwToken:"", socialDupl : true} :
+                        {id : "", pass : "", passcheck:"", name : "", age:"",
+                         gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"",
+                         phone:"", jwToken: authjwToken, socialDupl : authsocialDupl};
   //초기값 세팅을 위한 initialArray선언 및 초기값 선언
   const [formData, setFormData]=useState(initialArray);
   const [placeholderJudge, setPlaceholderJudge] = useState(initialArray);
@@ -104,7 +108,6 @@ export const SignUp = ({excludeItems=[]}) => {
   const handleChange = (e) =>{
     const {name,value} = e.target;
     setFormData({...formData,  [name] : value})
-    console.log(formData);
     if(name === "id")
     {
       setIdDupl(false);//아이디 값이 새로 입력될 경우 중복확인 다시 하게 만듬.
@@ -164,23 +167,21 @@ export const SignUp = ({excludeItems=[]}) => {
                     "age":"나이","gender":"성별",
                     "mainAddress":"도로명 주소","detailAddress":"상세 주소"};
     let mainAlertMessage = "";
-    let isempty = false;
     for (const key of keys){
       const value = formData[key];
       if(value===""){
-        isempty=true;
         if(Object.keys(mainKey).includes(key)){
           mainAlertMessage=mainAlertMessage+mainKey[key]+" 값이 비었습니다.\n";
         }
       }
     }
     //비밀번호와 비밀번호 확인란 차이 확인
-    if(formData.pass !== formData.passcheck)
+    if(showIdPass && (formData.pass !== formData.passcheck))
     {
       mainAlertMessage = mainAlertMessage+"\n비밀번호가 다릅니다. 확인해주세요."
     }
     if(!idDupl && showIdPass){//중복확인 통과시 문제없음. 안했거나 통과 못하면 경고 메시지
-      mainAlertMessage = mainAlertMessage+"\아이디 중복확인을 해주세요."
+      mainAlertMessage = mainAlertMessage+"\n아이디 중복확인을 해주세요."
     }
 
     // console.log("newEmptyCheck : ",newEmptyCheck);
