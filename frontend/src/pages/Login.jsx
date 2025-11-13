@@ -88,7 +88,7 @@ export function Login() {
     }
 
     //제출버튼을 누르면 변화 발생. - 미완성(에러는 없음)
-    const handleLoginSubmit = (e)=>{
+    const handleLoginSubmit = async (e)=>{
         e.preventDefault();
         const param = {
             idRef : idRef,
@@ -96,14 +96,14 @@ export function Login() {
             setErrors : setErrors,
             errors : errors
         }
-
         const succ = dispatch(getLogin(formData,param));
+        navigate('/');
         
     }
     const handleLogOut= () =>{
         dispatch(getLogout());
-        alert("로그아웃 하셨습니다.")
-        navigate('/')
+        alert("로그아웃 하셨습니다.");
+        navigate('/');
         }
     return (
         <>

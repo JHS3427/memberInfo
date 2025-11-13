@@ -30,6 +30,7 @@ const ConsoleBox = ({
 
   return(
     <>
+        {/*입력 후 마우스를 다른곳으로 옮겼을 때, 빈칸이면 경고식으로 빨간색 테두리 생김*/}
       {placeholderJudge[id]==="aftertrue" && formData[id]===""?
       <input id={id} type={type} name ={name} // id 사용이유 : 하단의 label에서 htmlfor쓰려고. name : 폼 데이터에 쓰려고. 나눠둔 이유 : 같이쓰면 헤깔려서.
         ref={refToConnect}
@@ -80,9 +81,9 @@ export const SignUp = ({excludeItems=[]}) => {
   const initialArray = showIdPass?
                         {id : "", pass : "", passcheck:"", name : "", age:"",
                             gender:"",mainAddress:"", detailAddress:"", emailAddress:"",
-                            emailList:"", phone:"", jwToken:"", socialDupl : true} :
+                            emailList:"default", phone:"", jwToken:true, socialDupl : true} :
                         {id : "", pass : "", passcheck:"", name : "", age:"",
-                         gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"",
+                         gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"default",
                          phone:"", jwToken: authjwToken, socialDupl : authsocialDupl};
   //초기값 세팅을 위한 initialArray선언 및 초기값 선언
   const [formData, setFormData]=useState(initialArray);
@@ -111,6 +112,11 @@ export const SignUp = ({excludeItems=[]}) => {
     if(name === "id")
     {
       setIdDupl(false);//아이디 값이 새로 입력될 경우 중복확인 다시 하게 만듬.
+    }
+    else if(name === "age" || name == "phone")//나이는 숫자만 입력받음
+    {
+        const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+        setFormData({...formData,  [name] : onlyNumbers})
     }
     // console.log(formData)
   }
@@ -278,7 +284,8 @@ export const SignUp = ({excludeItems=[]}) => {
                 <ConsoleBox id="emailAddress" type="text" name="emailAddress" {...sharedData}/>
               </div>
               <div className = "EmailAddressBack">
-                <span>@</span>
+                {formData.emailList==="default"?<p></p>:<span>@</span>}
+
                 <select id="emailList" name="emailList" value={formData.emailList} onChange={handleChange}>
                   <option value="default">직접 입력</option>
                   <option value="naver.com">naver.com</option>

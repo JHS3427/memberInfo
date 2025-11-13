@@ -130,6 +130,13 @@ export const idDuplCheck = async(incomeId) => {
 //SignUp.jsx 사용
 export const sendSignUpData = async(formData) =>
 {
+    let emailAddress_full = "";
+    if(formData.emailList==="default"){
+        emailAddress_full = formData.emailAddress;
+    }
+    else{
+        emailAddress_full = formData.emailAddress + "@" + formData.emailList;
+    }
     const signUpData = {
         uid : formData.id,
         upass : formData.pass,
@@ -137,9 +144,10 @@ export const sendSignUpData = async(formData) =>
         uage : formData.age,
         ugender : formData.gender,
         uaddress : formData.mainAddress+ " " +formData.detailAddress,
-        uemail : formData.emailAddress + "@" + formData.emailList,
+        uemail : emailAddress_full,
         uphone : formData.phone,
-        jwToken : formData.jwToken
+        jwToken : formData.jwToken,
+        socialDupl : formData.socialDupl
     }
     
     const url = "/auth/signup";
