@@ -45,6 +45,7 @@ export function Login() {
     //플랫폼에 oauth 요청을 위한 필요 정보 값.
     const Rest_api_key='ef9794cb2ff6a12a26f6432f5ec9a04b';//카카오 EST API KEY
     const NAVER_CLIENT_ID = "qxdiERkzD3t06kqHGYdp"; // 네이버 발급받은 Client ID
+    const GOOGLE_CLIENT_ID = "308480962204-8kq5mtbgf2o8fk1stqa7tdv72kmrm5rq.apps.googleusercontent.com"; // 네이버 발급받은 Client ID
     const STATE = randomString8to16();
 
 
@@ -52,6 +53,7 @@ export function Login() {
     // 플랫폼별 oauth 요청 URL
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
     const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${redirect_uri}`;
+    const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=token&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
 
     //로그인 여부 확인
     const isLogin = useSelector((state)=>state.auth.isLogin)
@@ -75,6 +77,11 @@ export function Login() {
         {
             sessionStorage.setItem("social","naver");
             window.location.href = NAVER_AUTH_URL;
+        }
+        else if (flatformName === "google")
+        {
+            sessionStorage.setItem("social","google");
+            window.location.href = GOOGLE_AUTH_URL;
         }
     }
 

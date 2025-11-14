@@ -43,11 +43,20 @@ public class OauthController {
 
     @PostMapping("/token")
     public UserInfoDto gettoken(@RequestBody Token token){
+        String authcode;
+        String socialId;
         System.out.println("social : "+token.getSocial());
         System.out.println("auth : "+token.getAuthCode());
-        String authcode = oauthService.getSocialAccessToken(token);
-        String socialId = oauthService.socialIdCatcher(authcode,token.getSocial());
-
+        if(token.getSocial().equals("google"))//구글은 중간 토큰 요청없이 access토큰을 바로 넘겨준다.
+            //https://ldd6cr-adness.tistory.com/323 참고
+        {
+            socialId = oauthService.socialIdCatcher(token.getAuthCode(),token.getSocial());
+        }
+        else
+        {
+            authcode = oauthService.getSocialAccessToken(token);
+            socialId = oauthService.socialIdCatcher(authcode,token.getSocial());
+        }
         UserInfoDto socialIdChecker = new UserInfoDto();
         socialIdChecker.setUid(socialId);
         String jwToken = oauthJWTService.createToken(socialId,"Role_USSR");

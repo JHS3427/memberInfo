@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface JpaUserInfoRepository extends JpaRepository<UserInfo, String> {
+public interface JpaUserInfoRepository extends JpaRepository<UserInfo, Integer> {
     //    Member save(Member member);
     //중요 : 생략 가능한 경우 = 상속받은 부모 인터페이스에 save 메소드가 존재하는 경우!
     //이거 생략해도 JpaRepository와 그 부모들에 정의된 save를 가져와서 에러는 없다.
@@ -31,4 +32,5 @@ public interface JpaUserInfoRepository extends JpaRepository<UserInfo, String> {
             " from UserInfo U where uid = :uid")//엔티티가 아닌 객체로 반환할때는 sql문 안에 new가 들어감+해당 클래스 위치 추가
     //+필요한 데이터는 괄호 안에 담기
     Optional<UserInfoDto> findByUserInfo(@Param("uid") String uid);
+
 }

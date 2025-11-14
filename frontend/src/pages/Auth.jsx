@@ -15,10 +15,18 @@ export function Auth(){
 
     const navigate=useNavigate()
     const dispatch=useDispatch();
-    const code = new URL(window.location.href).searchParams.get("code");
+    let code = new URL(window.location.href).searchParams.get("code");
     const social = sessionStorage.getItem('social');
+    if(code != null)//카카오나 네이버는 이거로 코드 수집 가능
+    {
+        console.log("authcode:123 ",code);
+    }
+    else{
+        code = window.location.hash;
+        code = code.substring(code.indexOf('=')+1,code.indexOf('&'))
+        console.log("authcode:123123123 ",code);
+    }
     console.log("authcode: ",code);
-
     
     useEffect(()=>{
         const handleSocialtoken = async () =>{
