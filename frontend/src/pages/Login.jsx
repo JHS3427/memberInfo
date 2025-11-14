@@ -103,13 +103,28 @@ export function Login() {
             setErrors : setErrors,
             errors : errors
         }
-        const succ = dispatch(getLogin(formData,param));
-        navigate('/');
+        const succ = await dispatch(getLogin(formData,param));
+        console.log(succ)
+        if(succ)
+        {
+        navigate('/');}
+        else{
+            alert("로그인에 실패, 확인후 다시 진행해주세요.");
+            setFormData({uid:"", upass:""});
+            idRef.current.focus();
+        }
         
     }
     const handleLogOut= () =>{
+        if(sessionStorage.getItem("social")){
+            alert("소셜 하셨습니다.");
+        }
+        else{
+
+        }
         dispatch(getLogout());
         alert("로그아웃 하셨습니다.");
+        sessionStorage.removeItem("social");
         navigate('/');
         }
     return (

@@ -14,7 +14,6 @@ import lombok.Setter;
 @Getter
 public class UserInfo {
     @Id
-    private int unum;
     private String uid;
     private String upass;
     private String uname;

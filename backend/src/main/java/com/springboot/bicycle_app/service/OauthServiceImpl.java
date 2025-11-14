@@ -191,6 +191,16 @@ public class OauthServiceImpl implements OauthService{
         return id;
     }
 
+    // public String kakaologouttest(){
+    //     String clientId = "ef9794cb2ff6a12a26f6432f5ec9a04b";
+    //     String redirectUri = "http://localhost:3000";
+    //     String id="";
+    //     //헤더만 있고 바디 요청이나 post 요청이 없어서 GET방식으로 감
+    //     String kakaoLogoutUrl = "https://kauth.kakao.com/oauth/logout" +
+    //                         "?client_id=" + clientId + 
+    //                         "&logout_redirect_uri=" + redirectUri;
+    //     return id;
+    // }
     @Override
     public boolean idDuplChecker(String incomeId){
 //        return userInfoRepository.idDuplChecker(incomeId);
@@ -208,7 +218,6 @@ public class OauthServiceImpl implements OauthService{
         int result = 0;
         String encodePwd = passwordEncoder.encode(UserInfoDto.getUpass());//UUID타입으로 생성됨
         UserInfoDto.setUpass(encodePwd);
-
         UserInfo userinfo = new UserInfo(UserInfoDto);
         UserInfo saveUserinfo = jpaUserInfoRepository.save(userinfo);
         if(saveUserinfo!=null) {
