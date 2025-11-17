@@ -1,4 +1,4 @@
-package com.springboot.bicycle_app.entity;
+package com.springboot.bicycle_app.entity.userinfo;
 
 import com.springboot.bicycle_app.dto.UserInfoDto;
 import jakarta.persistence.Column;

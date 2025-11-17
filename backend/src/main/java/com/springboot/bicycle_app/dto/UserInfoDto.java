@@ -1,6 +1,6 @@
 package com.springboot.bicycle_app.dto;
 
-import com.springboot.bicycle_app.entity.UserInfo;
+import com.springboot.bicycle_app.entity.userinfo.UserInfo;
 import lombok.Data;
 
 @Data
@@ -15,6 +15,9 @@ public class UserInfoDto {
     private String uphone;
     private boolean socialDupl;
     private String jwToken;
+
+    private boolean loggedIn;
+    
     public UserInfoDto(){}
     public UserInfoDto(String uid, String upass) {
         this.uid = uid;

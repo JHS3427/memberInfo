@@ -34,6 +34,7 @@ export function Login() {
                     }
                     else {
                         console.log("attemptfail");
+                        alert("소셜로그인 실패. 재시도 부탁드립니다.")
                         navigate('/login');
                     }
                 }
@@ -117,7 +118,7 @@ export function Login() {
     }
     const handleLogOut= () =>{
         if(sessionStorage.getItem("social")){
-            alert("소셜 하셨습니다.");
+            alert("소셜상태에서 로그아웃 하셨습니다.");
         }
         else{
 
@@ -142,15 +143,14 @@ export function Login() {
                                         ref = {idRef}
                                         placeholder='아이디'/>
                                 </div>
-                                <span>{errors.id}</span>
                             </li>
                             <li>
                                 <div className='loginDataBox'>비밀번호 : <input type="password"
                                         name="upass"
                                         onChange={handleformchange}
-                                        ref= {passRef}/>
+                                        ref= {passRef}
+                                        placeholder='비밀번호'/>
                                 </div>
-                                <span>{errors.pass}</span>
                             </li>
                             <ul>
                                 <li><button type = "submit">로그인</button></li>
@@ -163,17 +163,17 @@ export function Login() {
                         <div className='socialButtonWrapper'>
                             <button onClick={handleSocialLogin} id = "kakao">카카오 로그인</button>
                             <button onClick={handleSocialLogin} id = "naver">네이버 로그인</button>
-                            <button onClick={handleSocialLogin} id = "google">구글 로그인</button> {/* ⭐ 구글 버튼 추가 */}
+                            <button onClick={handleSocialLogin} id = "google">구글 로그인</button>
                         </div>
                     </div>
                     <>
                         {isLogin?
                         <>
-                        <h1>12123213</h1>
+                        <h1>로그인 상태</h1>
                         <Link to="/">홈</Link>
                         <button onClick={handleLogOut}>로그아웃</button>
                         </>:
-                        <h1>44444444444444</h1>}
+                        <h1>비 로그인 상태</h1>}
                     </>
                 </div>
                 <div className='loginBottomLinks'> 

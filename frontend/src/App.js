@@ -13,6 +13,7 @@ import { InternalPolicy } from './pages/policies/InternalPolicy.jsx';
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import {Products} from "./pages/Products.jsx";
 import {ProductDetail} from "./pages/ProductDetail.jsx";
+import { MyPage } from './pages/MyPage.jsx';
 
 import './styles/commons.css';
 import './styles/travel.css';
@@ -42,10 +43,14 @@ export default function App() {
           <Route path="rental" element={<Rental />} />
           <Route path="travel" element={<Travel />} />
           <Route path="support" element={<Support />} />
+
           <Route path="login" element={<Login />} />
           <Route path="auth" element={<Auth />} />   
           <Route path="signUp" element={<SignUp />} /> 
-          <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />             
+          <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} /> 
+          <Route path="mypage" element={<MyPage />} />             
+
+
           <Route path="policies/terms" element={<Terms />} />
           <Route path="policies/privacy" element={<Privacy />} />
           <Route path="policies/internalpolicy" element={<InternalPolicy />} />

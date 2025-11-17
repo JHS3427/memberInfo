@@ -1,7 +1,7 @@
 package com.springboot.bicycle_app.repository;
 
 import com.springboot.bicycle_app.dto.UserInfoDto;
-import com.springboot.bicycle_app.entity.UserInfo;
+import com.springboot.bicycle_app.entity.userinfo.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -33,4 +33,5 @@ public interface JpaUserInfoRepository extends JpaRepository<UserInfo, String> {
     //+필요한 데이터는 괄호 안에 담기
     Optional<UserInfoDto> findByUserInfo(@Param("uid") String uid);
 
+    Optional<UserInfo> findByUid(@Param("uid") String uid);
 }

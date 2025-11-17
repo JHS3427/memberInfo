@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.springboot.bicycle_app.dto.Token;
-import com.springboot.bicycle_app.entity.UserInfo;
+import com.springboot.bicycle_app.entity.userinfo.UserInfo;
 import com.springboot.bicycle_app.dto.UserInfoDto;
 import com.springboot.bicycle_app.repository.UserInfoRepository;
 import com.springboot.bicycle_app.repository.JpaUserInfoRepository;
@@ -209,6 +209,17 @@ public class OauthServiceImpl implements OauthService{
         if(newone.isPresent()){//중복이 있으면 true
             System.out.println("newone is : "+newone.get().getUid());
             result = true;
+        }
+        return result;
+    }
+
+    @Override
+    public UserInfoDto findInfo(UserInfoDto userInfoDto){
+        Optional<UserInfo> userInfoData =jpaUserInfoRepository.findByUid(userInfoDto.getUid());
+        UserInfoDto result = null;
+        if(userInfoData.isPresent()){
+            UserInfo getuserInfoData = userInfoData.get();
+            result = new UserInfoDto(getuserInfoData);
         }
         return result;
     }

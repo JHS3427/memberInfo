@@ -85,11 +85,9 @@ public class OauthController {
     public int signup(@RequestBody UserInfoDto userInfoDto){
         if(userInfoDto.isSocialDupl())//true면 일반 회원가입
         {
-            System.out.println("imhere~~~~~~~~~~");
             return oauthService.signUp(userInfoDto);
         }
         else{//false면 소셜로그인 해서 겹치는 게 없어서 들어온 회원가입
-            System.out.println("imhere2222222222222~~~~~~~~~~");
             String JWToken = userInfoDto.getJwToken();
             Claims claim = oauthJWTService.getClaims(JWToken);
             userInfoDto.setUid(claim.getSubject());
@@ -98,6 +96,15 @@ public class OauthController {
         }
     }
 
+    @PostMapping("/info")
+    public UserInfoDto info(@RequestBody UserInfoDto userInfoDto){
+        UserInfoDto result = null;
+        result = oauthService.findInfo(userInfoDto);
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaa " + result);
+        return result;
+    }
+    
+    
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserInfoDto userInfo,
                                    HttpServletRequest request,

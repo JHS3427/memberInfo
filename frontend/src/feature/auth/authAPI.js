@@ -70,6 +70,14 @@ export const getLogout = () => async(dispatch) => {
     return result;
 }
 
+export const getInfo = async (JsonData) => {
+    const url = "/auth/info";
+    console.log("JsonData :  ", JsonData);
+    const result = await axiosPost(url,JsonData);
+    console.log("comingData :  ", result);
+    return result;
+}
+
 
 //Auth.jsx 사용
 /*
