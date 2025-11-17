@@ -1,0 +1,19 @@
+build.gradle
+application.properties
+oauthcontroller
+userinfoDto
+userinfo
+JpaUserInfoRepository.java
+OauthServiceImpl.java
+oauthjwtservice 생성
+oauthjwtserviceimpl 생성
+
+authapi
+authslice
+auth
+login
+signup
+mypage
+
+app.js
+구글 접속 관련 json - 이건 팀프로젝트에 넣을 필요는 없음.

@@ -5,6 +5,15 @@
 import { useEffect,useState } from "react";
 import { getInfo} from '../feature/auth/authAPI';
 
+export function InfoBox(){
+
+    return(
+        <>
+            <h1>aaaaaaaaaaaaaaaa</h1>
+        </>);
+}
+
+
 //useEffect로 데이터 가져오기 - islogin값 확인해서 백에 아이디 보고 요청하기
 //정보가지고 authapi로 > authapi에서 백으로 > 백 컨트롤러 > 서비스 > 레포지토리 > 정보 취합 > 서비스 > 컨트롤러 > 프론트 api > 여기로
 export function MyPage(){
@@ -50,7 +59,9 @@ export function MyPage(){
                     <li>주소</li>
                     <li>이메일</li>
                     <li>개인 연락번호</li>
+                    <InfoBox/>
                 </ul>
+                <button>회원 탈퇴</button>
             </div>
             
         </>
