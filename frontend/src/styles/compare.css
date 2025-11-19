@@ -87,6 +87,7 @@
 /* 스펙 내용 (제품별) */
 .compare-table tbody td:not(.spec-name) {
     border-left: 1px solid #eee;
+
 }
 
 /* 메인 스펙 (설명) */
@@ -96,6 +97,7 @@
 .spec-description ul {
     padding-left: 20px;
     margin: 0;
+    text-align: center;
 }
 .spec-description li {
     font-size: 0.9rem;

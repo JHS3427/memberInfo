@@ -31,7 +31,7 @@ function StoreMap({ storeList,selectedStore,onMarkerClick }) {
 
           const marker = new window.kakao.maps.Marker({
             position: markerPosition,
-            image: selectedStore?.pid === store.pid ? redMarkerImage : greenMarkerImage,
+            image: selectedStore?.sid === store.sid ? redMarkerImage : greenMarkerImage,
             map: map,
           });
 

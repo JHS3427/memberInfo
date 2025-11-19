@@ -2,8 +2,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {checkItem, removeCart, updateCart} from "../../feature/cart/cartAPI.js";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {useNavigate} from "react-router-dom";
-import {clearCart} from "../../feature/cart/cartSlice.js";
 import {useEffect} from "react";
+import {clearCart} from "../../feature/cart/cartSlice.js";
 
 export function CartItem(){
     const cartList = useSelector((state) => state.cart.cartList);
@@ -15,15 +15,15 @@ export function CartItem(){
     const goToProduct = () => {
         navigate("/products/mountain");
     }
-    useEffect(() => {
-        if (totalPrice === 0 && cartList.length > 0 && cartList[0].price !== undefined) {
-            dispatch(clearCart());
-        }
-    }, [totalPrice, cartList.length, dispatch]);
+    // useEffect(() => {
+    //     if (totalPrice === 0 && cartList.length > 0 && cartList[0].price !== undefined) {
+    //         dispatch(clearCart());
+    //     }
+    // }, [totalPrice, cartList.length, dispatch]);
     return(
         <div className="cart-item-list">
 
-            {totalPrice > 0 ? (
+            {cartList && cartList.length > 0 ? (
                 <>
                     {cartList
                         .filter(item => item.price !== undefined)

@@ -49,7 +49,7 @@ export function ComparedProduct(){
                         <td className="spec-name">요약</td>
                         {itemsToDisplay.map(product => (
                             <td key={product.pid + product.category}>
-                                {product.subInfo}
+                                {product.subinfo}
                             </td>
                         ))}
                     </tr>

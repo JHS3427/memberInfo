@@ -5,6 +5,7 @@ import com.springboot.bicycle_app.entity.userinfo.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public interface JpaUserInfoRepository extends JpaRepository<UserInfo, String> {
             " from UserInfo U where uid = :uid")//엔티티가 아닌 객체로 반환할때는 sql문 안에 new가 들어감+해당 클래스 위치 추가
     //+필요한 데이터는 괄호 안에 담기
     Optional<UserInfoDto> findByUserInfo(@Param("uid") String uid);
+    //
 
     Optional<UserInfo> findByUid(@Param("uid") String uid);
 }

@@ -8,6 +8,7 @@ export function ProductList({category}) {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.product.products);
 
+
     useEffect(()=>{
         dispatch(getProductList(category));
     }, [dispatch, category]);

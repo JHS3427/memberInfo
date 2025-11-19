@@ -35,66 +35,66 @@ import { FailPage } from "./pages/FailPage.jsx";
 
 export default function App() {
 
-  useEffect(() => {
-    createCsrfToken();
-  }, []);
+    useEffect(() => {
+        createCsrfToken();
+    }, []);
 
-  return (
-    <AuthProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
+    return (
+        <AuthProvider>
+            <BrowserRouter>
+                <ScrollToTop />
+                <Routes>
 
-          {/* 레이아웃 공통 */}
-          <Route path="/" element={<Layout />}>
+                    {/* 레이아웃 공통 */}
+                    <Route path="/" element={<Layout />}>
 
-            {/* 홈 */}
-            <Route index element={<Home />} />
+                        {/* 홈 */}
+                        <Route index element={<Home />} />
 
-            {/* 주요 메뉴 */}
-            <Route path="rental" element={<Rental />} />
-            <Route path="travel" element={<Travel />} />
+                        {/* 주요 메뉴 */}
+                        <Route path="rental" element={<Rental />} />
+                        <Route path="travel" element={<Travel />} />
 
-            {/* Support (고객센터) */}
-            <Route path="support">
-              <Route index element={<Navigate to="faq" />} />  
-              <Route path=":tab" element={<Support />} />     {/* faq | asinfo | resources */}
-            </Route>
+                        {/* Support (고객센터) */}
+                        <Route path="support">
+                            <Route index element={<Navigate to="faq" />} />
+                            <Route path=":tab" element={<Support />} />     {/* faq | asinfo | resources */}
+                        </Route>
 
-            {/* Auth */}
-            <Route path="login" element={<Login />} />
-            <Route path="auth" element={<Auth />} />   
-            <Route path="signUp" element={<SignUp />} /> 
-            <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />
-            <Route path="mypage" element={<MyPage />} />             
+                        {/* Auth */}
+                        <Route path="login" element={<Login />} />
+                        <Route path="auth" element={<Auth />} />
+                        <Route path="signUp" element={<SignUp />} />
+                        <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />
+                        <Route path="mypage" element={<MyPage />} />
 
-            {/* Policy */}
-            <Route path="policies/terms" element={<Terms />} />
-            <Route path="policies/privacy" element={<Privacy />} />
-            <Route path="policies/internalpolicy" element={<InternalPolicy />} />
+                        {/* Policy */}
+                        <Route path="policies/terms" element={<Terms />} />
+                        <Route path="policies/privacy" element={<Privacy />} />
+                        <Route path="policies/internalpolicy" element={<InternalPolicy />} />
 
-            {/* Product */}
-            <Route path="products/:category" element={<Products />} />
-            <Route path="products/:category/:pid" element={<ProductDetail />} />
-            <Route path="location" element={<StoreLocation/>}/>
-            <Route path="cart" element={<Cart/>}/>
-            <Route path="compare" element={<ComparedProduct/>}/>
-            <Route path="checkout" element={<CheckoutInfo/>}/>
-            <Route path="checkout/success" element={<SuccessPage/>}/>
-            <Route path="checkout/fail" element={<FailPage/>}/>
+                        {/* Product */}
+                        <Route path="products/:category" element={<Products />} />
+                        <Route path="products/:category/:pid" element={<ProductDetail />} />
+                        <Route path="location" element={<StoreLocation/>}/>
+                        <Route path="cart" element={<Cart/>}/>
+                        <Route path="compare" element={<ComparedProduct/>}/>
+                        <Route path="checkout" element={<CheckoutInfo/>}/>
+                        <Route path="checkout/success" element={<SuccessPage/>}/>
+                        <Route path="checkout/fail" element={<FailPage/>}/>
 
-            {/* Board (게시판) */}
-            <Route path="board">
-              <Route index element={<Navigate to="news" />} />
-              <Route path=":category" element={<Board />} />        {/* news | event | review */}
-              <Route path="detail/:pid" element={<BoardDetail />} />
-              <Route path="write/:category" element={<BoardWrite />} />
-              <Route path="edit/:pid" element={<BoardWrite />} />
-            </Route>
-            
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-  );
+                        {/* Board (게시판) */}
+                        <Route path="board">
+                            <Route index element={<Navigate to="news" />} />
+                            <Route path=":category" element={<Board />} />        {/* news | event | review */}
+                            <Route path="detail/:pid" element={<BoardDetail />} />
+                            <Route path="write/:category" element={<BoardWrite />} />
+                            <Route path="edit/:pid" element={<BoardWrite />} />
+                        </Route>
+
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </AuthProvider>
+    );
 }

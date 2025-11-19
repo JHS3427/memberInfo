@@ -24,6 +24,7 @@ dependencies {
 
     //JDBC - jdbcTemplate
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     runtimeOnly 'mysql:mysql-connector-java:8.0.31'
 
     //lombok

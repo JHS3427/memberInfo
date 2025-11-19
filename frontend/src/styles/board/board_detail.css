@@ -8,7 +8,7 @@
   color: #333;
 }
 
-.detail-title {
+.board-detail .detail-title {
   width: 100% !important;
   font-size: 1.8rem;
   font-weight: 700;
@@ -16,7 +16,7 @@
   margin-bottom: 20px;
 }
 
-.detail-meta {
+.board-detail .detail-meta {
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -25,7 +25,7 @@
   margin-bottom: 25px;
 }
 
-.detail-divider {
+.board-detail .detail-divider {
   border: none;
   border-top: 1px solid #ddd;
   margin: 20px 0 40px;
@@ -34,7 +34,7 @@
 /* ==============================
    📌 콘텐츠 영역
 ============================== */
-.detail-content {
+.board-detail .detail-content {
   text-align: left;
   font-size: 1rem;
   color: #444;
@@ -44,13 +44,13 @@
 /* ==============================
    📌 본문 이미지
 ============================== */
-.detail-image-box {
+.board-detail .detail-image-box {
   text-align: center;
   margin: 30px 0;
   display: block !important;
 }
 
-.detail-image {
+.board-detail .detail-image {
   width: 100%;
   max-width: 850px;
   height: auto;
@@ -61,7 +61,7 @@
 /* ==============================
    📌 본문 텍스트
 ============================== */
-.detail-text {
+.board-detail .detail-text {
   white-space: pre-line;
   margin-top: 20px;
   margin-bottom: 50px;
@@ -71,7 +71,7 @@
 /* ==============================
    📌 버튼 영역
 ============================== */
-.detail-footer {
+.board-detail .detail-footer {
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -82,29 +82,29 @@
    📱 반응형
 ============================== */
 @media (max-width: 768px) {
-  .detail-title {
+  .board-detail .detail-title {
     font-size: 1.4rem;
   }
 
-  .detail-meta {
+  .board-detail .detail-meta {
     flex-direction: column;
     align-items: center;
     gap: 5px;
   }
 
-  .detail-footer {
+  .board-detail .detail-footer {
     flex-direction: column;
   }
 
-  .btn-back {
+  .board-detail .btn-back {
     width: 100%;
   }
 
-  .detail-thumb {
+  .board-detail .detail-thumb {
     width: 160px;
   }
 
-  .detail-image {
+  .board-detail .detail-image {
     max-width: 100%;
   }
 }

@@ -1,29 +1,78 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../styles/cart/cartshipping.css'
+import {useSelector} from "react-redux";
 
-export function CartShippingInfo() {
+export default function CartShippingInfo() {
+    const cartList = useSelector((state) => state.cart.cartList);
+    const [cartInfo, setCartInfo] = useState({
+        name: '',
+        mobile: '',
+        email: ''
+    });
+    const [recipientInfo, setRecipientInfo] = useState({
+        name: '',
+        contact: '',
+        mobile: '',
+        address: ''
+    });
+    useEffect(() => {
+        if (cartList && cartList.length > 0) {
+            const Data = cartList[0];
+            setCartInfo({
+                name: Data.uname || '',
+                mobile: Data.uphone || '',
+                email: Data.uemail || ''
+            });
+        }
+    }, [cartList]);
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+
+        if (id === 'orderer-name') {
+            setCartInfo(prev => ({ ...prev, name: value }));
+        } else if (id === 'orderer-mobile') {
+            setCartInfo(prev => ({ ...prev, mobile: value }));
+        } else if (id === 'orderer-email') {
+            setCartInfo(prev => ({ ...prev, email: value }));
+        }
+    };
     return (
         <div className="checkout-info-container">
-            {/* 1. 주문자 정보 섹션 */}
             <div className="form-section">
                 <h2 className="form-section-title">주문자 정보</h2>
                 <div className="form-grid">
                     <div className="form-group">
                         <label htmlFor="orderer-name">주문자명 <span className="required">*</span></label>
                         <div className="input-wrapper">
-                            <input type="text" id="orderer-name"/>
+                            {/* value에 state를 연결하여 DB값이 보이게 함 */}
+                            <input
+                                type="text"
+                                id="orderer-name"
+                                value={cartInfo.name}
+                                onChange={handleInputChange}
+                            />
                         </div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="orderer-mobile" style={{marginLeft:'10px'}}>휴대폰번호 <span className="required">*</span></label>
                         <div className="input-wrapper">
-                            <input type="text" id="orderer-mobile"/>
+                            <input
+                                type="text"
+                                id="orderer-mobile"
+                                value={cartInfo.mobile}
+                                onChange={handleInputChange}
+                            />
                         </div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="orderer-email">이메일 <span className="required">*</span></label>
                         <div className="input-wrapper">
-                            <input type="email" id="orderer-email"/>
+                            <input
+                                type="email"
+                                id="orderer-email"
+                                value={cartInfo.email}
+                                onChange={handleInputChange}
+                            />
                         </div>
                     </div>
                 </div>
@@ -51,7 +100,6 @@ export function CartShippingInfo() {
                         </div>
                     </div>
                     <div className="form-group">
-                        {/* 이미지상 비어있는 오른쪽 셀 (레이아웃 유지용) */}
                     </div>
                     <div className="form-group">
                         <label htmlFor="recipient-contact">연락처</label>
@@ -63,18 +111,12 @@ export function CartShippingInfo() {
                         <label htmlFor="recipient-mobile" style={{marginLeft:'10px'}}>휴대폰번호 <span className="required">*</span></label>
                         <div className="input-wrapper">
                             <input type="text" id="recipient-mobile"/>
-                            {/* 이미지에는 X 버튼이 없어서 여기도 뺐습니다. */}
                         </div>
                     </div>
-
-                    {/* 주소 필드 (2열 합침) */}
                     <div className="form-group form-group-address">
                         <label htmlFor="recipient-zipcode">주소 <span className="required">*</span></label>
                         <div className="address-group">
                             <input type="text" id="recipient-address1" className="input-address" />
-                            {/*<div className="address-detail-group">*/}
-                            {/*    <input type="text" id="recipient-address2" className="input-address-detail" />*/}
-                            {/*</div>*/}
                         </div>
                     </div>
 
@@ -83,3 +125,4 @@ export function CartShippingInfo() {
         </div>
     );
 }
+

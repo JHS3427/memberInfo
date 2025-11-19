@@ -25,8 +25,7 @@ export function ProductDetail() {
         navigate("/location");
     }
     const goToCart = () => {
-        alert("장바구니에 해당 제품이 담겼습니다.")
-        dispatch(addCart(product.pid, category));
+        dispatch(addCart(product.product_id, category));
     }
 
     const goToPurchase = () => {
@@ -74,7 +73,8 @@ export function ProductDetail() {
                         </button>
                         <button type="button"
                                 className="action-button btn-secondary"
-                                onClick={goToCart}>
+                                onClick={goToCart}
+                                disabled={!product.product_id}>
                             장바구니
                         </button>
                         <button type="button"

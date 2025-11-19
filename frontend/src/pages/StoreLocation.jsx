@@ -6,7 +6,7 @@ import '../styles/product/locationstore.css';
 
 export function StoreLocation() {
     const dispatch = useDispatch();
-    const storeList = useSelector((state) => state.product.product);
+    const storeList = useSelector((state) => state.product.storeList);
     const [selectedStore, setSelectedStore] = useState(null);
     const [searchStore, setSearchStore] = useState("");
 

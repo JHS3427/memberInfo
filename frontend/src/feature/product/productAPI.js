@@ -1,21 +1,29 @@
 import React from 'react';
-import { createProduct, setProduct } from './productSlice.js';
-import { axiosData } from '../../utils/dataFetch.js';
+import {createProduct, setProduct, setStoreList} from './productSlice.js';
+import {axiosGet} from '../../utils/dataFetch.js';
 
 export const getProduct = (category,pid) => async(dispatch) => {
-    const jsonData = await axiosData(`/data/${category}/${category}Data.json`);
+    // const jsonData = await axiosData(`/data/${category}/${category}Data.json`);
+    // const foundProduct = jsonData.find(item => item.pid.toString() === pid.toString());
+    const url = `/products/${category}/${pid}`;
+    const product = await axiosGet(url)
 
-    const foundProduct = jsonData.find(item => item.pid.toString() === pid.toString());
-
-    dispatch(setProduct(foundProduct));
+    dispatch(setProduct(product));
 }
 
 export const getProductList = (category) => async(dispatch) => {
-    const jsonData = await axiosData(`/data/${category}/${category}Data.json`);
-    return dispatch(createProduct({"products":jsonData}));
-}
-export const getStore = (sid) => async(dispatch) => {
-    const jsonData = await axiosData("/data/productLocation.json");
+    // const jsonData = await axiosData(`/data/${category}/${category}Data.json`);
+    // return dispatch(createProduct({"products":jsonData}));
+    const url = `/products/${category}`;
+    console.log(url);
+    const productData = await axiosGet(url);
+    dispatch(createProduct({"products":productData}));
 
-    dispatch(setProduct(jsonData));
+}
+export const getStore = () => async(dispatch) => {
+    // const jsonData = await axiosData("/data/productLocation.json");
+    const url = "/location"
+    const storeData = await axiosGet(url);
+
+    dispatch(setStoreList(storeData));
 }

@@ -15,6 +15,16 @@ export function BoardWrite() {
       getCurrentUser().then(setUser);
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      setForm(s => ({
+        ...s,
+        uid: user.uid,      // ⭐ DB FK로 저장될 uid
+        writer: user.uid    // 화면 표시용
+      }));
+    }
+  }, [user]);
+
   const getCsrfToken = () => {
     return document.cookie
       .split("; ")
@@ -25,7 +35,8 @@ export function BoardWrite() {
   const [form, setForm] = useState({
     title: "",
     content: "",
-    writer: user?.uid || "USER",
+    uid: "",          // 추가!
+    writer: "",
     imageUrl: "",
     thumbnailUrl: "",
     categoryTag: category || "review",
@@ -118,13 +129,11 @@ export function BoardWrite() {
           "http://localhost:8080/api/board/write",
           {
             ...form,
+            uid: user.uid,         // FK
+            writer: user.uid,      // 화면 표시용
             boardCategory: { bname: form.categoryTag },
-            unum: user?.unum || 1,
           },
-          {
-            headers: { "X-XSRF-TOKEN": csrf },
-            withCredentials: true,
-          }
+          { headers: { "X-XSRF-TOKEN": csrf }, withCredentials: true }
         );
 
         alert("게시글이 등록되었습니다!");

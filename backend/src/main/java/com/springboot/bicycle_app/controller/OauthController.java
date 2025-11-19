@@ -110,6 +110,7 @@ public class OauthController {
         }
         result = oauthService.findInfo(userInfoDto);
         System.out.println("aaaaaaaaaaaaaaaaaaaaaa " + result);
+        result.setUpass("");
         return result;
     }
 

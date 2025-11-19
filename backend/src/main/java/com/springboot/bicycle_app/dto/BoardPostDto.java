@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 public class BoardPostDto {
     private int pid;
+    private String uid;
     private String title;
     private String content;
     private String writer; // BoardPost에도 동일 이름으로 있어야 함
@@ -24,6 +25,7 @@ public class BoardPostDto {
     public static BoardPostDto fromEntity(BoardPost post) {
         BoardPostDto dto = new BoardPostDto();
         dto.setPid(post.getPid());
+        dto.setUid(post.getUid());
         dto.setTitle(post.getTitle());
         dto.setContent(post.getContent());
         dto.setWriter(post.getWriter());
@@ -39,6 +41,7 @@ public class BoardPostDto {
     public static BoardPost toEntity(BoardPostDto dto) {
         BoardPost post = new BoardPost();
         post.setPid(dto.getPid());
+        post.setUid(dto.getUid());
         post.setTitle(dto.getTitle());
         post.setContent(dto.getContent());
         post.setWriter(dto.getWriter());
