@@ -503,7 +503,6 @@ value (
 "test111","$2a$10$D/b6eWYeHIL.LWGOmZcMJewK1sj93Emq58YDCyYL32EdN8X97ept2","asdf","102","남성","아리랑로 6 (동선동4가) 121","111@gmail.com","11111111111"
 );
 
-
 select * from userinfo;
 /******************************************************
 	일반 회원 / 관리자 구분용 컬럼 추가 - 강기종
@@ -511,6 +510,13 @@ select * from userinfo;
 ALTER TABLE userinfo
 ADD COLUMN role ENUM('USER','ADMIN') DEFAULT 'USER' AFTER uphone;
 select * from userinfo;
+
+
+-- 251119 -- 위 컬럼 추가 후 데이터 추가 부탁드립니다--------------------------------------------------------------------
+insert into userinfo(uid, upass, uname, uage, ugender, uaddress, uemail, uphone,role)
+value ("1","$2a$10$FWC6QTGIGaCgx5tlrhvocOrAQdP0o8bcVE28UwG7qXNiKVN8FcyNy","1","1","남성","1순환로44(율량동,동청주세무서)" , "1@gmail.com","1","USER");
+-- 251119 -- 위 컬럼 추가 후 데이터 추가 부탁드립니다-------------------------------------------------------------------
+
 /******************************************************
 	게시판 - 강기종
 ******************************************************/
