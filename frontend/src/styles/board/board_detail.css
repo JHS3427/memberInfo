@@ -1,0 +1,110 @@
+/* ============================
+   📄 게시글 상세 보기
+============================ */
+.board-detail {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  color: #333;
+}
+
+.detail-title {
+  width: 100% !important;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.detail-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  color: #888;
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+}
+
+.detail-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0 40px;
+}
+
+/* ==============================
+   📌 콘텐츠 영역
+============================== */
+.detail-content {
+  text-align: left;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.7;
+}
+
+/* ==============================
+   📌 본문 이미지
+============================== */
+.detail-image-box {
+  text-align: center;
+  margin: 30px 0;
+  display: block !important;
+}
+
+.detail-image {
+  width: 100%;
+  max-width: 850px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ==============================
+   📌 본문 텍스트
+============================== */
+.detail-text {
+  white-space: pre-line;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  word-break: break-word;
+}
+
+/* ==============================
+   📌 버튼 영역
+============================== */
+.detail-footer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+/* ==============================
+   📱 반응형
+============================== */
+@media (max-width: 768px) {
+  .detail-title {
+    font-size: 1.4rem;
+  }
+
+  .detail-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .detail-footer {
+    flex-direction: column;
+  }
+
+  .btn-back {
+    width: 100%;
+  }
+
+  .detail-thumb {
+    width: 160px;
+  }
+
+  .detail-image {
+    max-width: 100%;
+  }
+}

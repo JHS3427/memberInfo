@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate  } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FAQ } from "./support/Faq.jsx";
 import { ASInfo } from "./support/ASInfo.jsx";
 import { Resources } from "./support/Resources.jsx";
@@ -9,13 +9,12 @@ import "../styles/support.css";
 export function Support() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("faq");
-  const [showChatbot, setShowChatbot] = useState(false);
+  const pathname = location.pathname;
 
-  useEffect(() => {
-    if (location.state?.tab) setActiveTab(location.state.tab);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [location.state]);
+  // URL에서 탭 추출 (기본값: faq)
+  const tab = pathname.split("/").pop() || "faq";
+
+  const [showChatbot, setShowChatbot] = useState(false);
 
   // ✅ 챗봇 열기 함수
   const openChatbot = () => {
@@ -38,20 +37,20 @@ export function Support() {
       {/* 탭 네비게이션 */}
       <div className="support-tabs">
         <button
-          className={activeTab === "faq" ? "active" : ""}
-          onClick={() => setActiveTab("faq")}
+          className={tab === "faq" ? "active" : ""}
+          onClick={() => navigate("/support/faq")}
         >
           자주 묻는 질문
         </button>
         <button
-          className={activeTab === "as" ? "active" : ""}
-          onClick={() => setActiveTab("as")}
+          className={tab === "asinfo" ? "active" : ""}
+          onClick={() => navigate("/support/asinfo")}
         >
           A/S 안내
         </button>
         <button
-          className={activeTab === "data" ? "active" : ""}
-          onClick={() => setActiveTab("data")}
+          className={tab === "resources" ? "active" : ""}
+          onClick={() => navigate("/support/resources")}
         >
           자료실
         </button>
@@ -59,9 +58,9 @@ export function Support() {
 
       {/* 탭 콘텐츠 */}
       <div className="tab-content">
-        {activeTab === "faq" && <FAQ />}
-        {activeTab === "as" && <ASInfo />}
-        {activeTab === "data" && <Resources />}
+        {tab === "faq" && <FAQ />}
+        {tab === "asinfo" && <ASInfo />}
+        {tab === "resources" && <Resources />}
       </div>
 
       {/* 고객센터 안내 */}

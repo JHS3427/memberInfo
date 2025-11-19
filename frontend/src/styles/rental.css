@@ -6,6 +6,8 @@
 */
 .rental_map_box {
     position: relative;
+    display: flex;
+    justify-content: flex-end;
 }
 .rental_map_box::before{
     content: '';
@@ -143,14 +145,9 @@
     position: absolute;
     top: 0; left: 100%;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
-    transition: all 0.3s ease-in-out;
-}
-
-.bike_rental_payment_info {
     background-color: var(--color-white);
     text-align: center;
 }
-
 .bike_rental_payment_info > h3 {
     margin-bottom: 20px;
 }
@@ -308,12 +305,28 @@
     color: var(--color-white);
 }
 
-
-@media(max-width: 1594px) {
-    .map_marker_data_info {width: 400px;}
+@media(max-width: 1600px) {
+    .map_marker_data_info {
+        width: 400px;
+    }
 }
-@media(max-width: 793px) {
+@media(max-width: 810px) {
+    .rental_map_box {
+        display: flexbox;
+    }
+    .map_marker_data_info {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+    }
     .map_marker_data_info .bike_rental_payment_info {
-    top: 0; left: 0;
-}
+        top: 0; left: 0;
+    }
+
+    .kakao_rental_map,
+    .rental_map_box::before,
+    .rental_map_box::after,
+    .rental_map_target {
+        display: none;
+    }
 }

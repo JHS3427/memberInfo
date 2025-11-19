@@ -47,7 +47,7 @@ export function TravelHotelList({ handleListDetail }) {
             <li className="search-input-back">
                 <input
                   type="text"
-                  placeholder="맛집 이름을 입력하세요"
+                  placeholder="호텔 이름을 입력하세요"
                   className="search-input"
                   onChange={(e) => setSearchKeyword(e.target.value)}
                 />

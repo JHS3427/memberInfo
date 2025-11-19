@@ -1,23 +1,26 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TravelFood } from "./TravelFood.jsx";
 
 import { getTravelFoodList } from '../../feature/travel/travelFoodAPI.js';
 
 export function TravelFoodList({ handleListDetail }) {
-    const [travelFoodList, setTravelFoodList] = useState([]); //원본 데이터
+    const dispatch = useDispatch();
+
+    const travelFoodList = useSelector((state) => state.travelFood.travelFoodList); //원본 데이터
     const [filteredList, setFilteredList] = useState([]); //검색 데이터
     const [number, setNumber] = useState(3);
     const [searchKeyword, setSearchKeyword] = useState('');
 
     useEffect(() => {
-        async function fetchFoodData() {
-            const dataFood = await getTravelFoodList(number); 
-            setTravelFoodList(dataFood);
-            setFilteredList(dataFood);
-        }   
-        fetchFoodData();
-    }, [number]);
+        dispatch(getTravelFoodList(number));
+    }, [number, dispatch]);
+
+    useEffect(() => {
+        setFilteredList(travelFoodList);
+    }, [travelFoodList]);
+
 
     const handleDetail = (type, fid = null) => {
         handleListDetail(type, fid);

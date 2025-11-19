@@ -3,10 +3,23 @@ import axios from "axios";
 
 export const getChatbotResponse = async (userMessage) => {
   try {
-    const response = await axios.post("http://localhost:8080/api/chatbot", {
-      message: userMessage,
-    });
-    // ✅ reply, linkText, linkUrl 전부 반환
+    // 쿠키에서 CSRF 토큰 읽기
+    const csrfToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("XSRF-TOKEN="))
+      ?.split("=")[1];
+
+    const response = await axios.post(
+      "http://localhost:8080/api/chatbot",
+      { message: userMessage },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-XSRF-TOKEN": csrfToken || "",
+        },
+      }
+    );
+
     return response.data;
   } catch (error) {
     console.error("Chatbot API Error:", error);

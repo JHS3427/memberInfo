@@ -26,6 +26,7 @@ export function TravelFoodDetailList({ selectedDid }) {
                         did={travelFoodDetailList.did}
                         fname={travelFoodDetailList.fname}
                         flike={travelFoodDetailList.flike}
+                        score={travelFoodDetailList.score}
                         tag={travelFoodDetailList.tag}
                         location={travelFoodDetailList.location}
                         food={travelFoodDetailList.food}

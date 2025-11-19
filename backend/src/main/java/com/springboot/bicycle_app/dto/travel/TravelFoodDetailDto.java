@@ -10,6 +10,7 @@ public class TravelFoodDetailDto {
     private int did;
     private String fname;
     private Double flike;
+    private int score;
     private String tag;
     private String location;
     private String food;
@@ -29,6 +30,7 @@ public class TravelFoodDetailDto {
         this.did = entity.getDid();
         this.fname = entity.getFname();
         this.flike = entity.getFlike();
+        this.score = entity.getScore();
         this.tag = entity.getTag();
         this.location = entity.getLocation();
         this.food = entity.getFood();

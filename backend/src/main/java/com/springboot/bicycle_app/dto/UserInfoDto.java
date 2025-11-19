@@ -17,7 +17,7 @@ public class UserInfoDto {
     private String jwToken;
 
     private boolean loggedIn;
-    
+
     public UserInfoDto(){}
     public UserInfoDto(String uid, String upass) {
         this.uid = uid;

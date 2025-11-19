@@ -6,12 +6,15 @@ import { getTravelRepairList } from '../../feature/travel/travelRepairAPI.js';
 
 export function TravelRepairList({ handleListDetail }) {
     const [travelRepairList, setTravelRepairList] = useState([]);
+    const [filteredList, setFilteredList] = useState([]); //검색 데이터
     const [number, setNumber] = useState(3);
+    const [searchKeyword, setSearchKeyword] = useState('');
 
     useEffect(() => {
         async function fetchRepairData() {
             const dataRepair = await getTravelRepairList(number);
             setTravelRepairList(dataRepair);
+            setFilteredList(dataRepair);
         }
         fetchRepairData();
     }, [number]);
@@ -20,27 +23,65 @@ export function TravelRepairList({ handleListDetail }) {
         handleListDetail(type, rid);
     }
 
+    const handleSearch = () => {
+        if (!searchKeyword.trim()) {
+            setFilteredList(travelRepairList);
+            return;
+        }
+
+        const filtered = travelRepairList.filter(repair => {
+            const nameMatch = repair.rname.toLowerCase().includes(searchKeyword.toLowerCase());
+            const tagArray = repair.tag ? JSON.parse(repair.tag) : [];
+            const tagMatch = tagArray.some(tagItem =>
+                tagItem.toLowerCase().includes(searchKeyword.toLowerCase())
+            );
+            return nameMatch || tagMatch;
+        });
+
+        setFilteredList(filtered);
+    };
+
     return(
-        <>
-            {travelRepairList && travelRepairList.map((travelRepair, idx) =>
-                <TravelRepair 
-                    rid={travelRepair.rid}
-                    rname={travelRepair.rname}
-                    rlike={travelRepair.rlike}
-                    score={travelRepair.score}
-                    evaluation={travelRepair.evaluation}
-                    tag={travelRepair.tag}
-                    image1={travelRepair.image1}
-                    image2={travelRepair.image2}
-                    image3={travelRepair.image3}
-                    fullImage1={travelRepair.fullImage1}
-                    fullImage2={travelRepair.fullImage2}
-                    fullImage3={travelRepair.fullImage3}
-                    description={travelRepair.description}
-                    handleDetail={handleDetail}
-                    type="Repair" 
-                />
-            )}  
-        </>          
+        <div className="travel-repair-container">
+            <div className="search-box">
+              <li className="search-input-back">
+                  <input
+                    type="text"
+                    placeholder="정비소 이름을 입력하세요"
+                    className="search-input"
+                    onChange={(e) => setSearchKeyword(e.target.value)}
+                  />
+                  <button className="search-button" onClick={handleSearch}>
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+              </li>
+            </div>
+
+            <ul className="travel-repair-list">
+               {filteredList && filteredList.length > 0 ? (
+                  filteredList && filteredList.map((travelRepair, idx) =>
+                      <TravelRepair
+                          rid={travelRepair.rid}
+                          rname={travelRepair.rname}
+                          rlike={travelRepair.rlike}
+                          score={travelRepair.score}
+                          evaluation={travelRepair.evaluation}
+                          tag={travelRepair.tag}
+                          image1={travelRepair.image1}
+                          image2={travelRepair.image2}
+                          image3={travelRepair.image3}
+                          fullImage1={travelRepair.fullImage1}
+                          fullImage2={travelRepair.fullImage2}
+                          fullImage3={travelRepair.fullImage3}
+                          description={travelRepair.description}
+                          handleDetail={handleDetail}
+                          type="repair"
+                      />
+                  )
+               ) : (
+                 <li className="no-results">검색 결과가 없습니다.</li>
+               )}
+            </ul>
+        </div>
     );
 }

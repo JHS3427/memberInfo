@@ -1,7 +1,8 @@
 [
   {
-    "fname": "고도식",
+    "fname": "고도식 송리단길",
     "flike": "4.7",
+    "score": "90",
     "tag": [
       "다코숨은맛집",
       "식사모임",
@@ -193,6 +194,7 @@
   {
     "fname": "별미곱창 2호점",
     "flike": "4.2",
+    "score": "88",
     "tag": [
       "술모임",
       "회식"
@@ -319,7 +321,7 @@
       {
         "userProfile" : "/images/travel_review/byeolmi/byeolmi_review_2.jpg",
         "userId" : "락따뚜이",
-        "userLike" : "2",
+        "userLike" : "2.0",
         "userTotalReview" : "104",
         "userFllowers" : "0",
         "reviewImages": [
@@ -348,8 +350,9 @@
     ]
   },
   {
-    "fname": "단디",
+    "fname": "단디 송리단길",
     "flike": "4.3",
+    "score": "88",
     "tag": [
       "다코숨은맛집",
       "데이트",
@@ -511,8 +514,9 @@
     ]
   },
   {
-    "fname": "미엔아이",
+    "fname": "미엔아이 송리단길",
     "flike": "4.3",
+    "score": "87",
     "tag": [
       "다코숨은맛집",
       "혼밥",

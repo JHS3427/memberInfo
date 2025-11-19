@@ -10,21 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TravelHotelDetail {
-// did	int
-// fname	varchar(30)
-// flike	decimal(4,1)
-// tag	    json
-// location	varchar(100)
-// hotel	varchar(100)
-// address	varchar(100)
-// local_address	varchar(100)
-// business	json
-// phone	varchar(100)
-// other	json
-// menu	    json
-// mainImages	json
-// imageList	json
-// review	json
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int did;
@@ -34,6 +19,9 @@ public class TravelHotelDetail {
 
     @Column(name="hlike")
     private Double hlike;
+
+    @Column(name="score")
+    private int score;
 
     @Column(name="tag", columnDefinition = "JSON")
     private String tag;

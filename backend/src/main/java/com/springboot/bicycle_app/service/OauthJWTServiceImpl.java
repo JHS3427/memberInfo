@@ -52,7 +52,7 @@ public class OauthJWTServiceImpl implements OauthJWTService {
      * Spring Security의 Authentication 객체를 이용해 JWT 토큰을 생성합니다.
      * @param authentication 인증 객체 (사용자 ID 및 권한 정보 포함)
      * @return 생성된 JWT 문자열
-//     */
+    //     */
     @Override
     public String createToken(Authentication authentication) {
         // 권한 정보 추출: Authority 객체들을 쉼표로 구분된 문자열로 변환합니다.

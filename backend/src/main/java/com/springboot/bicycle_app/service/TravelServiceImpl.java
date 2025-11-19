@@ -10,6 +10,8 @@ import com.springboot.bicycle_app.dto.travel.TravelFoodDetailDto;
 import com.springboot.bicycle_app.entity.travel.TravelFoodDetail;
 import com.springboot.bicycle_app.dto.travel.TravelHotelDetailDto;
 import com.springboot.bicycle_app.entity.travel.TravelHotelDetail;
+import com.springboot.bicycle_app.dto.travel.TravelRepairDetailDto;
+import com.springboot.bicycle_app.entity.travel.TravelRepairDetail;
 import com.springboot.bicycle_app.jpa_repository.JpaTravelRepository;
 import com.springboot.bicycle_app.repository.TravelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,6 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     public List<TravelFoodDto> findFood(){
-        // System.out.println("service ==> ");
         List<TravelFoodDto> flist = new ArrayList<>();
         List<TravelFood> list = jpaTravelRepository.findFood();
         list.forEach((travel_food) -> flist.add(new TravelFoodDto(travel_food)));
@@ -43,7 +44,6 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     public List<TravelHotelDto> findHotel(){
-//      System.out.println("service findHotel ==> ");
         List<TravelHotelDto> hlist = new ArrayList<>();
         List<TravelHotel> list = jpaTravelRepository.findHotel();
         list.forEach((travel_hotel) -> hlist.add(new TravelHotelDto(travel_hotel)));
@@ -52,7 +52,6 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     public List<TravelRepairDto> findRepair(){
-//      System.out.println("service findHotel ==> ");
         List<TravelRepairDto> rlist = new ArrayList<>();
         List<TravelRepair> list = jpaTravelRepository.findRepair();
         list.forEach((travel_repair) -> rlist.add(new TravelRepairDto(travel_repair)));
@@ -61,15 +60,19 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     public TravelFoodDetailDto findFoodDetail(int did){
-//        System.out.println("service ==> ");
         TravelFoodDetail entity = jpaTravelRepository.findFoodDetail(did);
         return new TravelFoodDetailDto(entity);
     }
 
     @Override
     public TravelHotelDetailDto findHotelDetail(int did){
-//        System.out.println("service ==> ");
         TravelHotelDetail entity = jpaTravelRepository.findHotelDetail(did);
         return new TravelHotelDetailDto(entity);
+    }
+
+    @Override
+    public TravelRepairDetailDto findRepairDetail(int did){
+        TravelRepairDetail entity = jpaTravelRepository.findRepairDetail(did);
+        return new TravelRepairDetailDto(entity);
     }
 }

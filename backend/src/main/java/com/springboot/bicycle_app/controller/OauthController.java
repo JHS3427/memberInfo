@@ -48,7 +48,7 @@ public class OauthController {
         System.out.println("social : "+token.getSocial());
         System.out.println("auth : "+token.getAuthCode());
         if(token.getSocial().equals("google"))//구글은 중간 토큰 요청없이 access토큰을 바로 넘겨준다.
-            //https://ldd6cr-adness.tistory.com/323 참고
+        //https://ldd6cr-adness.tistory.com/323 참고
         {
             socialId = oauthService.socialIdCatcher(token.getAuthCode(),token.getSocial());
         }
@@ -67,7 +67,7 @@ public class OauthController {
         if(Social_reuslt_b){
             Social_reuslt_s = "duplicate on " + token.getSocial();
             socialIdChecker.setSocialDupl(true);
-            }
+        }
         else{
             Social_reuslt_s = "duplicate off" + token.getSocial();
             socialIdChecker.setUid("");
@@ -103,8 +103,8 @@ public class OauthController {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaa " + result);
         return result;
     }
-    
-    
+
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserInfoDto userInfo,
                                    HttpServletRequest request,
@@ -165,7 +165,7 @@ public class OauthController {
             return ResponseEntity.ok(Map.of("login", false));
         }
     }
-    
+
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request,
                                     HttpServletResponse response) {

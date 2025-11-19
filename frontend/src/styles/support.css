@@ -263,6 +263,10 @@
   border-color: #222;
 }
 
+.pagination button.active:hover {
+  background: #222;
+}
+
 .pagination button:disabled {
   color: #aaa;
   cursor: not-allowed;

@@ -5,6 +5,7 @@ import com.springboot.bicycle_app.dto.travel.TravelHotelDto;
 import com.springboot.bicycle_app.dto.travel.TravelRepairDto;
 import com.springboot.bicycle_app.dto.travel.TravelFoodDetailDto;
 import com.springboot.bicycle_app.dto.travel.TravelHotelDetailDto;
+import com.springboot.bicycle_app.dto.travel.TravelRepairDetailDto;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface TravelService {
     List<TravelRepairDto> findRepair();
     TravelFoodDetailDto findFoodDetail(int did);
     TravelHotelDetailDto findHotelDetail(int did);
+    TravelRepairDetailDto findRepairDetail(int did);
 }

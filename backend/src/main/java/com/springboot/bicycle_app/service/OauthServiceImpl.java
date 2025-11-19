@@ -104,7 +104,7 @@ public class OauthServiceImpl implements OauthService{
         return access_Token;
     }
 
-//    구글 로그인 정보 출처 :
+    //    구글 로그인 정보 출처 :
 //    https://velog.io/@39busy/React-Social-Login
     @Override
     public String socialIdCatcher(String authcode,String social){
@@ -197,7 +197,7 @@ public class OauthServiceImpl implements OauthService{
     //     String id="";
     //     //헤더만 있고 바디 요청이나 post 요청이 없어서 GET방식으로 감
     //     String kakaoLogoutUrl = "https://kauth.kakao.com/oauth/logout" +
-    //                         "?client_id=" + clientId + 
+    //                         "?client_id=" + clientId +
     //                         "&logout_redirect_uri=" + redirectUri;
     //     return id;
     // }

@@ -49,6 +49,11 @@
   padding: 0;
 }
 
+.header-center ul li {
+  color: var(--color-black);
+  font-weight: 500;
+}
+
 .header-center a {
   text-decoration: none;
   color: var(--color-black);
@@ -58,7 +63,14 @@
 
 .header-center a.active {
   color: var(--color-blue);
-  border-bottom: 2px solid var(--color-blue);
+}
+
+.header-center ul li:first-child {
+  cursor: pointer;
+}
+
+.menu-item.active {
+  color: var(--color-blue);
 }
 
 /* 우측 메뉴 */
@@ -88,12 +100,18 @@ a.icon-link,
   color: var(--color-blue);
 }
 
+.header-right .logout {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 /* 햄버거 버튼 (기본 숨김) */
 .menu-btn {
   display: none;
   border: none;
   background: none;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   cursor: pointer;
   color: var(--color-black);
 }
@@ -124,7 +142,7 @@ a.icon-link,
     position: fixed;
     top: 57px;
     right: -100%;
-    width: 60%;
+    width: 35%;
     height: 100vh;
     background: var(--color-white);
     flex-direction: column;
@@ -144,7 +162,24 @@ a.icon-link,
     right: 0;
   }
 
-  /* 햄버거 버튼 표시 */
+  .header-center ul li {
+    color: var(--color-black);
+    font-weight: 500;
+  }
+
+  .header-center ul li a {
+    color: var(--color-black);
+    font-weight: 500;
+  }
+
+  .header-center ul li:hover {
+    color: var(--color-blue);
+  }
+
+  .header-center ul li a:hover {
+    color: var(--color-blue);
+  }
+
   .menu-btn {
     display: block;
   }
@@ -152,7 +187,8 @@ a.icon-link,
   .icon-link .text {
     display: none;
   }
-  
+
+    /* 우측 메뉴 간격 살짝 좁히기 */
   .header-right {
     gap: 15px;
   }
@@ -165,20 +201,11 @@ a.icon-link,
   }
 
   .header-center {
-    width: 70%;
+    width: 50%;
   }
 
   .header-center ul {
     gap: 18px;
-  }
-
-  .menu-btn {
-    display: block;
-  }
-
-  /* 우측 메뉴 간격 살짝 좁히기 */
-  .header-right {
-    gap: 15px;
   }
 }
 
@@ -469,3 +496,21 @@ a.icon-link,
   color: #555;
 }
 
+/* 📌 모바일 햄버거 메뉴 DIM 효과 */
+.dim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55); /* 반투명 배경 */
+  backdrop-filter: blur(2px);       /* 선택: 살짝 흐림 */
+  z-index: 900;                     /* header-center보다 낮고, header보다 낮아야 함 */
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* dim 사라질 때를 위한 애니메이션 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

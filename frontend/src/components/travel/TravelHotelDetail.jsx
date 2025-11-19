@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 export function TravelHotelDetail({did,
                                   hname,
                                   hlike,
+                                  score,
                                   tag,
                                   location,
                                   hotel,
@@ -35,6 +36,19 @@ export function TravelHotelDetail({did,
   const [showAllTime, setShowAllTime] = useState(false);
   const [showAllMenu, setShowAllMenu] = useState(false);
   const [showAllImage, setShowAllImage] = useState(false);
+
+  const sortedReview = [...parsedReview].sort((a, b) => {
+    if (activeReviewMenu === 0) {
+      return new Date(b.reviewDate) - new Date(a.reviewDate); // 최신순
+    }
+    if (activeReviewMenu === 1) {
+      return b.userLike - a.userLike; // 평점 높은순
+    }
+    if (activeReviewMenu === 2) {
+      return a.userLike - b.userLike; // 평점 낮은순
+    }
+    return 0;
+  });
 
 
   const handleImageMenu = (idx) => {
@@ -181,7 +195,7 @@ export function TravelHotelDetail({did,
                       </span> }
                       <span className="detail-title-reviewNum" >({parsedReview.length}명의 평가)</span>
                       {/*여긴 리뷰개수 카운트 */}
-                      <span className="detail-title-likeScore" >{hlike}점</span></li>
+                      <span className="detail-title-likeScore" >{score}점</span></li>
                   <li className="detail-title-address-box">
                       <i class="fa-solid fa-location-dot"></i>
                       <span className="detail-title-address"> {address}</span>
@@ -385,7 +399,7 @@ export function TravelHotelDetail({did,
                     </button>
                   ))}
               </li>
-              {parsedReview && parsedReview.map((reviewDetail, idx) => (
+              {sortedReview && sortedReview.map((reviewDetail, idx) => (
                   <ul className="detail-review-box">
                       <li className="detail-review-profile">
                           <img className="detail-review-user-image" src={reviewDetail.userProfile} alt="프로필" />

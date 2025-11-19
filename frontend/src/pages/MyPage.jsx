@@ -1,11 +1,16 @@
-
-
 //가로는 60%~80%가 적당할듯? 보고 하기
 
 import { useEffect,useState } from "react";
 import { getInfo} from '../feature/auth/authAPI';
+import '../styles/myPage.css'; // ✨ 새로운 CSS 파일 import
 
-export function InfoBox(){
+export function InfoBox({info}){
+
+    const user_info = info || {
+        uid:"",
+        upass:"",
+        
+    }
 
     return(
         <>
@@ -37,33 +42,34 @@ export function MyPage(){
     },[])
     return(
         <>
-            <div>
-                <h1>사이드 탭이 될 부분입니다</h1>
-                <ul>
-                    <li>자전거 장바구니</li>
-                    <li>대여 상태 및 기록</li>
-                    <li>여행지 찜목록</li>
-                </ul>
+            <div className="myPageContainer">
+                <div className="sideBar">
+                    <h1 className="sideBarTitle">사이드 탭</h1>
+                    <ul className="sideBarList">
+                        <li>자전거 장바구니</li>
+                        <li>대여 상태 및 기록</li>
+                        <li>여행지 찜목록</li>
+                    </ul>
+                </div>
+                <div className="infoSection">
+                    <h1 className="infoSectionTitle">개인정보 기록 및 수정</h1>
+                    <ul className="infoList">
+                        {info?
+                            <li>{info.uid}</li>:
+                            <li>아이디</li>
+                        }
+                        <li>패스워드</li>
+                        <li>이름</li>
+                        <li>나이</li>
+                        <li>성별</li>
+                        <li>주소</li>
+                        <li>이메일</li>
+                        <li>개인 연락번호</li>
+                        <InfoBox/>
+                    </ul>
+                    <button className="withdrawButton">회원 탈퇴</button>
+                </div>
             </div>
-            <div>
-                <h1>개인정보 기록 및 수정 부분입니다.</h1>
-                <ul>
-                    {info?
-                        <li>{info.uid}</li>:
-                        <li>아이디</li>
-                    }
-                    <li>패스워드</li>
-                    <li>이름</li>
-                    <li>나이</li>
-                    <li>성별</li>
-                    <li>주소</li>
-                    <li>이메일</li>
-                    <li>개인 연락번호</li>
-                    <InfoBox/>
-                </ul>
-                <button>회원 탈퇴</button>
-            </div>
-            
         </>
     );
 }

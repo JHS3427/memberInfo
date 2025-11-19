@@ -1,21 +1,26 @@
 import React from "react";
-import { createMenu, createDetail } from "./travelFoodSlice.js";
+import { createFood } from "./travelFoodSlice.js";
 import { axiosData, groupByRows, axiosGet, axiosPost } from "../../utils/dataFetch.js";
 
-export const getTravelFoodList = async (number) => {
-    const url = "/travel/food"; //DB 경우
-    // console.log("url => ", url);
-    const jsonData = await axiosGet(url);
-    // console.log("json => ", jsonData);
+//export const getTravelFoodList = async (number) => {
+//    const url = "/travel/food";
+//    const jsonData = await axiosGet(url);
+//
+//    createFood({"travelFood":jsonData});
+////    dispatch();
+//    return jsonData;
+//}
 
-    return jsonData;
+export const getTravelFoodList = (number) => async(dispatch) =>{
+    const url = "/travel/food";
+    const jsonData = await axiosGet(url);
+
+    dispatch(createFood({"travelFoodList":jsonData}));
 }
 
 export const getTravelFoodDetailList = async (did) => {
-    const url = "/travel/foodDetail"; //DB 경우
-//    console.log("url => ", url);
+    const url = "/travel/foodDetail";
     const jsonData = await axiosPost(url, {"did":did});
-//    console.log("json => ", jsonData);
 
     return jsonData;
 }

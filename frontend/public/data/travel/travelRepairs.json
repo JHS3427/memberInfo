@@ -1,8 +1,8 @@
 [
   {
-    "rname": "자전거정비소",
-    "rlike": "0.0",
-    "score": "0",
+    "rname": "자전거 정비소",
+    "rlike": "3.0",
+    "score": "60",
     "evaluation": "24",
     "tag": [
       "자전거수리",
@@ -11,9 +11,9 @@
       "정비자전거",
       "셀프수리자전거정비"
     ],
-    "image1": "/images/travel_repairs/repair_1.jfif",
-    "image2": "/images/travel_repairs/repair_2.jfif",
-    "image3": "/images/travel_repairs/repair_3.jfif",
+    "image1": "/images/travel_repairs/repair/repair_1.jfif",
+    "image2": "/images/travel_repairs/repair/repair_2.jfif",
+    "image3": "/images/travel_repairs/repair/repair_3.jfif",
     "fullImage1": "/images/travel_foods/godosic_full_1.webp",
     "fullImage2": "/images/travel_foods/godosic_full_2.webp",
     "fullImage3": "/images/travel_foods/godosic_full_3.webp",
@@ -21,8 +21,8 @@
   },
   {
     "rname": "경태의 자전거 이야기",
-    "rlike": "0.0",
-    "score": "0",
+    "rlike": "3.6",
+    "score": "87",
     "evaluation": "943",
     "tag": [
       "자양동자전거",
@@ -31,9 +31,9 @@
       "한강자전거수리",
       "화양동자전거"
     ],
-    "image1": "/images/travel_repairs/gyeongtae_1.jfif",
-    "image2": "/images/travel_repairs/gyeongtae_2.jfif",
-    "image3": "/images/travel_repairs/gyeongtae_3.jfif",
+    "image1": "/images/travel_repairs/gyeongtae/gyeongtae_1.jfif",
+    "image2": "/images/travel_repairs/gyeongtae/gyeongtae_2.jfif",
+    "image3": "/images/travel_repairs/gyeongtae/gyeongtae_3.jfif",
     "fullImage1": "/images/travel_foods/byeolmi_full_1.webp",
     "fullImage2": "/images/travel_foods/byeolmi_full_2.webp",
     "fullImage3": "/images/travel_foods/byeolmi_full_3.webp",
@@ -41,8 +41,8 @@
   },
   {
     "rname": "로드는오늘도뚠뚠",
-    "rlike": "0.0",
-    "score": "0",
+    "rlike": "2.0",
+    "score": "50",
     "evaluation": "20",
     "tag": [
       "자전거세차",
@@ -51,9 +51,9 @@
       "자전거구동계세차",
       "구동계세차"
     ],
-    "image1": "/images/travel_repairs/ddunddun_1.jpg",
-    "image2": "/images/travel_repairs/ddunddun_2.jpg",
-    "image3": "/images/travel_repairs/ddunddun_3.jpg",
+    "image1": "/images/travel_repairs/ddunddun/ddunddun_1.jpg",
+    "image2": "/images/travel_repairs/ddunddun/ddunddun_2.jpg",
+    "image3": "/images/travel_repairs/ddunddun/ddunddun_3.jpg",
     "fullImage1": "/images/travel_foods/dandi_full_1.webp",
     "fullImage2": "/images/travel_foods/dandi_full_2.webp",
     "fullImage3": "/images/travel_foods/dandi_full_3.webp",
@@ -61,8 +61,8 @@
   },
   {
     "rname": "닥터모빌리티",
-    "rlike": "0.0",
-    "score": "0",
+    "rlike": "4.0",
+    "score": "90",
     "evaluation": "10",
     "tag": [
       "전동제품판매",
@@ -71,9 +71,9 @@
       "자전거수리",
       "자전거용품"
     ],
-    "image1": "/images/travel_repairs/doctor_1.jpg",
-    "image2": "/images/travel_repairs/doctor_2.jpg",
-    "image3": "/images/travel_repairs/doctor_3.jpg",
+    "image1": "/images/travel_repairs/doctor/doctor_1.jpg",
+    "image2": "/images/travel_repairs/doctor/doctor_2.jpg",
+    "image3": "/images/travel_repairs/doctor/doctor_3.jpg",
     "fullImage1": "/images/travel_foods/meandi_full_1.webp",
     "fullImage2": "/images/travel_foods/meandi_full_2.webp",
     "fullImage3": "/images/travel_foods/meandi_full_3.webp",

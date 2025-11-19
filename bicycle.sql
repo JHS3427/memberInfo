@@ -30,26 +30,13 @@ SELECT * FROM chatbot_faq;
 -- 데이터 개수 확인
 SELECT COUNT(*) FROM chatbot_faq;
 -- 전체 데이터 삭제(chat-bot.json 데이터 수정 시)
-TRUNCATE TABLE chatbot_faq;
-
-/** 데이터베이스 생성 */
-create database bicycle;
-
-/** 데이터베이스 열기 */
-use bicycle;
-select database();
-
-/** 테이블 목록 확인 */
-show tables;
+-- TRUNCATE TABLE chatbot_faq;
 
 /*********************************************
 	     여행지 추천: marker 관련 테이블
 *********************************************/
 
 /** 마커 테이블 생성 : marker */
--- 	private String lat;
---  private String lng;
---  private String type;
 DROP TABLE marker;
 create table marker(
 	mid		int				auto_increment primary key,
@@ -101,22 +88,13 @@ show variables like 'secure_file_priv';
 *********************************************/
 
 /** 맛집 테이블 생성 : travel_food */
---  private String fname;
---     private Double flike;
---     private int score;
---     private int evaluation;
---     private List<String> tag;
---     private String image1;
---     private String image2;
---     private String image3;
---     private String fullImage1;
---     private String fullImage2;
---     private String fullImage3;
---     private String description;
 DROP TABLE travel_food;
+
 create table travel_food(
 	fid			int				auto_increment primary key,
     fname   	varchar(30) not null,
+	lat			DECIMAL(10,8),
+    lng	    	DECIMAL(11,8),
     flike		DECIMAL(4,1),
     score	    int,
     evaluation	int,
@@ -132,14 +110,13 @@ create table travel_food(
 
 desc travel_food;
 select * from travel_food;
-select fname, flike, score, evaluation, tag, image1, image2, image3, full_image1, full_image2, full_image3, description from travel_food;
-
-show variables like 'secure_file_priv';
 
 -- json 파일의 travel_food 정보 매핑
-insert into travel_food(fname, flike, score, evaluation, tag, image1, image2, image3, full_image1, full_image2, full_image3, description)
+insert into travel_food(fname, lat, lng, flike, score, evaluation, tag, image1, image2, image3, full_image1, full_image2, full_image3, description)
 select 
 	jt.fname,
+    jt.lat,
+    jt.lng,
     jt.flike,
     jt.score,
     jt.evaluation,
@@ -157,7 +134,9 @@ from
 				AS CHAR CHARACTER SET utf8mb4 ),
 		'$[*]' COLUMNS (
 			 fname   		varchar(30) 	PATH '$.fname', 
-			 flike   		DECIMAL(4,1) 	PATH '$.flike',
+             lat			DECIMAL(10,8)	PATH '$.lat',
+			 lng			DECIMAL(11,8)   PATH '$.lng',
+             flike   		DECIMAL(4,1) 	PATH '$.flike',
 			 score   		int 			PATH '$.score',
 			 evaluation		int			 	PATH '$.evaluation',
              tag           	json 			PATH '$.tag',  
@@ -193,9 +172,6 @@ create table travel_hotel(
 
 desc travel_hotel;
 select * from travel_hotel;
-select hname, hlike, score, evaluation, tag, image1, image2, image3, full_image1, full_image2, full_image3, description from travel_hotel;
-
-show variables like 'secure_file_priv';
 
 -- json 파일의 travel_food 정보 매핑
 insert into travel_hotel(hname, hlike, score, evaluation, tag, image1, image2, image3, full_image1, full_image2, full_image3, description)
@@ -255,9 +231,6 @@ create table travel_repair(
 
 desc travel_repair;
 select * from travel_repair;
-select rname, `rlike`, score, evaluation, tag, image1, image2, image3, full_image1, full_image2, full_image3, description from travel_repair;
-
-show variables like 'secure_file_priv';
 
 -- json 파일의 travel_food 정보 매핑
 insert into travel_repair(rname, `rlike`, score, evaluation, tag, image1, image2, image3, full_image1, full_image2, full_image3, description)
@@ -296,7 +269,6 @@ from
     
 select * from travel_repair;
 
-
 /*********************************************
 	     여행지 추천: travel 관련 테이블 (끝)
 *********************************************/
@@ -304,42 +276,25 @@ select * from travel_repair;
 /***************************************************
 	     여행지 추천: travel_food_detail 관련 테이블
 ****************************************************/
+
 /** 맛집 상세페이지 테이블 생성 : travel_food_detail */
---     private int did;
--- 	   private String fname;
---     private Double flike;
---     private List<String> tag;
---     private String location;
---     private String food;
---     private String address;
---     private String localAddress;
---     private String businessHouers;
---     private String lastOrder;
---     private String phone;
---     private List<String> other;
---     private List<TravelDetailMenu> menu;
---     private String image1;
---     private String image2;
---     private String image3;
---     private List<TravelDetailReview> review;
 DROP TABLE travel_food_detail;
 create table travel_food_detail(
 	did					int				auto_increment primary key,
     fname   			varchar(30) not null,
     flike				DECIMAL(4,1),
+    score	    		int,
     tag	    			json,
     location			varchar(100),
     food				varchar(100), 
     address				varchar(100),
     local_address		varchar(100),
-    business_houers		varchar(100),
-    last_order			varchar(100),
+    business			json,
     phone				varchar(100),
     other				json,
     menu				json,
-    image1				varchar(100),
-    image2				varchar(100),
-    image3				varchar(100),
+    main_images			json,
+    image_list			json,
     review				json
 );
 
@@ -347,42 +302,170 @@ desc travel_food_detail;
 select * from travel_food_detail;
 
 -- json 파일의 travel_food_detail 정보 매핑
-INSERT INTO travel_food_detail(fname, flike, tag, location, food, address, local_address, business_houers, last_order, phone, other, menu, image1, image2, image3, review)
+INSERT INTO travel_food_detail(fname, flike, score, tag, location, food, address, local_address, business, phone, other, menu, main_images, image_list, review)
 SELECT
     jt.fname,
     jt.flike,
+    jt.score,
     jt.tag,
     jt.location,
     jt.food,
     jt.address,
     jt.local_address,
-    jt.business_houers,
-    jt.last_order,
+    jt.business,
     jt.phone,
     jt.other,
     jt.menu,
-    jt.image1,
-    jt.image2,
-    jt.image3,
+    jt.main_images,
+    jt.image_list,
     jt.review
 FROM JSON_TABLE(
     CAST(LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/travelFoodDetails.json') AS CHAR CHARACTER SET utf8mb4),
     '$[*]' COLUMNS (
-        fname            VARCHAR(30) PATH '$.fname',
+        fname            VARCHAR(30)  PATH '$.fname',
         flike            DECIMAL(4,1) PATH '$.flike',
+        score   		 int 		  PATH '$.score',
         tag              JSON PATH '$.tag',
         location         VARCHAR(100) PATH '$.location',
         food             VARCHAR(100) PATH '$.food',
         address          VARCHAR(100) PATH '$.address',
         local_address    VARCHAR(100) PATH '$.localAddress',
-        business_houers  VARCHAR(100) PATH '$.businessHouers',
-        last_order       VARCHAR(100) PATH '$.lastOrder',
+        business		 JSON PATH '$.business',
         phone            VARCHAR(100) PATH '$.phone',
         other            JSON PATH '$.other',
 		menu			 JSON PATH '$.menu', 
-        image1           VARCHAR(100) PATH '$.image1',
-        image2           VARCHAR(100) PATH '$.image2',
-        image3           VARCHAR(100) PATH '$.image3',
+        main_images      JSON PATH '$.mainImages',
+        image_list       JSON PATH '$.imageList',
+        review			 JSON PATH '$.review'
+    )
+) AS jt;
+
+
+
+/** 숙소 상세페이지 테이블 생성 : travel_hotel_detail */
+DROP TABLE travel_hotel_detail;
+create table travel_hotel_detail(
+	did					int				auto_increment primary key,
+    hname   			varchar(30) not null,
+    hlike				DECIMAL(4,1),
+    score	    		int,
+    tag	    			json,
+    location			varchar(100),
+    hotel				varchar(100), 
+    address				varchar(100),
+    local_address		varchar(100),
+    business			json,
+    phone				varchar(100),
+    other				json,
+    menu				json,
+    main_images			json,
+    image_list			json,
+    review				json
+);
+
+desc travel_hotel_detail;
+select * from travel_hotel_detail;
+
+-- json 파일의 travel_food_detail 정보 매핑
+INSERT INTO travel_hotel_detail(hname, hlike, score, tag, location, hotel, address, local_address, business, phone, other, menu, main_images, image_list, review)
+SELECT
+    jt.hname,
+    jt.hlike,
+    jt.score,
+    jt.tag,
+    jt.location,
+    jt.hotel,
+    jt.address,
+    jt.local_address,
+    jt.business,
+    jt.phone,
+    jt.other,
+    jt.menu,
+    jt.main_images,
+    jt.image_list,
+    jt.review
+FROM JSON_TABLE(
+    CAST(LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/travelHotelDetails.json') AS CHAR CHARACTER SET utf8mb4),
+    '$[*]' COLUMNS (
+        hname            VARCHAR(30) PATH '$.hname',
+        hlike            DECIMAL(4,1) PATH '$.hlike',
+        score   		 int 		  PATH '$.score',
+        tag              JSON PATH '$.tag',
+        location         VARCHAR(100) PATH '$.location',
+        hotel             VARCHAR(100) PATH '$.hotel',
+        address          VARCHAR(100) PATH '$.address',
+        local_address    VARCHAR(100) PATH '$.localAddress',
+        business		 JSON PATH '$.business',
+        phone            VARCHAR(100) PATH '$.phone',
+        other            JSON PATH '$.other',
+		menu			 JSON PATH '$.menu', 
+        main_images      JSON PATH '$.mainImages',
+        image_list       JSON PATH '$.imageList',
+        review			 JSON PATH '$.review'
+    )
+) AS jt;
+
+
+
+/** 수리 상세페이지 테이블 생성 : travel_repair_detail */
+DROP TABLE travel_repair_detail;
+create table travel_repair_detail(
+	did					int				auto_increment primary key,
+    rname   			varchar(30) not null,
+    `rlike`				DECIMAL(4,1),
+    score	    		int,
+    tag	    			json,
+    location			varchar(100),
+    `repair`				varchar(100), 
+    address				varchar(100),
+    local_address		varchar(100),
+    business			json,
+    phone				varchar(100),
+    other				json,
+    menu				json,
+    main_images			json,
+    image_list			json,
+    review				json
+);
+
+desc travel_repair_detail;
+select * from travel_repair_detail;
+
+-- json 파일의 travel_food_detail 정보 매핑
+INSERT INTO travel_repair_detail(rname, `rlike`, score, tag, location, `repair`, address, local_address, business, phone, other, menu, main_images, image_list, review)
+SELECT
+    jt.rname,
+    jt.`rlike`,
+    jt.score,
+    jt.tag,
+    jt.location,
+    jt.`repair`,
+    jt.address,
+    jt.local_address,
+    jt.business,
+    jt.phone,
+    jt.other,
+    jt.menu,
+    jt.main_images,
+    jt.image_list,
+    jt.review
+FROM JSON_TABLE(
+    CAST(LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/travelRepairDetails.json') AS CHAR CHARACTER SET utf8mb4),
+    '$[*]' COLUMNS (
+        rname            VARCHAR(30) PATH '$.rname',
+        `rlike`            DECIMAL(4,1) PATH '$.rlike',
+        score   		 int 		  PATH '$.score',
+        tag              JSON PATH '$.tag',
+        location         VARCHAR(100) PATH '$.location',
+        `repair`             VARCHAR(100) PATH '$.repair',
+        address          VARCHAR(100) PATH '$.address',
+        local_address    VARCHAR(100) PATH '$.localAddress',
+        business		 JSON PATH '$.business',
+        phone            VARCHAR(100) PATH '$.phone',
+        other            JSON PATH '$.other',
+		menu			 JSON PATH '$.menu', 
+        main_images      JSON PATH '$.mainImages',
+        image_list       JSON PATH '$.imageList',
         review			 JSON PATH '$.review'
     )
 ) AS jt;
@@ -420,3 +503,60 @@ value (
 "test111","$2a$10$D/b6eWYeHIL.LWGOmZcMJewK1sj93Emq58YDCyYL32EdN8X97ept2","asdf","102","남성","아리랑로 6 (동선동4가) 121","111@gmail.com","11111111111"
 );
 
+
+select * from userinfo;
+/******************************************************
+	일반 회원 / 관리자 구분용 컬럼 추가 - 강기종
+******************************************************/
+ALTER TABLE userinfo
+ADD COLUMN role ENUM('USER','ADMIN') DEFAULT 'USER' AFTER uphone;
+select * from userinfo;
+/******************************************************
+	게시판 - 강기종
+******************************************************/
+-- 1. 기존 테이블이 있다면 제거 (안전용)
+-- DROP TABLE IF EXISTS board_post;
+-- DROP TABLE IF EXISTS board_category;
+
+-- 2. 게시판 종류 테이블
+CREATE TABLE board_category (
+  bid INT AUTO_INCREMENT PRIMARY KEY,
+  bname VARCHAR(50) NOT NULL,   -- 식별용 코드 (예: news, event, review)
+  btitle VARCHAR(100) NOT NULL  -- 한글 표시용 이름
+);
+
+-- 기본 게시판 등록
+INSERT INTO board_category (bname, btitle) VALUES
+('news', '뉴스'),
+('event', '이벤트'),
+('review', '리뷰');
+select * from board_category;
+
+-- 3. 게시글 테이블
+CREATE TABLE board_post (
+  pid INT AUTO_INCREMENT PRIMARY KEY,       -- 게시글 고유 ID
+  bid INT NOT NULL,                         -- 게시판 FK
+  uid varchar(100) NOT NULL,                        -- 작성자 (userinfo FK)
+  title VARCHAR(150) NOT NULL,              -- 제목
+  content TEXT NOT NULL,                    -- 본문
+  image_url VARCHAR(255),                   -- 본문 내 이미지
+  thumbnail_url VARCHAR(255),               -- 카드 썸네일
+  category_tag VARCHAR(50) DEFAULT '일반',  -- 세부 분류 (공지, 후기 등)
+  view_count INT DEFAULT 0,                 -- 조회수
+  status ENUM('PUBLIC','PRIVATE','DELETED') DEFAULT 'PUBLIC', -- 상태
+  created_at DATETIME DEFAULT NOW(),
+  updated_at DATETIME DEFAULT NOW() ON UPDATE NOW(),
+  FOREIGN KEY (bid) REFERENCES board_category(bid) ON DELETE CASCADE,
+  FOREIGN KEY (uid) REFERENCES userinfo(uid) ON DELETE CASCADE
+);
+select * from board_post;
+ALTER TABLE board_post ADD COLUMN writer VARCHAR(50);
+
+-- 4. 확인용 쿼리
+SELECT * FROM board_category;
+SELECT pid, bid, uid, title, category_tag, status, view_count, created_at FROM board_post;
+
+show tables;
+select * from board_post;
+-- 전체 데이터 삭제(자동 증가값도 초기화됨)
+-- TRUNCATE TABLE board_post;

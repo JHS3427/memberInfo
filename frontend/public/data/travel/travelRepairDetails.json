@@ -1,0 +1,645 @@
+[
+  {
+    "rname": "자전거 정비소",
+    "rlike": "3.0",
+    "score": "60",
+    "tag": [
+      "자전거수리",
+      "자전거세차",
+      "자전거분해정비",
+      "자전거셀프수리",
+      "자전거정비"
+    ],
+    "location": "자양로3길",
+    "repair": "자전거 정비, 분해세차, 분해정비",
+    "address": "서울 광진구 자양로3길 67 지하1층",
+    "localAddress": "서울 광진구 자양동 666-10",
+    "business": [
+      {
+        "day": "월",
+        "houers": "정기휴무 (매주 월요일)",
+        "last": ""
+      },
+      {
+        "day": "화",
+        "houers": "정기휴무 (매주 화요일)",
+        "last": ""
+      },
+      {
+        "day": "수",
+        "houers": "15:30 - 19:00",
+        "last": ""
+      },
+      {
+        "day": "목",
+        "houers": "15:30 - 19:00",
+        "last": ""
+      },
+      {
+        "day": "금",
+        "houers": "15:30 - 19:00",
+        "last": ""
+      },
+      {
+        "day": "토",
+        "houers": "15:30 - 19:00",
+        "last": ""
+      },
+      {
+        "day": "일",
+        "houers": "11:00 - 19:00",
+        "last": ""
+      }
+    ],
+    "phone": "0507-1393-4728",
+    "other": [
+      "입고",
+      "출고"
+    ],
+    "menu": [
+      {
+        "rname": "기본점검",
+        "price": "5000"
+      },
+      {
+        "rname": "분해세차",
+        "price": "70000"
+      },
+      {
+        "rname": "튜브교체",
+        "price": "10000"
+      },
+      {
+        "rname": "속선교체",
+        "price": "10000"
+      },
+      {
+        "rname": "겉선교체",
+        "price": "10000"
+      },
+      {
+        "rname": "오버홀",
+        "price": "180000"
+      }
+    ],
+    "mainImages": [
+      "/images/travel_repairs/repair/repair_1.jfif",
+      "/images/travel_repairs/repair/repair_2.jfif",
+      "/images/travel_repairs/repair/repair_3.jfif"
+    ],
+    "imageList": [
+      {
+        "category": "업체",
+        "images": [
+          "/images/travel_repairs/repair/company/repair_company_1.jfif",
+          "/images/travel_repairs/repair/company/repair_company_2.jfif",
+          "/images/travel_repairs/repair/company/repair_company_3.jfif",
+          "/images/travel_repairs/repair/company/repair_company_4.jfif"
+        ]
+      },
+      {
+        "category": "블로그",
+        "images": [
+          "/images/travel_repairs/repair/blog/repair_blog_1.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_2.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_3.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_4.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_5.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_6.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_7.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_8.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_9.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_10.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_11.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_12.jfif"
+        ]
+      }
+    ],
+    "review": [
+      {
+        "userProfile" : "/images/travel_review/repair/repair_review_1.jfif",
+        "userId" : "자전거 정비소",
+        "userLike" : "4.0",
+        "userTotalReview" : "4",
+        "userFllowers" : "5",
+        "reviewImages": [
+          "/images/travel_repairs/repair/blog/repair_blog_1.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_2.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_3.jfif"
+        ],
+        "reviewDate" : "2025-11-09",
+        "reviewDescription" : "아주 이쁜 로드바이크가 입고 되었습니다. \n\n\u200B\n\n정비는 처음이시라고 전체적인 점검과 분해세차를 의뢰 주셨습니다. \n실내 보관을 해서 상태는 나쁘지 않습니다. \n체인의 수명도 많이 남아있습니다. \n조립하면서 앞뒤 휠의 밸런스가 많이 흐트러져 있어 교정해 드렸습니다. 테스트 주행중 한컷!! \n\n\u200B\n\n자전거 타기 너무 좋은 날씨네요 \n\n\u200B\n\n안전하고 재미있는 라이딩 하시길 \n\n\u200B\n\n\u200B\n\n자전거정비소 \n\n\u200B\n\n일      :  오전 10:00 ~ 오후 6:00 \n\n수 -토 :  오후 3:30분 ~ \n\n월-화 : 휴무\n\n출장이 있을 수  있어 미리 연락 부탁드립니다.\n\n\u200B\n"
+
+      },
+      {
+        "userProfile" : "/images/travel_review/repair/repair_review_2.jfif",
+        "userId" : "자전거 정비소",
+        "userLike" : "1.0",
+        "userTotalReview" : "0",
+        "userFllowers" : "2",
+        "reviewImages": [
+          "/images/travel_repairs/repair/blog/repair_blog_4.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_5.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_6.jfif"
+        ],
+        "reviewDate" : "2025-11-08",
+        "reviewDescription" : "자이언트 2006년쯤 구매하여 재미있게 라이딩 하시다가 몇년 방치하셨다고 합니다. \n오버홀까진 원하지 않으셔서 겉선/속선 교체 / 후드교체 / 분해 세차를 진행했습니다. \n부품 세척 완료 / 체인은 수명이 다해서 교체\n세월의 흔적을 최대한 지우려고 노력했습니다. \n\n\u200B\n\n추억이 깃든 자전거와 재미있는 라이딩 하시길.. \n\n\u200B\n\n\u200B\n\n\u200B\n\n자전거정비소 \n\n\u200B\n\n일      :  오전 10:00 ~ 오후 6:00 \n\n수 -토 :  오후 3:30분 ~ \n\n월-화 : 휴무\n\n출장이 있을 수  있어 미리 연락 부탁드립니다.\n"
+
+      },
+      {
+        "userProfile" : "/images/travel_review/repair/repair_review_3.jfif",
+        "userId" : "자전거 정비소",
+        "userLike" : "2.0",
+        "userTotalReview" : "2",
+        "userFllowers" : "3",
+        "reviewImages": [
+          "/images/travel_repairs/repair/blog/repair_blog_7.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_8.jfif",
+          "/images/travel_repairs/repair/blog/repair_blog_9.jfif"
+        ],
+        "reviewDate" : "2025-09-26",
+        "reviewDescription" : "싱글크랭크 변경 요청건이 들어왔습니다. \n\n\u200B\n\n원하시는 규격은 앞 38T 싱글 크랭크 / 뒤 45T 구동계 변경 \n저가에 할 수 있는지? \n\n\u200B\n\n\u200B\n\n정품으로 교체한다면 부품 가격이 자전거만큼 나오겠지만 중국산 대체품을 알아보신다면 부품값을 줄일 수 있을거라고 알려드렸습니다. \n\n\u200B\n\n단, 중국산 부품에 대해서는 제가 수입업자도 아니고 해당 제품의 품질에 대해서 보증을 서드릴수 없다고 하였습니다. \n\n\u200B\n\n편하게 탈 수 있다면 만족하신다고 하여 LTWOO 1x9그룹셋을 주문 후에 크랭크도 함께 주문 하였습니다 \n\n싱글 크랭크라 앞 변속기도 제거 \n\n\u200B\n\n\u200B\n\n앞변속기에 스트레스 있으신 분들에게 추천해드리는 작업입니다. \n\n\u200B\n\n꽤 재미있는 작업이었습니다. \n\n\u200B\n\n\u200B\n\n\u200B\n\n부품 사오셔도 됩니다. \n\n\u200B\n\n\u200B\n\n안전하고 재미있는 라이딩 하세요!!! \n\n\u200B\n\n\u200B\n\n\u200B\n\n자전거정비소 \n\n\u200B\n\n일      :  오전 10:00 ~ 오후 6:00 \n\n수 -토 :  오후 3:30분 ~ \n\n월-화 : 휴무\n\n출장이 있을 수  있어 미리 연락 부탁드립니다.\n"
+      }
+    ]
+  },
+  {
+    "rname": "경태의 자전거 이야기",
+    "rlike": "3.6",
+    "score": "87",
+    "tag": [
+      "자양동자전거",
+      "광진구자전거",
+      "서울자전거수리",
+      "한강자전거수리",
+      "화양동자전거"
+    ],
+    "location": "자양번영로3길",
+    "repair": "예약, 라이딩 생활, 정비",
+    "address": "서울 광진구 자양번영로3길 28 노란색 건물",
+    "localAddress": "서울 광진구 자양동 582-13",
+    "business": [
+      {
+        "day": "월",
+        "houers": "정기휴무 (매주 월요일)",
+        "last": ""
+      },
+      {
+        "day": "화",
+        "houers": "11:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "수",
+        "houers": "11:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "목",
+        "houers": "11:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "금",
+        "houers": "11:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "토",
+        "houers": "11:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "일",
+        "houers": "정기휴무 (매주 일요일)",
+        "last": ""
+      }
+    ],
+    "phone": "0507-1425-5929",
+    "other": [
+      "소비쿠폰(신용·체크카드)",
+      "제로페이"
+    ],
+    "menu": [
+      {
+        "rname": "기본점검",
+        "price": "6000"
+      },
+      {
+        "rname": "분해세차",
+        "price": "65000"
+      },
+      {
+        "rname": "튜브교체",
+        "price": "8000"
+      },
+      {
+        "rname": "속선교체",
+        "price": "8000"
+      },
+      {
+        "rname": "겉선교체",
+        "price": "8000"
+      },
+      {
+        "rname": "오버홀",
+        "price": "200000"
+      }
+    ],
+    "mainImages": [
+      "/images/travel_repairs/gyeongtae/gyeongtae_1.jfif",
+      "/images/travel_repairs/gyeongtae/gyeongtae_2.jfif",
+      "/images/travel_repairs/gyeongtae/gyeongtae_3.jfif"
+    ],
+    "imageList": [
+      {
+        "category": "업체",
+        "images": [
+          "/images/travel_repairs/gyeongtae/company/gyeongtae_company_1.jfif",
+          "/images/travel_repairs/gyeongtae/company/gyeongtae_company_2.jfif",
+          "/images/travel_repairs/gyeongtae/company/gyeongtae_company_3.jfif",
+          "/images/travel_repairs/gyeongtae/company/gyeongtae_company_4.jfif"
+        ]
+      },
+      {
+        "category": "블로그",
+        "images": [
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_1.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_2.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_3.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_4.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_5.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_6.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_7.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_8.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_9.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_10.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_11.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_12.jfif"
+        ]
+      }
+    ],
+    "review": [
+      {
+        "userProfile" : "/images/travel_review/gyeongtae/gyeongtae_review_1.png",
+        "userId" : "elp",
+        "userLike" : "4.0",
+        "userTotalReview" : "4",
+        "userFllowers" : "5",
+        "reviewImages": [
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_1.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_2.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_3.jfif"
+        ],
+        "reviewDate" : "2025-08-12",
+        "reviewDescription" : "설명도 잘 해주시고 친절하세요! 집에 있던 자전거 타이어 교체/점검하러 가져갔는데 고무만 바꾸면 된다 말해주시고 빠르게 수리해 주셨어요. 감사합니다~"
+
+      },
+      {
+        "userProfile" : "/images/travel_review/gyeongtae/gyeongtae_review_2.png",
+        "userId" : "프라미",
+        "userLike" : "1.0",
+        "userTotalReview" : "0",
+        "userFllowers" : "2",
+        "reviewImages": [
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_4.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_5.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_6.jfif"
+        ],
+        "reviewDate" : "2025-07-24",
+        "reviewDescription" : "8년만의 예약후 찿아갔습니다 사장님 꼼꼼히 잘봐주셔서 6km걸어서 멀리 찿아간 보람이 있었습니다\n도둑 넘이 스템탑캡 /바스켓 베어링을 빼어가서 땡볕에 운동삼아 갔는데 도둑넘한테 욕한사발 하면서 끌고갔습니다\n같은 안동 옥동 고향사람인데 10분도 안되 끝나서 애기도 못하고 섭섭히 돌아감 점이 없잖아 있었네요"
+
+      },
+      {
+        "userProfile" : "/images/travel_review/gyeongtae/gyeongtae_review_3.png",
+        "userId" : "띠봉따봉",
+        "userLike" : "2.0",
+        "userTotalReview" : "2",
+        "userFllowers" : "3",
+        "reviewImages": [
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_7.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_8.jfif",
+          "/images/travel_repairs/gyeongtae/blog/gyeongtae_blog_9.jfif"
+        ],
+        "reviewDate" : "2024-03-30",
+        "reviewDescription" : "사장님 친절하시고 금방 고쳐주십니다 가격도 괜찮아요 ! 고치니까 자전거가 슝슝 나가네요\uD83D\uDC4D\uD83D\uDC4D"
+      }
+    ]
+  },
+  {
+    "rname": "로드는오늘도뚠뚠",
+    "rlike": "2.0",
+    "score": "50",
+    "tag": [
+      "자전거세차",
+      "구동계분해세차",
+      "자전거분해세차",
+      "자전거구동계세차",
+      "구동계세차"
+    ],
+    "location": "뚝섬로26길",
+    "repair": "예약",
+    "address": "서울 광진구 뚝섬로26길 33 1층 로드는 오늘도 뚠뚠",
+    "localAddress": "서울 광진구 자양동 47-46",
+    "business": [
+      {
+        "day": "월",
+        "houers": "08:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "화",
+        "houers": "08:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "수",
+        "houers": "08:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "목",
+        "houers": "08:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "금",
+        "houers": "08:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "토",
+        "houers": "08:00 - 18:00",
+        "last": ""
+      },
+      {
+        "day": "일",
+        "houers": "08:00 - 18:00",
+        "last": ""
+      }
+    ],
+    "phone": "0507-1393-4728",
+    "other": [
+      "주차 불가"
+    ],
+    "menu": [
+      {
+        "rname": "기본점검",
+        "price": "5800"
+      },
+      {
+        "rname": "분해세차",
+        "price": "80000"
+      },
+      {
+        "rname": "튜브교체",
+        "price": "12000"
+      },
+      {
+        "rname": "속선교체",
+        "price": "12000"
+      },
+      {
+        "rname": "겉선교체",
+        "price": "12000"
+      },
+      {
+        "rname": "오버홀",
+        "price": "188000"
+      }
+    ],
+    "mainImages": [
+      "/images/travel_repairs/ddunddun/ddunddun_1.jpg",
+      "/images/travel_repairs/ddunddun/ddunddun_2.jpg",
+      "/images/travel_repairs/ddunddun/ddunddun_3.jpg"
+    ],
+    "imageList": [
+      {
+        "category": "업체",
+        "images": [
+          "/images/travel_repairs/ddunddun/company/ddunddun_company_1.jfif",
+          "/images/travel_repairs/ddunddun/company/ddunddun_company_2.jfif",
+          "/images/travel_repairs/ddunddun/company/ddunddun_company_3.jfif",
+          "/images/travel_repairs/ddunddun/company/ddunddun_company_4.jfif"
+        ]
+      },
+      {
+        "category": "블로그",
+        "images": [
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_1.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_2.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_3.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_4.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_5.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_6.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_7.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_8.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_9.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_10.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_11.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_12.jfif"
+        ]
+      }
+    ],
+    "review": [
+      {
+        "userProfile" : "/images/travel_review/ddunddun/ddunddun_review_1.jfif",
+        "userId" : "미희76",
+        "userLike" : "4.0",
+        "userTotalReview" : "19",
+        "userFllowers" : "17",
+        "reviewImages": [
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_1.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_2.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_3.jfif"
+        ],
+        "reviewDate" : "2024-10-27",
+        "reviewDescription" : "꼼꼼한 세차가 필요하여 예약했는데요.\n완전 새차가되어 돌아와써여~! 사진을 안찍어 놓은게 좀 아쉽네여!\n감사합니다!"
+
+      },
+      {
+        "userProfile" : "/images/travel_review/ddunddun/ddunddun_review_2.png",
+        "userId" : "핸드릭스83",
+        "userLike" : "4.0",
+        "userTotalReview" : "2",
+        "userFllowers" : "1",
+        "reviewImages": [
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_4.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_5.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_6.jfif"
+        ],
+        "reviewDate" : "2024-10-20",
+        "reviewDescription" : "너무 만족합니다"
+
+      },
+      {
+        "userProfile" : "/images/travel_review/ddunddun/ddunddun_review_3.png",
+        "userId" : "ehf",
+        "userLike" : "4.0",
+        "userTotalReview" : "4",
+        "userFllowers" : "2",
+        "reviewImages": [
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_7.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_8.jfif",
+          "/images/travel_repairs/ddunddun/blog/ddunddun_blog_9.jfif"
+        ],
+        "reviewDate" : "2024-09-14",
+        "reviewDescription" : "훌륭합니다!"
+      }
+    ]
+  },
+  {
+    "rname": "닥터모빌리티",
+    "rlike": "4.0",
+    "score": "90",
+    "tag": [
+      "전동제품판매",
+      "전동제품수리",
+      "일반자전거판매",
+      "자전거수리",
+      "자전거용품"
+    ],
+    "location": "능동로7길",
+    "repair": "스마트 자전거, 스타카토 자전거",
+    "address": "서울 광진구 능동로7길 41-2 1층 자전거가게",
+    "localAddress": "서울 광진구 자양동 47-46",
+    "business": [
+      {
+        "day": "월",
+        "houers": "08:00 - 18:00"
+      },
+      {
+        "day": "화",
+        "houers": "10:20 - 20:00"
+      },
+      {
+        "day": "수",
+        "houers": "10:20 - 20:00"
+      },
+      {
+        "day": "목",
+        "houers": "10:20 - 20:00"
+      },
+      {
+        "day": "금",
+        "houers": "10:20 - 20:00"
+      },
+      {
+        "day": "토",
+        "houers": "10:20 - 20:00"
+      },
+      {
+        "day": "일",
+        "houers": "10:20 - 20:00"
+      }
+    ],
+    "phone": "0507-1393-4728",
+    "other": [
+      "주차가능"
+    ],
+    "menu": [
+      {
+        "rname": "기본점검",
+        "price": "6200"
+      },
+      {
+        "rname": "분해세차",
+        "price": "62000"
+      },
+      {
+        "rname": "튜브교체",
+        "price": "9000"
+      },
+      {
+        "rname": "속선교체",
+        "price": "9000"
+      },
+      {
+        "rname": "겉선교체",
+        "price": "9000"
+      },
+      {
+        "rname": "오버홀",
+        "price": "162000"
+      }
+    ],
+    "mainImages": [
+      "/images/travel_repairs/doctor/doctor_1.jpg",
+      "/images/travel_repairs/doctor/doctor_2.jpg",
+      "/images/travel_repairs/doctor/doctor_3.jpg"
+    ],
+    "imageList": [
+      {
+        "category": "업체",
+        "images": [
+          "/images/travel_repairs/doctor/company/doctor_company_1.jfif",
+          "/images/travel_repairs/doctor/company/doctor_company_2.jfif",
+          "/images/travel_repairs/doctor/company/doctor_company_3.jfif",
+          "/images/travel_repairs/doctor/company/doctor_company_4.jfif"
+        ]
+      },
+      {
+        "category": "블로그",
+        "images": [
+          "/images/travel_repairs/doctor/blog/doctor_blog_1.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_2.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_3.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_4.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_5.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_6.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_7.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_8.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_9.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_10.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_11.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_12.jfif"
+        ]
+      }
+    ],
+    "review": [
+      {
+        "userProfile" : "/images/travel_review/doctor/doctor_review_1.jfif",
+        "userId" : "shinung357",
+        "userLike" : "4.0",
+        "userTotalReview" : "139",
+        "userFllowers" : "116",
+        "reviewImages": [
+          "/images/travel_repairs/doctor/blog/doctor_blog_1.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_2.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_3.jfif"
+        ],
+        "reviewDate" : "2024-09-19.",
+        "reviewDescription" : "좋습니다"
+
+      },
+      {
+        "userProfile" : "/images/travel_review/doctor/doctor_review_2.png",
+        "userId" : "wwq",
+        "userLike" : "4.0",
+        "userTotalReview" : "337",
+        "userFllowers" : "385",
+        "reviewImages": [
+          "/images/travel_repairs/doctor/blog/doctor_blog_4.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_5.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_6.jfif"
+        ],
+        "reviewDate" : "2023-06-25",
+        "reviewDescription" : "친절하게 상담해 주시고 직접 점검도 해주시고 바람 넜으러가도 친절하게 잘해주십니다."
+
+      },
+      {
+        "userProfile" : "/images/travel_review/doctor/doctor_review_3.png",
+        "userId" : "dae",
+        "userLike" : "5.0",
+        "userTotalReview" : "452",
+        "userFllowers" : "100",
+        "reviewImages": [
+          "/images/travel_repairs/doctor/blog/doctor_blog_7.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_8.jfif",
+          "/images/travel_repairs/doctor/blog/doctor_blog_9.jfif"
+        ],
+        "reviewDate" : "2021-07-19",
+        "reviewDescription" : "굿"
+      }
+    ]
+  }
+]

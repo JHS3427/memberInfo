@@ -34,32 +34,20 @@ export function Footer() {
           <div>
             <h4>고객센터</h4>
             <ul>
-              <li>
-                <button onClick={() => navigate("/support", { state: { tab: "faq" } })}>
-                  자주 묻는 질문
-                </button>
-              </li>
-              <li>
-                <button onClick={() => navigate("/support", { state: { tab: "as" } })}>
-                  A/S 안내
-                </button>
-              </li>
-              <li>
-                <button onClick={() => navigate("/support", { state: { tab: "data" } })}>
-                  자료실
-                </button>
-              </li>
+              <li><button onClick={() => navigate("/support/faq")}>자주 묻는 질문</button></li>
+              <li><button onClick={() => navigate("/support/asinfo")}>A/S 안내</button></li>
+              <li><button onClick={() => navigate("/support/resources")}>자료실</button></li>
             </ul>
           </div>
           <div>
-            <h4>하이라이트</h4>
+            <h4>게시판</h4>
             <ul>
-              <li><a href="#">뉴스</a></li>
-              <li><a href="#">이벤트</a></li>
-              <li><a href="#">리뷰</a></li>
+              <li><button onClick={() => navigate("/board/news")}>뉴스</button></li>
+              <li><button onClick={() => navigate("/board/event")}>이벤트</button></li>
+              <li><button onClick={() => navigate("/board/review")}>리뷰</button></li>
             </ul>
           </div>
-          <div>
+          {/* <div>
             <h4>회사 소개</h4>
             <ul>
               <li><a href="#">회사 스토리</a></li>
@@ -67,15 +55,21 @@ export function Footer() {
               <li><a href="#">선수 후원</a></li>
               <li><a href="#">오시는 길</a></li>
             </ul>
-          </div>
+          </div> */}
         </div>
 
         {/* 오른쪽 회사 정보 */}
         <div className="footer-info">
           <div className="footer-social">
-            <a href="https://www.instagram.com/cellobike_official/"><i className="fab fa-instagram"></i></a>
-            <a href="https://www.youtube.com/channel/UCgb2432J7dUqZXaWe39FqQw"><i className="fab fa-youtube"></i></a>
-            <a href="https://blog.naver.com/celloblog"><i className="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/cellobike_official/" target="_blank">
+              <i className="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCgb2432J7dUqZXaWe39FqQw" target="_blank">
+              <i className="fab fa-youtube"></i>
+            </a>
+            <a href="https://blog.naver.com/celloblog" target="_blank">
+              <i className="fa-solid fa-blog"></i>
+            </a>
           </div>
           <p>
             대표 홍길동 | 사업자등록번호 123-45-67890 <br />

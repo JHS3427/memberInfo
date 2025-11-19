@@ -9,6 +9,8 @@ import java.util.List;
 public class TravelFoodDto {
     private int fid;
     private String fname;
+    private Double lat;
+    private Double lng;
     private Double flike;
     private int score;
     private int evaluation;
@@ -26,6 +28,8 @@ public class TravelFoodDto {
     public TravelFoodDto(TravelFood entity) {
         this.fid = entity.getFid();
         this.fname = entity.getFname();
+        this.lat = entity.getLat();
+        this.lng = entity.getLng();
         this.flike = entity.getFlike();
         this.score = entity.getScore();
         this.evaluation = entity.getEvaluation();

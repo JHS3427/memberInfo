@@ -39,8 +39,14 @@ const getDistance = (startLat, startLon, endLat, endLon) => {
 }
 
 const Rantal = () => {
-    //로직을 리덕스로 변경하기 전까지 사용하던 상태관리 함수
-    // const [maps, setMaps] = useState([]);
+    // useDispatch()를 사용하기 위해서 dispatch 변수 선언 그리고 할당 함.
+    const dispatch = useDispatch();
+
+    //마커의 정보를 담고있는 store에 등록된 데이터
+    const selectedMarker = useSelector((state)=> state.rentalData.selectedStation);
+
+    // store에 등록된 전체 데이터를 사용하기 위해 useSelector로 데이터 추출
+    const allBikeStations = useSelector((state) => state.rentalData.bikeList);
 
     // 사용자가 위치 사용 권한을 거부했을 시 기본 좌표 반영
     const [latLon, setLatLon] = useState({ lat: 37.575877, lng: 126.976897 });
@@ -49,17 +55,8 @@ const Rantal = () => {
 
     const [showSearchButton, setShowSearchButton] = useState(false);
 
-    //마커의 정보를 담고있는 store에 등록된 데이터
-    const selectedMarker = useSelector((state)=> state.rentalData.selectedStation);
-
-    // useDispatch()를 사용하기 위해서 dispatch 변수 선언 그리고 할당 함.
-    const dispatch = useDispatch();
-
-    // store에서 필터링된 마커 리스트를 자겨올 변수
+    // store에서 필터링된 마커 리스트를 가져 올 변수
     const [filteredMaps, setFilteredMaps] = useState([]);
-
-    // store에 등록된 전체 데이터를 사용하기 위해 useSelector로 데이터 추출
-    const allBikeStations = useSelector((state) => state.rentalData.bikeList);
 
     useEffect(() => {
         const bikePullData = async () => {
@@ -73,7 +70,6 @@ const Rantal = () => {
                 const { latitude, longitude } = position.coords
                 const userLat = latitude;
                 const userLon = longitude;
-                
 
                 // 중심좌표 설정 (사용자 위치)
                 setLatLon({ lat: userLat, lng: userLon })
@@ -117,9 +113,11 @@ const Rantal = () => {
     }
 
     return (
-        <div className='rental_map_box' style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div className='rental_map_box'>
             <Maps data={selectedMarker} onClose={() => { dispatch(setSelectedStation(null)) }} />
-            <Map center={latLon} style={{ width: "100%", height: "calc(100vh - 55px)"}}
+            <Map
+                className='kakao_rental_map'
+                center={latLon} style={{ width: "100%", height: "calc(100vh - 55px)"}}
                 onDragEnd={(map)=>{
 
                     //지도의 새로운 중심 좌표를 가져와서 latLon 상태 업데이트

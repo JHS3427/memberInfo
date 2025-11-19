@@ -4,9 +4,6 @@ import lombok.Data;
 
 @Data
 public class Map {
-//    "lat": 33.450701,
-//    "lng": 126.570667,
-//    "type": "coord"
     private int    mid;
     private String mname;
     private double lat;

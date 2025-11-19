@@ -48,6 +48,7 @@ public class SecurityConfig {
         http
                 .csrf((csrf) -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .ignoringRequestMatchers("/auth/logout")
                         .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler())
                 )
                 .cors((cors) -> cors
@@ -63,8 +64,12 @@ public class SecurityConfig {
                 .requestCache(rc -> rc.disable()) //로그인 후 리다이렉트 방지
 //                .securityContext(sc -> sc.requireExplicitSave(true)) //인증정보 세션 자동저장 방지
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/member/**","/product/**","/auth/**","/cart/**","/support/**", "/api/chatbot/**", "/map/**", "/travel/**","/csrf/**").permitAll()
-                        .anyRequest().authenticated()
+                    .requestMatchers(
+                        "/member/**","/product/**","/auth/**","/cart/**",
+                        "/support/**","/map/**","/travel/**","/csrf/**", "/uploads/**",
+                        "/api/chatbot", "/api/board/**", "/api/upload"
+                    ).permitAll()
+                    .anyRequest().authenticated()
                 );
 
         return http.build();
@@ -108,7 +113,8 @@ public class SecurityConfig {
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // ✅ 추가
+        configuration.setAllowedHeaders(Arrays.asList("*")); // ✅ 모든 헤더 허용
         configuration.setAllowCredentials(true);  // 🔥 프론트에서 JSESSIONID/CSRF 쿠키 받으려면 필수
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

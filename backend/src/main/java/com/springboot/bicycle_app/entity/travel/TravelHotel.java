@@ -10,19 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TravelHotel {
-    // fid			int				auto_increment primary key,
-    // fname   	varchar(30) not null,
-    // flike		DECIMAL(4,1),
-    // score	    int,
-    // evaluation	int,
-    // tag			json,  
-    // image1		varchar(100),
-    // image2		varchar(100),
-    // image3		varchar(100),
-    // fullImage1	varchar(100),
-    // fullImage2	varchar(100),
-    // fullImage3	varchar(100),
-    // description	varchar(300)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int hid;

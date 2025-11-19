@@ -10,6 +10,7 @@ public class TravelHotelDetailDto {
     private int did;
     private String hname;
     private Double hlike;
+    private int score;
     private String tag;
     private String location;
     private String hotel;
@@ -29,6 +30,7 @@ public class TravelHotelDetailDto {
         this.did = entity.getDid();
         this.hname = entity.getHname();
         this.hlike = entity.getHlike();
+        this.score = entity.getScore();
         this.tag = entity.getTag();
         this.location = entity.getLocation();
         this.hotel = entity.getHotel();

@@ -26,6 +26,7 @@ export function TravelHotelDetailList({ selectedDid }) {
                         did={travelHotelDetailList.did}
                         hname={travelHotelDetailList.hname}
                         hlike={travelHotelDetailList.hlike}
+                        score={travelHotelDetailList.score}
                         tag={travelHotelDetailList.tag}
                         location={travelHotelDetailList.location}
                         hotel={travelHotelDetailList.hotel}
