@@ -99,6 +99,15 @@ public class OauthController {
     @PostMapping("/info")
     public UserInfoDto info(@RequestBody UserInfoDto userInfoDto){
         UserInfoDto result = null;
+        if(userInfoDto.isSocialDupl())
+        {
+            System.out.println("change start ");
+            //jw토큰 받아다가 바꿔서 id에 넣기, 패스워드는 빈칸으로 세팅
+            userInfoDto.setJwToken(userInfoDto.getUid());
+            String JWToken = userInfoDto.getUid();//uid에 토큰 넣어옴
+            Claims claim = oauthJWTService.getClaims(JWToken);
+            userInfoDto.setUid(claim.getSubject());
+        }
         result = oauthService.findInfo(userInfoDto);
         System.out.println("aaaaaaaaaaaaaaaaaaaaaa " + result);
         return result;

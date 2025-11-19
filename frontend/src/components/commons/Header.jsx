@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaHeadset, FaUser, FaBars, FaTimes, FaCartArrowDown, FaSignOutAlt } from "react-icons/fa";
 import { Chatbot } from "../../pages/support/Chatbot.jsx";
-import { useAuth } from "../../feature/auth/authContext.js";
-import { getCsrfToken } from "../../feature/auth/session";
 import "../../styles/purchaseheader.css";
+
+
+import { getLogout} from '../../feature/auth/authAPI';
+import { useDispatch } from 'react-redux';
+
 
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -14,8 +16,13 @@ export function Header() {
     const [showChatbot, setShowChatbot] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1023);
     const [closing, setClosing] = useState(false);
-    const { user, logout } = useAuth();
+    const loginInfo = localStorage.getItem("loginInfo");
+    const isLogin = loginInfo ? true : false;
     const location = useLocation();
+
+    
+    const dispatch = useDispatch();
+
 
     // 화면 크기 감지
     useEffect(() => {
@@ -135,29 +142,21 @@ export function Header() {
                         <FaHeadset className="icon" /> <span className="text">고객센터</span>
                     </NavLink>
                     {/* 로그인 / 로그아웃 토글 */}
-                    {user?.isLogin ? (
+                    {isLogin ? (
                     <button
                         className="icon-link logout"
-                        onClick={async () => {
-                            const csrf = getCsrfToken();
-                            await axios.post(
-                            "http://localhost:8080/auth/logout",
-                            {},
-                            {
-                                withCredentials: true,
-                                headers: { "X-XSRF-TOKEN": csrf },
-                            }
-                            );
-
-                            logout(); // 전역 로그인 상태 false로
+                        onClick={async() => {
+                        await dispatch(getLogout());
+                        // localStorage.removeItem("loginInfo");
+                        window.location.reload(); // UI 갱신
                         }}
-                        >
-                        <FaSignOutAlt className="icon" /> 
+                    >
+                        <FaSignOutAlt className="icon" />
                         <span className="text">로그아웃</span>
                     </button>
                     ) : (
                     <NavLink to="/login" className="icon-link">
-                        <FaUser className="icon" /> 
+                        <FaUser className="icon" />
                         <span className="text">로그인</span>
                     </NavLink>
                     )}

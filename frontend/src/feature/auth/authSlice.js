@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const saveAuth = JSON.parse(localStorage.getItem("loginInfo"));
 
 const initialState = saveAuth || {
-    isLogin: false
+    isLogin: false,
 }
 
 export const authSlice = createSlice({
@@ -12,8 +12,8 @@ export const authSlice = createSlice({
     reducers: {
         login(state, action) {
             state.isLogin = !state.isLogin;
-            const { userId } = action.payload;
-            const loginInfo = { "userId": userId, "isLogin":state.isLogin};
+            const { userId,isSocial } = action.payload;
+            const loginInfo = { "userId": userId, "isLogin":state.isLogin, "isSocial" :isSocial };
             localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
         },
         logout(state, action) {
