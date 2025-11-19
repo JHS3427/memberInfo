@@ -8,11 +8,13 @@ import {useState,useRef,useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { getLogin,getFlatformName,randomString8to16,getLogout} from '../feature/auth/authAPI';
 import { Link,useLocation,useNavigate } from 'react-router-dom';
+import { useAuth } from "../feature/auth/authContext";
 export function Login() {
     const navigate=useNavigate();
     const location = useLocation();
     const state = location.state;
-    const initialized = useRef(false)
+    const initialized = useRef(false);
+    const { login, logout } = useAuth();
 
     useEffect(() => {//소셜 로그인 시 자동 로그인을 통해 세션 아이디 발급받기.
         if(!initialized.current)
@@ -96,7 +98,7 @@ export function Login() {
     }
 
     //제출버튼을 누르면 변화 발생. - 미완성(에러는 없음)
-    const handleLoginSubmit = async (e)=>{
+    const handleLoginSubmit = async (e) => {
         e.preventDefault();
         const param = {
             idRef : idRef,
@@ -108,7 +110,9 @@ export function Login() {
         console.log(succ)
         if(succ)
         {
-        navigate('/');}
+            await login();
+            navigate('/');
+        }
         else{
             alert("로그인에 실패, 확인후 다시 진행해주세요.");
             setFormData({uid:"", upass:""});
@@ -116,7 +120,7 @@ export function Login() {
         }
         
     }
-    const handleLogOut= () =>{
+    const handleLogOut= async () =>{
         if(sessionStorage.getItem("social")){
             alert("소셜상태에서 로그아웃 하셨습니다.");
         }
@@ -125,6 +129,7 @@ export function Login() {
         }
         dispatch(getLogout());
         alert("로그아웃 하셨습니다.");
+        await logout();
         sessionStorage.removeItem("social");
         navigate('/');
         }
