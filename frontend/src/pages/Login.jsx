@@ -56,11 +56,9 @@ export function Login() {
     let redirect_uri = ""
     if(hostName==="localhost")
     {
-        console.log("여기는 로컬호스트")
         redirect_uri = 'http://localhost:3000/auth'
     }
     else{
-        console.log("여기는 " + hostName)
         redirect_uri = 'http://'+hostName+':3000/auth'
     } //Redirect URI
     // 플랫폼별 oauth 요청 URL

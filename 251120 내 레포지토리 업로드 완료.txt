@@ -6,3 +6,5 @@ Token.java
 OauthServiceImpl.java
 authAPI.js
 Login.jsx
+
+bicycle.sql - 기종씨가 추가한 항목을 create table에 추가해둠
