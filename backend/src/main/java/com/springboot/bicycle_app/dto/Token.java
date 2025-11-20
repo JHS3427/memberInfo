@@ -7,4 +7,5 @@ public class Token {
 
     private String authCode;
     private String social;
+    private String hostName;
 }

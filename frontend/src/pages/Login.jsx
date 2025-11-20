@@ -52,7 +52,17 @@ export function Login() {
     const STATE = randomString8to16();
 
 
-    const redirect_uri = 'http://localhost:3000/auth' //Redirect URI
+    const hostName = new URL(window.location.href).hostname;
+    let redirect_uri = ""
+    if(hostName==="localhost")
+    {
+        console.log("여기는 로컬호스트")
+        redirect_uri = 'http://localhost:3000/auth'
+    }
+    else{
+        console.log("여기는 " + hostName)
+        redirect_uri = 'http://'+hostName+':3000/auth'
+    } //Redirect URI
     // 플랫폼별 oauth 요청 URL
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`
     const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${redirect_uri}`;
@@ -83,7 +93,7 @@ export function Login() {
         }
         else if (flatformName === "google")
         {
-            sessionStorage.setItem("social","google");
+            sessionStorage.setItem("social","google"); //구글은 localhost 빼고 개인IP 사용을 막아놔서 사용 불가
             window.location.href = GOOGLE_AUTH_URL;
         }
     }

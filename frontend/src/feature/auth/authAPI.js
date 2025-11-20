@@ -85,7 +85,8 @@ export const getInfo = async (JsonData) => {
 함수 설명 : 프론트에서 받은 인가 코드와 해당 플랫폼 이름을
             백엔드로 전달하여 토큰을 받아오는 함수입니다.*/
 export const getsocialtoken = async(token_json,social) =>{
-    const json_code = {"authCode": token_json,"social":social};
+    const hostName = new URL(window.location.href).hostname;
+    const json_code = {"authCode": token_json,"social":social, "hostName" : hostName};
     const url = "/auth/token";
     const authtoken = await axiosPost(url,json_code);//authtoken이 dto객체 받음.
     console.log("authtoken : ", authtoken );

@@ -47,6 +47,7 @@ public class OauthController {
         String socialId;
         System.out.println("social : "+token.getSocial());
         System.out.println("auth : "+token.getAuthCode());
+        System.out.println("hostName : "+token.getHostName());
         if(token.getSocial().equals("google"))//구글은 중간 토큰 요청없이 access토큰을 바로 넘겨준다.
         //https://ldd6cr-adness.tistory.com/323 참고
         {
