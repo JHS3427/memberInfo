@@ -4,31 +4,69 @@ import { useEffect,useState } from "react";
 import { getInfo} from '../feature/auth/authAPI';
 import { useNavigate } from 'react-router-dom';
 import '../styles/myPage.css'; // ✨ 새로운 CSS 파일 import
+import { usePostCode} from '../feature/auth/authAPI';
 
-export function InfoBox({info,tag}){
+export function InfoBox({info,name,handleDataChange}){
 
+    
     const dataChangeButtonOnOffInit = {uid:false,upass:false,
                                     uname:false,uage:false,
                                     ugender:false,uaddress:false,
                                     uemail:false,uphone:false
     }
-    const tagString = {uid:"아이디",upass:"패스워드",
+    const nameString = {uid:"아이디",upass:"패스워드",
                         uname:"이름",uage:"나이",
                         ugender:"성별",uaddress:"주소",
                         uemail:"이메일",uphone:"전화번호"}
+
     const [dataChangeButtonOnOff,setDataChangeButtonOnOff] = useState(dataChangeButtonOnOffInit)
+    const [postCodeChanger,setPostCodeChanger]=useState(0);//uaddress_main 초기화용 변수
 
     const DataChangeOpen = (e) =>{
-        console.log("tag : ",tag);
-        setDataChangeButtonOnOff({...dataChangeButtonOnOff,[tag] : true})
+        setDataChangeButtonOnOff({...dataChangeButtonOnOff,[name] : true})
     }
     const DataChangeClose = (e) =>{
-        console.log("tag : ",tag);
-        setDataChangeButtonOnOff({...dataChangeButtonOnOff,[tag] : false})
+        setDataChangeButtonOnOff({...dataChangeButtonOnOff,[name] : false})
+        if(name==="uaddress")
+        {
+            handleDataChange({target:{name:"uaddress_sub",value:""}})
+            setPostCodeChanger(1);//uaddress_main 초기화 작업을 위해 세팅
+        }
+        else
+        {
+            handleDataChange({target:{name:name,value:""}})
+        }
     }
 
-    let user_info;
+    const [mainAddressVar,setMainAddressVar] = useState({"mainAddress":""});
+    const {handleClick} = usePostCode(mainAddressVar,setMainAddressVar); // 리턴이 handleclick임
     
+    /*dataChangeButtonOnOff의 uaddress가 true가 되면 작동 > uaddress_main을 mainAddressVar.mainAddress값으로 변경
+        > 그러다 mainAddressVar.mainAddress값이 바뀌면 다시 세팅 >이후 받아온 handleDataChange에서 name따져서 uaddress가 main이면 console로 출력
+
+     postCodeChanger를 만든 이유 : 바깥에서 uaddress_main 초기화 하려고 시도했는데 안됨. 그래서 useEffect에 넣고 초기화
+    */
+    useEffect(() => {
+        if (mainAddressVar.mainAddress && dataChangeButtonOnOff['uaddress']) {
+            handleDataChange({
+                target: {
+                    name: 'uaddress_main',
+                    value: mainAddressVar.mainAddress
+                }
+            });
+        }
+        if(postCodeChanger==1)
+        {
+            handleDataChange({
+                target: {
+                    name: 'uaddress_main',
+                    value: ""
+                }
+            });
+            setPostCodeChanger(0);
+        }
+    }, [mainAddressVar.mainAddress, postCodeChanger]);
+
     if (!info) {
         // null을 반환하여 아무것도 렌더링하지 않거나, 로딩 메시지를 반환합니다.
         // MyPage에서 <li>로 감싸고 있으므로, <li> 안의 내용만 반환해야 합니다.
@@ -36,14 +74,31 @@ export function InfoBox({info,tag}){
     }
     return(
         <>
-            {/* {user_info?user_info[tag]:"없음"} */}
-            <li>{dataChangeButtonOnOff[tag]?
+            <li>{dataChangeButtonOnOff[name]?
+                    name==="uaddress"?
+                        <>
+                            {nameString[name]} 변경 -- 
+                            <button name = {name+"_main"} type='button' onClick={handleClick} >주소 찾기</button>
+                            <input
+                                name = {name+"_main"} 
+                                value = {mainAddressVar.mainAddress}
+                                readOnly />
+                            <input
+                                name = {name+"_sub"}
+                                onChange={handleDataChange}/>
+                            <button onClick={DataChangeClose}> 취소</button>
+                        </>
+                        :
+                        <>
+                            {nameString[name]} 변경 -- 
+                            <input
+                                name = {name}
+                                onChange={handleDataChange}/>
+                            <button onClick={DataChangeClose}> 취소</button>
+                        </>
+                    :
                     <>
-                        {tagString[tag]} 변경 -- <input/>
-                        <button onClick={DataChangeClose}> 취소</button>
-                    </>:
-                    <>
-                        {info[tag]} <button onClick={DataChangeOpen}> {tagString[tag]} 수정</button>
+                        {info[name]} <button onClick={DataChangeOpen}> {nameString[name]} 수정</button>
                     </>
                     }</li>
         </>);
@@ -53,9 +108,19 @@ export function InfoBox({info,tag}){
 //정보가지고 authapi로 > authapi에서 백으로 > 백 컨트롤러 > 서비스 > 레포지토리 > 정보 취합 > 서비스 > 컨트롤러 > 프론트 api > 여기로
 export function MyPage(){
 
+    const handleDatainit = {uid:"",upass:"",
+                            uname:"",uage:"",
+                            ugender:"",uaddress_main:"",uaddress_sub:"",
+                            uemail:"",uphone:""
+    }
+
     const navigate=useNavigate();   
     const [info, setInfo] = useState(null);
-    
+    const [handleData,setHandleData] = useState(handleDatainit)
+    const handleChange=(e)=>{
+        const {name,value} = e.target
+        setHandleData({...handleData,[name]:value})
+    }
     const loginInfoString = localStorage.getItem("loginInfo");
     let socialLogin = false;
     let Json_loginInfo = null;
@@ -83,6 +148,7 @@ export function MyPage(){
         }
         getUserInfo();
     },[])
+    
     return(
         <>
             <div className="myPageContainer">
@@ -103,17 +169,19 @@ export function MyPage(){
                             <li>소셜 로그인은 패스워드를 공개하지 않습니다</li>
                         </>:
                         <>
-                            <InfoBox info={info} tag = "uid"/>
-                            <InfoBox info={info} tag = "upass"/>
+                            <InfoBox info={info} name = "uid" handleDataChange={handleChange}/>
+                            <InfoBox info={info} name = "upass" handleDataChange={handleChange}/>
                         </>}                       
                         
-                        <InfoBox info={info} tag = "uname"/>
-                        <InfoBox info={info} tag = "uage"/>
-                        <InfoBox info={info} tag = "ugender"/>
-                        <InfoBox info={info} tag = "uaddress"/>
-                        <InfoBox info={info} tag = "uemail"/>
-                        <InfoBox info={info} tag = "uphone"/>
+                        <InfoBox info={info} name = "uname" handleDataChange={handleChange}/>
+                        <InfoBox info={info} name = "uage" handleDataChange={handleChange}/>
+                        <InfoBox info={info} name = "ugender" handleDataChange={handleChange}/>
+                        <InfoBox info={info} name = "uaddress" handleDataChange={handleChange}/>
+                        <InfoBox info={info} name = "uemail" handleDataChange={handleChange}/>
+                        <InfoBox info={info} name = "uphone" handleDataChange={handleChange}/>
                     </ul>
+                    
+                    <button className="withdrawButton">수정 내용 저장</button>
                     <button className="withdrawButton">회원 탈퇴</button>
                 </div>
             </div>

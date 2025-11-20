@@ -676,7 +676,7 @@ create table cart(
 	cid			int 	auto_increment		primary key,
     qty			int		not null,
     product_id	int		not null,
-    uid   		varchar(50) not null,
+    uid   		varchar(100) not null,
     cdate		date 	not null,
     checked     BOOLEAN NOT NULL DEFAULT true,
     constraint fk_cart_product_id	foreign key(product_id) references product(product_id) 
