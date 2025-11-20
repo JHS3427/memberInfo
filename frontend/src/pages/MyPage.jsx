@@ -22,6 +22,9 @@ export function InfoBox({info,name,handleDataChange}){
     const [dataChangeButtonOnOff,setDataChangeButtonOnOff] = useState(dataChangeButtonOnOffInit)
     const [postCodeChanger,setPostCodeChanger]=useState(0);//uaddress_main 초기화용 변수
 
+    const [mainAddressVar,setMainAddressVar] = useState({"mainAddress":""});
+    const {handleClick} = usePostCode(mainAddressVar,setMainAddressVar); // 리턴이 handleclick임
+    
     const DataChangeOpen = (e) =>{
         setDataChangeButtonOnOff({...dataChangeButtonOnOff,[name] : true})
     }
@@ -31,6 +34,7 @@ export function InfoBox({info,name,handleDataChange}){
         {
             handleDataChange({target:{name:"uaddress_sub",value:""}})
             setPostCodeChanger(1);//uaddress_main 초기화 작업을 위해 세팅
+            setMainAddressVar({"mainAddress":""})
         }
         else
         {
@@ -38,9 +42,6 @@ export function InfoBox({info,name,handleDataChange}){
         }
     }
 
-    const [mainAddressVar,setMainAddressVar] = useState({"mainAddress":""});
-    const {handleClick} = usePostCode(mainAddressVar,setMainAddressVar); // 리턴이 handleclick임
-    
     /*dataChangeButtonOnOff의 uaddress가 true가 되면 작동 > uaddress_main을 mainAddressVar.mainAddress값으로 변경
         > 그러다 mainAddressVar.mainAddress값이 바뀌면 다시 세팅 >이후 받아온 handleDataChange에서 name따져서 uaddress가 main이면 console로 출력
 
@@ -113,18 +114,35 @@ export function MyPage(){
                             ugender:"",uaddress_main:"",uaddress_sub:"",
                             uemail:"",uphone:""
     }
+    const editDatainit = {uid:0,upass:0,
+                            uname:0,uage:0,
+                            ugender:0,uaddress_main:0,uaddress_sub:0,
+                            uemail:0,uphone:0
+    }
 
     const navigate=useNavigate();   
     const [info, setInfo] = useState(null);
     const [handleData,setHandleData] = useState(handleDatainit)
+    
+    const [editer,setEditer] = useState(editDatainit);
+    const [editerOnOff,setEditerOnOff] = useState(0);
+
     const handleChange=(e)=>{
         const {name,value} = e.target
         setHandleData({...handleData,[name]:value})
+        if(value==="")
+        {
+            setEditer({...editer,[name]:0})
+        }
+        else
+        {
+            setEditer({...editer,[name]:1})
+        }
     }
     const loginInfoString = localStorage.getItem("loginInfo");
     let socialLogin = false;
     let Json_loginInfo = null;
-    
+
     if (loginInfoString) {
         Json_loginInfo = JSON.parse(loginInfoString);
         socialLogin = Json_loginInfo.isSocial;
@@ -149,6 +167,19 @@ export function MyPage(){
         getUserInfo();
     },[])
     
+    useEffect(()=>{
+        let editerOnOff_changer = 0
+        for( const [key, value] of Object.entries(editer))
+        {
+            editerOnOff_changer=editerOnOff_changer+value
+            setEditerOnOff(editerOnOff_changer);
+        }
+    },[editer])
+
+    const clicker = () =>{
+        console.log(handleData)
+    }
+
     return(
         <>
             <div className="myPageContainer">
@@ -180,8 +211,8 @@ export function MyPage(){
                         <InfoBox info={info} name = "uemail" handleDataChange={handleChange}/>
                         <InfoBox info={info} name = "uphone" handleDataChange={handleChange}/>
                     </ul>
+                    {editerOnOff>0?<button className="withdrawButton" onClick={clicker}>수정 내용 저장</button>:""}
                     
-                    <button className="withdrawButton">수정 내용 저장</button>
                     <button className="withdrawButton">회원 탈퇴</button>
                 </div>
             </div>
