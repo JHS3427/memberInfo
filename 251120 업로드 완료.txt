@@ -1,0 +1,8 @@
+소셜 로그인 IP 변경 관련 파일 수정
+
+SecurityConfig.java
+OauthController.java
+Token.java
+OauthServiceImpl.java
+authAPI.js
+Login.jsx
