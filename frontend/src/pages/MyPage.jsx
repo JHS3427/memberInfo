@@ -1,12 +1,12 @@
 //가로는 60%~80%가 적당할듯? 보고 하기
 
 import { useEffect,useState } from "react";
-import { getInfo} from '../feature/auth/authAPI';
+import { getInfo,idDuplCheck} from '../feature/auth/authAPI';
 import { useNavigate } from 'react-router-dom';
 import '../styles/myPage.css'; // ✨ 새로운 CSS 파일 import
 import { usePostCode} from '../feature/auth/authAPI';
 
-export function InfoBox({info,name,handleDataChange}){
+export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker}){
 
     
     const dataChangeButtonOnOffInit = {uid:false,upass:false,
@@ -94,7 +94,11 @@ export function InfoBox({info,name,handleDataChange}){
                             {nameString[name]} 변경 -- 
                             <input
                                 name = {name}
-                                onChange={handleDataChange}/>
+                                onChange={handleDataChange}/>{name==="uid"?
+                                                                idChecker?
+                                                                    <button>중복 체크 OK </button>:
+                                                                    <button onClick={idDuplCheck}>중복 체크</button>
+                                                                :""}
                             <button onClick={DataChangeClose}> 취소</button>
                         </>
                     :
@@ -126,10 +130,15 @@ export function MyPage(){
     
     const [editer,setEditer] = useState(editDatainit);
     const [editerOnOff,setEditerOnOff] = useState(0);
+    const [idChecker,setIdChecker] = useState(false);
 
     const handleChange=(e)=>{
         const {name,value} = e.target
         setHandleData({...handleData,[name]:value})
+        if(name ==="uid")
+        {
+            setIdChecker(false);
+        }
         if(value==="")
         {
             setEditer({...editer,[name]:0})
@@ -176,10 +185,31 @@ export function MyPage(){
         }
     },[editer])
 
-    const clicker = () =>{
-        console.log(handleData)
+    const clicker = () =>{//원본데이터, 변경데이터 넘겨서 해당 내용 바꾸기
+        //아이디 중복확인 후 중복 없으면 전달하기
+        if(editer["uid"]===1 && !idChecker){
+            alert("아이디 중복체크 하세요")
+        }
+        else
+        {
+            console.log(handleData)
+            console.log("이거 넘깁니다?")
+        }
     }
-
+    const IdDupleCheck = async() => {
+        const duplResult = await idDuplCheck(handleData.uid);
+        
+        if(!duplResult){//duplResult=true면 중복있음, false면 중복없음
+        //!duplResult은 중복이 없을때 true가 됨
+            // setIdDupl(true);
+            setIdChecker(true);
+        }
+        else{
+            handleData.uid="";
+            alert("아이디 중복! 다시 입력해주세요");
+            // inputRefs.idRef.current.focus();
+        }
+    }
     return(
         <>
             <div className="myPageContainer">
@@ -200,7 +230,7 @@ export function MyPage(){
                             <li>소셜 로그인은 패스워드를 공개하지 않습니다</li>
                         </>:
                         <>
-                            <InfoBox info={info} name = "uid" handleDataChange={handleChange}/>
+                            <InfoBox info={info} name = "uid" handleDataChange={handleChange} idDuplCheck = {IdDupleCheck} idChecker={idChecker}/>
                             <InfoBox info={info} name = "upass" handleDataChange={handleChange}/>
                         </>}                       
                         
