@@ -17,6 +17,12 @@ public class TravelHotel {
     @Column(name="hname", length = 30, nullable = false)
     private String hname;
 
+    @Column(name="lat")
+    private Double lat;
+
+    @Column(name="lng")
+    private Double lng;
+
     @Column(name="hlike") 
     private Double hlike; 
 

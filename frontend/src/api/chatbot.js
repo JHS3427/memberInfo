@@ -1,22 +1,25 @@
-// src/api/chatbot.js
 import axios from "axios";
+
+// const API_BASE = process.env.REACT_APP_API_BASE;
+// const API_BASE = "http://localhost:8080";
+const API_BASE = "http://172.16.250.24:8080";   //해성님 IP
 
 export const getChatbotResponse = async (userMessage) => {
   try {
-    // 쿠키에서 CSRF 토큰 읽기
     const csrfToken = document.cookie
       .split("; ")
       .find((row) => row.startsWith("XSRF-TOKEN="))
       ?.split("=")[1];
 
     const response = await axios.post(
-      "http://localhost:8080/api/chatbot",
+      `${API_BASE}/api/chatbot`,
       { message: userMessage },
       {
         headers: {
           "Content-Type": "application/json",
           "X-XSRF-TOKEN": csrfToken || "",
         },
+        withCredentials: true,
       }
     );
 

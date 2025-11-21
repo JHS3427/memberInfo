@@ -9,6 +9,8 @@ import java.util.List;
 public class TravelRepairDto {
     private int rid;
     private String rname;
+    private Double lat;
+    private Double lng;
     private Double rlike;
     private int score;
     private int evaluation;
@@ -26,6 +28,8 @@ public class TravelRepairDto {
     public TravelRepairDto(TravelRepair entity) {
         this.rid = entity.getRid();
         this.rname = entity.getRname();
+        this.lat = entity.getLat();
+        this.lng = entity.getLng();
         this.rlike = entity.getRlike();
         this.score = entity.getScore();
         this.evaluation = entity.getEvaluation();

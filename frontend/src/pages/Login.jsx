@@ -52,6 +52,7 @@ export function Login() {
     const STATE = randomString8to16();
 
 
+    
     const hostName = new URL(window.location.href).hostname;
     let redirect_uri = ""
     if(hostName==="localhost")
@@ -91,7 +92,7 @@ export function Login() {
         }
         else if (flatformName === "google")
         {
-            sessionStorage.setItem("social","google"); //구글은 localhost 빼고 개인IP 사용을 막아놔서 사용 불가
+            sessionStorage.setItem("social","google");
             window.location.href = GOOGLE_AUTH_URL;
         }
     }

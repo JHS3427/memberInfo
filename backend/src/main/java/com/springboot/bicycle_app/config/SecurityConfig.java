@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -46,32 +47,62 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf((csrf) -> csrf
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/auth/logout")
-                        .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler())
-                        .ignoringRequestMatchers("/cart/**")
-                )
-                .cors((cors) -> cors
-                        .configurationSource(corsConfigurationSource())
-                )
-                .authenticationProvider(authenticationProvider())//중간자 겸 공급자?
-                .securityContext(sc -> sc.requireExplicitSave(true)) // ← 선택. true면 아래 로그인 컨트롤러에서 save 필요
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                )
-                .httpBasic(basic -> basic.disable())
-                .formLogin(form -> form.disable())
-                .requestCache(rc -> rc.disable()) //로그인 후 리다이렉트 방지
-//                .securityContext(sc -> sc.requireExplicitSave(true)) //인증정보 세션 자동저장 방지
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(
-                                "/member/**","/products/**","/auth/**","/cart/**",
-                                "/support/**","/map/**","/travel/**","/csrf/**", "/uploads/**",
-                                "/api/chatbot", "/api/board/**", "/api/upload"
-                        ).permitAll()
-                        .anyRequest().authenticated()
-                );
+            // 🔥 CORS 설정 (모든 IP 허용)
+            .cors(cors -> cors.configurationSource(request -> {
+                CorsConfiguration config = new CorsConfiguration();
+
+                config.setAllowCredentials(true); // 쿠키 허용
+                config.addAllowedOriginPattern("*"); // 🔥 모든 IP Origin 허용
+                config.addAllowedHeader("*");
+                config.addAllowedMethod("*");
+
+                return config;
+            }))
+
+            // 🔥 CSRF 설정 (기존 유지)
+            .csrf(csrf -> csrf
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .ignoringRequestMatchers("/auth/logout", "/cart/**", "/api/chatbot", "/auth/me")  // 그대로 유지
+                .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler())
+            )
+            .authenticationProvider(authenticationProvider())//중간자 겸 공급자?
+            .securityContext(sc -> sc.requireExplicitSave(true)) // ← 선택. true면 아래 로그인 컨트롤러에서 save 필요
+            .sessionManagement((session) -> session
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            )
+            .httpBasic(basic -> basic.disable())
+            .formLogin(form -> form.disable())
+            .requestCache(rc -> rc.disable()) //로그인 후 리다이렉트 방지
+            //                .securityContext(sc -> sc.requireExplicitSave(true)) //인증정보 세션 자동저장 방지
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(HttpMethod.POST, "/rental/payment").permitAll()
+                // 공개 API (읽기 전용)
+                .requestMatchers(
+                    "/member/**", "/products/**", "/auth/**", "/cart/**",
+                    "/support/**", "/map/**", "/travel/**", "/csrf/**",
+                    "/uploads/**",
+                    "/api/chatbot", "/api/upload",
+                    "/rental/**"
+                ).permitAll()
+
+                // 게시판 조회(READ)만 허용 (GET)
+                .requestMatchers(
+                    "/api/board/news",
+                    "/api/board/event",
+                    "/api/board/review",
+                    "/api/board/detail/**"
+                ).permitAll()
+
+                // 보호된 게시판 API (로그인 필요)
+                .requestMatchers(
+                    "/api/board/write",
+                    "/api/board/update/**",
+                    "/api/board/delete/**"
+                ).authenticated()
+
+                // 그 외 요청
+                .anyRequest().permitAll()
+            );
 
         return http.build();
 
@@ -109,19 +140,19 @@ public class SecurityConfig {
     }
 
 
-    //CORS 보안정책 수행 객체
+//    //CORS 보안정책 수행 객체
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://172.16.250.24:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://172.16.250.24:3000", "http://172.16.250.148:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // ✅ 추가
         configuration.setAllowedHeaders(Arrays.asList("*")); // ✅ 모든 헤더 허용
+        configuration.setExposedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);  // 🔥 프론트에서 JSESSIONID/CSRF 쿠키 받으려면 필수
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
 
     // 회원가입 시 호출 --> 비밀번호 암호화 설정 (PasswordEncoder)
     // Spring Security는 반드시 비밀번호를 암호화하여 저장하고 비교해야 함!!

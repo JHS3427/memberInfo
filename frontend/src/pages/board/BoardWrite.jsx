@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { getCurrentUser } from "../../feature/auth/session";
+import { useNavigate, useParams, useLocation  } from "react-router-dom";
+import { getCurrentUser, getLoginUser } from "../../feature/auth/session";
 import "../../styles/board.css";
 import "../../styles/board/board_write.css";
 
@@ -10,9 +10,34 @@ export function BoardWrite() {
   const navigate = useNavigate();
   const isEdit = !!pid;
   const [user, setUser] = useState(null);
-
+  const location = useLocation();
+  
   useEffect(() => {
-      getCurrentUser().then(setUser);
+    const local = getLoginUser();
+
+    // 1) 로그인 안됨 → 바로 차단
+    if (!local) {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/login");
+      return;
+    }
+
+    // 2) URL 직접 접근 차단
+    if (!location.state?.fromBoard) {
+      alert("잘못된 접근입니다.");
+      navigate("/board/news");
+      return;
+    }
+
+    // 3) 백엔드 세션 인증 확인
+    getCurrentUser().then((sessionUser) => {
+      if (!sessionUser?.isLogin) {
+        alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+        navigate("/login");
+        return;
+      }
+      setUser(sessionUser);
+    });
   }, []);
 
   useEffect(() => {
@@ -53,7 +78,7 @@ export function BoardWrite() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/upload",
+        "http://172.16.250.24:8080/api/upload",
         formData,
         {
           headers: {
@@ -81,7 +106,7 @@ export function BoardWrite() {
     if (!isEdit) return;
 
     axios
-      .get(`http://localhost:8080/api/board/detail/${pid}`, {
+      .get(`http://172.16.250.24:8080/api/board/detail/${pid}`, {
         withCredentials: true, // 🔥 쿠키 필요
       })
       .then((res) => {
@@ -89,6 +114,7 @@ export function BoardWrite() {
         setForm({
           title: p.title,
           content: p.content,
+          uid: p.uid,
           writer: p.writer || user?.uid,
           imageUrl: p.imageUrl,
           thumbnailUrl: p.thumbnailUrl,
@@ -113,8 +139,8 @@ export function BoardWrite() {
       if (isEdit) {
         // 🔥 게시글 수정
         await axios.put(
-          `http://localhost:8080/api/board/update/${pid}`,
-          form,
+          `http://172.16.250.24:8080/api/board/update/${pid}`,
+          { ...form, uid: user.uid },   // ★ 추가 보강 (중복확인)
           {
             headers: { "X-XSRF-TOKEN": csrf },
             withCredentials: true,
@@ -126,7 +152,7 @@ export function BoardWrite() {
       } else {
         // 🔥 게시글 등록
         await axios.post(
-          "http://localhost:8080/api/board/write",
+          "http://172.16.250.24:8080/api/board/write",
           {
             ...form,
             uid: user.uid,         // FK

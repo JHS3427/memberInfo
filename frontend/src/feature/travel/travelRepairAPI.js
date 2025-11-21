@@ -1,13 +1,12 @@
 import React from "react";
+import { createRepair } from "./travelRepairSlice.js";
 import { axiosGet, axiosPost } from "../../utils/dataFetch.js";
 
-export const getTravelRepairList = async (number) => {
-        const url = "/travel/repair"; //DB 경우
-//         console.log("url => ", url);
-        const jsonData = await axiosGet(url);
-//         console.log("json => ", jsonData);
+export const getTravelRepairList = (number) => async(dispatch) =>{
+    const url = "/travel/repair";
+    const jsonData = await axiosGet(url);
 
-        return jsonData;
+    dispatch(createRepair({"travelRepairList":jsonData}));
 }
 
 export const getTravelRepairDetailList = async (did) => {

@@ -1,14 +1,12 @@
 import React from "react";
-import { createMenu } from "./travelHotelSlice.js";
+import { createHotel } from "./travelHotelSlice.js";
 import { axiosData, groupByRows, axiosGet, axiosPost } from "../../utils/dataFetch.js";
 
-export const getTravelHotelList = async (number) => {
-        const url = "/travel/hotel"; //DB 경우
-//         console.log("url => ", url);
-        const jsonData = await axiosGet(url);
-//         console.log("json => ", jsonData);
+export const getTravelHotelList = (number) => async(dispatch) =>{
+    const url = "/travel/hotel";
+    const jsonData = await axiosGet(url);
 
-        return jsonData;
+    dispatch(createHotel({"travelHotelList":jsonData}));
 }
 
 export const getTravelHotelDetailList = async (did) => {

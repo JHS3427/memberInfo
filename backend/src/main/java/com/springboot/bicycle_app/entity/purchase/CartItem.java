@@ -1,12 +1,10 @@
 package com.springboot.bicycle_app.entity.purchase;
 
-import com.springboot.bicycle_app.dto.purchase.CartItemDto;
 import com.springboot.bicycle_app.dto.purchase.CartItemRequestDto;
 import com.springboot.bicycle_app.entity.userinfo.UserInfo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;

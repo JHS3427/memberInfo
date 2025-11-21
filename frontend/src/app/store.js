@@ -4,6 +4,7 @@ import authSlice from '../feature/auth/authSlice.js';
 import travelMenuSlice from '../feature/travel/travelMenuSlice.js';
 import travelFoodSlice from '../feature/travel/travelFoodSlice.js';
 import travelHotelSlice from '../feature/travel/travelHotelSlice.js';
+import travelRepairSlice from '../feature/travel/travelRepairSlice.js';
 import mapSlice from '../feature/travel/mapSlice.js';
 import productSlice  from '../feature/product/productSlice.js'
 import cartSlice from "../feature/cart/cartSlice.js";
@@ -30,6 +31,7 @@ export const store = configureStore({
     travelMenu : travelMenuSlice,
     travelFood : travelFoodSlice,
     travelHotel : travelHotelSlice,
+    travelRepair : travelRepairSlice,
     rentalData : rentalSlice,
     compare: compareSlice
   },

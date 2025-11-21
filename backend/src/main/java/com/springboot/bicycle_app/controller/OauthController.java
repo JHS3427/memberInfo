@@ -110,8 +110,8 @@ public class OauthController {
             userInfoDto.setUid(claim.getSubject());
         }
         result = oauthService.findInfo(userInfoDto);
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaa " + result);
         result.setUpass("");
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaa " + result);
         return result;
     }
 

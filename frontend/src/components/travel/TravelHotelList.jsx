@@ -1,23 +1,26 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TravelHotel } from "./TravelHotel.jsx";
 
 import { getTravelHotelList } from '../../feature/travel/travelHotelAPI.js';
 
 export function TravelHotelList({ handleListDetail }) {
-    const [travelHotelList, setTravelHotelList] = useState([]);
+    const dispatch = useDispatch();
+
+    const travelHotelList = useSelector((state) => state.travelHotel.travelHotelList); //원본 데이터
     const [filteredList, setFilteredList] = useState([]); //검색 데이터
     const [number, setNumber] = useState(3);
     const [searchKeyword, setSearchKeyword] = useState('');
 
     useEffect(() => {
-        async function fetchHotelData() {
-            const dataHotel = await getTravelHotelList(number);
-            setTravelHotelList(dataHotel);
-            setFilteredList(dataHotel);
-        }
-        fetchHotelData();
-    }, [number]);
+           dispatch(getTravelHotelList(number));
+    }, [number, dispatch]);
+
+    useEffect(() => {
+        setFilteredList(travelHotelList);
+    }, [travelHotelList]);
+
 
     const handleDetail = (type, hid = null) => {
         handleListDetail(type, hid);

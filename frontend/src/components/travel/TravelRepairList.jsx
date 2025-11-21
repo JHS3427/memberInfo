@@ -1,23 +1,25 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TravelRepair } from "./TravelRepair.jsx";
 
 import { getTravelRepairList } from '../../feature/travel/travelRepairAPI.js';
 
 export function TravelRepairList({ handleListDetail }) {
-    const [travelRepairList, setTravelRepairList] = useState([]);
+    const dispatch = useDispatch();
+
+    const travelRepairList = useSelector((state) => state.travelRepair.travelRepairList); //원본 데이터
     const [filteredList, setFilteredList] = useState([]); //검색 데이터
     const [number, setNumber] = useState(3);
     const [searchKeyword, setSearchKeyword] = useState('');
 
     useEffect(() => {
-        async function fetchRepairData() {
-            const dataRepair = await getTravelRepairList(number);
-            setTravelRepairList(dataRepair);
-            setFilteredList(dataRepair);
-        }
-        fetchRepairData();
-    }, [number]);
+           dispatch(getTravelRepairList(number));
+    }, [number, dispatch]);
+
+    useEffect(() => {
+        setFilteredList(travelRepairList);
+    }, [travelRepairList]);
 
     const handleDetail = (type, rid = null) => {
         handleListDetail(type, rid);

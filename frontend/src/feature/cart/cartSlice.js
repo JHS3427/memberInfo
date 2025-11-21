@@ -4,7 +4,19 @@ import { cartItemsCheck, cartItemsAddInfo } from '../../utils/cart.js';
 const initialState = {
     cartCount: 0,
     cartList: [],
-    totalPrice: 0
+    totalPrice: 0,
+    orderInfo:{
+        name:'',
+        mobile:'',
+        email:'',
+        address:''
+    },
+    receiverInfo:{
+        name:'',
+        mobile:'',
+        address:'',
+        isSame: false
+    }
 }
 
 export const cartSlice = createSlice({
@@ -51,12 +63,45 @@ export const cartSlice = createSlice({
             state.cartCount = 0;
             state.cartList = [];
             state.totalPrice = 0;
+        },
+        setOrderInfo(state,action){
+            const{name, value} = action.payload;
+            state.orderInfo[name] = value;
+        },
+        setReceiverInfo(state,action){
+            const{name, value} = action.payload;
+            state.receiverInfo[name] = value;
+        },
+        userOrderInfo(state,action){
+            const{uname,uphone,uemail,uaddress} = action.payload;
+            if(!state.orderInfo.name){
+                state.orderInfo = {
+                    name : uname || '',
+                    mobile : uphone || '',
+                    email : uemail || '',
+                    address : uaddress || ''
+                };
+            }
+        },
+        toggleSameOrderer(state,action){
+            const isSame = action.payload;
+            state.receiverInfo.isSame = isSame;
+            if(isSame){
+                state.receiverInfo.name = state.orderInfo.name;
+                state.receiverInfo.mobile = state.orderInfo.mobile;
+                state.receiverInfo.address = state.orderInfo.address;
+            } else {
+                state.receiverInfo.name = '';
+                state.receiverInfo.mobile = '';
+                state.receiverInfo.address = ''
+            }
         }
+
     },
 })
 
 export const {  addCartItem, updateCartCount, showCartItem, updateTotalPrice,
-    updateCartItem, removeCartItem, checkCartItem, clearCart
+    updateCartItem, removeCartItem, checkCartItem, clearCart, setOrderInfo, setReceiverInfo, userOrderInfo, toggleSameOrderer
 } = cartSlice.actions   //API 함수 또는 컴포넌트에서 dispatch(액션함수)
 
 export default cartSlice.reducer  //store  import

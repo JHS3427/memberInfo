@@ -42,6 +42,22 @@
   z-index: 10;
 }
 
+.travel-left-close {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.3rem;
+    background-color: var(--color-white);
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.7rem;
+    border: none;
+    user-select: none;
+}
+
+.travel-left-close:hover {
+    color: var(--color-blue);
+}
+
 .travel-left-menus {
   width: 100%;
   height: 40px;
@@ -97,7 +113,7 @@
 }
 
 .fa-hotel {
-  color: brown;
+  color: purple;
 }
 
 .fa-screwdriver-wrench {

@@ -10,6 +10,7 @@ const RentalBikeList = ({className}) => {
 	const dispatch = useDispatch();
 	//store에 등록한 전역 데이터를 셀렉터를 통해서 get.
 	const filteredBikeList = useSelector((state) => state.rentalData.filteredBikeList);
+    const selectedStation = useSelector((state) => state.rentalData.selectedStation);
 
 	useEffect(() => {
 			const bikeListData = async () => {
@@ -25,8 +26,10 @@ const RentalBikeList = ({className}) => {
 				<ul>
 					{
 						filteredBikeList && filteredBikeList.map((bikeList, index)=>{
+                            const isActive = selectedStation && (selectedStation.extra.uid === bikeList.extra.uid);
 							return (
-								<li 
+								<li
+                                    className={isActive ? "active" : ""}
 									key={index}
 									onClick={()=>{
 										dispatch(setSelectedStation(bikeList))

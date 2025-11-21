@@ -1,17 +1,22 @@
 import {CartHeader} from "../components/cart/CartHeader.jsx";
 import CartShippingInfo from "../components/cart/CartShippingInfo.jsx"
 import {CartItem} from "../components/cart/CartItem.jsx";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {showCart} from "../feature/cart/cartAPI.js";
 import {useNavigate} from "react-router-dom";
 import '../styles/cart/cart.css';
 
 export function Cart(){
+    const totalPrice = useSelector(state => state.cart.totalPrice);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const goToCheckout = () => {
-        navigate("/checkout")
+        if(totalPrice > 0){
+            navigate("/checkout")
+        } else {
+            alert("주문 상품이 없습니다!")
+        }
     }
     useEffect(() => {
         dispatch(showCart());

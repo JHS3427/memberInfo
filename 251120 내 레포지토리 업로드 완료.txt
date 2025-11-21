@@ -1,12 +1,4 @@
 소셜 로그인 IP 변경 관련 파일 수정
 
-SecurityConfig.java
-OauthController.java
-Token.java
-OauthServiceImpl.java
-authAPI.js
-Login.jsx
+bicycle.sql - 기종씨가 추가한 항목을 create table에 추가한거 사라짐
 
-bicycle.sql - 기종씨가 추가한 항목을 create table에 추가해둠
-
-mypage.jsx

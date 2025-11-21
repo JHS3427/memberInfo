@@ -14,7 +14,7 @@ export function BoardList({ category }) {
   useEffect(() => {
     if (!category) return;
     axios
-      .get(`http://localhost:8080/api/board/${category}`)
+      .get(`http://172.16.250.24:8080/api/board/${category}`)
       .then((res) => {
         setPosts(res.data);
         setCurrentPage(1); // 카테고리 변경 시 1페이지로 초기화

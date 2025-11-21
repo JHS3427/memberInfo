@@ -17,7 +17,7 @@ export function TravelFoodDetail({did,
                                   imageList,
                                   review}) {
 
-  //문자열(JSON) 파싱 처리
+  // 문자열(JSON) 파싱 처리
   const parsedTag = tag ? JSON.parse(tag) : [];
   const parsedBusiness = business ? JSON.parse(business) : [];
   const parsedOther = other ? JSON.parse(other) : [];
@@ -193,7 +193,6 @@ export function TravelFoodDetail({did,
                         }
                       </span> }
                       <span className="detail-title-reviewNum" >({parsedReview.length}명의 평가)</span>
-                      {/*여긴 리뷰개수 카운트 */}
                       <span className="detail-title-likeScore" >{score}점</span></li>
                   <li className="detail-title-address-box">
                       <i class="fa-solid fa-location-dot"></i>
@@ -206,7 +205,6 @@ export function TravelFoodDetail({did,
                                <i className="fa-solid fa-chevron-down"></i>
                            )}
                       </button>
-{/*                       <i class="fa-solid fa-chevron-up"></i> */}
                   </li>
                   {showLocalAddress && (
                       <li className="detail-title-localAddress-box">

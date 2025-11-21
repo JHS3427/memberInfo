@@ -40,6 +40,11 @@ public class TravelController {
         return travelService.findRepair();
     }
 
+//    @GetMapping("/store")
+//    public List<TravelStoreDto> repair(){
+//        return travelService.findStore();
+//    }
+
     @PostMapping("/foodDetail")
     public TravelFoodDetailDto foodDetail(@RequestBody TravelFoodDetailDto travelFoodDetail){
         return travelService.findFoodDetail(travelFoodDetail.getDid());

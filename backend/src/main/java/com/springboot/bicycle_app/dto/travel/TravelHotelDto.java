@@ -9,6 +9,8 @@ import java.util.List;
 public class TravelHotelDto {
     private int hid;
     private String hname;
+    private Double lat;
+    private Double lng;
     private Double hlike;
     private int score;
     private int evaluation;
@@ -26,6 +28,8 @@ public class TravelHotelDto {
     public TravelHotelDto(TravelHotel entity) {
         this.hid = entity.getHid();
         this.hname = entity.getHname();
+        this.lat = entity.getLat();
+        this.lng = entity.getLng();
         this.hlike = entity.getHlike();
         this.score = entity.getScore();
         this.evaluation = entity.getEvaluation();

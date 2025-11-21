@@ -18,7 +18,7 @@
     left: 50%;
     transform: translateX(-50%);
     background: var(--color-blue);
-    z-index: 9999;
+    z-index: 2;
 }.rental_map_box::after{
     content: '';
     width: 2px;
@@ -28,7 +28,7 @@
     left: 50%;
     transform: translateY(-50%);
     background: var(--color-blue);
-    z-index: 9999;
+    z-index: 1;
 }
 .rental_map_target {
     width:50px;
@@ -60,7 +60,7 @@
     background-color: #fff;
     color: #000;
     padding: 16px;
-    z-index: 10000;
+    z-index: 10;
     box-sizing: border-box;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
 }
@@ -263,9 +263,25 @@
 .payment_price_info .payment_choice li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+.payment_price_info .payment_choice li:first-child {
+    padding-bottom: 10px;
 }
 .payment_price_info .payment_choice li:last-child {
     padding-bottom: 20px;
+}
+.payment_price_info .payment_choice li > label {
+    width: 90%;
+    height: 25px;
+}
+.payment_price_info .payment_choice li > label > span {
+    padding-left: 80px;
+    vertical-align: top;
+}
+.payment_price_info .payment_choice li > label > img {
+    width: 60px;
+    height: 25px;
 }
 /*
     RentalPayment.jsx
@@ -280,7 +296,7 @@
 */
 .bike_station_name_list {
     width: 100%;
-    height: 110px;
+    height: 165px;
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: rgba(50, 50, 50, 0.50) 5px 5px 20px -5px inset;
@@ -297,6 +313,10 @@
     transition: all 0.3s ease-in-out;
     cursor:pointer;
 }
+.bike_station_name_list > ul > li.active {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+}
 .bike_station_name_list > ul > li > span {
     display: block;
 }
@@ -304,6 +324,16 @@
     background-color: var(--color-blue);
     color: var(--color-white);
 }
+
+/*
+    RentalBikeList.jsx
+    Style
+*/
+
+/*************************************************************************/
+/*
+    Media Style
+*/
 
 @media(max-width: 1600px) {
     .map_marker_data_info {
@@ -327,6 +357,9 @@
     .rental_map_box::before,
     .rental_map_box::after,
     .rental_map_target {
+        display: none;
+    }
+    .map_marker_data_info_closs {
         display: none;
     }
 }

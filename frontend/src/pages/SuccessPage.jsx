@@ -34,7 +34,7 @@ export function SuccessPage() {
 
             // 결제 성공 비즈니스 로직을 구현하세요.
         }
-        confirm();
+        // confirm();
     }, []);
 
     return (

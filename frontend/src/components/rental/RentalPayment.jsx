@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { getRentalPayment } from '../../feature/rental/rentalMarkerAPI.js';
+import { useDispatch } from 'react-redux';
 import RentalBikeList from './RentalBikeList';
 import { axiosData } from '../../utils/dataFetch';
-import { useDispatch } from 'react-redux';
-
+import { getRentalPayment } from '../../feature/rental/rentalMarkerAPI.js';
+import RentalPaymentCompleted from './RentalPaymentCompleted.jsx';
 
 const RentalPayment = ({ className, onClose }) => {
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
     // 렌탈 시간 상태관리 함수
     const [rentalTime, setRentalTime] = useState(0);
     // 결제 방법 선택 상태 함수
     const [selectedPayment, setSelectdPayment] = useState('');
     // 결제 금액 전달 상태 함수
     const [paymentJsonData, setPaymentJsonData] = useState([]);
-
     // 시작 금액
     const pricePerHour = 500;
     // 기본 대여시작 시간인 30분 단위를 고정
@@ -22,7 +21,7 @@ const RentalPayment = ({ className, onClose }) => {
     // 렌탈 금액 초기 값
     let calculatedPrice = 0;
 
-    // 1. rentalTime에 따라 금액을 계산
+        // 1. rentalTime에 따라 금액을 계산
     if (rentalTime >= 300) {
         // 2. 300분(종일권) 이상 선택 시 5,000원으로 고정
         calculatedPrice = 5000;
@@ -77,13 +76,14 @@ const RentalPayment = ({ className, onClose }) => {
     // 결제 버튼 클릭 시 결제 정보를 API 파일로 전송
     // 데이터를 서버를 이용하여 백엔드로 보내야 하므로 데이터를 전달 할 때에도 비동기 처리 필수
     const handlePayment = async () => {
-        if(!selectedPayment) {
-            alert("결제 수단을 선택해 주세요.");
-            return;
-        }
-
         const result = await dispatch(getRentalPayment(calculatedPrice, selectedPayment));
-        return result;
+
+        if (result && result.status === "SUCCESS") {
+            alert("자전거 대여 및 결제가 완료되었습니다!");
+            onClose();
+        } else {
+            alert(`결제 실패: ${result?.message || '알 수 없는 오류'}`);
+        }
     }
 
     useEffect(() => {
@@ -134,9 +134,12 @@ const RentalPayment = ({ className, onClose }) => {
                         <strong>{paymentJsonData[3]?.choice?.title}</strong>
                         <ul className='payment_choice'>
                             <li>
-                                <span>{paymentJsonData[3]?.choice?.kakao}</span>
+                                <label htmlFor="kakaopay">
+                                    <img src={paymentJsonData[3]?.choice?.kakaopay_img} alt={paymentJsonData[3]?.choice?.kakao} />
+                                </label>
                                 <input
                                     type="radio"
+                                    id='kakaopay'
                                     name='paymentCheckd'
                                     value="kakaopay"
                                     onChange={handlePaymentChange}
@@ -144,19 +147,23 @@ const RentalPayment = ({ className, onClose }) => {
                                     />
                             </li>
                             <li>
-                                <span>{paymentJsonData[3]?.choice?.naver}</span>
-                                <input
-                                    type="radio"
-                                    name='paymentCheckd'
-                                    value="naverpay"
-                                    onChange={handlePaymentChange}
-                                    checked={selectedPayment === 'naverpay'}
-                                />
+                                <label htmlFor="naverpay">
+                                    <img src={paymentJsonData[3]?.choice?.naverpay_img} alt={paymentJsonData[3]?.choice?.naver} />
+                                </label>
+                                    <input
+                                        type="radio"
+                                        id='naverpay'
+                                        name='paymentCheckd'
+                                        value="naverpay"
+                                        onChange={handlePaymentChange}
+                                        checked={selectedPayment === 'naverpay'}
+                                    />
                             </li>
                         </ul>
                     </div>
                 </div>
                 <form>
+                    
                     <button type='button' onClick={handlePayment}>{paymentJsonData[4]?.price_button?.payment_button}</button>
                     <button
                         className='payment_info_close'

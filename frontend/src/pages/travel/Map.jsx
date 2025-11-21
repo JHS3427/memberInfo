@@ -2,9 +2,12 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getMarkerList } from '../../feature/travel/mapAPI.js';
 
-function Map({ handleMenuClick, handleMapGoBack, type }) {
+function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selectedDid }) {
   const dispatch = useDispatch();
   const travelFoodList = useSelector((state) => state.travelFood.travelFoodList);
+  const travelHotelList = useSelector((state) => state.travelHotel.travelHotelList);
+  const travelRepairList = useSelector((state) => state.travelRepair.travelRepairList);
+//   const travelStoreList = useSelector((state) => state.travelStore.travelStoreList);
 
   const [number, setNumber] = useState(3);
   const mapRef = useRef(null); // 지도 객체 저장용
@@ -13,6 +16,12 @@ function Map({ handleMenuClick, handleMapGoBack, type }) {
 
   const baseMarkersRef = useRef([]); // 처음 getMarkerList로 찍은 마커
   const typeMarkersRef = useRef([]); // type별 리스트 마커
+
+  const markerMapRef = useRef({
+     food: {},
+     hotel: {},
+     repair: {}
+  });
 
   useEffect(() => {
       const fetch = async() => {
@@ -32,8 +41,8 @@ function Map({ handleMenuClick, handleMapGoBack, type }) {
                   });
                 mapRef.current = map; // 지도 객체 저장
 
-                const greenMarkerSrc  = 'http://localhost:3000/images/marker_green.png';
-                const redMarkerSrc = 'http://localhost:3000/images/marker_red.png';
+                const greenMarkerSrc  = 'http://localhost:3000/images/travel_markers/marker_main.png';
+                const redMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_main_select.png';
                 let imageSize = new window.kakao.maps.Size(15, 15);
                 let imageOption = {offset: new window.kakao.maps.Point(0, 0)};
 
@@ -89,8 +98,8 @@ function Map({ handleMenuClick, handleMapGoBack, type }) {
 
                     // 마커 중심으로 이동
                     const moveLatLon = new window.kakao.maps.LatLng(
-                      lat - 0.001, // 위로 살짝 올리기
-                      lng
+                      lat - 0.001, // 상하
+                      lng // 좌우
                     );
                     map.panTo(moveLatLon);
 
@@ -112,14 +121,25 @@ function Map({ handleMenuClick, handleMapGoBack, type }) {
 
   }, [number]);
 
-  // 2️⃣ type이 바뀔 때마다 리덕스 리스트 마커 추가
+  // type이 바뀔 때마다 마커 변경
   useEffect(() => {
     if (!window.kakao || !window.kakao.maps) return;
-
-    const listToRender = travelFoodList;
+//
 //     const listToRender = type === "food" ? travelFoodList
 //                         : type === "hotel" ? travelHotelList
 //                         : travelRepairList;
+
+    // type별 리스트 매핑
+    const listMap = {
+      food: travelFoodList,
+      hotel: travelHotelList,
+      repair: travelRepairList
+//       ,
+//       store: travelStoreList    // ⭐ 새로운 타입 추가
+    };
+
+    // 선택할 리스트
+    const listToRender = listMap[type] || [];
 
     if (!listToRender || listToRender.length === 0) return;
 
@@ -131,9 +151,40 @@ function Map({ handleMenuClick, handleMapGoBack, type }) {
       typeMarkersRef.current.forEach(m => m.setMap(null));
       typeMarkersRef.current = [];
 
-      const orangeMarkerSrc  = 'http://localhost:3000/images/marker_orange.png';
-      const selectMarkerSrc = 'http://localhost:3000/images/marker_select.png';
-      const imageSize = new window.kakao.maps.Size(15, 15);
+      const currentLevel = map.getLevel();
+//       console.log(currentLevel);
+//       if(type === "repair"){
+//         if (currentLevel <= 5) {
+//             map.setLevel(currentLevel + 1);
+//         }
+//       }else {
+        if (currentLevel > 5) {
+            map.setLevel(currentLevel - 1);
+        }
+//       }
+
+      let orangeMarkerSrc = '';
+      let selectMarkerSrc = '';
+
+      if (type === "food") {
+        orangeMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_food.png';
+        selectMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_food_select.png';
+
+      } else if (type === "hotel") {
+        orangeMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_hotel.png';
+        selectMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_hotel_select.png';
+
+      } else if (type === "repair") {
+        orangeMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_repair.png';
+        selectMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_repair_select.png';
+      }
+//       else { // store
+//           orangeMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_store.png';
+//           selectMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_store_select.png';
+//       }
+
+
+      const imageSize = new window.kakao.maps.Size(20, 20);
       const imageOption = { offset: new window.kakao.maps.Point(0, 0) };
       const selectImageSize = new window.kakao.maps.Size(45, 45);
       const selectImageOption = { offset: new window.kakao.maps.Point(15, 30) };
@@ -142,13 +193,26 @@ function Map({ handleMenuClick, handleMapGoBack, type }) {
 
       let activeOverlay = null;
 
-      listToRender.forEach(({ fname, lat, lng, flink }) => {
+
+      listToRender.forEach((item) => {
+
+        const { lat, lng, fname, flink } = item;
+
+        // type에 맞춰 did 설정
+        const did =
+          type === "food"  ? item.fid :
+          type === "hotel" ? item.hid :
+                             item.rid;
+
         const markerPosition = new window.kakao.maps.LatLng(lat, lng);
         const marker = new window.kakao.maps.Marker({
           position: markerPosition,
           image: orangeMarkerImage,
           map,
-        });
+      });
+
+      // 리스트 선택한 마커 저장
+      markerMapRef.current[type][did] = marker;
 
 //         const content = `
 //           <div class="map-marker-overlay-box">
@@ -174,16 +238,33 @@ function Map({ handleMenuClick, handleMapGoBack, type }) {
 //           customOverlay.setMap(map);
 //           activeOverlay = customOverlay;
 
-          if (map.getLevel() > 5) map.setLevel(map.getLevel() - 7);
+//           if(type === "repair"){
+//               if (map.getLevel() > 5) map.setLevel(map.getLevel() - 1);
+//           }else{
+              if (map.getLevel() > 5) map.setLevel(map.getLevel() - 7);
+//           }
+
           map.panTo(new window.kakao.maps.LatLng(lat - 0.001, lng));
+
+          //상세페이지 열기
+          handleListDetail(type, did);
         });
 
         typeMarkersRef.current.push(marker);
       });
     });
-  }, [type, travelFoodList]);
+  }, [type, travelFoodList, travelHotelList, travelRepairList]);
 
+  // 리스트에서 선택 항목 지도 마커 클릭
+  useEffect(() => {
+    if (!selectedDid || !type) return;
 
+    const marker = markerMapRef.current[type]?.[selectedDid];
+
+    if (marker) {
+      window.kakao.maps.event.trigger(marker, "click");
+    }
+  }, [selectedDid, type]);
 
   const handleGoBack = () => {
      if (mapRef.current) {
@@ -199,6 +280,13 @@ function Map({ handleMenuClick, handleMapGoBack, type }) {
        if (goback_btn) {
          goback_btn.style.top = "-3rem";
        }
+
+       //type 마커 제거
+       typeMarkersRef.current.forEach(marker => marker.setMap(null));
+       typeMarkersRef.current = [];
+
+       //마커 이미지 초기화
+       baseMarkersRef.current.forEach(marker => marker.setImage(marker.defaultImage));
      }
 
      if(handleGoBack) {

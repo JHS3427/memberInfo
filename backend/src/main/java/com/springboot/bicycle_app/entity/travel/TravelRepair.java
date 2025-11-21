@@ -17,6 +17,12 @@ public class TravelRepair {
     @Column(name="rname", length = 30, nullable = false)
     private String rname;
 
+    @Column(name="lat")
+    private Double lat;
+
+    @Column(name="lng")
+    private Double lng;
+
     @Column(name="rlike") 
     private Double rlike; 
 

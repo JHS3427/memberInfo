@@ -5,6 +5,7 @@ import com.springboot.bicycle_app.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,28 +57,72 @@ public class BoardController {
      * 예: PUT /api/board/update/3
      */
     @PutMapping("/update/{pid}")
-    public BoardPost updatePost(@PathVariable("pid") int pid, @RequestBody BoardPost updatedPost) {
-        Optional<BoardPost> existing = boardService.getPostDetail(pid);
-        if (existing.isPresent()) {
-            BoardPost post = existing.get();
-            post.setTitle(updatedPost.getTitle());
-            post.setContent(updatedPost.getContent());
-            post.setImageUrl(updatedPost.getImageUrl());
-            post.setThumbnailUrl(updatedPost.getThumbnailUrl());
-            post.setCategoryTag(updatedPost.getCategoryTag());
-            post.setStatus(updatedPost.getStatus());
-            return boardService.savePost(post);
+    public ResponseEntity<?> updatePost(
+            @PathVariable("pid") int pid,
+            @RequestBody BoardPost updatedPost,
+            Authentication authentication
+    ) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401).body("로그인이 필요합니다.");
         }
-        throw new RuntimeException("해당 게시글이 존재하지 않습니다. pid=" + pid);
+
+        // 로그인한 사용자 UID 가져오기
+        String loginUid = authentication.getName(); 
+        boolean isAdmin = authentication.getAuthorities()
+                .stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        // 기존 글 조회
+        BoardPost post = boardService.getPostDetail(pid)
+                .orElseThrow(() -> new RuntimeException("게시글 없음"));
+
+        // 작성자 본인 or 관리자만 허용
+        if (!isAdmin && !post.getUid().equals(loginUid)) {
+            return ResponseEntity.status(403).body("권한이 없습니다.");
+        }
+
+        // 수정
+        post.setTitle(updatedPost.getTitle());
+        post.setContent(updatedPost.getContent());
+        post.setImageUrl(updatedPost.getImageUrl());
+        post.setThumbnailUrl(updatedPost.getThumbnailUrl());
+        post.setCategoryTag(updatedPost.getCategoryTag());
+        post.setStatus(updatedPost.getStatus());
+
+        BoardPost saved = boardService.savePost(post);
+
+        return ResponseEntity.ok(saved);
     }
+
 
     /**
      * ✅ 게시글 삭제 (관리자 또는 작성자)
      * 예: DELETE /api/board/delete/3
      */
     @DeleteMapping("/delete/{pid}")
-    public String deletePost(@PathVariable("pid") int pid) {
+    public ResponseEntity<?> deletePost(
+            @PathVariable("pid") int pid,
+            Authentication authentication
+    ) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401).body("로그인이 필요합니다.");
+        }
+
+        String loginUid = authentication.getName();
+        boolean isAdmin = authentication.getAuthorities()
+                .stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        BoardPost post = boardService.getPostDetail(pid)
+                .orElseThrow(() -> new RuntimeException("게시글 없음"));
+
+        // 관리자 or 작성자만 삭제 가능
+        if (!isAdmin && !post.getUid().equals(loginUid)) {
+            return ResponseEntity.status(403).body("권한이 없습니다.");
+        }
+
         boardService.deletePost(pid);
-        return "게시글이 삭제되었습니다. pid=" + pid;
+        return ResponseEntity.ok("삭제 완료");
     }
+
 }

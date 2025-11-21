@@ -100,6 +100,7 @@ export const getsocialtoken = async(token_json,social) =>{
 export const usePostCode= (formData,setFormData)=>{
     const postcodeScriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
     const open = useDaumPostcodePopup(postcodeScriptUrl);
+
     const handleComplete = (data) => {
     let fullAddress = data.address;
     let placezonecode = data.zonecode;
@@ -119,7 +120,6 @@ export const usePostCode= (formData,setFormData)=>{
 
     setFormData({...formData,  mainAddress : fullAddress})
     };
-    
     const handleClick = () => {
     open({ onComplete: handleComplete });
     };

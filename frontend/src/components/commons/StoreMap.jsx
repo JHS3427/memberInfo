@@ -15,8 +15,10 @@ function StoreMap({ storeList,selectedStore,onMarkerClick }) {
 
         const map = new window.kakao.maps.Map(container, options);
 
-        const greenMarkerSrc  = 'http://localhost:3000/images/marker_green.png';
-        const redMarkerSrc = 'http://localhost:3000/images/marker_red.png';   
+        const greenMarkerSrc  = 'http://localhost:3000/images/travel_markers/marker_main.png';
+        // const greenMarkerSrc  = 'http://172.16.250.24:3000/images/travel_markers/marker_main.png';
+        const redMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_main_select.png';
+        // const redMarkerSrc = 'http://172.16.250.24:3000/images/travel_markers/marker_main_select.png';
         let imageSize = new window.kakao.maps.Size(15, 15);
         let imageOption = {offset: new window.kakao.maps.Point(0, 0)};
         

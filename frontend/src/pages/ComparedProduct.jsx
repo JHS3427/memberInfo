@@ -1,13 +1,16 @@
 import {useDispatch, useSelector} from "react-redux";
 import {removeCompareItem} from "../feature/compare/compareSlice.js";
 import '../styles/compare.css';
+import {useNavigate} from "react-router-dom";
 
 export function ComparedProduct(){
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const compareList = useSelector((state)=>state.compare.compareList);
-
     const itemsToDisplay = compareList.slice(0, 3);
+    const goToProduct = () => {
+        navigate("/products/mountain");
+    }
 
     return(
         <div className="compare-container">
@@ -72,6 +75,7 @@ export function ComparedProduct(){
                 <div className="empty-compare">
                     <p>비교할 상품이 없습니다.</p>
                     <p>상품 목록에서 '비교하기' 버튼을 눌러 상품을 추가해주세요.</p>
+                    <button onClick={goToProduct}>자전거 보기</button>
                 </div>
             )}
         </div>

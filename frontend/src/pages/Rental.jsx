@@ -5,6 +5,8 @@ import { BiTargetLock } from "react-icons/bi";
 import { Maps } from '../components/rental/Maps.jsx';
 import { addData, setFilteredList, setSelectedStation } from '../feature/rental/rentalMarkerSlice.js';
 import { showMarkerAPI } from '../feature/rental/rentalMarkerAPI.js';
+import useRentalMapResponsive from '../utils/useRentalMapResponsive.js';
+import useKakaoLoader from "../useKakaoLoader.js";
 
 const getDistance = (startLat, startLon, endLat, endLon) => {
     // 주 지점이 같은 경우 0km 반환
@@ -12,11 +14,10 @@ const getDistance = (startLat, startLon, endLat, endLon) => {
         return 0;
     }
 
-    //상수 정의
     // 지구의 평균 반지름 (단위: km)
     const earthRadiusKm = 6371;
-    
-    // 도를 라디안으로 변환
+
+    // 도(각도: 위도, 경도)를 라디안으로 변환
     const degreesToRadians = Math.PI / 180;
 
     // 위도 및 경도 차이를 라디안으로 변환
@@ -24,10 +25,10 @@ const getDistance = (startLat, startLon, endLat, endLon) => {
     const lonDifferenceRed = (endLon - startLon) * degreesToRadians;
 
     // Haversine 공식의 값 계산
-    const haversineValueA = 
-        Math.sin(latDifferenceRad / 2) * Math.sin(latDifferenceRad / 2 ) +
+    const haversineValueA =
+        Math.sin(latDifferenceRad / 2) * Math.sin(latDifferenceRad / 2) +
         Math.cos(startLat * degreesToRadians) * Math.cos(endLat * degreesToRadians) *
-        Math.sin(lonDifferenceRed / 2) * Math.sin(latDifferenceRad / 2 );
+        Math.sin(lonDifferenceRed / 2) * Math.sin(latDifferenceRad / 2);
 
     // Haversine 공식의 c값 계산 (두 지점 사이의 호의 중심 각, 라디안)
     const centralAngleArc = 2 * Math.atan2(Math.sqrt(haversineValueA), Math.sqrt(1 - haversineValueA));
@@ -39,11 +40,12 @@ const getDistance = (startLat, startLon, endLat, endLon) => {
 }
 
 const Rantal = () => {
+    useKakaoLoader()
     // useDispatch()를 사용하기 위해서 dispatch 변수 선언 그리고 할당 함.
     const dispatch = useDispatch();
 
     //마커의 정보를 담고있는 store에 등록된 데이터
-    const selectedMarker = useSelector((state)=> state.rentalData.selectedStation);
+    const selectedMarker = useSelector((state) => state.rentalData.selectedStation);
 
     // store에 등록된 전체 데이터를 사용하기 위해 useSelector로 데이터 추출
     const allBikeStations = useSelector((state) => state.rentalData.bikeList);
@@ -51,12 +53,27 @@ const Rantal = () => {
     // 사용자가 위치 사용 권한을 거부했을 시 기본 좌표 반영
     const [latLon, setLatLon] = useState({ lat: 37.575877, lng: 126.976897 });
 
+    // store에서 필터링된 마커 리스트를 가져 올 변수
+    const [filteredMaps, setFilteredMaps] = useState([]);
+
     const [mapCenter, setMapCenter] = useState(latLon);
 
     const [showSearchButton, setShowSearchButton] = useState(false);
 
-    // store에서 필터링된 마커 리스트를 가져 올 변수
-    const [filteredMaps, setFilteredMaps] = useState([]);
+    const respondiveMap = useRentalMapResponsive();
+    const isMapMobile = respondiveMap <= 810;
+
+    // 기본 마커 이미지
+    const defaultMarkerImage = {
+        src: 'http://t1.daumcdn.net/mapjsapi/images/marker.png',
+        size: { width: 30, height: 50 },
+    };
+
+    // 선택된 마커 이미지
+    const selectedMarkerImage = {
+        src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png', // 예시로 빨간 마커 사용
+        size: { width: 40, height: 60 }, // 크기를 다르게 하여 시각적으로 강조
+    };
 
     useEffect(() => {
         const bikePullData = async () => {
@@ -82,9 +99,8 @@ const Rantal = () => {
     // allBikeStations(Redux 데이터)나 latLon(사용자 위치)이 변경될 때마다 필터링을 다시 수행
     useEffect(() => {
         // 사용자 위치가 설정되었고, Redux에 데이터가 로딩되었을 때만 필더링 수행
-        if(allBikeStations.length > 0){
-            
-            const maxDistanceKm = 0.5; // 반경 2km
+        if (allBikeStations.length > 0) {
+            const maxDistanceKm = 0.5; // 반경 500m
             const maxMarkers = 10;
 
             const filteredStations = allBikeStations.filter(station => {
@@ -94,31 +110,47 @@ const Rantal = () => {
                     station.latitude, // JSON 데이터의 위도 속성
                     station.longitude // JSON 데이터의 경도 속성
                 );
-                // 거리가 2km 이하인 경우에만 true 반환
+                // 거리가 500m 이하인 경우에만 true 반환
                 return distance <= maxDistanceKm
             });
 
-            
+
             const finalFilteredStations = filteredStations.slice(0, maxMarkers);
             dispatch(setFilteredList(finalFilteredStations));
 
             //필더링된 결과를 렌더링에 사용할 로컬 상태에 저장
             setFilteredMaps(filteredStations);
-        }
-    }, [allBikeStations, latLon]);
 
-    const handleReSearch = () => {
-        setLatLon(mapCenter);
+            if (isMapMobile && finalFilteredStations.length > 0 && selectedMarker === null) {
+                dispatch(setSelectedStation(finalFilteredStations[0]));
+            }
+
+        }
+    }, [allBikeStations, latLon, dispatch, selectedMarker, isMapMobile]);
+
+    const handleReSearch = (center) => {
+        if (center && center.lat && center.lng) {
+            setLatLon({ lat: center.lat, lng: center.lng });
+        } else {
+            setLatLon(mapCenter);
+        }
         setShowSearchButton(false)
     }
 
     return (
+        
         <div className='rental_map_box'>
-            <Maps data={selectedMarker} onClose={() => { dispatch(setSelectedStation(null)) }} />
-            <Map
+
+                <Maps
+                    data={selectedMarker}
+                    onClose={() => dispatch(setSelectedStation(null))}
+                    onReSearch={handleReSearch}
+                />
+                <Map
                 className='kakao_rental_map'
-                center={latLon} style={{ width: "100%", height: "calc(100vh - 55px)"}}
-                onDragEnd={(map)=>{
+                center={latLon}
+                style={{ width: "100%", height: "calc(100vh - 55px)" }}
+                onIdle={(map) => {
 
                     //지도의 새로운 중심 좌표를 가져와서 latLon 상태 업데이트
                     const newCenter = map.getCenter();
@@ -133,9 +165,12 @@ const Rantal = () => {
                 <button onClick={handleReSearch}><BiTargetLock className='rental_map_target' /></button>
                 {
                     filteredMaps && filteredMaps.map((station, index) => {
-                        return <MapMarker key={`${station.id}-${index}`}
+                        const isSelected = selectedMarker && selectedMarker.id === station.id;
+                        return<MapMarker key={`${station.id}-${index}`}
                             position={{ lat: station.latitude, lng: station.longitude }}
-                            onClick={() => {dispatch(setSelectedStation(station))}}>
+                            image={isSelected ? selectedMarkerImage : defaultMarkerImage}
+                            onClick={() => { dispatch(setSelectedStation(station)) }}
+                        >
                         </MapMarker>
                     })
                 }

@@ -1,10 +1,7 @@
 package com.springboot.bicycle_app.repository;
 
-import com.springboot.bicycle_app.dto.RentalPayment;
-import java.util.Optional;
+import com.springboot.bicycle_app.dto.RentalPaymentRequest;
 
 public interface RentalRepository {
-    Long save(RentalPayment payment);
-    Optional<RentalPayment> findById(Long id);
-    int updatePaymentAfterReady(Long id, String transactionId, String status);
+    String saveRental(RentalPaymentRequest request);
 }

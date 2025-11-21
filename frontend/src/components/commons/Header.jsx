@@ -33,7 +33,6 @@ export function Header() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // URL 기준으로만 purchaseActive 관리
     useEffect(() => {
         const path = location.pathname;
         if (path.startsWith("/products/") || path.startsWith("/compare")) {
