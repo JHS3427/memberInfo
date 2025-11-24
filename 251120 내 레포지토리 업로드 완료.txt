@@ -7,5 +7,11 @@ rental_history/board_post/orders
 
 id 바꿀꺼면 따로 뽑아서 id 변경을 진행함
 
-mypage, authApi, signup
-oauthcontroller, oauthservice, oauthserviceimpl, userinfoDto, userinfo
+mypage-, authApi,- signup- mypage.css-
+oauthcontroller,-
+oauthservice, -
+oauthserviceimpl, -
+userinfoDto,-
+ userinfo-
+jpauserInfoRepository-
+sql-
