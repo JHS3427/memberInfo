@@ -41,8 +41,15 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
                   });
                 mapRef.current = map; // 지도 객체 저장
 
-                const greenMarkerSrc  = 'http://localhost:3000/images/travel_markers/marker_main.png';
-                const redMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_main_select.png';
+                // 현재 접속한 도메인 가져오기
+                const host = window.location.hostname;
+
+                const BASE_URL = host === "localhost"
+                  ? "http://localhost:3000"
+                  : "http://172.16.250.24:3000";   // 필요 시 포트 포함
+
+                const greenMarkerSrc  = `${BASE_URL}/images/travel_markers/marker_main.png`;
+                const redMarkerSrc    = `${BASE_URL}/images/travel_markers/marker_main_select.png`;
                 let imageSize = new window.kakao.maps.Size(15, 15);
                 let imageOption = {offset: new window.kakao.maps.Point(0, 0)};
 
@@ -163,24 +170,31 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
         }
 //       }
 
+      // 현재 접속한 도메인 가져오기
+      const host = window.location.hostname;
+
+      const BASE_URL = host === "localhost"
+        ? "http://localhost:3000"
+        : "http://172.16.250.24:3000";   // 필요 시 포트 포함
+
       let orangeMarkerSrc = '';
       let selectMarkerSrc = '';
 
       if (type === "food") {
-        orangeMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_food.png';
-        selectMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_food_select.png';
+        orangeMarkerSrc = `${BASE_URL}/images/travel_markers/marker_food.png`;
+        selectMarkerSrc = `${BASE_URL}/images/travel_markers/marker_food_select.png`;
 
       } else if (type === "hotel") {
-        orangeMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_hotel.png';
-        selectMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_hotel_select.png';
+        orangeMarkerSrc = `${BASE_URL}/images/travel_markers/marker_hotel.png`;
+        selectMarkerSrc = `${BASE_URL}/images/travel_markers/marker_hotel_select.png`;
 
       } else if (type === "repair") {
-        orangeMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_repair.png';
-        selectMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_repair_select.png';
+        orangeMarkerSrc = `${BASE_URL}/images/travel_markers/marker_repair.png`;
+        selectMarkerSrc = `${BASE_URL}/images/travel_markers/marker_repair_select.png`;
       }
 //       else { // store
-//           orangeMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_store.png';
-//           selectMarkerSrc = 'http://localhost:3000/images/travel_markers/marker_store_select.png';
+//           orangeMarkerSrc = `${BASE_URL}/images/travel_markers/marker_store.png`;
+//           selectMarkerSrc = `${BASE_URL}/images/travel_markers/marker_store_select.png`;
 //       }
 
 

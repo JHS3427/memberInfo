@@ -91,7 +91,7 @@ public class OauthController {
         {
             oauthService.signUp(userInfoDto);
             travelService.insertSave(userInfoDto.getUid());
-            return oauthService.signUp(userInfoDto);
+            return 1;
         }
         else{//false면 소셜로그인 해서 겹치는 게 없어서 들어온 회원가입
             String JWToken = userInfoDto.getJwToken();
