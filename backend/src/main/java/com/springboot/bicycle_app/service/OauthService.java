@@ -12,4 +12,6 @@ public interface OauthService {
     int signUp(UserInfoDto userInfo);
     String encryptString(String socialId);
     UserInfoDto findInfo(UserInfoDto userInfoDto);
+    int updateUser(UserInfoDto userInfoDto);
+    int updateuserId(UserInfoDto userInfoDto);
 }

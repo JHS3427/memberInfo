@@ -5,6 +5,7 @@ import com.springboot.bicycle_app.dto.UserInfoDto;
 import com.springboot.bicycle_app.service.OauthJWTService;
 import com.springboot.bicycle_app.service.OauthJWTServiceImpl;
 import com.springboot.bicycle_app.service.OauthService;
+import com.springboot.bicycle_app.service.TravelService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Cookie;
@@ -16,7 +17,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
@@ -29,25 +32,25 @@ public class OauthController {
     private final AuthenticationManager authenticationManager;
     private final HttpSessionSecurityContextRepository contextRepository;
     private final OauthJWTService oauthJWTService;
+    private final TravelService travelService;
 
     public OauthController(OauthService oauthService,
                            AuthenticationManager authenticationManager,
                            HttpSessionSecurityContextRepository contextRepository,
-                           OauthJWTService oauthJWTService)
+                           OauthJWTService oauthJWTService,
+                           TravelService travelService)
     {
         this.oauthService = oauthService;
         this.authenticationManager = authenticationManager;
         this.contextRepository = contextRepository;
         this.oauthJWTService = oauthJWTService;
+        this.travelService = travelService;
     }
 
     @PostMapping("/token")
     public UserInfoDto gettoken(@RequestBody Token token){
         String authcode;
         String socialId;
-        System.out.println("social : "+token.getSocial());
-        System.out.println("auth : "+token.getAuthCode());
-        System.out.println("hostName : "+token.getHostName());
         if(token.getSocial().equals("google"))//구글은 중간 토큰 요청없이 access토큰을 바로 넘겨준다.
         //https://ldd6cr-adness.tistory.com/323 참고
         {
@@ -86,6 +89,8 @@ public class OauthController {
     public int signup(@RequestBody UserInfoDto userInfoDto){
         if(userInfoDto.isSocialDupl())//true면 일반 회원가입
         {
+            oauthService.signUp(userInfoDto);
+            travelService.insertSave(userInfoDto.getUid());
             return oauthService.signUp(userInfoDto);
         }
         else{//false면 소셜로그인 해서 겹치는 게 없어서 들어온 회원가입
@@ -102,7 +107,6 @@ public class OauthController {
         UserInfoDto result = null;
         if(userInfoDto.isSocialDupl())
         {
-            System.out.println("change start ");
             //jw토큰 받아다가 바꿔서 id에 넣기, 패스워드는 빈칸으로 세팅
             userInfoDto.setJwToken(userInfoDto.getUid());
             String JWToken = userInfoDto.getUid();//uid에 토큰 넣어옴
@@ -111,7 +115,6 @@ public class OauthController {
         }
         result = oauthService.findInfo(userInfoDto);
         result.setUpass("");
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaa " + result);
         return result;
     }
 
@@ -136,14 +139,10 @@ public class OauthController {
             //1. 인증 요청
             Authentication authenticationRequest =
                     UsernamePasswordAuthenticationToken.unauthenticated(userInfo.getUid(), userInfo.getUpass());
-            System.out.println("authenticationResponse2 "+userInfo.getUid()+ userInfo.getUpass());
 
             //2. 인증 처리
             Authentication authenticationResponse =
                     this.authenticationManager.authenticate(authenticationRequest);
-
-            System.out.println("authenticationResponse3 "+userInfo.getUid()+ userInfo.getUpass());
-            System.out.println("인증 성공: " + authenticationResponse.getPrincipal());
 
             //3. 컨텍스트에 보관: 세션과 함께 저장, 만료때까지 저장됨.
             var context = SecurityContextHolder.createEmptyContext();
@@ -230,4 +229,20 @@ public class OauthController {
                 "role", principal.getAuthorities()
         ));
     }
+
+    @PostMapping("/updateUser")
+    @Transactional
+    public boolean updateUser(@RequestBody UserInfoDto userInfoDto){
+        boolean userId_edit_or_not=false;
+        oauthService.updateUser(userInfoDto);//다른 정보들 변경
+        //이걸 먼저 해야 아이디가 안바뀌어서 다른 정보들 변경 후에 ID값이 변경됨.
+        //먼저 안하고 아이디만 먼저 바꾸면 아이디값이 달라져서 못찾고 그대로 끝남
+        if(userInfoDto.getUid()!=null)
+        {
+            oauthService.updateuserId(userInfoDto);//Id값 변경
+            userId_edit_or_not=true;
+        }
+        return userId_edit_or_not;
+    }
+
 }

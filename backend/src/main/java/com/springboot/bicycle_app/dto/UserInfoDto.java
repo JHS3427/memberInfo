@@ -17,6 +17,7 @@ public class UserInfoDto {
     private String jwToken;
 
     private boolean loggedIn;
+    private String includedId;
 
     public UserInfoDto(){}
     public UserInfoDto(String uid, String upass) {

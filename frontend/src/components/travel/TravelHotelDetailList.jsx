@@ -3,27 +3,44 @@ import { useEffect, useState } from 'react';
 import { TravelHotelDetail } from "./TravelHotelDetail.jsx";
 
 import { getTravelHotelDetailList } from '../../feature/travel/travelHotelAPI.js';
+import { getTravelSaveList, updateTravelSaveList } from '../../feature/travel/travelSaveAPI.js';
 
 export function TravelHotelDetailList({ selectedDid }) {
-      
     const [travelHotelDetailList, setTravelHotelDetailList] = useState([]);
-    const [number, setNumber] = useState(3);
+    const [travelSaveList, setTravelSaveList] = useState([]);
+
+    const loginInfoString = localStorage.getItem("loginInfo");
+    const loginInfo = JSON.parse(loginInfoString);
+    const uid = loginInfo.userId;
     
     useEffect(() => {
       async function fetchDetailData() {
         const dataDetail = await getTravelHotelDetailList(selectedDid);
-           console.log(dataDetail);
         setTravelHotelDetailList(dataDetail);
       }
       fetchDetailData();
     }, []);
-    console.log(travelHotelDetailList);
+
+    useEffect(() => {
+      async function fetchSaveData() {
+        const dataSave = await getTravelSaveList(uid);
+        setTravelSaveList(dataSave);
+      }
+      fetchSaveData();
+    }, []);
+
+    const handleLikeUpdate = async (uid, newHid) => {
+        const hid = JSON.stringify(newHid);
+        const dataSave = await updateTravelSaveList(uid, hid, "hotel");
+        setTravelSaveList(dataSave);
+    }
 
     return(
         <>
             {travelHotelDetailList &&
                     <TravelHotelDetail
                         did={travelHotelDetailList.did}
+                        uid = {uid}
                         hname={travelHotelDetailList.hname}
                         hlike={travelHotelDetailList.hlike}
                         score={travelHotelDetailList.score}
@@ -39,6 +56,8 @@ export function TravelHotelDetailList({ selectedDid }) {
                         mainImages={travelHotelDetailList.mainImages}
                         imageList={travelHotelDetailList.imageList}
                         review = {travelHotelDetailList.review}
+                        save = {travelSaveList.hid}
+                        handleLikeUpdate = {handleLikeUpdate}
                     />
             }  
         </>          

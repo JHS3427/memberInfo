@@ -12,6 +12,7 @@ import com.springboot.bicycle_app.repository.JpaUserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.io.*;
@@ -249,4 +250,63 @@ public class OauthServiceImpl implements OauthService{
         return encrypt_socialId;
     }
 
+    @Override
+    @Transactional // <- 트랜잭션을 걸어줘야 변경 감지가 작동합니다.
+    public int updateUser(UserInfoDto userInfoDto){
+        // 1. DTO에서 ID 값을 가져와서 DB의 기존 엔티티를 조회 (영속성 컨텍스트에 로드)
+        // includedId를 사용하여 기존 엔티티를 찾습니다.
+        Optional<UserInfo> existingUserOptional = jpaUserInfoRepository.findByUid(userInfoDto.getIncludedId());
+
+        if (existingUserOptional.isEmpty()) {
+            // ID에 해당하는 사용자가 없는 경우 처리
+            return 0;
+        }
+        UserInfo existingUser = existingUserOptional.get();
+        // 2. DTO의 값이 null이 아닌 경우에만 기존 엔티티의 필드를 업데이트
+        /*ID값은 위에서 jpaUserInfoRepository.findByUid(userInfoDto.getIncludedId());
+        로 가져오는 순간 Uid는 영속성 컨텍스트에 의해 관리됨. 따라서 변경 불가능한 게 되버림.
+        * */
+//        if (userInfoDto.getUid() != null) {
+//            existingUser.setUid(userInfoDto.getUid());
+//        }
+        if (userInfoDto.getUpass() != null) {
+            // 비밀번호는 인코딩 후 업데이트해야 할 수 있으므로 서비스 로직에 맞게 조정하세요.
+            existingUser.setUpass(userInfoDto.getUpass());
+        }
+        if (userInfoDto.getUname() != null) {
+            existingUser.setUname(userInfoDto.getUname());
+        }
+        // int 타입은 0이 넘어올 경우 DB의 0으로 업데이트될 수 있으므로,
+        // DTO에서 int를 Integer로 바꾸거나 0이 아닌 경우에만 업데이트하도록 처리합니다.
+        if (userInfoDto.getUage() > 0) {
+            existingUser.setUage(userInfoDto.getUage());
+        }
+        if (userInfoDto.getUgender() != null) {
+            existingUser.setUgender(userInfoDto.getUgender());
+        }
+        if (userInfoDto.getUaddress() != null) {
+            existingUser.setUaddress(userInfoDto.getUaddress());
+        }
+        if (userInfoDto.getUemail() != null) {
+            existingUser.setUemail(userInfoDto.getUemail());
+        }
+        if (userInfoDto.getUphone() != null) {
+            existingUser.setUphone(userInfoDto.getUphone());
+        }
+
+        // 3. 트랜잭션이 종료될 때, JPA가 변경된 필드만 감지(Dirty Checking)합니다.
+        //    UserInfo 엔티티에 붙은 @DynamicUpdate 덕분에 변경된 필드만 포함된
+        //    간결한 UPDATE 쿼리가 DB에 실행됩니다.
+
+        // 명시적 save() 호출은 선택 사항이지만, 관습적으로 남겨둘 수 있습니다. (반환 타입이 UserInfo이므로)
+        // jpaUserInfoRepository.save(existingUser);
+
+        return 1; // 업데이트 성공 (혹은 변경된 필드 수 등 로직에 맞게 반환)
+    }
+
+    @Override
+    @Transactional
+    public int updateuserId(UserInfoDto userInfoDto){
+        return jpaUserInfoRepository.updateByUid(userInfoDto.getUid(),userInfoDto.getIncludedId());
+    }
 }

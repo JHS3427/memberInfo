@@ -188,3 +188,24 @@ export const randomString8to16 = () =>{
 
   return result;
 }
+
+export const updateUser = async (newUserData) =>{
+    
+    const url = "/auth/updateUser";
+    console.log("update newUserData:>>>>>",newUserData);
+    for( const [key, value] of Object.entries(newUserData))
+        {
+            if(newUserData[key]==="")
+            {
+                newUserData[key]=null;
+            }
+        }
+    const signUpResult = await axiosPost(url,newUserData)
+    if(signUpResult){
+        console.log("newUserData.includedId >>>>",newUserData.uid)
+        const loginInfo = { "userId":newUserData.uid, "isLogin":true};
+        localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
+    }
+
+    return 1;//어차피 1 반환함
+}

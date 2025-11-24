@@ -6,6 +6,7 @@ import com.springboot.bicycle_app.dto.travel.TravelRepairDto;
 import com.springboot.bicycle_app.dto.travel.TravelFoodDetailDto;
 import com.springboot.bicycle_app.dto.travel.TravelHotelDetailDto;
 import com.springboot.bicycle_app.dto.travel.TravelRepairDetailDto;
+import com.springboot.bicycle_app.dto.travel.TravelSaveDto;
 import com.springboot.bicycle_app.service.TravelService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,5 +59,25 @@ public class TravelController {
     @PostMapping("/repairDetail")
     public TravelRepairDetailDto repairDetail(@RequestBody TravelRepairDetailDto travelRepairDetail){
         return travelService.findRepairDetail(travelRepairDetail.getDid());
+    }
+
+    @PostMapping("/save")
+    public TravelSaveDto save(@RequestBody TravelSaveDto travelSave){
+        return travelService.findSave(travelSave.getUid());
+    }
+
+    @PostMapping("/foodSaveUpdate")
+    public TravelSaveDto foodSaveUpdate(@RequestBody TravelSaveDto travelSave){
+        return travelService.updateFoodSave(travelSave.getUid(), travelSave.getFid());
+    }
+
+    @PostMapping("/hotelSaveUpdate")
+    public TravelSaveDto hotelSaveUpdate(@RequestBody TravelSaveDto travelSave){
+        return travelService.updateHotelSave(travelSave.getUid(), travelSave.getHid());
+    }
+
+    @PostMapping("/repairSaveUpdate")
+    public TravelSaveDto repairSaveUpdate(@RequestBody TravelSaveDto travelSave){
+        return travelService.updateRepairSave(travelSave.getUid(), travelSave.getRid());
     }
 }

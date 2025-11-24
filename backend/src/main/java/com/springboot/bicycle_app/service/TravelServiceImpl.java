@@ -12,6 +12,10 @@ import com.springboot.bicycle_app.dto.travel.TravelHotelDetailDto;
 import com.springboot.bicycle_app.entity.travel.TravelHotelDetail;
 import com.springboot.bicycle_app.dto.travel.TravelRepairDetailDto;
 import com.springboot.bicycle_app.entity.travel.TravelRepairDetail;
+import com.springboot.bicycle_app.dto.UserInfoDto;
+import com.springboot.bicycle_app.entity.userinfo.UserInfo;
+import com.springboot.bicycle_app.dto.travel.TravelSaveDto;
+import com.springboot.bicycle_app.entity.travel.TravelSave;
 import com.springboot.bicycle_app.jpa_repository.JpaTravelRepository;
 import com.springboot.bicycle_app.repository.TravelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +78,40 @@ public class TravelServiceImpl implements TravelService{
     public TravelRepairDetailDto findRepairDetail(int did){
         TravelRepairDetail entity = jpaTravelRepository.findRepairDetail(did);
         return new TravelRepairDetailDto(entity);
+    }
+
+    @Transactional
+    @Override
+    public int insertSave(String uid){
+        int result;
+        result = jpaTravelRepository.insertSave(uid);
+        return 0;
+    }
+
+    @Override
+    public TravelSaveDto findSave(String uid){
+        TravelSave entity = jpaTravelRepository.findSave(uid);
+        return new TravelSaveDto(entity);
+    }
+
+    @Override
+    public TravelSaveDto updateFoodSave(String uid, String fid){
+        int result = jpaTravelRepository.updateFoodSave(uid, fid);
+        TravelSave entity = jpaTravelRepository.findSave(uid);
+        return new TravelSaveDto(entity);
+    }
+
+    @Override
+    public TravelSaveDto updateHotelSave(String uid, String hid){
+        int result = jpaTravelRepository.updateHotelSave(uid, hid);
+        TravelSave entity = jpaTravelRepository.findSave(uid);
+        return new TravelSaveDto(entity);
+    }
+
+    @Override
+    public TravelSaveDto updateRepairSave(String uid, String rid){
+        int result = jpaTravelRepository.updateRepairSave(uid, rid);
+        TravelSave entity = jpaTravelRepository.findSave(uid);
+        return new TravelSaveDto(entity);
     }
 }

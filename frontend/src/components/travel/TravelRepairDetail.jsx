@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react';
 
 export function TravelRepairDetail({did,
-                                  rname,
-                                  rlike,
-                                  score,
-                                  tag,
-                                  location,
-                                  repair,
-                                  address,
-                                  localAddress,
-                                  business,
-                                  phone,
-                                  other,
-                                  menu,
-                                  mainImages,
-                                  imageList,
-                                  review}) {
+                                    uid,
+                                    rname,
+                                    rlike,
+                                    score,
+                                    tag,
+                                    location,
+                                    repair,
+                                    address,
+                                    localAddress,
+                                    business,
+                                    phone,
+                                    other,
+                                    menu,
+                                    mainImages,
+                                    imageList,
+                                    review,
+                                    save,
+                                    handleLikeUpdate
+                                    }) {
 
   //문자열(JSON) 파싱 처리
   const parsedTag = tag ? JSON.parse(tag) : [];
@@ -25,6 +29,10 @@ export function TravelRepairDetail({did,
   const parsedMainImages = mainImages ? JSON.parse(mainImages) : [];
   const parsedImageList = imageList ? JSON.parse(imageList) : [];
   const parsedReview = review ? JSON.parse(review) : [];
+  const parsedSave = save ? JSON.parse(save) : [];
+
+  // parsedSave안에 did가 있는지 확인
+  const isSaved = parsedSave.includes(did);
 
   const imageButtons = ["전체", "업체", "블로그"];
   const reviewButtons = ["최신순", "평점 높은순", "평점 낮은순"];
@@ -58,9 +66,20 @@ export function TravelRepairDetail({did,
     setActiveReviewMenu(idx);
   };
 
-  const handleLike = () => {
-      setPushLike(!pushLike);
-  }
+  const handleLike = (did) => {
+
+      let newRid;
+
+      if (parsedSave.includes(did)) {
+          // 이미 저장되어 있으면 제거
+          newRid = parsedSave.filter(rid => rid !== did);
+      } else {
+          // 저장되어 있지 않으면 추가
+          newRid = [...parsedSave, did];
+      }
+
+      handleLikeUpdate(uid, newRid); // uid, 새로운 배열
+  };
 
   const handleAddress = () => {
       setShowLocalAddress(!showLocalAddress);
@@ -91,13 +110,13 @@ export function TravelRepairDetail({did,
                   </li>
                   <li className="detail-title-name-box" >
                       <span className="detail-title-name">{rname}</span>
-                      <button className="detail-title-save" onClick={handleLike}>
-                          {pushLike ? (
-                              <i className="fa-regular fa-bookmark"></i>
-                          ) : (
+                      <button className="detail-title-save" onClick={() => handleLike(did)}>
+                          {isSaved ? (
                               <i class="fa-solid fa-bookmark fa-pushBookmark"></i>
+                          ) : (
+                              <i className="fa-regular fa-bookmark"></i>
                           )}
-                          &nbsp;저장
+                      &nbsp;저장
                       </button>
 
                       <button className="detail-title-share"><i class="fa-regular fa-share-from-square"></i> 공유</button>

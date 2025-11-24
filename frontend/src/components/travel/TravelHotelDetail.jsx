@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react';
 
 export function TravelHotelDetail({did,
-                                  hname,
-                                  hlike,
-                                  score,
-                                  tag,
-                                  location,
-                                  hotel,
-                                  address,
-                                  localAddress,
-                                  business,
-                                  phone,
-                                  other,
-                                  menu,
-                                  mainImages,
-                                  imageList,
-                                  review}) {
+                                   uid,
+                                   hname,
+                                   hlike,
+                                   score,
+                                   tag,
+                                   location,
+                                   hotel,
+                                   address,
+                                   localAddress,
+                                   business,
+                                   phone,
+                                   other,
+                                   menu,
+                                   mainImages,
+                                   imageList,
+                                   review,
+                                   save,
+                                   handleLikeUpdate
+                                   }) {
 
   //문자열(JSON) 파싱 처리
   const parsedTag = tag ? JSON.parse(tag) : [];
@@ -25,6 +29,10 @@ export function TravelHotelDetail({did,
   const parsedMainImages = mainImages ? JSON.parse(mainImages) : [];
   const parsedImageList = imageList ? JSON.parse(imageList) : [];
   const parsedReview = review ? JSON.parse(review) : [];
+  const parsedSave = save ? JSON.parse(save) : [];
+
+  // parsedSave안에 did가 있는지 확인
+  const isSaved = parsedSave.includes(did);
 
   const imageButtons = ["전체", "디럭스", "스위트", "패밀리 트윈", "로얄 스위트"];
   const reviewButtons = ["최신순", "평점 높은순", "평점 낮은순"];
@@ -59,9 +67,19 @@ export function TravelHotelDetail({did,
     setActiveReviewMenu(idx);
   };
 
-  const handleLike = () => {
-      setPushLike(!pushLike);
-  }
+  const handleLike = (did) => {
+      let newHid;
+
+      if (parsedSave.includes(did)) {
+          // 이미 저장되어 있으면 제거
+          newHid = parsedSave.filter(hid => hid !== did);
+      } else {
+          // 저장되어 있지 않으면 추가
+          newHid = [...parsedSave, did];
+      }
+
+      handleLikeUpdate(uid, newHid); // uid, 새로운 배열
+  };
 
   const handleAddress = () => {
       setShowLocalAddress(!showLocalAddress);
@@ -92,11 +110,11 @@ export function TravelHotelDetail({did,
                   </li>
                   <li className="detail-title-name-box" >
                       <span className="detail-title-name">{hname}</span>
-                      <button className="detail-title-save" onClick={handleLike}>
-                          {pushLike ? (
-                              <i className="fa-regular fa-bookmark"></i>
-                          ) : (
+                      <button className="detail-title-save" onClick={() => handleLike(did)}>
+                          {isSaved ? (
                               <i class="fa-solid fa-bookmark fa-pushBookmark"></i>
+                          ) : (
+                              <i className="fa-regular fa-bookmark"></i>
                           )}
                           &nbsp;저장
                       </button>

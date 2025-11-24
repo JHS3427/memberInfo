@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export function TravelFoodDetail({did,
+                                  uid,
                                   fname,
                                   flike,
                                   score,
@@ -15,7 +16,10 @@ export function TravelFoodDetail({did,
                                   menu,
                                   mainImages,
                                   imageList,
-                                  review}) {
+                                  review,
+                                  save,
+                                  handleLikeUpdate
+                                  }) {
 
   // 문자열(JSON) 파싱 처리
   const parsedTag = tag ? JSON.parse(tag) : [];
@@ -24,14 +28,17 @@ export function TravelFoodDetail({did,
   const parsedMenu = menu ? JSON.parse(menu) : [];
   const parsedMainImages = mainImages ? JSON.parse(mainImages) : [];
   const parsedImageList = imageList ? JSON.parse(imageList) : [];
-  const parsedReview = review ? JSON.parse(review) : [];  
+  const parsedReview = review ? JSON.parse(review) : [];
+  const parsedSave = save ? JSON.parse(save) : [];
+
+  // parsedSave안에 did가 있는지 확인
+  const isSaved = parsedSave.includes(did);
 
   const imageButtons = ["전체","음식", "실내", "실외", "주차"];
   const reviewButtons = ["최신순", "평점 높은순", "평점 낮은순"];
 
   const [activeImageMenu, setActiveImageMenu] = useState(0);
   const [activeReviewMenu, setActiveReviewMenu] = useState(0);
-  const [pushLike, setPushLike] = useState(false);
   const [showLocalAddress, setShowLocalAddress] = useState(false);
   const [showAllTime, setShowAllTime] = useState(false);
   const [showAllMenu, setShowAllMenu] = useState(false);
@@ -58,9 +65,20 @@ export function TravelFoodDetail({did,
     setActiveReviewMenu(idx);
   };
 
-  const handleLike = () => {
-      setPushLike(!pushLike);
-  }
+  const handleLike = (did) => {
+      let newFid;
+
+      if (parsedSave.includes(did)) {
+          // 이미 저장되어 있으면 제거
+          newFid = parsedSave.filter(fid => fid !== did);
+      } else {
+          // 저장되어 있지 않으면 추가
+          newFid = [...parsedSave, did];
+      }
+
+      handleLikeUpdate(uid, newFid); // uid, 새로운 배열
+  };
+
 
   const handleAddress = () => {
       setShowLocalAddress(!showLocalAddress);
@@ -91,11 +109,11 @@ export function TravelFoodDetail({did,
                   </li>
                   <li className="detail-title-name-box" >
                       <span className="detail-title-name">{fname}</span>
-                      <button className="detail-title-save" onClick={handleLike}>
-                          {pushLike ? (
-                              <i className="fa-regular fa-bookmark"></i>
-                          ) : (
+                      <button className="detail-title-save" onClick={() => handleLike(did)}>
+                          {isSaved ? (
                               <i class="fa-solid fa-bookmark fa-pushBookmark"></i>
+                          ) : (
+                              <i className="fa-regular fa-bookmark"></i>
                           )}
                           &nbsp;저장
                       </button>

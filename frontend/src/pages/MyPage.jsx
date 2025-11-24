@@ -1,12 +1,12 @@
 //가로는 60%~80%가 적당할듯? 보고 하기
 
 import { useEffect,useState } from "react";
-import { getInfo,idDuplCheck} from '../feature/auth/authAPI';
-import { useNavigate } from 'react-router-dom';
+import { getInfo,idDuplCheck,updateUser} from '../feature/auth/authAPI';
+import { useNavigate,Link } from 'react-router-dom';
 import '../styles/myPage.css'; // ✨ 새로운 CSS 파일 import
 import { usePostCode} from '../feature/auth/authAPI';
 
-export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker}){
+export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,updateResult}){
 
     
     const dataChangeButtonOnOffInit = {uid:false,upass:false,
@@ -68,6 +68,9 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker}){
         }
     }, [mainAddressVar.mainAddress, postCodeChanger]);
 
+    useEffect(()=>{
+        setDataChangeButtonOnOff({...dataChangeButtonOnOff,[name] : false})
+    },[updateResult])
     if (!info) {
         // null을 반환하여 아무것도 렌더링하지 않거나, 로딩 메시지를 반환합니다.
         // MyPage에서 <li>로 감싸고 있으므로, <li> 안의 내용만 반환해야 합니다.
@@ -76,36 +79,37 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker}){
     return(
         <>
             <li>{dataChangeButtonOnOff[name]?
-                    name==="uaddress"?
-                        <>
-                            {nameString[name]} 변경 -- 
-                            <button name = {name+"_main"} type='button' onClick={handleClick} >주소 찾기</button>
-                            <input
-                                name = {name+"_main"} 
-                                value = {mainAddressVar.mainAddress}
-                                readOnly />
-                            <input
-                                name = {name+"_sub"}
-                                onChange={handleDataChange}/>
-                            <button onClick={DataChangeClose}> 취소</button>
-                        </>
-                        :
-                        <>
-                            {nameString[name]} 변경 -- 
-                            <input
-                                name = {name}
-                                onChange={handleDataChange}/>{name==="uid"?
-                                                                idChecker?
-                                                                    <button>중복 체크 OK </button>:
-                                                                    <button onClick={idDuplCheck}>중복 체크</button>
-                                                                :""}
-                            <button onClick={DataChangeClose}> 취소</button>
-                        </>
+                name==="uaddress"?
+                    <>
+                        {nameString[name]} 변경 -- 
+                        <button name = {name+"_main"} type='button' onClick={handleClick} >주소 찾기</button>
+                        <input
+                            name = {name+"_main"} 
+                            value = {mainAddressVar.mainAddress}
+                            readOnly />
+                        <input
+                            name = {name+"_sub"}
+                            onChange={handleDataChange}/>
+                        <button onClick={DataChangeClose}> 취소</button>
+                    </>
                     :
                     <>
-                        {info[name]} <button onClick={DataChangeOpen}> {nameString[name]} 수정</button>
+                        {nameString[name]} 변경 -- 
+                        <input
+                            name = {name}
+                            onChange={handleDataChange}/>{name==="uid"?
+                                                            idChecker?
+                                                                <button>중복 체크 OK </button>:
+                                                                <button onClick={idDuplCheck}>중복 체크</button>
+                                                            :""}
+                        <button onClick={DataChangeClose}> 취소</button>
                     </>
-                    }</li>
+                :
+                <>
+                    {info[name]} <button onClick={DataChangeOpen}> {nameString[name]} 수정</button>
+                </>
+                }
+            </li>
         </>);
 }
 
@@ -131,6 +135,8 @@ export function MyPage(){
     const [editer,setEditer] = useState(editDatainit);
     const [editerOnOff,setEditerOnOff] = useState(0);
     const [idChecker,setIdChecker] = useState(false);
+
+    const[updateResult,setUpdateResult] = useState(0);
 
     const handleChange=(e)=>{
         const {name,value} = e.target
@@ -174,7 +180,7 @@ export function MyPage(){
             setInfo(result)
         }
         getUserInfo();
-    },[])
+    },[updateResult])
     
     useEffect(()=>{
         let editerOnOff_changer = 0
@@ -185,15 +191,23 @@ export function MyPage(){
         }
     },[editer])
 
-    const clicker = () =>{//원본데이터, 변경데이터 넘겨서 해당 내용 바꾸기
+    const dataFixer = async() =>{//원본데이터, 변경데이터 넘겨서 해당 내용 바꾸기
         //아이디 중복확인 후 중복 없으면 전달하기
         if(editer["uid"]===1 && !idChecker){
             alert("아이디 중복체크 하세요")
         }
         else
         {
-            console.log(handleData)
-            console.log("이거 넘깁니다?")
+            const idIncludehandleData = {...handleData,["includedId"]:info.uid}
+            console.log("absdasdasd");
+            const result = await updateUser(idIncludehandleData)
+            setHandleData(handleDatainit);
+            setEditerOnOff(0);
+            if(result===1)
+            {
+                console.log("aaaaaaaaa")
+                setUpdateResult(prev => prev+1);//updateUser를 넣으면 1값 유지되고, useEffect 작동 안해서 이렇게 변경
+            }
         }
     }
     const IdDupleCheck = async() => {
@@ -216,7 +230,11 @@ export function MyPage(){
                 <div className="sideBar">
                     <h1 className="sideBarTitle">사이드 탭</h1>
                     <ul className="sideBarList">
-                        <li>자전거 장바구니</li>
+                        <Link to={`/cart`}>
+                            <li>
+                                자전거 장바구니
+                            </li>
+                        </Link>
                         <li>대여 상태 및 기록</li>
                         <li>여행지 찜목록</li>
                     </ul>
@@ -230,18 +248,18 @@ export function MyPage(){
                             <li>소셜 로그인은 패스워드를 공개하지 않습니다</li>
                         </>:
                         <>
-                            <InfoBox info={info} name = "uid" handleDataChange={handleChange} idDuplCheck = {IdDupleCheck} idChecker={idChecker}/>
-                            <InfoBox info={info} name = "upass" handleDataChange={handleChange}/>
+                            <InfoBox info={info} name = "uid" handleDataChange={handleChange} idDuplCheck = {IdDupleCheck} idChecker={idChecker} updateResult={updateResult}/>
+                            <InfoBox info={info} name = "upass" handleDataChange={handleChange} updateResult={updateResult}/>
                         </>}                       
                         
-                        <InfoBox info={info} name = "uname" handleDataChange={handleChange}/>
-                        <InfoBox info={info} name = "uage" handleDataChange={handleChange}/>
-                        <InfoBox info={info} name = "ugender" handleDataChange={handleChange}/>
-                        <InfoBox info={info} name = "uaddress" handleDataChange={handleChange}/>
-                        <InfoBox info={info} name = "uemail" handleDataChange={handleChange}/>
-                        <InfoBox info={info} name = "uphone" handleDataChange={handleChange}/>
+                        <InfoBox info={info} name = "uname" handleDataChange={handleChange} updateResult={updateResult}/>
+                        <InfoBox info={info} name = "uage" handleDataChange={handleChange} updateResult={updateResult}/>
+                        <InfoBox info={info} name = "ugender" handleDataChange={handleChange} updateResult={updateResult}/>
+                        <InfoBox info={info} name = "uaddress" handleDataChange={handleChange} updateResult={updateResult}/>
+                        <InfoBox info={info} name = "uemail" handleDataChange={handleChange} updateResult={updateResult}/>
+                        <InfoBox info={info} name = "uphone" handleDataChange={handleChange} updateResult={updateResult}/>
                     </ul>
-                    {editerOnOff>0?<button className="withdrawButton" onClick={clicker}>수정 내용 저장</button>:""}
+                    {editerOnOff>0?<button className="withdrawButton" onClick={dataFixer}>수정 내용 저장</button>:""}
                     
                     <button className="withdrawButton">회원 탈퇴</button>
                 </div>

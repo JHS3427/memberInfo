@@ -22,40 +22,6 @@ export function TravelRepair({rid,
             </li>
             <li>
               <span className="food-title-score">{score}</span><span>점</span>
-              {/* <span>
-                {
-                  flike < 2 ? (
-                      <>
-                        <i className="fa-solid fa-star"></i>
-                      </>
-                    ) :
-                  flike < 3 ? (
-                      <>
-                        <i className="fa-solid fa-star"></i>
-                        <i className="fa-solid fa-star"></i>
-                      </>
-                    ) :
-                  flike < 4 ? (
-                      <>
-                        <span className="food-tag-sub">식사</span>
-                        <span className="food-tag-sub">모임</span>
-                      </>
-                    ) :
-                  flike < 5 ? (
-                      <>
-                        <span className="food-tag-other">시끌벅적</span>
-                        <span className="food-tag-other">분위기좋음</span>
-                      </>
-                    ) :
-                  (
-                      <>
-                        <span className="food-tag-rest">추천</span>
-                        <span className="food-tag-rest">인기</span>
-                      </>
-                  )
-                }
-              </span> */}
-
               <span className="food-title-flike"><i className="fa-solid fa-star"></i> {rlike}</span>
               <span className="food-title-evaluation">({evaluation}명)</span>
             </li>

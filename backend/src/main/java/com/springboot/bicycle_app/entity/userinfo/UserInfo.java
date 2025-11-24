@@ -5,6 +5,7 @@ import com.springboot.bicycle_app.entity.purchase.CartItem;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Table(name="userinfo")
 @Setter
 @Getter
+@DynamicUpdate
 public class UserInfo {
     @Id
     private String uid;
@@ -23,6 +25,7 @@ public class UserInfo {
     private String uaddress;
     private String uemail;
     private String uphone;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CartItem> cartItemList = new ArrayList<>();
 

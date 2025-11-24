@@ -3,10 +3,12 @@ package com.springboot.bicycle_app.repository;
 import com.springboot.bicycle_app.dto.UserInfoDto;
 import com.springboot.bicycle_app.entity.userinfo.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,4 +38,16 @@ public interface JpaUserInfoRepository extends JpaRepository<UserInfo, String> {
     //
 
     Optional<UserInfo> findByUid(@Param("uid") String uid);
+
+    @Modifying(clearAutomatically = true)//쿼리 실행 후 영속성 컨텍스트를 초기화.
+    @Query("""
+            update
+                UserInfo u
+            set
+                u.uid = :uid
+            Where
+                u.uid = :includeId
+            """)
+    int updateByUid(@Param("uid") String uid,
+            @Param("includeId") String includeId);
 }
