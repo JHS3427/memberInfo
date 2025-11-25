@@ -9,7 +9,6 @@ import { useDispatch} from 'react-redux';
 
 export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,updateResult}){
 
-    
     const dataChangeButtonOnOffInit = {uid:false,upass:false,
                                     uname:false,uage:false,
                                     ugender:false,uaddress:false,

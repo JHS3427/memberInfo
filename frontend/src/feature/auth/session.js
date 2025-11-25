@@ -69,13 +69,5 @@ export function getLoginUser() {
     parsed.role = [];
   }
 
-  // 🔥 관리자 계정(role 자동 부여)
-  if (
-    (parsed.uid === "admin" || parsed.username === "admin") &&
-    !parsed.role.some((r) => r.authority === "ROLE_ADMIN")
-  ) {
-    parsed.role.push({ authority: "ROLE_ADMIN" });
-  }
-
   return parsed;
 }

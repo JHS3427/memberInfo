@@ -25,6 +25,7 @@ public class UserInfo {
     private String uaddress;
     private String uemail;
     private String uphone;
+    private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CartItem> cartItemList = new ArrayList<>();
@@ -39,6 +40,7 @@ public class UserInfo {
         this.uaddress = userInfoDto.getUaddress();
         this.uemail = userInfoDto.getUemail();
         this.uphone = userInfoDto.getUphone();
+        this.role = userInfoDto.getRole();
     }
 
 }

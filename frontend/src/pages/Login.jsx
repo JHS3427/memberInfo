@@ -192,8 +192,12 @@ export function Login() {
                 </div>
                 <div className='loginBottomLinks'> 
                     <Link to="/signUp" className='loginLinkBtn'>회원가입</Link>
-                    <Link to="/findId" className='loginLinkBtn'>아이디 찾기</Link>
-                    <Link to="/findPass" className='loginLinkBtn'>비밀번호 찾기</Link>
+                    <Link to="/IdPwSearch" 
+                            className='loginLinkBtn' 
+                            state={{ type: 'findId' }}>아이디 찾기</Link>
+                    <Link to="/IdPwSearch" 
+                            className='loginLinkBtn' 
+                            state={{ type: 'findpass'}}>비밀번호 찾기</Link>
                 </div>
             </div>
         </>

@@ -5,10 +5,8 @@ import { Chatbot } from "../../pages/support/Chatbot.jsx";
 import "../../styles/purchaseheader.css";
 
 
-
 import { getLogout} from '../../feature/auth/authAPI';
 import { useDispatch , useSelector } from 'react-redux';
-
 
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -17,11 +15,13 @@ export function Header() {
     const [showChatbot, setShowChatbot] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1023);
     const [closing, setClosing] = useState(false);
+    const loginInfo = localStorage.getItem("loginInfo");
+    const location = useLocation();
+    // const isLogin = loginInfo ? true : false;
     
     //기존 localStroage에서 가져오는 방식에서 store에 저장된 isLogin값을 가져오는 방식으로 수정
     const isLogin = useSelector((state)=>state.auth.isLogin)
     
-    const location = useLocation();
 
     
     const dispatch = useDispatch();
@@ -138,16 +138,18 @@ export function Header() {
 
                 <div className="header-right">
                     <NavLink to="/cart" className="icon-link">
-                        <FaCartArrowDown className="icon" /> <span className="text"></span>
+                        <FaCartArrowDown className="icon" />
+                        {/* <span className="text">장바구니</span> */}
                     </NavLink>
                     <NavLink to="/support" className="icon-link">
-                        <FaHeadset className="icon" /> <span className="text"></span>
+                        <FaHeadset className="icon" />
+                        {/* <span className="text">고객센터</span> */}
                     </NavLink>
                     {/* ⭐ 마이페이지 (로그인된 경우만 표시) */}
                     {isLogin && (
                         <NavLink to="/mypage" className="icon-link">
                         <FaUser className="icon" />
-                        <span className="text"></span>
+                        {/* <span className="text">마이페이지</span> */}
                         </NavLink>
                     )}
                     {/* 로그인 / 로그아웃 토글 */}
@@ -161,12 +163,12 @@ export function Header() {
                         }}
                     >
                         <FaSignOutAlt className="icon" />
-                        <span className="text"></span>
+                        {/* <span className="text">로그아웃</span> */}
                     </button>
                     ) : (
                     <NavLink to="/login" className="icon-link">
                         <FaSignInAlt className="icon" />
-                        <span className="text"></span>
+                        {/* <span className="text">로그인</span> */}
                     </NavLink>
                     )}
                     <Link
@@ -178,7 +180,7 @@ export function Header() {
                         className={`icon-link ${showChatbot ? "active" : ""}`}
                     >
                         <i className="fa-solid fa-comments"></i>
-                        <span className="text"></span>
+                        {/* <span className="text">챗봇</span> */}
                     </Link>
 
                     <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>

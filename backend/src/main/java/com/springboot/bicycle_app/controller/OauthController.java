@@ -144,6 +144,8 @@ public class OauthController {
             Authentication authenticationResponse =
                     this.authenticationManager.authenticate(authenticationRequest);
 
+            var authorities = authenticationResponse.getAuthorities();
+
             //3. 컨텍스트에 보관: 세션과 함께 저장, 만료때까지 저장됨.
             var context = SecurityContextHolder.createEmptyContext();
             context.setAuthentication(authenticationResponse);
@@ -162,13 +164,27 @@ public class OauthController {
             response.addCookie(xsrf);
 
 
+            // if(userInfo.isSocialDupl()) {
+            //     return ResponseEntity.ok(Map.of("login", true,
+            //             "userId", userInfo.getJwToken()));
+            // }
+            // else {
+            //     return ResponseEntity.ok(Map.of("login", true,
+            //             "userId", userInfo.getUid()));
+            // }
             if(userInfo.isSocialDupl()) {
-                return ResponseEntity.ok(Map.of("login", true,
-                        "userId", userInfo.getJwToken()));
+                return ResponseEntity.ok(Map.of(
+                        "login", true,
+                        "userId", userInfo.getJwToken(),
+                        "role", authorities
+                ));
             }
             else {
-                return ResponseEntity.ok(Map.of("login", true,
-                        "userId", userInfo.getUid()));
+                return ResponseEntity.ok(Map.of(
+                        "login", true,
+                        "userId", userInfo.getUid(),
+                        "role", authorities
+                ));
             }
         }catch(Exception e) {
             //로그인 실패

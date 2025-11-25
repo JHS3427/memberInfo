@@ -309,7 +309,7 @@ public class OauthServiceImpl implements OauthService{
     public int updateuserId(UserInfoDto userInfoDto){
         return jpaUserInfoRepository.updateByUid(userInfoDto.getUid(),userInfoDto.getIncludedId());
     }
-
+    
     @Override
     @Transactional
     public int deleteuserId(UserInfoDto userInfoDto){

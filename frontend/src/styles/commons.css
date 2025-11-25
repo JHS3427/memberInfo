@@ -117,11 +117,11 @@ a.icon-link,
 }
 
 /* 🧩 1200px 이하에서 아이콘 텍스트 숨김 (중앙 메뉴와 충돌 방지) */
-@media (max-width: 1200px) {
+/* @media (max-width: 1200px) {
   .icon-link .text {
     display: none;
   }
-}
+} */
 
 /* 💻 태블릿 구간 (768px ~ 1023px) */
 @media (max-width: 1023px) {

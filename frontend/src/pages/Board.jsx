@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { BoardList } from "./board/BoardList.jsx";
-import { getLoginUser } from "../feature/auth/session";
+import { getCurrentUser } from "../feature/auth/session";
 import "../styles/board.css";
 
 export function Board() {
@@ -25,9 +25,14 @@ export function Board() {
     }
   }, [category, navigate]);
 
-  // 로그인 사용자 로드
   useEffect(() => {
-    setUser(getLoginUser());
+    async function load() {
+      const session = await getCurrentUser();
+      if (session.isLogin) {
+        setUser(session);  // 여기에는 role 포함됨!
+      }
+    }
+    load();
   }, []);
 
   // 🔥 관리자 여부 체크

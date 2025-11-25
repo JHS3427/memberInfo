@@ -22,16 +22,34 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.jpaUserInfoRepository=jpaUserInfoRepository;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-//        MemberDto member = memberRepository.findByMember(userId)
+//     @Override
+//     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+// //        MemberDto member = memberRepository.findByMember(userId)
+//         UserInfoDto userInfo = jpaUserInfoRepository.findByUserInfo(userId)
+//                 .orElseThrow(() -> new UsernameNotFoundException("not found: " + userId));
+//         //member가 null이 아니면 User 객체, 즉 회원으로 인증되어 SecurityContext에 저장됨.
+
+//         User.UserBuilder b = User.withUsername(userInfo.getUid())
+//                 .password(userInfo.getUpass())    // BCrypt로 저장되어 있어야 함
+//                 .roles("USER");                   // 필요 시 DB에서 권한 매핑
+//         return b.build();
+//     }
+
+        @Override
+        public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+
         UserInfoDto userInfo = jpaUserInfoRepository.findByUserInfo(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("not found: " + userId));
-        //member가 null이 아니면 User 객체, 즉 회원으로 인증되어 SecurityContext에 저장됨.
 
-        User.UserBuilder b = User.withUsername(userInfo.getUid())
-                .password(userInfo.getUpass())    // BCrypt로 저장되어 있어야 함
-                .roles("USER");                   // 필요 시 DB에서 권한 매핑
-        return b.build();
-    }
+        // DB role 값 읽기 (USER / ADMIN)
+        String dbRole = userInfo.getRole();  // ← UserInfoDto 안에 role 필드 있음
+
+        // Spring Security 형식에 맞게 ROLE_ 접두어 붙이기
+        String springRole = "ROLE_" + dbRole;   // ROLE_USER or ROLE_ADMIN
+
+        return User.withUsername(userInfo.getUid())
+                .password(userInfo.getUpass())
+                .authorities(springRole)        // 🔥 여기 중요!
+                .build();
+        }
 }

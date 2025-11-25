@@ -31,9 +31,15 @@ public interface JpaUserInfoRepository extends JpaRepository<UserInfo, String> {
 
     //로그인 관련 - 엔티티가 아닌 다른 객체로 결과를 출력하는 경우 `new 패키지 전체주소 출력객체명`
     //              형식으로 컬럼리스트를 작성!!
-    @Query("select new com.springboot.bicycle_app.dto.UserInfoDto(U.uid, U.upass) " +
-            " from UserInfo U where uid = :uid")//엔티티가 아닌 객체로 반환할때는 sql문 안에 new가 들어감+해당 클래스 위치 추가
-    //+필요한 데이터는 괄호 안에 담기
+    // @Query("select new com.springboot.bicycle_app.dto.UserInfoDto(U.uid, U.upass) " +
+    //         " from UserInfo U where uid = :uid")//엔티티가 아닌 객체로 반환할때는 sql문 안에 new가 들어감+해당 클래스 위치 추가
+    // //+필요한 데이터는 괄호 안에 담기
+    // Optional<UserInfoDto> findByUserInfo(@Param("uid") String uid);
+    @Query("""
+        select new com.springboot.bicycle_app.dto.UserInfoDto(U)
+        from UserInfo U
+        where U.uid = :uid
+    """)
     Optional<UserInfoDto> findByUserInfo(@Param("uid") String uid);
     //
 
@@ -50,6 +56,6 @@ public interface JpaUserInfoRepository extends JpaRepository<UserInfo, String> {
             """)
     int updateByUid(@Param("uid") String uid,
             @Param("includeId") String includeId);
-
+            
     void deleteByUid(@Param("uid") String uid);
 }

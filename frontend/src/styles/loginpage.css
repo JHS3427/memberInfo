@@ -148,7 +148,7 @@
 .loginBottomLinks {
     /* 중앙에 배치하기 위해 컨테이너의 너비를 800px 박스와 맞추거나, 
        전체 너비에서 중앙 정렬합니다. */
-    width: 800px; /* loginAllBox와 동일한 너비를 사용하거나 100% 사용 */
+    width: 100%; /* loginAllBox와 동일한 너비를 사용하거나 100% 사용 */
     margin: 20px auto 0; /* 중앙 정렬 및 위쪽 마진 추가 */
     
     display: flex;
@@ -158,6 +158,7 @@
 
 .loginLinkBtn {
     /* 기존 스타일 유지 */
+    min-width: 90px;
     text-decoration: none;
     color: #007bff;
     font-size: 20px;

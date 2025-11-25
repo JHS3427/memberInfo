@@ -22,7 +22,7 @@ export const getLogin = (formData,param) => async(dispatch) => {
         if(result.login)
         {
             //"로그인 성공"
-            dispatch(login({"userId":result.userId,"isSocial":true}));
+            dispatch(login({"userId":result.userId,"isSocial":true,"role":result.role}));
             await refreshCsrfToken();
 
             //장바구니 갯수를 카운트하는 함수 호출
@@ -40,7 +40,7 @@ export const getLogin = (formData,param) => async(dispatch) => {
             {
                 await refreshCsrfToken();
                 //"로그인 성공"
-                dispatch(login({"userId":result.userId,"isSocial":false}));
+                dispatch(login({"userId":result.userId,"isSocial":false,"role":result.role}));
 
                 //장바구니 갯수를 카운트하는 함수 호출
     //            const count = await getCartCount(formData.id);

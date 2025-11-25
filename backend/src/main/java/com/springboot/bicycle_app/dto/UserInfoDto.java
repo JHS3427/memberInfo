@@ -18,6 +18,7 @@ public class UserInfoDto {
 
     private boolean loggedIn;
     private String includedId;
+    private String role; 
 
     public UserInfoDto(){}
     public UserInfoDto(String uid, String upass) {
@@ -33,6 +34,6 @@ public class UserInfoDto {
         this.uaddress = entity.getUaddress();
         this.uemail = entity.getUemail();
         this.uphone = entity.getUphone();
-
+        this.role = entity.getRole(); 
     }
 }
