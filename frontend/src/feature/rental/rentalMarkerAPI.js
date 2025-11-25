@@ -53,7 +53,8 @@ export const getRentalPayment = (priceInfo, paymentMethod) => async(dispatch, ge
     };
 
     try {
-        const url = "http://172.16.250.24:8080/rental/payment";
+        // const url = "http://172.16.250.24:8080/rental/payment";
+        const url = "http://localhost:8080/rental/payment";
         // const url = "http://localhost:8080/payment/kakao/ready";
         const result = await axiosPost(url, rentalPayload);
 

@@ -21,7 +21,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   top: 0;
   z-index: 1000;
-    position: relative;
+  position: sticky;
 }
 
 /* 좌측 로고 */
@@ -78,7 +78,7 @@
   display: flex;
   align-items: center;
   justify-self: end; /* ✅ grid 오른쪽 배치 */
-  gap: 20px;
+  gap: 10px;
 }
 
 /* 공통 아이콘 링크 */
@@ -120,10 +120,6 @@ a.icon-link,
 @media (max-width: 1200px) {
   .icon-link .text {
     display: none;
-  }
-  
-  .header-right {
-    gap: 15px;
   }
 }
 
@@ -435,7 +431,7 @@ a.icon-link,
 ------------------------------ */
 .policy-page {
   text-align: left;
-  padding: 60px 20px;
+  padding: 160px 20px 60px 20px !important;
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.7;

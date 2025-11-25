@@ -1,8 +1,7 @@
 import axios from "axios";
+import { getApiBase } from "../feature/auth/getApiBase.js";
 
-// const API_BASE = process.env.REACT_APP_API_BASE;
-// const API_BASE = "http://localhost:8080";
-const API_BASE = "http://172.16.250.24:8080";   //해성님 IP
+const API_BASE = getApiBase();
 
 export const getChatbotResponse = async (userMessage) => {
   try {

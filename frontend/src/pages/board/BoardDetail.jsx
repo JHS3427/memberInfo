@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCurrentUser, isAdmin, isOwner, getCsrfToken } from "../../feature/auth/session";
+import { getApiBase } from "../../feature/auth/getApiBase.js";
 import "../../styles/board.css";
 import "../../styles/board/board_detail.css";
 
@@ -10,6 +11,7 @@ export function BoardDetail() {
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [user, setUser] = useState(null);
+  const API_BASE = getApiBase();
 
   useEffect(() => {
       getCurrentUser().then(setUser);
@@ -17,7 +19,7 @@ export function BoardDetail() {
 
   useEffect(() => {
     axios
-      .get(`http://172.16.250.24:8080/api/board/detail/${pid}`)
+      .get(`${API_BASE}/api/board/detail/${pid}`)
       .then((res) => setPost(res.data))
       .catch((err) => console.error("게시글 상세 조회 실패:", err));
   }, [pid]);
@@ -31,7 +33,7 @@ export function BoardDetail() {
       const csrf = getCsrfToken();
 
       await axios.delete(
-        `http://172.16.250.24:8080/api/board/delete/${pid}`,
+        `${API_BASE}/api/board/delete/${pid}`,
         {
           headers: {
             "X-XSRF-TOKEN": csrf

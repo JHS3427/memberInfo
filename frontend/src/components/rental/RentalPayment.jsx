@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { useSelector } from "react-redux";
 import RentalBikeList from './RentalBikeList';
 import { axiosData } from '../../utils/dataFetch';
 import { getRentalPayment } from '../../feature/rental/rentalMarkerAPI.js';
 import RentalPaymentCompleted from './RentalPaymentCompleted.jsx';
 
-const RentalPayment = ({ className, onClose }) => {
+const RentalPayment = ({ className, onClose, }) => {
 
     const dispatch = useDispatch();
+
     // 렌탈 시간 상태관리 함수
     const [rentalTime, setRentalTime] = useState(0);
+
     // 결제 방법 선택 상태 함수
     const [selectedPayment, setSelectdPayment] = useState('');
+
     // 결제 금액 전달 상태 함수
     const [paymentJsonData, setPaymentJsonData] = useState([]);
+
     // 시작 금액
     const pricePerHour = 500;
     // 기본 대여시작 시간인 30분 단위를 고정
@@ -102,6 +108,7 @@ const RentalPayment = ({ className, onClose }) => {
                 <RentalBikeList
                     className={`bike_station_name_list`}
                 />
+                <button type="button">지도 보기</button>
                 <div className='payment_time_event'>
                     <button
                         className='payment_handletime_decrease'

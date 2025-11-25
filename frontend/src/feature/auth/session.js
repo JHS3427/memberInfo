@@ -1,8 +1,7 @@
 import axios from "axios";
+import { getApiBase } from "./getApiBase.js";
 
-// const API_BASE = process.env.REACT_APP_API_BASE;
-// const API_BASE = "http://localhost:8080";
-const API_BASE = "http://172.16.250.24:8080";   //해성님 IP
+const API_BASE = getApiBase();
 
 // 백엔드(Spring Security 세션)로부터 현재 로그인한 사용자 정보를 가져오는 비동기 함수
 export const getCurrentUser = async () => {

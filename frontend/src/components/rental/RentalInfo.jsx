@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import RentalPayment from './RentalPayment.jsx';
 import cityBikeImage from '../../utils/cityBikeImage.js';
@@ -9,11 +9,12 @@ import { setSelectedStation } from '../../feature/rental/rentalMarkerSlice.js';
 const imageKey = ["seoulBike"];
 const imagePath = cityBikeImage[imageKey];
 
-export function Maps({ data, onClose, onReSearch }) {
+export function RentalInfo({ data, onClose, onReSearch }) {
     const [isPaymentModalOpen, setPaymentModalOpen] = useState(false);
+    
     const windowWidth = useRentalMapResponsive();
     const isMobile = windowWidth <= 810;
-    
+
     const dispatch = useDispatch();
     const filteredBikeList = useSelector((state) => state.rentalData.filteredBikeList);
 
@@ -39,7 +40,7 @@ export function Maps({ data, onClose, onReSearch }) {
             level={5}
             onIdle={(map) => {
                 const newCenter = map.getCenter();
-                onReSearch({ lat: newCenter.getLat(), lng:newCenter.getLng() });
+                onReSearch({ lat: newCenter.getLat(), lng: newCenter.getLng() });
             }}
             style={{
                 width: "100%",

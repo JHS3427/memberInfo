@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
 import { BiTargetLock } from "react-icons/bi";
-import { Maps } from '../components/rental/Maps.jsx';
+import { RentalInfo } from '../components/rental/RentalInfo.jsx';
 import { addData, setFilteredList, setSelectedStation } from '../feature/rental/rentalMarkerSlice.js';
 import { showMarkerAPI } from '../feature/rental/rentalMarkerAPI.js';
 import useRentalMapResponsive from '../utils/useRentalMapResponsive.js';
@@ -77,24 +77,45 @@ const Rantal = () => {
 
     useEffect(() => {
         const bikePullData = async () => {
+            try {
+                // 불러온 자전거 데이터를 Redux store에 저장 (전역 상태 관리용) or 마커의 전체 데이터를 포함
+                const data = await showMarkerAPI();
+                dispatch(addData(data));
 
-            const data = await showMarkerAPI();
-
-            // 불러온 자전거 데이터를 Redux store에 저장 (전역 상태 관리용) or 마커의 전체 데이터를 포함하고 있음
-            dispatch(addData(data));
-
-            navigator.geolocation.getCurrentPosition((position) => {
-                const { latitude, longitude } = position.coords
-                const userLat = latitude;
-                const userLon = longitude;
-
-                // 중심좌표 설정 (사용자 위치)
-                setLatLon({ lat: userLat, lng: userLon })
-            });
-
+                // 2. 사용자 위치 가져오기 및 상태 설정 (에러 처리 포함)
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const { latitude, longitude } = position.coords;
+                        setLatLon({ lat: latitude, lng: longitude });
+                    },
+                    (error) => {
+                        // 에러 콜백 함수
+                        console.error(`Geolocation Error: Code ${error.code}, Message: ${error.message}`);
+                        // 여기서 error.code (1, 2, 3)를 확인합니다.
+                    },
+                    {
+                        // 세 번째 옵션 객체
+                        enableHighAccuracy: true, // 이게 문제의 원인일 수 있습니다.
+                        timeout: 10000,           // 현재 설정된 타임아웃 시간(ms)
+                        maximumAge: 0
+                    },
+                    (error) => {
+                        // 위치 접근 실패 시 로그 기록
+                        console.error("사용자 위치 정보를 가져오는 데 실패했습니다:", error);
+                        // 옵션: 실패 시 기본 위치 설정
+                        // setLatLon({ lat: 37.5665, lng: 126.9780 });
+                    },
+                    { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 } // 옵션
+                );
+            } catch (error) {
+                // API 호출 실패 시 에러 처리
+                console.error("자전거 데이터를 불러오는 중 오류 발생:", error);
+                // 사용자에게 오류를 시각적으로 알리는 로직 추가 (예: 에러 상태 설정)
+            }
         };
+
         bikePullData();
-    }, [])
+    }, []);
 
     // allBikeStations(Redux 데이터)나 latLon(사용자 위치)이 변경될 때마다 필터링을 다시 수행
     useEffect(() => {
@@ -141,7 +162,7 @@ const Rantal = () => {
         
         <div className='rental_map_box'>
 
-                <Maps
+                <RentalInfo
                     data={selectedMarker}
                     onClose={() => dispatch(setSelectedStation(null))}
                     onReSearch={handleReSearch}

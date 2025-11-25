@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getApiBase } from "../../feature/auth/getApiBase.js";
 import "../../styles/board.css";
 import "../../styles/board/board_list.css";
 import { Pagination } from "../../pages/support/Pagination.jsx";
@@ -10,11 +11,12 @@ export function BoardList({ category }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8; // 한 페이지에 8개
   const navigate = useNavigate();
+  const API_BASE = getApiBase();
 
   useEffect(() => {
     if (!category) return;
     axios
-      .get(`http://172.16.250.24:8080/api/board/${category}`)
+      .get(`${API_BASE}/api/board/${category}`)
       .then((res) => {
         setPosts(res.data);
         setCurrentPage(1); // 카테고리 변경 시 1페이지로 초기화

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams, useLocation  } from "react-router-dom";
 import { getCurrentUser, getLoginUser } from "../../feature/auth/session";
+import { getApiBase } from "../../feature/auth/getApiBase.js";
 import "../../styles/board.css";
 import "../../styles/board/board_write.css";
 
@@ -11,6 +12,7 @@ export function BoardWrite() {
   const isEdit = !!pid;
   const [user, setUser] = useState(null);
   const location = useLocation();
+  const API_BASE = getApiBase();
   
   useEffect(() => {
     const local = getLoginUser();
@@ -78,7 +80,7 @@ export function BoardWrite() {
 
     try {
       const res = await axios.post(
-        "http://172.16.250.24:8080/api/upload",
+        `${API_BASE}/api/upload`,
         formData,
         {
           headers: {
@@ -106,7 +108,7 @@ export function BoardWrite() {
     if (!isEdit) return;
 
     axios
-      .get(`http://172.16.250.24:8080/api/board/detail/${pid}`, {
+      .get(`${API_BASE}/api/board/detail/${pid}`, {
         withCredentials: true, // 🔥 쿠키 필요
       })
       .then((res) => {
@@ -139,7 +141,7 @@ export function BoardWrite() {
       if (isEdit) {
         // 🔥 게시글 수정
         await axios.put(
-          `http://172.16.250.24:8080/api/board/update/${pid}`,
+          `${API_BASE}/api/board/update/${pid}`,
           { ...form, uid: user.uid },   // ★ 추가 보강 (중복확인)
           {
             headers: { "X-XSRF-TOKEN": csrf },
@@ -152,7 +154,7 @@ export function BoardWrite() {
       } else {
         // 🔥 게시글 등록
         await axios.post(
-          "http://172.16.250.24:8080/api/board/write",
+          `${API_BASE}/api/board/write`,
           {
             ...form,
             uid: user.uid,         // FK

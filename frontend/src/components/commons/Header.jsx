@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { FaHeadset, FaUser, FaBars, FaTimes, FaCartArrowDown, FaSignOutAlt } from "react-icons/fa";
+import { FaHeadset, FaUser, FaBars, FaTimes, FaCartArrowDown, FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { Chatbot } from "../../pages/support/Chatbot.jsx";
 import "../../styles/purchaseheader.css";
 
@@ -135,11 +135,18 @@ export function Header() {
 
                 <div className="header-right">
                     <NavLink to="/cart" className="icon-link">
-                        <FaCartArrowDown className="icon" /> <span className="text">장바구니</span>
+                        <FaCartArrowDown className="icon" /> <span className="text"></span>
                     </NavLink>
                     <NavLink to="/support" className="icon-link">
-                        <FaHeadset className="icon" /> <span className="text">고객센터</span>
+                        <FaHeadset className="icon" /> <span className="text"></span>
                     </NavLink>
+                    {/* ⭐ 마이페이지 (로그인된 경우만 표시) */}
+                    {isLogin && (
+                        <NavLink to="/mypage" className="icon-link">
+                        <FaUser className="icon" />
+                        <span className="text"></span>
+                        </NavLink>
+                    )}
                     {/* 로그인 / 로그아웃 토글 */}
                     {isLogin ? (
                     <button
@@ -151,12 +158,12 @@ export function Header() {
                         }}
                     >
                         <FaSignOutAlt className="icon" />
-                        <span className="text">로그아웃</span>
+                        <span className="text"></span>
                     </button>
                     ) : (
                     <NavLink to="/login" className="icon-link">
-                        <FaUser className="icon" />
-                        <span className="text">로그인</span>
+                        <FaSignInAlt className="icon" />
+                        <span className="text"></span>
                     </NavLink>
                     )}
                     <Link
@@ -168,7 +175,7 @@ export function Header() {
                         className={`icon-link ${showChatbot ? "active" : ""}`}
                     >
                         <i className="fa-solid fa-comments"></i>
-                        <span className="text">챗봇</span>
+                        <span className="text"></span>
                     </Link>
 
                     <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
