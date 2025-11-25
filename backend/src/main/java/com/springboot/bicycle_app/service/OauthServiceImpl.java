@@ -270,8 +270,8 @@ public class OauthServiceImpl implements OauthService{
 //            existingUser.setUid(userInfoDto.getUid());
 //        }
         if (userInfoDto.getUpass() != null) {
-            // 비밀번호는 인코딩 후 업데이트해야 할 수 있으므로 서비스 로직에 맞게 조정하세요.
-            existingUser.setUpass(userInfoDto.getUpass());
+            String newEncodePwd = passwordEncoder.encode(userInfoDto.getUpass());
+            existingUser.setUpass(newEncodePwd);
         }
         if (userInfoDto.getUname() != null) {
             existingUser.setUname(userInfoDto.getUname());
