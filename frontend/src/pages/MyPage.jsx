@@ -1,10 +1,11 @@
 //가로는 60%~80%가 적당할듯? 보고 하기
 
 import { useEffect,useState } from "react";
-import { getInfo,idDuplCheck,updateUser} from '../feature/auth/authAPI';
+import { getInfo,idDuplCheck,updateUser,IdDrop,getLogout} from '../feature/auth/authAPI';
 import { useNavigate,Link } from 'react-router-dom';
 import '../styles/myPage.css'; // ✨ 새로운 CSS 파일 import
 import { usePostCode} from '../feature/auth/authAPI';
+import { useDispatch} from 'react-redux';
 
 export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,updateResult}){
 
@@ -22,7 +23,7 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,update
     const [dataChangeButtonOnOff,setDataChangeButtonOnOff] = useState(dataChangeButtonOnOffInit)
     const [postCodeChanger,setPostCodeChanger]=useState(0);//uaddress_main 초기화용 변수
 
-    const [mainAddressVar,setMainAddressVar] = useState({"mainAddress":""});
+    const [mainAddressVar,setMainAddressVar] = useState({"mainAddress":""});//
     const {handleClick} = usePostCode(mainAddressVar,setMainAddressVar); // 리턴이 handleclick임
     
     const DataChangeOpen = (e) =>{
@@ -56,7 +57,7 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,update
                 }
             });
         }
-        if(postCodeChanger==1)
+        if(postCodeChanger===1)
         {
             handleDataChange({
                 target: {
@@ -70,6 +71,10 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,update
 
     useEffect(()=>{
         setDataChangeButtonOnOff({...dataChangeButtonOnOff,[name] : false})
+        if(name === "uaddress")
+        {
+            setMainAddressVar({"mainAddress":""});
+        }
     },[updateResult])
     if (!info) {
         // null을 반환하여 아무것도 렌더링하지 않거나, 로딩 메시지를 반환합니다.
@@ -129,14 +134,15 @@ export function MyPage(){
     }
 
     const navigate=useNavigate();   
-    const [info, setInfo] = useState(null);
-    const [handleData,setHandleData] = useState(handleDatainit)
+    const dispatch = useDispatch();
+    const [info, setInfo] = useState(null);//DB에서 가져온 데이터 저장
+    const [handleData,setHandleData] = useState(handleDatainit)//변경 데이터 저장용 변수
     
-    const [editer,setEditer] = useState(editDatainit);
-    const [editerOnOff,setEditerOnOff] = useState(0);
-    const [idChecker,setIdChecker] = useState(false);
+    const [editer,setEditer] = useState(editDatainit);//각 정보 중 어디가 바뀌었는지 저장. 이걸로 밑의 editerOnOff변수값 수정
+    const [editerOnOff,setEditerOnOff] = useState(0);//회원정보중 어느거라도 수정 버튼 누르면 이 값이 바뀌어서 수정 저장 버튼 나오게 만드는 변수
+    const [idChecker,setIdChecker] = useState(false);//아이디 변경 시 중복 방지를 위한 변수
 
-    const[updateResult,setUpdateResult] = useState(0);
+    const[updateResult,setUpdateResult] = useState(0);//회원정보 수정 후 데이터 새로고침을 위한 변수
 
     const handleChange=(e)=>{
         const {name,value} = e.target
@@ -199,7 +205,6 @@ export function MyPage(){
         else
         {
             const idIncludehandleData = {...handleData,["includedId"]:info.uid}
-            console.log("absdasdasd");
             const result = await updateUser(idIncludehandleData)
             setHandleData(handleDatainit);
             setEditerOnOff(0);
@@ -210,6 +215,15 @@ export function MyPage(){
             }
         }
     }
+
+    const idDrop = async() =>{
+        const idIncludehandleData = {...info}
+            console.log(idIncludehandleData);
+            const result = await IdDrop(idIncludehandleData)
+            dispatch(getLogout());
+            navigate('/');
+    }
+
     const IdDupleCheck = async() => {
         const duplResult = await idDuplCheck(handleData.uid);
         
@@ -261,7 +275,7 @@ export function MyPage(){
                     </ul>
                     {editerOnOff>0?<button className="withdrawButton" onClick={dataFixer}>수정 내용 저장</button>:""}
                     
-                    <button className="withdrawButton">회원 탈퇴</button>
+                    <button className="withdrawButton" onClick={idDrop}>회원 탈퇴</button>
                 </div>
             </div>
         </>

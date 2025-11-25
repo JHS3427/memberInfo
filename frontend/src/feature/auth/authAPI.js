@@ -53,18 +53,12 @@ export const getLogin = (formData,param) => async(dispatch) => {
 }
 
 
-// export const getLogout = () => async(dispatch) => {
-//     dispatch(logout());
-//     return true;
-// }
-
 export const getLogout = () => async(dispatch) => {
     const url = "/auth/logout";
     const result = await axiosPost(url, {});
     if(result) {
         await refreshCsrfToken();
         dispatch(logout());
-        // dispatch(resetCartCount());
     }
 
     return result;
@@ -192,7 +186,8 @@ export const randomString8to16 = () =>{
 export const updateUser = async (newUserData) =>{
     
     const url = "/auth/updateUser";
-    console.log("update newUserData:>>>>>",newUserData);
+    newUserData["uaddress"] = newUserData.uaddress_main + " " + newUserData.uaddress_sub;
+    console.log("update newUserData:>>>>>",newUserData);    
     for( const [key, value] of Object.entries(newUserData))
         {
             if(newUserData[key]==="")
@@ -208,4 +203,12 @@ export const updateUser = async (newUserData) =>{
     }
 
     return 1;//어차피 1 반환함
+}
+
+export const IdDrop = async(dropUserData)=>{
+    const url = "/auth/iddrop";
+    const idDropResult = await axiosPost(url,dropUserData)
+    console.log("ID delete end");
+
+    return null;
 }

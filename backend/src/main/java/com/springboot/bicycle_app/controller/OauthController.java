@@ -245,4 +245,11 @@ public class OauthController {
         return userId_edit_or_not;
     }
 
+    @PostMapping("/iddrop")
+    @Transactional
+    public int idDrop(@RequestBody UserInfoDto userInfoDto){
+        System.out.println("you try to delete ID");
+        return oauthService.deleteuserId(userInfoDto);
+    }
+
 }

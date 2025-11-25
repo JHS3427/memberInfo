@@ -5,8 +5,9 @@ import { Chatbot } from "../../pages/support/Chatbot.jsx";
 import "../../styles/purchaseheader.css";
 
 
+
 import { getLogout} from '../../feature/auth/authAPI';
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
 
 
 export function Header() {
@@ -16,8 +17,10 @@ export function Header() {
     const [showChatbot, setShowChatbot] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1023);
     const [closing, setClosing] = useState(false);
-    const loginInfo = localStorage.getItem("loginInfo");
-    const isLogin = loginInfo ? true : false;
+    
+    //기존 localStroage에서 가져오는 방식에서 store에 저장된 isLogin값을 가져오는 방식으로 수정
+    const isLogin = useSelector((state)=>state.auth.isLogin)
+    
     const location = useLocation();
 
     
