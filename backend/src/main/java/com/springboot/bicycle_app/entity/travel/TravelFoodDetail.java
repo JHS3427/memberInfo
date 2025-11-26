@@ -55,7 +55,4 @@ public class TravelFoodDetail {
 
     @Column(name="imageList", columnDefinition = "JSON")
     private String imageList;
-
-    @Column(name="review", columnDefinition = "JSON")
-    private String review;
 }

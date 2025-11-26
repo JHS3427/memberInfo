@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class TravelHotelDto {
     private int hid;
+    private String region;
     private String hname;
     private Double lat;
     private Double lng;
@@ -27,6 +28,7 @@ public class TravelHotelDto {
     public TravelHotelDto() {}
     public TravelHotelDto(TravelHotel entity) {
         this.hid = entity.getHid();
+        this.region = entity.getRegion();
         this.hname = entity.getHname();
         this.lat = entity.getLat();
         this.lng = entity.getLng();

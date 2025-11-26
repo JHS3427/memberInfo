@@ -5,21 +5,27 @@ import { TravelHotel } from "./TravelHotel.jsx";
 
 import { getTravelHotelList } from '../../feature/travel/travelHotelAPI.js';
 
-export function TravelHotelList({ handleListDetail }) {
+export function TravelHotelList({ handleListDetail, selectedRegion }) {
     const dispatch = useDispatch();
 
     const travelHotelList = useSelector((state) => state.travelHotel.travelHotelList); //원본 데이터
     const [filteredList, setFilteredList] = useState([]); //검색 데이터
     const [number, setNumber] = useState(3);
     const [searchKeyword, setSearchKeyword] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
 
     useEffect(() => {
-           dispatch(getTravelHotelList(number));
+        dispatch(getTravelHotelList(number));
     }, [number, dispatch]);
 
     useEffect(() => {
-        setFilteredList(travelHotelList);
-    }, [travelHotelList]);
+        if (!selectedRegion) {
+          return; // 선택된 지역이 없으면 아무 것도 안함
+        }
+
+        const filtered = travelHotelList.filter(hotel => hotel.region === selectedRegion);
+        setFilteredList(filtered);
+    }, [travelHotelList, selectedRegion]);
 
 
     const handleDetail = (type, hid = null) => {
@@ -27,21 +33,34 @@ export function TravelHotelList({ handleListDetail }) {
     }
 
     const handleSearch = () => {
-        if (!searchKeyword.trim()) {
-            setFilteredList(travelHotelList);
+        const keyword = searchKeyword.trim().toLowerCase();
+
+        if (!keyword) {
+            // 검색어 없으면 지역 필터만 적용
+            if (selectedRegion) {
+                const filtered = travelHotelList.filter(hotel => hotel.region === selectedRegion);
+                setFilteredList(filtered);
+            } else {
+                setFilteredList(travelHotelList);
+            }
+            setIsSearching(false);
             return;
         }
 
         const filtered = travelHotelList.filter(hotel => {
-            const nameMatch = hotel.hname.toLowerCase().includes(searchKeyword.toLowerCase());
+            // 지역 필터 적용
+            if (selectedRegion && hotel.region !== selectedRegion) return false;
+
+            // 이름/태그 검색
+            const nameMatch = hotel.hname.toLowerCase().includes(keyword);
             const tagArray = hotel.tag ? JSON.parse(hotel.tag) : [];
-            const tagMatch = tagArray.some(tagItem =>
-                tagItem.toLowerCase().includes(searchKeyword.toLowerCase())
-            );
+            const tagMatch = tagArray.some(tagItem => tagItem.toLowerCase().includes(keyword));
+
             return nameMatch || tagMatch;
         });
 
         setFilteredList(filtered);
+        setIsSearching(true);
     };
 
     return(
@@ -62,7 +81,7 @@ export function TravelHotelList({ handleListDetail }) {
 
           <ul className="travel-hotel-list">
               {filteredList && filteredList.length > 0 ? (
-                filteredList && filteredList.map((travelHotel, idx) =>
+                filteredList.map((travelHotel, idx) => (
                     <TravelHotel
                         hid={travelHotel.hid}
                         hname={travelHotel.hname}
@@ -80,10 +99,14 @@ export function TravelHotelList({ handleListDetail }) {
                         handleDetail={handleDetail}
                         type="hotel"
                     />
-                )
-             ) : (
-               <li className="no-results">검색 결과가 없습니다.</li>
-             )}
+                ))
+              ) : isSearching ? (
+                <li className="no-results">검색 결과가 없습니다.</li>
+              ) : selectedRegion ? (
+                <li className="no-results">데이터 준비중입니다.</li>
+              ) : (
+                <li className="no-results">검색 결과가 없습니다.</li>
+              )}
           </ul>
     </div>
     );

@@ -15,3 +15,17 @@ export const getTravelFoodDetailList = async (did) => {
 
     return jsonData;
 }
+
+export const getTravelFoodReviewList = async (fid) => {
+    const url = "/travel/foodReview";
+    const jsonData = await axiosPost(url, {"fid":fid});
+
+    return jsonData;
+}
+
+export const insertTravelFoodReviewList = async (reviewData) => {
+    const url = "/travel/foodReviewInsert";
+    const jsonData = await axiosPost(url, reviewData);
+    console.log("jsonData",jsonData);
+    return jsonData;
+}

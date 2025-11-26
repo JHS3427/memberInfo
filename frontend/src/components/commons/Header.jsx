@@ -15,10 +15,9 @@ export function Header() {
     const [showChatbot, setShowChatbot] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1023);
     const [closing, setClosing] = useState(false);
-    const loginInfo = localStorage.getItem("loginInfo");
     const location = useLocation();
+    const loginInfo = localStorage.getItem("loginInfo");
     // const isLogin = loginInfo ? true : false;
-    
     //기존 localStroage에서 가져오는 방식에서 store에 저장된 isLogin값을 가져오는 방식으로 수정
     const isLogin = useSelector((state)=>state.auth.isLogin)
     

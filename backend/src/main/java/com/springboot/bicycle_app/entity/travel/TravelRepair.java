@@ -14,6 +14,9 @@ public class TravelRepair {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int rid;
 
+    @Column(name="region", length = 100, nullable = false)
+    private String region;
+
     @Column(name="rname", length = 30, nullable = false)
     private String rname;
 

@@ -16,3 +16,17 @@ export const getTravelHotelDetailList = async (did) => {
     return jsonData;
 }
 
+export const getTravelHotelReviewList = async (hid) => {
+    const url = "/travel/hotelReview";
+    const jsonData = await axiosPost(url, {"hid":hid});
+
+    return jsonData;
+}
+
+export const insertTravelHotelReviewList = async (reviewData) => {
+    const url = "/travel/hotelReviewInsert";
+    const jsonData = await axiosPost(url, reviewData);
+    console.log("jsonData",jsonData);
+    return jsonData;
+}
+

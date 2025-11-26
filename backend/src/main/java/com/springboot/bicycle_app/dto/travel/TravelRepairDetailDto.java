@@ -20,7 +20,6 @@ public class TravelRepairDetailDto {
     private String menu;
     private String mainImages;
     private String imageList;
-    private String review;
 
     //Entity <=> Dto 변환
     public TravelRepairDetailDto() {}
@@ -40,6 +39,5 @@ public class TravelRepairDetailDto {
         this.menu = entity.getMenu();
         this.mainImages = entity.getMainImages();
         this.imageList = entity.getImageList();
-        this.review = entity.getReview();
     }
 }

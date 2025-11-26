@@ -16,12 +16,163 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
 
   const baseMarkersRef = useRef([]); // 처음 getMarkerList로 찍은 마커
   const typeMarkersRef = useRef([]); // type별 리스트 마커
-
   const markerMapRef = useRef({
      food: {},
      hotel: {},
      repair: {}
   });
+
+const pointRef = useRef({ startPoint: null, endPoint: null });
+const routeLineRef = useRef(null);
+
+  // 마커 클릭 시 경로 설정
+  function handleMarkerClick(lat, lng) {
+    // startPoint 설정
+    if (!pointRef.current.startPoint) {
+      pointRef.current.startPoint = { lat, lng };
+      pointRef.current.endPoint = null;
+    } else {
+      // startPoint는 그대로 endPoint만 갱신
+      pointRef.current.endPoint = { lat, lng };
+
+      // 경로 계산
+      getCarDirection(pointRef.current.startPoint, pointRef.current.endPoint);
+    }
+  }
+
+  function showRouteInfoOnMap(distance, duration, startPoint, endPoint) {
+    if (!mapRef.current) return;
+
+    const infoContent = `
+      <div style="padding:5px 10px; background:white; border:1px solid #ccc; border-radius:5px;">
+        <div>거리: ${distance} km</div>
+        <div>예상 시간: ${duration} 분</div>
+      </div>
+    `;
+
+    // 기존 오버레이 제거
+    if (routeLineRef.current?.infoOverlay) {
+      routeLineRef.current.infoOverlay.setMap(null);
+    }
+
+    const infoOverlay = new window.kakao.maps.CustomOverlay({
+      position: new window.kakao.maps.LatLng(
+        (startPoint.lat + endPoint.lat) / 2,
+        (startPoint.lng + endPoint.lng) / 2
+      ),
+      content: infoContent,
+      yAnchor: 1.2,
+    });
+
+    infoOverlay.setMap(mapRef.current);
+
+    // 오버레이 참조 저장
+    routeLineRef.current.infoOverlay = infoOverlay;
+  }
+
+
+  async function getCarDirection(startPoint, endPoint) {
+    const REST_API_KEY = 'dc7443a72307e740e0624e32834a863e';
+    const url = 'https://apis-navi.kakaomobility.com/v1/directions';
+    const origin = `${startPoint.lng},${startPoint.lat}`;
+    const destination = `${endPoint.lng},${endPoint.lat}`;
+
+    const headers = {
+      Authorization: `KakaoAK ${REST_API_KEY}`,
+      'Content-Type': 'application/json'
+    };
+
+    const queryParams = new URLSearchParams({
+      origin,
+      destination,
+      vehicleType: 'BICYCLE', // 자전거 경로
+      priority: 'RECOMMEND'
+    });
+
+
+    try {
+      const response = await fetch(`${url}?${queryParams}`, { method: 'GET', headers });
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      const data = await response.json();
+
+      const linePath = [];
+
+      // 모든 sections 순회해서 경로 라인 생성
+      data.routes[0].sections.forEach(section => {
+        section.roads.forEach(road => {
+          for (let i = 0; i < road.vertexes.length; i += 2) {
+            const lng = road.vertexes[i];
+            const lat = road.vertexes[i + 1];
+            linePath.push(new window.kakao.maps.LatLng(lat, lng));
+          }
+        });
+      });
+
+      const summary = data.routes[0].summary;
+      const distanceKm = (summary.distance / 1000).toFixed(1);   // km 단위
+      const durationMin = Math.round(summary.duration / 60);     // 분 단위
+
+      drawRouteOnMap(linePath, distanceKm, durationMin);
+
+
+      console.log(`거리: ${distanceKm} km, 예상 시간: ${durationMin} 분`);
+
+      // 지도에 표시
+      showRouteInfoOnMap(distanceKm, durationMin, startPoint, endPoint);
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+
+
+  // 지도에 경로 그리기
+  function drawRouteOnMap(linePath, distance, duration) {
+    if (!mapRef.current) return;
+
+    // 이전 경로 제거
+    if (routeLineRef.current) {
+      routeLineRef.current.setMap(null);
+    }
+
+    // 이전 정보 오버레이 제거
+    if (routeLineRef.current?.infoOverlay) {
+      routeLineRef.current.infoOverlay.setMap(null);
+    }
+
+    const routeLine = new window.kakao.maps.Polyline({
+      path: linePath,
+      strokeWeight: 5,
+      strokeColor: '#FF4500',
+      strokeOpacity: 0.8,
+      strokeStyle: 'solid',
+    });
+
+    routeLine.setMap(mapRef.current);
+
+    // 거리, 시간 정보 오버레이
+    const infoContent = `
+      <div style="padding:5px 10px; background:white; border:1px solid #ccc; border-radius:5px;">
+        <div>거리: ${distance} km</div>
+        <div>예상 시간: ${duration} 분</div>
+      </div>
+    `;
+
+    const infoOverlay = new window.kakao.maps.CustomOverlay({
+      position: linePath[Math.floor(linePath.length / 2)], // 중간 위치
+      content: infoContent,
+      yAnchor: 1.2,
+    });
+
+    infoOverlay.setMap(mapRef.current);
+
+    // 오버레이 참조 routeLine에 저장
+    routeLine.infoOverlay = infoOverlay;
+
+    // routeLineRef에 저장
+    routeLineRef.current = routeLine;
+  }
 
   useEffect(() => {
       const fetch = async() => {
@@ -67,7 +218,7 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
                     image: greenMarkerImage,
                     map: map,
                   });
-  
+
                   // 오버레이 내용
                   const content = `
                     <div class="map-marker-overlay-box" >
@@ -85,6 +236,8 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
                   });
 
                   window.kakao.maps.event.addListener(marker, "click", () => {
+                      handleMarkerClick(lat, lng);
+
                     // 마커 이미지 변경
                     markers.forEach(m => m.setImage(greenMarkerImage));
                     marker.setImage(redMarkerImage);
@@ -96,12 +249,8 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
                     customOverlay.setMap(map);
                     activeOverlay = customOverlay;
 
-
-                    // 지도 확대
                     const currentLevel = map.getLevel();
-                    if (currentLevel > 5) {
-                      map.setLevel(currentLevel - 7);
-                    }
+                    map.setLevel(Math.max(currentLevel - 7, 5));
 
                     // 마커 중심으로 이동
                     const moveLatLon = new window.kakao.maps.LatLng(
@@ -115,7 +264,7 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
                       goback_btn.style.top = "0.3rem";
                     }
 
-                    handleMenuClick(type);
+                    handleMenuClick(type, mname);
 
                   });
                   markers.push(marker);
@@ -131,10 +280,6 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
   // type이 바뀔 때마다 마커 변경
   useEffect(() => {
     if (!window.kakao || !window.kakao.maps) return;
-//
-//     const listToRender = type === "food" ? travelFoodList
-//                         : type === "hotel" ? travelHotelList
-//                         : travelRepairList;
 
     // type별 리스트 매핑
     const listMap = {
@@ -154,21 +299,23 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
       const map = mapRef.current;
       if (!map) return;
 
-      // 기존 type 마커 제거
+      // 이전 type 마커 제거
       typeMarkersRef.current.forEach(m => m.setMap(null));
       typeMarkersRef.current = [];
 
-      const currentLevel = map.getLevel();
-//       console.log(currentLevel);
-//       if(type === "repair"){
-//         if (currentLevel <= 5) {
-//             map.setLevel(currentLevel + 1);
-//         }
-//       }else {
-        if (currentLevel > 5) {
-            map.setLevel(currentLevel - 1);
+      // 이전 경로와 오버레이 제거
+      if (routeLineRef.current) {
+        routeLineRef.current.setMap(null);
+        if (routeLineRef.current.infoOverlay) {
+          routeLineRef.current.infoOverlay.setMap(null);
         }
-//       }
+        routeLineRef.current = null;
+      }
+
+      const currentLevel = map.getLevel();
+      if (currentLevel > 5) {
+          map.setLevel(Math.max(currentLevel - 1, 5));
+      }
 
       // 현재 접속한 도메인 가져오기
       const host = window.location.hostname;
@@ -228,35 +375,15 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
       // 리스트 선택한 마커 저장
       markerMapRef.current[type][did] = marker;
 
-//         const content = `
-//           <div class="map-marker-overlay-box">
-//             <ul class="map-marker-overlay">
-//               <li class="map-marker-title"><span>${fname}</span></li>
-//               <li class="map-marker-link"><a href="${flink}" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-//             </ul>
-//           </div>
-//         `;
-
-//         const customOverlay = new window.kakao.maps.CustomOverlay({
-//           position: markerPosition,
-//           content,
-//           yAnchor: 1.2,
-//         });
-
         window.kakao.maps.event.addListener(marker, "click", () => {
+            handleMarkerClick(lat, lng);
+
           baseMarkersRef.current.forEach(m => m.setImage(orangeMarkerImage));
           typeMarkersRef.current.forEach(m => m.setImage(orangeMarkerImage));
           marker.setImage(selectMarkerImage);
 
-//           if (activeOverlay) activeOverlay.setMap(null);
-//           customOverlay.setMap(map);
-//           activeOverlay = customOverlay;
-
-//           if(type === "repair"){
-//               if (map.getLevel() > 5) map.setLevel(map.getLevel() - 1);
-//           }else{
-              if (map.getLevel() > 5) map.setLevel(map.getLevel() - 7);
-//           }
+          const currentLevel = map.getLevel();
+          map.setLevel(Math.max(currentLevel - 7, 5));
 
           map.panTo(new window.kakao.maps.LatLng(lat - 0.001, lng));
 
@@ -301,6 +428,19 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
 
        //마커 이미지 초기화
        baseMarkersRef.current.forEach(marker => marker.setImage(marker.defaultImage));
+
+       // startPoint, endPoint 초기화
+       pointRef.current.startPoint = null;
+       pointRef.current.endPoint = null;
+
+       // 기존 경로와 오버레이 제거
+       if (routeLineRef.current) {
+         routeLineRef.current.setMap(null);
+         if (routeLineRef.current.infoOverlay) {
+           routeLineRef.current.infoOverlay.setMap(null);
+         }
+         routeLineRef.current = null;
+       }
      }
 
      if(handleGoBack) {

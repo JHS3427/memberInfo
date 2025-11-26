@@ -4,7 +4,6 @@ import { Home } from './pages/Home.jsx';
 import { Travel } from './pages/travel/Travel.jsx';
 import Rental from './pages/Rental.jsx';
 import { Support } from './pages/Support.jsx';
-
 import { Login } from './pages/Login.jsx';
 import { Auth } from './pages/Auth.jsx';
 import { SignUp } from './pages/SignUp.jsx';
@@ -71,7 +70,7 @@ export default function App() {
                         <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />
                         <Route path="mypage" element={<MyPage />} />
                         <Route path="IdPwSearch" element={<IdPwSearch />} />
-
+                        
                         {/* Policy */}
                         <Route path="policies/terms" element={<Terms />} />
                         <Route path="policies/privacy" element={<Privacy />} />

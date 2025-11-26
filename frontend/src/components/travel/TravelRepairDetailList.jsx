@@ -2,16 +2,25 @@ import { useEffect, useState } from 'react';
 
 import { TravelRepairDetail } from "./TravelRepairDetail.jsx";
 
-import { getTravelRepairDetailList } from '../../feature/travel/travelRepairAPI.js';
+import { getTravelRepairDetailList, getTravelRepairReviewList, insertTravelRepairReviewList } from '../../feature/travel/travelRepairAPI.js';
 import { getTravelSaveList, updateTravelSaveList } from '../../feature/travel/travelSaveAPI.js';
 
 export function TravelRepairDetailList({ selectedDid }) {
     const [travelRepairDetailList, setTravelRepairDetailList] = useState([]);
+    const [travelRepairReviewList, setTravelRepairReviewList] = useState([]);
     const [travelSaveList, setTravelSaveList] = useState([]);
 
-    const loginInfoString = localStorage.getItem("loginInfo");
-    const loginInfo = JSON.parse(loginInfoString);
-    const uid = loginInfo.userId;
+    let uid = null;
+
+    try {
+      const loginInfoString = localStorage.getItem("loginInfo");
+      if (loginInfoString) {
+        const loginInfo = JSON.parse(loginInfoString);
+        uid = loginInfo.userId;
+      }
+    } catch (e) {
+      console.error("로그인 정보 파싱 오류:", e);
+    }
 
     useEffect(() => {
       async function fetchDetailData() {
@@ -22,17 +31,50 @@ export function TravelRepairDetailList({ selectedDid }) {
     }, []);
 
     useEffect(() => {
+      async function fetchReviewData() {
+        const dataReview = await getTravelRepairReviewList(selectedDid);
+        setTravelRepairReviewList(dataReview);
+      }
+      fetchReviewData();
+    }, []);
+
+    useEffect(() => {
+      if (!uid) return; // 로그인 안 되어 있으면 API 호출 X
+
       async function fetchSaveData() {
         const dataSave = await getTravelSaveList(uid);
         setTravelSaveList(dataSave);
       }
       fetchSaveData();
-    }, []);
+    }, [uid]);
+
+    const reFetchReviewData = async () => {
+      const dataReview = await getTravelRepairReviewList(selectedDid);
+      setTravelRepairReviewList(dataReview);
+    };
 
     const handleLikeUpdate = async (uid, newRid) => {
+        if (!uid) {
+            alert("로그인이 필요합니다!");
+            return;
+        }
+
         const rid = JSON.stringify(newRid);
         const dataSave = await updateTravelSaveList(uid, rid, "repair");
         setTravelSaveList(dataSave);
+    }
+
+    const handleReviewUpload = async (reviewData) => {
+        if (!uid) {
+            alert("로그인이 필요합니다!");
+            return;
+        }
+
+        const result = await insertTravelRepairReviewList(reviewData);
+        if (result) {
+            alert("리뷰등록 성공하였습니다.");
+            await reFetchReviewData();
+        }
     }
 
     return(
@@ -55,9 +97,10 @@ export function TravelRepairDetailList({ selectedDid }) {
                         menu={travelRepairDetailList.menu}
                         mainImages={travelRepairDetailList.mainImages}
                         imageList={travelRepairDetailList.imageList}
-                        review = {travelRepairDetailList.review}
+                        review = {travelRepairReviewList}
                         save = {travelSaveList.rid}
                         handleLikeUpdate = {handleLikeUpdate}
+                        handleReviewUpload = {handleReviewUpload}
                     />
             }  
         </>          

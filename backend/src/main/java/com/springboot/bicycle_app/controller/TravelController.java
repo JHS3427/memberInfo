@@ -6,6 +6,9 @@ import com.springboot.bicycle_app.dto.travel.TravelRepairDto;
 import com.springboot.bicycle_app.dto.travel.TravelFoodDetailDto;
 import com.springboot.bicycle_app.dto.travel.TravelHotelDetailDto;
 import com.springboot.bicycle_app.dto.travel.TravelRepairDetailDto;
+import com.springboot.bicycle_app.dto.travel.TravelFoodReviewDto;
+import com.springboot.bicycle_app.dto.travel.TravelHotelReviewDto;
+import com.springboot.bicycle_app.dto.travel.TravelRepairReviewDto;
 import com.springboot.bicycle_app.dto.travel.TravelSaveDto;
 import com.springboot.bicycle_app.service.TravelService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +62,36 @@ public class TravelController {
     @PostMapping("/repairDetail")
     public TravelRepairDetailDto repairDetail(@RequestBody TravelRepairDetailDto travelRepairDetail){
         return travelService.findRepairDetail(travelRepairDetail.getDid());
+    }
+
+    @PostMapping("/foodReview")
+    public List<TravelFoodReviewDto> foodReview(@RequestBody TravelFoodReviewDto travelFoodReview){
+        return travelService.findFoodReview(travelFoodReview.getFid());
+    }
+
+    @PostMapping("/hotelReview")
+    public List<TravelHotelReviewDto> hotelReview(@RequestBody TravelHotelReviewDto travelHotelReview){
+        return travelService.findHotelReview(travelHotelReview.getHid());
+    }
+
+    @PostMapping("/repairReview")
+    public List<TravelRepairReviewDto> repairReview(@RequestBody TravelRepairReviewDto travelRepairReview){
+        return travelService.findRepairReview(travelRepairReview.getRid());
+    }
+
+    @PostMapping("/foodReviewInsert")
+    public int foodReviewInsert(@RequestBody TravelFoodReviewDto dto){
+        return travelService.insertFoodReview(dto);
+    }
+
+    @PostMapping("/hotelReviewInsert")
+    public int hotelReviewInsert(@RequestBody TravelHotelReviewDto dto){
+        return travelService.insertHotelReview(dto);
+    }
+
+    @PostMapping("/repairReviewInsert")
+    public int repairReviewInsert(@RequestBody TravelRepairReviewDto dto){
+        return travelService.insertRepairReview(dto);
     }
 
     @PostMapping("/save")

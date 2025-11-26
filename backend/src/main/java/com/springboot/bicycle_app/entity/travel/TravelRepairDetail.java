@@ -54,7 +54,4 @@ public class TravelRepairDetail {
 
     @Column(name="imageList", columnDefinition = "JSON")
     private String imageList;
-
-    @Column(name="review", columnDefinition = "JSON")
-    private String review;
 }

@@ -14,6 +14,9 @@ public class TravelFood {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int fid;
 
+    @Column(name="region", length = 100, nullable = false)
+    private String region;
+
     @Column(name="fname", length = 30, nullable = false)
     private String fname;
 

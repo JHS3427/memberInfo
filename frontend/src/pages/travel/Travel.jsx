@@ -20,14 +20,19 @@ export function Travel() {
 //     const [showStores, setShowStores] = useState(false);
     const [selectedDid, setSelectedDid] = useState(null); // 클릭된 did 저장
     const [selectedType, setSelectedType] = useState(null); // 클릭된 type 저장
+    const [selectedRegion, setSelectedRegion] = useState(null);
 
-    const handleMenuClick = (type) => {
+
+    const handleMenuClick = (type, mname) => {
         const travel_left_menus = document.querySelector('.travel-left-menus');
         const travel_left_detail = document.querySelector('.travel-left-detail');
+
+        console.log(mname);
 
         // 마커 클릭 시 버튼 출력
         if(type === "coord"){
           setShowMenus(true);
+          setSelectedRegion(mname);
           travel_left_menus.style.top = "0";
         }
 
@@ -123,19 +128,19 @@ export function Travel() {
                         {/* showFoods, showHotels, showRepairs가 true일 때만 리스트 보이기 */}
                         {showFoods && (
                           <ul className='food-list'>  
-                            <TravelFoodList handleListDetail={handleListDetail}/>
+                            <TravelFoodList handleListDetail={handleListDetail} selectedRegion={selectedRegion} />
                             <button className="travel-left-close" onClick={handleLeftClose}><i class="fa-solid fa-backward-step"></i></button>
                           </ul>
                         )}
                         {showHotels && (
                           <ul className='hotel-list'>
-                            <TravelHotelList handleListDetail={handleListDetail}/>
+                            <TravelHotelList handleListDetail={handleListDetail} selectedRegion={selectedRegion}/>
                             <button className="travel-left-close" onClick={handleLeftClose}><i class="fa-solid fa-backward-step"></i></button>
                           </ul>
                         )}
                         {showRepairs && (
                           <ul className='repair-list'>
-                            <TravelRepairList handleListDetail={handleListDetail}/>
+                            <TravelRepairList handleListDetail={handleListDetail} selectedRegion={selectedRegion}/>
                             <button className="travel-left-close" onClick={handleLeftClose}><i class="fa-solid fa-backward-step"></i></button>
                           </ul>
                         )}

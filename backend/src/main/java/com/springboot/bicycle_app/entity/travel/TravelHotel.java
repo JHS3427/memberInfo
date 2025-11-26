@@ -14,6 +14,9 @@ public class TravelHotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int hid;
 
+    @Column(name="region", length = 100, nullable = false)
+    private String region;
+
     @Column(name="hname", length = 30, nullable = false)
     private String hname;
 

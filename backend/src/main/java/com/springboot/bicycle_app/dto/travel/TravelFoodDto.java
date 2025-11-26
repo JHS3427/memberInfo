@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class TravelFoodDto {
     private int fid;
+    private String region;
     private String fname;
     private Double lat;
     private Double lng;
@@ -27,6 +28,7 @@ public class TravelFoodDto {
     public TravelFoodDto() {}
     public TravelFoodDto(TravelFood entity) {
         this.fid = entity.getFid();
+        this.region = entity.getRegion();
         this.fname = entity.getFname();
         this.lat = entity.getLat();
         this.lng = entity.getLng();

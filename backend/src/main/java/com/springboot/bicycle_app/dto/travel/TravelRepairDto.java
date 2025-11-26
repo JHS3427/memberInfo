@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class TravelRepairDto {
     private int rid;
+    private String region;
     private String rname;
     private Double lat;
     private Double lng;
@@ -27,6 +28,7 @@ public class TravelRepairDto {
     public TravelRepairDto() {}
     public TravelRepairDto(TravelRepair entity) {
         this.rid = entity.getRid();
+        this.region = entity.getRegion();
         this.rname = entity.getRname();
         this.lat = entity.getLat();
         this.lng = entity.getLng();

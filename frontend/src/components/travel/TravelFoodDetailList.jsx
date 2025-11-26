@@ -2,17 +2,26 @@ import { useEffect, useState } from 'react';
 
 import { TravelFoodDetail } from "./TravelFoodDetail.jsx";
 
-import { getTravelFoodDetailList } from '../../feature/travel/travelFoodAPI.js';
+import { getTravelFoodDetailList, getTravelFoodReviewList, insertTravelFoodReviewList } from '../../feature/travel/travelFoodAPI.js';
 import { getTravelSaveList, updateTravelSaveList } from '../../feature/travel/travelSaveAPI.js';
 
 export function TravelFoodDetailList({ selectedDid }) {
     const [travelFoodDetailList, setTravelFoodDetailList] = useState([]);
+    const [travelFoodReviewList, setTravelFoodReviewList] = useState([]);
     const [travelSaveList, setTravelSaveList] = useState([]);
 
-    const loginInfoString = localStorage.getItem("loginInfo");
-    const loginInfo = JSON.parse(loginInfoString);
-    const uid = loginInfo.userId;
-    
+    let uid = null;
+
+    try {
+      const loginInfoString = localStorage.getItem("loginInfo");
+      if (loginInfoString) {
+        const loginInfo = JSON.parse(loginInfoString);
+        uid = loginInfo.userId;
+      }
+    } catch (e) {
+      console.error("로그인 정보 파싱 오류:", e);
+    }
+
     useEffect(() => {
       async function fetchDetailData() {
         const dataDetail = await getTravelFoodDetailList(selectedDid);
@@ -22,24 +31,55 @@ export function TravelFoodDetailList({ selectedDid }) {
     }, []);
 
     useEffect(() => {
+      async function fetchReviewData() {
+        const dataReview = await getTravelFoodReviewList(selectedDid);
+        setTravelFoodReviewList(dataReview);
+      }
+      fetchReviewData();
+    }, []);
+
+    useEffect(() => {
+      if (!uid) return; // 로그인 안 되어 있으면 API 호출 X
+
       async function fetchSaveData() {
         const dataSave = await getTravelSaveList(uid);
         setTravelSaveList(dataSave);
       }
       fetchSaveData();
-    }, []);
+    }, [uid]);
+
+    const reFetchReviewData = async () => {
+      const dataReview = await getTravelFoodReviewList(selectedDid);
+      setTravelFoodReviewList(dataReview);
+    };
 
     const handleLikeUpdate = async (uid, newFid) => {
-        const fid = JSON.stringify(newFid);
+        if (!uid) {
+            alert("로그인이 필요합니다!");
+            return;
+        }
 
+        const fid = JSON.stringify(newFid);
         const dataSave = await updateTravelSaveList(uid, fid, "food");
-        console.log(dataSave);
         setTravelSaveList(dataSave);
+    }
+
+    const handleReviewUpload = async (reviewData) => {
+        if (!uid) {
+            alert("로그인이 필요합니다!");
+            return;
+        }
+
+        const result = await insertTravelFoodReviewList(reviewData);
+        if (result) {
+            alert("리뷰등록 성공하였습니다.");
+            await reFetchReviewData();
+        }
     }
 
     return(
         <>
-            {travelFoodDetailList && 
+            {travelFoodDetailList &&
                     <TravelFoodDetail
                         did={travelFoodDetailList.did}
                         uid = {uid}
@@ -57,9 +97,10 @@ export function TravelFoodDetailList({ selectedDid }) {
                         menu={travelFoodDetailList.menu}
                         mainImages={travelFoodDetailList.mainImages}
                         imageList={travelFoodDetailList.imageList}
-                        review = {travelFoodDetailList.review}
+                        review = {travelFoodReviewList}
                         save = {travelSaveList.fid}
                         handleLikeUpdate = {handleLikeUpdate}
+                        handleReviewUpload = {handleReviewUpload}
                     />
             }  
         </>          
