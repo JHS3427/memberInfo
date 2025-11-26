@@ -212,3 +212,11 @@ export const IdDrop = async(dropUserData)=>{
 
     return null;
 }
+
+export const SearchingUserInfo = async(searchUserInfo) =>{
+    console.log("SearchingUserInfo : >>", searchUserInfo);
+    const url = "/auth/searchuserinfo";
+    const result = await axiosPost(url,searchUserInfo);
+    return result;
+    
+}

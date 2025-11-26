@@ -36,6 +36,8 @@ dependencies {
     
     //카톡 접속용 디펜던시
     implementation 'com.google.code.gson:gson:2.8.7'
+    //회원 확인용 메일 발송을 위한 라이브러리 추가
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     // JWT 핵심 라이브러리 (jjwt)
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'

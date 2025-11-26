@@ -197,7 +197,7 @@ export function Login() {
                             state={{ type: 'findId' }}>아이디 찾기</Link>
                     <Link to="/IdPwSearch" 
                             className='loginLinkBtn' 
-                            state={{ type: 'findpass'}}>비밀번호 찾기</Link>
+                            state={{ type: 'changePass'}}>비밀번호 찾기</Link>
                 </div>
             </div>
         </>

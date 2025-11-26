@@ -15,4 +15,5 @@ public interface OauthService {
     int updateUser(UserInfoDto userInfoDto);
     int updateuserId(UserInfoDto userInfoDto);
     int deleteuserId(UserInfoDto userInfoDto);
+    boolean searchuserinfo(UserInfoDto userInfoDto);
 }

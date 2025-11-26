@@ -20,6 +20,9 @@ public class UserInfoDto {
     private String includedId;
     private String role; 
 
+    private String selectedTap;
+
+
     public UserInfoDto(){}
     public UserInfoDto(String uid, String upass) {
         this.uid = uid;
@@ -34,6 +37,6 @@ public class UserInfoDto {
         this.uaddress = entity.getUaddress();
         this.uemail = entity.getUemail();
         this.uphone = entity.getUphone();
-        this.role = entity.getRole(); 
+        this.role = entity.getRole();
     }
 }

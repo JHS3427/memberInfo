@@ -211,7 +211,7 @@ public class OauthServiceImpl implements OauthService{
     public boolean idDuplChecker(String incomeId){
 //        return userInfoRepository.idDuplChecker(incomeId);
         boolean result = false;
-        Optional<UserInfoDto> newone = jpaUserInfoRepository.findByUserInfo(incomeId);
+        Optional<UserInfo> newone = jpaUserInfoRepository.findByUid(incomeId);
         if(newone.isPresent()){//중복이 있으면 true
             System.out.println("newone is : "+newone.get().getUid());
             result = true;
@@ -315,5 +315,15 @@ public class OauthServiceImpl implements OauthService{
     public int deleteuserId(UserInfoDto userInfoDto){
         jpaUserInfoRepository.deleteByUid(userInfoDto.getUid());
         return 1;
+    }
+
+    @Override
+    public boolean searchuserinfo(UserInfoDto userInfoDto){
+        boolean result = false;
+        Optional<UserInfo> userInfoData = jpaUserInfoRepository
+                                            .findByUemailAndUname(userInfoDto.getUemail(),
+                                                                    userInfoDto.getUname());
+        result = userInfoData.isPresent();
+        return result;
     }
 }
