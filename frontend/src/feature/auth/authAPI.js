@@ -112,7 +112,7 @@ export const usePostCode= (formData,setFormData)=>{
         fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
     }
 
-    setFormData({...formData,  mainAddress : fullAddress})
+    setFormData({...formData,  mainAddress : fullAddress + placezonecode})
     };
     const handleClick = () => {
     open({ onComplete: handleComplete });

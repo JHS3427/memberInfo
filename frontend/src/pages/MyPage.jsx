@@ -1,4 +1,3 @@
-//가로는 60%~80%가 적당할듯? 보고 하기
 
 import { useEffect,useState } from "react";
 import { getInfo,idDuplCheck,updateUser,IdDrop,getLogout} from '../feature/auth/authAPI';
