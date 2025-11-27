@@ -80,10 +80,10 @@ export const SignUp = ({excludeItems=[]}) => {
 
   const initialArray = showIdPass?
                         {id : "", pass : "", passcheck:"", name : "", age:"",
-                            gender:"",mainAddress:"", detailAddress:"", emailAddress:"",
+                            gender:"",mainAddress:"",postcode:"", detailAddress:"", emailAddress:"",
                             emailList:"default", phone:"", jwToken:true, socialDupl : true} :
                         {id : "", pass : "", passcheck:"", name : "", age:"",
-                         gender:"",mainAddress:"", detailAddress:"", emailAddress:"",emailList:"default",
+                         gender:"",mainAddress:"",postcode:"", detailAddress:"", emailAddress:"",emailList:"default",
                          phone:"", jwToken: authjwToken, socialDupl : authsocialDupl};
   //초기값 세팅을 위한 initialArray선언 및 초기값 선언
   const [formData, setFormData]=useState(initialArray);

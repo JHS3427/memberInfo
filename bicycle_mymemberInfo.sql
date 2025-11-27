@@ -694,8 +694,10 @@ value (
 
 UPDATE userinfo SET uid = "test111" where uid="test112";
 
-
-
+/***********************************************************
+		251127 - 자전거 구매 관련 요청 - 우편번호 컬럼 추가
+************************************************************/
+ALTER TABLE userinfo ADD COLUMN postcode varchar(100) DEFAULT "00000" AFTER uaddress;
 
 /***************************************************
 		대여 자전거 : rental_history 테이블 (시작)

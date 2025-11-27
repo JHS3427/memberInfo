@@ -11,6 +11,7 @@ public class UserInfoDto {
     private int uage;
     private String ugender;
     private String uaddress;
+    private String postcode;
     private String uemail;
     private String uphone;
     private boolean socialDupl;
@@ -35,6 +36,7 @@ public class UserInfoDto {
         this.uage = entity.getUage();
         this.ugender = entity.getUgender();
         this.uaddress = entity.getUaddress();
+        this.postcode = entity.getPostcode();
         this.uemail = entity.getUemail();
         this.uphone = entity.getUphone();
         this.role = entity.getRole();

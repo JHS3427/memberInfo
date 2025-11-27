@@ -293,6 +293,9 @@ public class OauthServiceImpl implements OauthService{
         if (userInfoDto.getUphone() != null) {
             existingUser.setUphone(userInfoDto.getUphone());
         }
+        if (userInfoDto.getPostcode() != null) {
+            existingUser.setPostcode(userInfoDto.getPostcode());
+        }
 
         // 3. 트랜잭션이 종료될 때, JPA가 변경된 필드만 감지(Dirty Checking)합니다.
         //    UserInfo 엔티티에 붙은 @DynamicUpdate 덕분에 변경된 필드만 포함된

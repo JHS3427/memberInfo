@@ -112,7 +112,7 @@ export const usePostCode= (formData,setFormData)=>{
         fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
     }
 
-    setFormData({...formData,  mainAddress : fullAddress + placezonecode})
+    setFormData({...formData,  mainAddress : fullAddress, postcode: placezonecode})
     };
     const handleClick = () => {
     open({ onComplete: handleComplete });
@@ -133,6 +133,7 @@ export const idDuplCheck = async(incomeId) => {
 //SignUp.jsx 사용
 export const sendSignUpData = async(formData) =>
 {
+    console.log(formData)
     let emailAddress_full = "";
     if(formData.emailList==="default"){
         emailAddress_full = formData.emailAddress;
@@ -147,6 +148,7 @@ export const sendSignUpData = async(formData) =>
         uage : formData.age,
         ugender : formData.gender,
         uaddress : formData.mainAddress+ " " +formData.detailAddress,
+        postcode : formData.postcode,
         uemail : emailAddress_full,
         uphone : formData.phone,
         jwToken : formData.jwToken,
@@ -186,6 +188,8 @@ export const randomString8to16 = () =>{
 export const updateUser = async (newUserData) =>{
     
     const url = "/auth/updateUser";
+    newUserData["postcode"]=newUserData["uaddress_main"].split(" *** ")[1]
+    newUserData["uaddress_main"]=newUserData["uaddress_main"].split(" *** ")[0]
     newUserData["uaddress"] = newUserData.uaddress_main + " " + newUserData.uaddress_sub;
     console.log("update newUserData:>>>>>",newUserData);    
     for( const [key, value] of Object.entries(newUserData))

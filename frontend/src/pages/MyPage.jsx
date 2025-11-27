@@ -22,7 +22,7 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,update
     const [dataChangeButtonOnOff,setDataChangeButtonOnOff] = useState(dataChangeButtonOnOffInit)
     const [postCodeChanger,setPostCodeChanger]=useState(0);//uaddress_main 초기화용 변수
 
-    const [mainAddressVar,setMainAddressVar] = useState({"mainAddress":""});//
+    const [mainAddressVar,setMainAddressVar] = useState({"mainAddress":"","postcode":""});//
     const {handleClick} = usePostCode(mainAddressVar,setMainAddressVar); // 리턴이 handleclick임
     
     const DataChangeOpen = (e) =>{
@@ -34,7 +34,7 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,update
         {
             handleDataChange({target:{name:"uaddress_sub",value:""}})
             setPostCodeChanger(1);//uaddress_main 초기화 작업을 위해 세팅
-            setMainAddressVar({"mainAddress":""})
+            setMainAddressVar({"mainAddress":"","postcode":""})
         }
         else
         {
@@ -52,7 +52,7 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,update
             handleDataChange({
                 target: {
                     name: 'uaddress_main',
-                    value: mainAddressVar.mainAddress
+                    value: mainAddressVar.mainAddress + " *** " + mainAddressVar.postcode
                 }
             });
         }
@@ -72,7 +72,7 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,update
         setDataChangeButtonOnOff({...dataChangeButtonOnOff,[name] : false})
         if(name === "uaddress")
         {
-            setMainAddressVar({"mainAddress":""});
+            setMainAddressVar({"mainAddress":"","postcode":""});
         }
     },[updateResult])
     if (!info) {
@@ -90,6 +90,10 @@ export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,update
                         <input
                             name = {name+"_main"} 
                             value = {mainAddressVar.mainAddress}
+                            readOnly />
+                        <input
+                            name = {"postcode"} 
+                            value = {mainAddressVar.postcode}
                             readOnly />
                         <input
                             name = {name+"_sub"}
@@ -123,12 +127,12 @@ export function MyPage(){
 
     const handleDatainit = {uid:"",upass:"",
                             uname:"",uage:"",
-                            ugender:"",uaddress_main:"",uaddress_sub:"",
+                            ugender:"",uaddress_main:"",uaddress_sub:"",postcode:"",
                             uemail:"",uphone:""
     }
     const editDatainit = {uid:0,upass:0,
                             uname:0,uage:0,
-                            ugender:0,uaddress_main:0,uaddress_sub:0,
+                            ugender:0,uaddress_main:0,uaddress_sub:0,postcode:"",
                             uemail:0,uphone:0
     }
 
