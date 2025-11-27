@@ -1,18 +1,16 @@
-공용파일
-modified:   backend/build.gradle
-modified:   backend/src/main/resources/application.properties
+공용
 
-개인파일
 
-        modified:   backend/src/main/java/com/springboot/bicycle_app/controller/OauthController.java
+        modified:   bicycle_mymemberInfo.sql
+
+
+modified:   backend/src/main/java/com/springboot/bicycle_app/controller/OauthController.java
         modified:   backend/src/main/java/com/springboot/bicycle_app/dto/UserInfoDto.java
+        new file:   backend/src/main/java/com/springboot/bicycle_app/entity/userinfo/UserInfoAuthSearch.java
+        new file:   backend/src/main/java/com/springboot/bicycle_app/repository/JpaUserInfoAuthSearchRepository.java
         modified:   backend/src/main/java/com/springboot/bicycle_app/repository/JpaUserInfoRepository.java
-        new file:   backend/src/main/java/com/springboot/bicycle_app/service/MailSenderRunner.java
-        modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthService.java
+        modified:   backend/src/main/java/com/springboot/bicycle_app/service/MailSenderRunner.java
         modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthServiceImpl.java
-
-        new file:   frontend/src/components/auth/AuthInput.jsx
+        modified:   frontend/src/components/auth/AuthInput.jsx
         modified:   frontend/src/feature/auth/authAPI.js
         modified:   frontend/src/pages/IdPwSearch.jsx
-        modified:   frontend/src/pages/Login.jsx
-        new file:   frontend/src/styles/IdPwSearch.css
