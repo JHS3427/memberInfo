@@ -22,7 +22,7 @@ public class UserInfoDto {
     private String role; 
 
     private String selectedTap;
-
+    private String authCodeIdPw;
 
     public UserInfoDto(){}
     public UserInfoDto(String uid, String upass) {

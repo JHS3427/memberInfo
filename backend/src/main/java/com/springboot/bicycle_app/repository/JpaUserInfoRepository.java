@@ -48,6 +48,11 @@ public interface JpaUserInfoRepository extends JpaRepository<UserInfo, String> {
     Optional<UserInfo> findByUemailAndUname(@Param("uemail") String uemail,
                                             @Param("uname") String uname);
 
+    Optional<UserInfo> findByUemailAndUnameAndUid(@Param("uemail") String uemail,
+                                                  @Param("uname") String uname,
+                                                  @Param("uid") String uid);
+
+
 
     @Modifying(clearAutomatically = true)//쿼리 실행 후 영속성 컨텍스트를 초기화.
     @Query("""

@@ -274,17 +274,20 @@ public class OauthController {
         System.out.println(userInfoDto.getUemail());
         System.out.println(userInfoDto.getUname());
         System.out.println(userInfoDto.getUid());
-        if(oauthService.searchuserinfo(userInfoDto))
-        {
-            searchResult=true;
-            try {
-                String authcode="";
-                mailSenderRunner.sendTestMail(authcode);
-                return searchResult;
-            }
-            catch(Exception e){
-                e.printStackTrace();
-                System.out.println("Failed to send mail: " + e.getMessage());
+        System.out.println(userInfoDto.getSelectedTap());
+        System.out.println(userInfoDto.getAuthCodeIdPw());
+        if(userInfoDto.getSelectedTap().equals("Id") || userInfoDto.getSelectedTap().equals("Pw")){
+            if(oauthService.searchuserinfo(userInfoDto))
+            {
+                searchResult=true;
+                try {
+                    mailSenderRunner.sendTestMail(userInfoDto);
+                    return searchResult;
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                    System.out.println("Failed to send mail: " + e.getMessage());
+                }
             }
         }
         return searchResult;

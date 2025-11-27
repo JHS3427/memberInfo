@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthInputBox , AuthInputButton} from "../components/auth/AuthInput";
 import '../styles/IdPwSearch.css';
 import { SearchingUserInfo } from "../feature/auth/authAPI";
@@ -9,11 +9,12 @@ export function IdPwSearch(){
   const location = useLocation();
   
   const searchUserinfoInit = {"uemail" : null, "uname":null,"uid":null,"selectedTap":null,"authCodeIdPw":null}
+  // location.state 객체에서 type 값을 구조 분해 할당으로 가져옴
   const { type } = location.state
   const [pageType, setPageType] = useState(type);
   const [searchUserinfo,setSearchUserinfo] = useState(searchUserinfoInit);
   const [inputLevel,setInputLevel] = useState({"searchingInfo":true,"authcodeInput":null,"showOrChange":null})
-  // location.state 객체에서 type 값을 구조 분해 할당으로 가져옴
+
 
   const pageTypeChange = (newPageType) => {
     setPageType(newPageType);
@@ -28,7 +29,7 @@ export function IdPwSearch(){
   }
   
   const handleselectedTap = (value) => {
-    setSearchUserinfo(prev=>({...prev,["selectedTap"]:value}))
+    setSearchUserinfo(prev=>({...prev,["selectedTap"]:value}))//이거로 변경이 일어나서 useEffect 발동되고 저장된 정보를 백으로 이동시킴
   }
 
   const sendingUserInfo = async() =>{
@@ -37,13 +38,33 @@ export function IdPwSearch(){
         setInputLevel(prev=>({...prev,["searchingInfo"]:null}))
         setInputLevel(prev=>({...prev,["authcodeInput"]:true}))
         //여기에 백에서 메일 쏘는거 입력
-        console.log(searchUserinfo);
+        console.log("sendingUserInfo : ??");
+        console.log(searchUserinfo)
         alert("메세지 보냈습니다. 확인해보세요.")
     }
     else{
         alert("없다.")
+        setSearchUserinfo(prev=>({...prev,["selectedTap"]:null}))
     }
   }
+
+  useEffect(()=>{
+    if(searchUserinfo.selectedTap === "Id" || searchUserinfo.selectedTap === "Pw" || searchUserinfo.selectedTap === "Auth" )
+    {
+        sendingUserInfo();
+    }
+    else
+    {
+        console.log("으악 이게 뭐야")
+        console.log("searchUserinfo.selectedTap : " + searchUserinfo.selectedTap)
+    }
+  },[searchUserinfo.selectedTap])
+
+  const sendingauthcode = () =>{
+    console.log(searchUserinfo);
+  }
+
+
     return(
         <div className="IdPwSearchContainer"> 
             <div>
@@ -72,7 +93,8 @@ export function IdPwSearch(){
                         <li>본인 이름 :&nbsp;<AuthInputBox boxType="uname" handleInfo = {handleInfo} value={searchUserinfo.uname||''}/></li>
                     </ul>
                     <div className="IdPwSearchAuthButton">
-                        <AuthInputButton buttonType = "Id" Clicker={handleselectedTap} onClick={sendingUserInfo}/>
+                        <AuthInputButton buttonType = "Id" Clicker={handleselectedTap}/>
+                        {/* <AuthInputButton buttonType = "Id" Clicker={handleselectedTap} onClick={sendingUserInfo}/> */}
                     </div>
                 </div>:
                 <div>
@@ -83,7 +105,7 @@ export function IdPwSearch(){
                         <li>아이디 :&nbsp;<AuthInputBox boxType="uid" handleInfo = {handleInfo} value={searchUserinfo.uid||''}/></li>
                     </ul>
                     <div className="IdPwSearchAuthButton">
-                        <AuthInputButton buttonType = "Pw" Clicker={handleselectedTap} onClick={sendingUserInfo}/>
+                        <AuthInputButton buttonType = "Pw" Clicker={handleselectedTap}/>
                     </div>
                 </div>
             }//onclick으로 DB확인해서 있으면 다음거 렌더링

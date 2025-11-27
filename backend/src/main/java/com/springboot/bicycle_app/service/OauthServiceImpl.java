@@ -323,9 +323,19 @@ public class OauthServiceImpl implements OauthService{
     @Override
     public boolean searchuserinfo(UserInfoDto userInfoDto){
         boolean result = false;
-        Optional<UserInfo> userInfoData = jpaUserInfoRepository
-                                            .findByUemailAndUname(userInfoDto.getUemail(),
-                                                                    userInfoDto.getUname());
+        Optional<UserInfo> userInfoData = null;
+        if(userInfoDto.getSelectedTap().equals("Id")) {
+            userInfoData = jpaUserInfoRepository
+                    .findByUemailAndUname(userInfoDto.getUemail(),
+                            userInfoDto.getUname());
+        }
+        else{
+            userInfoData = jpaUserInfoRepository
+                    .findByUemailAndUnameAndUid(userInfoDto.getUemail(),
+                            userInfoDto.getUname(),
+                            userInfoDto.getUid());
+
+        }
         result = userInfoData.isPresent();
         return result;
     }

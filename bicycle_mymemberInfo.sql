@@ -699,6 +699,20 @@ UPDATE userinfo SET uid = "test111" where uid="test112";
 ************************************************************/
 ALTER TABLE userinfo ADD COLUMN postcode varchar(100) DEFAULT "00000" AFTER uaddress;
 
+
+
+create table userinfoauthsearch(
+    authcode varchar(100) primary key,
+    uemail	varchar(100) not null,
+    uname	    varchar(50) not null,
+    uid   		varchar(100),
+    deadtime DATETIME
+);
+
+select * from userinfoauthsearch;
+drop table userinfoauthsearch;
+
+
 /***************************************************
 		대여 자전거 : rental_history 테이블 (시작)
 ****************************************************/
