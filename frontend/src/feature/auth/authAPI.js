@@ -220,8 +220,16 @@ export const IdDrop = async(dropUserData)=>{
 export const SearchingUserInfo = async(searchUserInfo) =>{
     console.log("SearchingUserInfo : >>", searchUserInfo);
     const url = "/auth/searchuserinfo";
-    const result = await axiosPost(url,searchUserInfo);
+    // const result = await axiosPost(url,searchUserInfo);
     
     return true;
     // return result;   
+}
+
+export const sendingAuthCode = async(searchUserInfo)=>{
+    console.log("SearchingUserInfo : >>", searchUserInfo);
+    const url = "/auth/compareauthcode";
+    const result = await axiosPost(url,searchUserInfo);
+    console.log(result)
+    return result;
 }

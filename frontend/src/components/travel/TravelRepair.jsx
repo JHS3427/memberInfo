@@ -1,4 +1,6 @@
-export function TravelRepair({rid,
+export function TravelRepair({
+                              idx,
+                              rid,
                               rname,
                               rlike,
                               score,
@@ -17,7 +19,7 @@ export function TravelRepair({rid,
         <div className='food-list-item' onClick={() => {handleDetail(type, rid)}}>
           <ul className="food-title-box">
             <li className="food-title">
-              <span className="food-title-fid">{rid}. </span>
+              <span className="food-title-fid">{idx}. </span>
               <span className="food-title-fname">{rname}</span>
             </li>
             <li>

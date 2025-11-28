@@ -6,6 +6,7 @@ import {ImageList} from "../components/commons/ImageList.jsx";
 import {addCart} from "../feature/cart/cartAPI.js";
 import '../styles/product/productdetail.css';
 import {addCompareItem} from "../feature/compare/compareSlice.js";
+import Swal from "sweetalert2";
 
 export function ProductDetail() {
     const {category, pid} = useParams();
@@ -25,17 +26,40 @@ export function ProductDetail() {
         navigate("/location");
     }
     const goToCart = () => {
+        const userInfo = localStorage.getItem('loginInfo');
+        if (!userInfo) {
+            Swal.fire({
+                icon: "warning",
+                title: "로그인 필요",
+                text: "로그인이 필요합니다.",
+            });
+            navigate("/login");
+            return;
+        }
         dispatch(addCart(product.product_id, category));
     }
 
     const goToPurchase = () => {
-        navigate("/cart")
+        const userInfo = localStorage.getItem('loginInfo');
+        if (!userInfo) {
+            Swal.fire({
+                icon: "warning",
+                title: "로그인 필요",
+                text: "로그인이 필요합니다.",
+            });
+            navigate("/login");
+            return;
+        }
+            navigate("/cart");
     }
 
     const goToCompare =() => {
         dispatch(addCompareItem(product));
-        alert("비교함에 상품이 담겼습니다.")
-        // navigate("/compare")
+        Swal.fire({
+            icon: "success",
+            title: "",
+            text: "비교함에 상품이 담겼습니다.",
+        });
     }
 
     return (

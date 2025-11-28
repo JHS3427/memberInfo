@@ -6,9 +6,21 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../styles/home.css";
 
+/**
+ * Home
+ *
+ * 기능:
+ * - 메인 랜딩 페이지
+ * - Hero 섹션 이미지 슬라이드 (Swiper)
+ * - 스크롤 시 Hero 이미지 투명도 조절 효과
+ * - 인기 자전거 / 대여 / 여행지 추천 / 게시판 / 고객센터 각 섹션 연결
+ */
 export function Home() {
   const [scrollY, setScrollY] = useState(0);
 
+  /**
+   * 스크롤 값 감지 → Hero 섹션 opacity 조절
+   */
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
@@ -19,6 +31,7 @@ export function Home() {
 
   return (
     <div className="home">
+      
       {/* Hero 섹션 */}
       <section className="hero-section" style={{ opacity }}>
         <Swiper
@@ -118,11 +131,49 @@ export function Home() {
             <div className="travel-card" key={idx}>
               <img src={`/images/${course.img}`} alt={course.name} />
               <h3>{course.name}</h3>
-              <p>{course.desc}</p> {/* ✅ 설명 추가 */}
+              <p>{course.desc}</p> {/* 설명 추가 */}
             </div>
           ))}
         </div>
         <Link to="/travel" className="btn-outline">더보기</Link>
+      </section>
+
+      {/* 게시판 */}
+      <section className="section board">
+        <span className="section-subtitle">Board</span>
+        <h2>라이더 커뮤니티</h2>
+        <div className="board-container">
+          
+          {/* News */}
+          <div className="board-item">
+            <img src="/images/home_board1.jpg" alt="News" />
+            <div className="board-text">
+              <h3>뉴스</h3>
+              <p>브랜드의 최신 소식과 업데이트를 확인하세요.</p>
+              <Link to="/board/news" className="btn-outline">바로가기</Link>
+            </div>
+          </div>
+
+          {/* Event */}
+          <div className="board-item">
+            <img src="/images/home_board2.jpg" alt="Event" />
+            <div className="board-text">
+              <h3>이벤트</h3>
+              <p>다양한 이벤트에 참여하고 특별한 혜택을 누려보세요.</p>
+              <Link to="/board/event" className="btn-outline">바로가기</Link>
+            </div>
+          </div>
+
+          {/* Review */}
+          <div className="board-item">
+            <img src="/images/home_board3.jpg" alt="Review" />
+            <div className="board-text">
+              <h3>리뷰</h3>
+              <p>실제 라이더들의 생생한 사용 후기를 만나보세요.</p>
+              <Link to="/board/review" className="btn-outline">바로가기</Link>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* 고객센터 */}

@@ -24,6 +24,8 @@ public class Order {
     private int totalPrice;
     private String status;
     private String paymentKey;
+    private String uaddress;
+    private String postcode;
     private LocalDateTime odate;
 }
 

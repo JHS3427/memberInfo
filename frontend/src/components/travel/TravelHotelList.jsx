@@ -83,6 +83,7 @@ export function TravelHotelList({ handleListDetail, selectedRegion }) {
               {filteredList && filteredList.length > 0 ? (
                 filteredList.map((travelHotel, idx) => (
                     <TravelHotel
+                        idx={idx+1}
                         hid={travelHotel.hid}
                         hname={travelHotel.hname}
                         hlike={travelHotel.hlike}

@@ -1,3 +1,11 @@
+/**
+ * ASInfo 컴포넌트 (A/S 안내 페이지)
+ *
+ * 역할:
+ * - 고객센터 메뉴(Support)에서 "A/S 안내" 탭을 클릭하면 표시되는 정보 페이지
+ * - A/S 절차, 품질보증, 신청방법, 예외사항 등을 이미지 + 텍스트로 안내
+ */
+
 import React from "react";
 
 export function ASInfo() {

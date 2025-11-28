@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useSelector } from "react-redux";
 import RentalBikeList from './RentalBikeList';
 import { axiosData } from '../../utils/dataFetch';
 import { getRentalPayment } from '../../feature/rental/rentalMarkerAPI.js';
-import RentalPaymentCompleted from './RentalPaymentCompleted.jsx';
 
 const RentalPayment = ({ className, onClose, }) => {
 

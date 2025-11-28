@@ -16,17 +16,17 @@ export function Support() {
 
   const [showChatbot, setShowChatbot] = useState(false);
 
-  // ✅ 챗봇 열기 함수
+  // 챗봇 열기 함수
   const openChatbot = () => {
     setShowChatbot(true);
-    // 🔵 전역 이벤트 발생
+    // 전역 이벤트 발생
     window.dispatchEvent(new CustomEvent("chatbotToggle", { detail: true }));
   };
 
-  // ✅ 챗봇 닫기 함수
+  // 챗봇 닫기 함수
   const closeChatbot = () => {
     setShowChatbot(false);
-    // 🔵 전역 이벤트 발생
+    // 전역 이벤트 발생
     window.dispatchEvent(new CustomEvent("chatbotToggle", { detail: false }));
   };
 

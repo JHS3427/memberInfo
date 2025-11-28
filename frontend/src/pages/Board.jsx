@@ -4,12 +4,24 @@ import { BoardList } from "./board/BoardList.jsx";
 import { getCurrentUser } from "../feature/auth/session";
 import "../styles/board.css";
 
+/**
+ * Board
+ *
+ * 기능:
+ * - 게시판 목록 페이지 (뉴스 / 이벤트 / 리뷰)
+ * - URL 카테고리 검증 후 유효하지 않으면 자동 리다이렉트
+ * - 로그인 여부 및 권한(관리자) 확인
+ * - 뉴스/이벤트 → 관리자만 작성 가능
+ * - 리뷰 → 로그인 사용자 모두 작성 가능
+ */
 export function Board() {
-  const { category } = useParams(); // news, event, review
+  const { category } = useParams(); // URL에서 카테고리(news/event/review) 추출
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-  // 탭 목록 정의
+  /**
+   * 탭 목록 정의
+   */
   const tabs = [
     { key: "news", label: "뉴스" },
     { key: "event", label: "이벤트" },
@@ -18,13 +30,21 @@ export function Board() {
 
   const tabKeys = tabs.map((t) => t.key);
 
-  // ❌ 잘못된 URL이면 강제 이동
+  /**
+   * URL 검증
+   * - 잘못된 카테고리 접근 시 /board/news 로 강제 이동
+   */
   useEffect(() => {
     if (!tabKeys.includes(category)) {
       navigate("/board/news", { replace: true });
     }
   }, [category, navigate]);
 
+  /**
+   * 로그인 사용자 정보 로드
+   * - 세션 기반이므로 새로고침하거나 페이지 이동해도 유지
+   * - user.role 에 관리자 여부 포함
+   */
   useEffect(() => {
     async function load() {
       const session = await getCurrentUser();
@@ -35,14 +55,20 @@ export function Board() {
     load();
   }, []);
 
-  // 🔥 관리자 여부 체크
+  /**
+   * 관리자 여부
+   * - role: [{ authority: "ROLE_ADMIN" }]
+   */
   const isAdmin = user?.role?.some((r) => r.authority === "ROLE_ADMIN");
 
-  // 🔥 글 작성 가능 조건
+  /**
+   * 글 작성 가능 조건
+   *
+   * - 리뷰(review) → 모든 로그인 유저 가능
+   * - 뉴스/이벤트 → 관리자만 가능
+   */
   const canWrite =
-    // 리뷰는 모든 로그인 유저 가능
     (category === "review" && user) ||
-    // 뉴스/이벤트는 관리자만 가능
     ((category === "news" || category === "event") && isAdmin);
 
   return (
@@ -62,10 +88,13 @@ export function Board() {
         ))}
       </div>
 
-      {/* 목록 출력 */}
+      {/* 게시글 목록 출력 컴포넌트 */}
       <BoardList category={category} />
 
-      {/* 글 작성 버튼 (로그인 한 경우에만 노출) */}
+      {/**
+       * 글 작성 버튼 영역
+       * - 로그인 O + 권한을 만족해야 노출
+       */}
       {user ? (
         canWrite ? (
           <div className="detail-footer">

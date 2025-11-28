@@ -1,3 +1,11 @@
+/**
+ * Terms 컴포넌트 (이용약관 페이지)
+ *
+ * 역할:
+ * - "이용약관" 문서를 출력하는 페이지
+ * - Footer의 "이용약관" 링크와 연결됨
+ */
+
 export function Terms() {
   return (
     <div className="policy-page">

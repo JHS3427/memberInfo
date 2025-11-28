@@ -1,13 +1,14 @@
 import {useEffect, useRef, useState} from "react";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
+import {requestTossPay} from "../../feature/payment/PaymentAPI.js";
+import {useSelector} from "react-redux";
+import Swal from "sweetalert2";
 
-const clientKey = process.env.REACT_APP_TOSS_CLIENT_KEY;
+const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 
 export function CheckoutPayment({ totalPrice, cartList }) {
+    const { receiverInfo } = useSelector((state) => state.cart);
     const widgetRef = useRef(null);
-    // const paymentMethodsWidgetRef = useRef(null);
-    // const agreementWidgetRef = useRef(null);
-    // const [orderId, setOrderId] = useState(null);
     useEffect(() => {
         let isCancelled = false;
 
@@ -63,34 +64,14 @@ export function CheckoutPayment({ totalPrice, cartList }) {
 
     const handlePayment = async () => {
         const widgets = widgetRef.current;
-
-        if (!widgets || totalPrice <= 0) {
-            alert("결제 위젯이 준비되지 않았거나 결제 금액이 올바르지 않습니다.");
-            return;
-        }
-
-        let formattedOrderName = "주문 상품"; // 기본값
-        if (cartList && cartList.length > 0) {
-            const firstItemName = cartList[0].name;
-            const remainingItemsCount = cartList.length - 1;
-
-            if (remainingItemsCount > 0) {
-                formattedOrderName = `${firstItemName} 외 ${remainingItemsCount}건`;
-            } else {
-                formattedOrderName = firstItemName;
-            }
-        }
-        try {
-            await widgets.requestPayment({
-                orderId: `practice-order-${new Date().getTime()}`,
-                orderName: formattedOrderName,
-                successUrl: `${window.location.origin}/checkout/success`,
-                failUrl: `${window.location.origin}/checkout/fail`,
+        if(totalPrice <= 0 ){
+            await Swal.fire({
+                icon: "warning",
+                title: "",
+                text: "결제 위젯이 준비되지 않았거나 결제 금액이 올바르지 않습니다.",
             });
-        } catch (error) {
-            console.error("Payment error:", error); //
-            alert(`결제 중 오류가 발생했습니다: ${error.message}`);
-        }
+            return;
+        } await requestTossPay(widgets,cartList,totalPrice,receiverInfo);
     };
 
     return (

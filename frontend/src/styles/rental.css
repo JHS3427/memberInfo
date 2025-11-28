@@ -349,6 +349,88 @@
 */
 
 /*************************************************************************/
+
+/*
+    RentalPaymentResult.jsx
+*/
+.payment_result {
+    text-align:center;
+    padding: 3rem;
+    border: 1px solid var(--color-blue); 
+    max-width: 600px;
+    margin: 50px auto;
+    border-radius: 8px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+.payment_result > h1 {
+    color: var(--color-blue);
+}
+.payment_result > p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #00000070;
+}
+.payment_result > ul {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.payment_result > ul > li:first-child {
+    font-weight: bold;
+    font-size: 1.35rem;
+}
+.payment_result > ul > li {
+    padding: 10px 0;
+    color: #333;
+}
+.payment_result > div {
+    background: #e8f5e9;
+    margin-bottom: 30px;
+    padding: 15px;
+    border-radius: 10px;
+}
+.payment_result > div > p {
+    color: var(--color-blue);
+}
+.payment_result > button {
+    padding: 10px 20px;
+    background: var(--color-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.payment_fail {
+    text-align: center;
+}
+.payment_fail > h1 {
+    color: #F44336;
+    margin-bottom: 30px;
+}
+.payment_fail > p {
+    border-bottom: 1px solid #00000070;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+.payment_fail > ul {
+    margin-bottom: 30px;
+}
+.payment_fail > ul > li {
+    font-weight: bold;
+    padding: 5px 0;
+}
+.payment_fail > button {
+    padding: 10px 20px;
+    background: var(--color-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/*************************************************************************/
+
 /*
     Media Style
 */

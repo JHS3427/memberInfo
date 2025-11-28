@@ -83,6 +83,7 @@ export function TravelRepairList({ handleListDetail, selectedRegion }) {
                {filteredList && filteredList.length > 0 ? (
                   filteredList.map((travelRepair, idx) => (
                       <TravelRepair
+                          idx={idx+1}
                           rid={travelRepair.rid}
                           rname={travelRepair.rname}
                           rlike={travelRepair.rlike}

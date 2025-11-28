@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 
 const initialState = {
     compareList: []
@@ -31,7 +32,11 @@ export const compareSlice = createSlice({
                         : item
                 );
             } else {
-                alert("최대 3개까지 선택 가능합니다.");
+                Swal.fire({
+                    icon: "info",
+                    title: "",
+                    text: "최대 3개까지 선택 가능합니다.",
+                });
             }
         },
         removeCompareItem(state, action) {

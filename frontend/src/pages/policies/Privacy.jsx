@@ -1,3 +1,11 @@
+/**
+ * Privacy 컴포넌트
+ *
+ * 역할:
+ * - "개인정보 취급방침" 문서를 출력하는 페이지
+ * - Footer의 "개인정보 취급방침" 링크와 연결됨
+ */
+
 export function Privacy() {
   return (
     <div className="policy-page">

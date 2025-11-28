@@ -271,17 +271,12 @@ public class OauthController {
     @PostMapping("/searchuserinfo")
     public boolean searchuserinfo(@RequestBody UserInfoDto userInfoDto){
         boolean searchResult = false;
-        System.out.println(userInfoDto.getUemail());
-        System.out.println(userInfoDto.getUname());
-        System.out.println(userInfoDto.getUid());
-        System.out.println(userInfoDto.getSelectedTap());
-        System.out.println(userInfoDto.getAuthCodeIdPw());
         if(userInfoDto.getSelectedTap().equals("Id") || userInfoDto.getSelectedTap().equals("Pw")){
             if(oauthService.searchuserinfo(userInfoDto))
             {
-                searchResult=true;
                 try {
                     mailSenderRunner.sendTestMail(userInfoDto);
+                    searchResult=true;
                     return searchResult;
                 }
                 catch(Exception e){
@@ -292,5 +287,8 @@ public class OauthController {
         }
         return searchResult;
     }
-
+    @PostMapping("/compareauthcode")
+    public String compareauthcode(@RequestBody UserInfoDto userInfoDto){
+        return oauthService.compareauthcode(userInfoDto);
+    }
 }

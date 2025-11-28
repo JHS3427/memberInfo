@@ -47,22 +47,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // 🔥 CORS 설정 (모든 IP 허용)
+            // CORS 설정 (모든 IP 허용)
             .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration config = new CorsConfiguration();
 
-                config.setAllowCredentials(true); // 쿠키 허용
-                config.addAllowedOriginPattern("*"); // 🔥 모든 IP Origin 허용
+                config.setAllowCredentials(true);    // 쿠키 허용
+                config.addAllowedOriginPattern("*"); // 모든 IP Origin 허용
                 config.addAllowedHeader("*");
                 config.addAllowedMethod("*");
 
                 return config;
             }))
 
-            // 🔥 CSRF 설정 (기존 유지)
+            // CSRF 설정 (기존 유지)
             .csrf(csrf -> csrf
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/auth/logout", "/cart/**", "/api/chatbot", "/auth/me")  // 그대로 유지
+                .ignoringRequestMatchers("/auth/logout", "/cart/**", "/api/chatbot", "/auth/me", "/kakaopay/success", "/kakaopay/cancel", "/kakaopay/fail")  // 그대로 유지
                 .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler())
             )
             .authenticationProvider(authenticationProvider())//중간자 겸 공급자?
@@ -75,14 +75,14 @@ public class SecurityConfig {
             .requestCache(rc -> rc.disable()) //로그인 후 리다이렉트 방지
             //                .securityContext(sc -> sc.requireExplicitSave(true)) //인증정보 세션 자동저장 방지
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(HttpMethod.POST, "/rental/payment").permitAll()
+                .requestMatchers(HttpMethod.POST, "/rental/payment", "/kakaopay/ready").permitAll()
                 // 공개 API (읽기 전용)
                 .requestMatchers(
                     "/member/**", "/products/**", "/auth/**", "/cart/**",
                     "/support/**", "/map/**", "/travel/**", "/csrf/**",
                     "/uploads/**",
                     "/api/chatbot", "/api/upload",
-                    "/rental/**"
+                    "/rental/**", "/kakaopay/success", "/kakaopay/cancel", "/kakaopay/fail"
                 ).permitAll()
 
                 // 게시판 조회(READ)만 허용 (GET)
@@ -140,7 +140,7 @@ public class SecurityConfig {
     }
 
 
-//    //CORS 보안정책 수행 객체
+    //CORS 보안정책 수행 객체
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

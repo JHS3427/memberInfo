@@ -71,8 +71,6 @@ public class MailSenderRunner { // ApplicationRunner 구현 제거
         h.setText("인증 코드는 다음과 같습니다 : " + encodedAuthCode);
 
         //DB 저장 부분
-//        LocalDateTime now = LocalDateTime.now();
-
         UserInfoAuthSearch authData = new UserInfoAuthSearch(userInfoDto);
         authData.setAuthcode(encodedAuthCode);
         authData.setDeadtime(LocalDateTime.now().plusMinutes(5));

@@ -2,19 +2,19 @@ import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { AuthInputBox , AuthInputButton} from "../components/auth/AuthInput";
 import '../styles/IdPwSearch.css';
-import { SearchingUserInfo } from "../feature/auth/authAPI";
+import { SearchingUserInfo , sendingAuthCode} from "../feature/auth/authAPI";
 
 export function IdPwSearch(){
 
   const location = useLocation();
   
-  const searchUserinfoInit = {"uemail" : null, "uname":null,"uid":null,"selectedTap":null,"authCodeIdPw":null}
+  const searchUserinfoInit = {"uemail" : null, "uname":null,"uid":null,"selectedTap":null,"authCodeIdPw":null,"upass":null,"upassCheck":null}
   // location.state 객체에서 type 값을 구조 분해 할당으로 가져옴
   const { type } = location.state
   const [pageType, setPageType] = useState(type);
   const [searchUserinfo,setSearchUserinfo] = useState(searchUserinfoInit);
   const [inputLevel,setInputLevel] = useState({"searchingInfo":true,"authcodeInput":null,"showOrChange":null})
-
+  const [finalData,setFinalData] = useState(null)
 
   const pageTypeChange = (newPageType) => {
     setPageType(newPageType);
@@ -35,12 +35,16 @@ export function IdPwSearch(){
   const sendingUserInfo = async() =>{
     if(await SearchingUserInfo(searchUserinfo))
     {
-        setInputLevel(prev=>({...prev,["searchingInfo"]:null}))
-        setInputLevel(prev=>({...prev,["authcodeInput"]:true}))
-        //여기에 백에서 메일 쏘는거 입력
-        console.log("sendingUserInfo : ??");
-        console.log(searchUserinfo)
-        alert("메세지 보냈습니다. 확인해보세요.")
+        if(inputLevel.searchingInfo)
+        {
+            setInputLevel(prev=>({...prev,["searchingInfo"]:null}))
+            setInputLevel(prev=>({...prev,["authcodeInput"]:true}))
+            setInputLevel(prev=>({...prev,["showOrChange"]:null}))
+            //여기에 백에서 메일 쏘는거 입력
+            console.log("sendingUserInfo : ??");
+            console.log(searchUserinfo)
+            alert("메세지 보냈습니다. 확인해보세요.")
+        }
     }
     else{
         alert("없다.")
@@ -48,10 +52,28 @@ export function IdPwSearch(){
     }
   }
 
+  const sendingAuth = async() =>{
+    setFinalData(await sendingAuthCode(searchUserinfo))
+    console.log("finaldata : " + finalData )
+    setInputLevel(prev=>({...prev,["searchingInfo"]:null}))
+    setInputLevel(prev=>({...prev,["authcodeInput"]:null}))
+    setInputLevel(prev=>({...prev,["showOrChange"]:true}))
+  }
+
+  const oncl=()=>{
+    console.log(searchUserinfo);
+  }
+
   useEffect(()=>{
-    if(searchUserinfo.selectedTap === "Id" || searchUserinfo.selectedTap === "Pw" || searchUserinfo.selectedTap === "Auth" )
+    if(searchUserinfo.selectedTap === "Id" || searchUserinfo.selectedTap === "Pw")
     {
         sendingUserInfo();
+        setSearchUserinfo(prev=>({...prev,["selectedTap"]:null}))//여러번 누를수도 있으니까 초기화
+    }
+    else if(searchUserinfo.selectedTap === "Auth")
+    {
+        sendingAuth();
+        setSearchUserinfo(prev=>({...prev,["selectedTap"]:null}))//여러번 누를수도 있으니까 초기화
     }
     else
     {
@@ -59,11 +81,6 @@ export function IdPwSearch(){
         console.log("searchUserinfo.selectedTap : " + searchUserinfo.selectedTap)
     }
   },[searchUserinfo.selectedTap])
-
-  const sendingauthcode = () =>{
-    console.log(searchUserinfo);
-  }
-
 
     return(
         <div className="IdPwSearchContainer"> 
@@ -94,7 +111,6 @@ export function IdPwSearch(){
                     </ul>
                     <div className="IdPwSearchAuthButton">
                         <AuthInputButton buttonType = "Id" Clicker={handleselectedTap}/>
-                        {/* <AuthInputButton buttonType = "Id" Clicker={handleselectedTap} onClick={sendingUserInfo}/> */}
                     </div>
                 </div>:
                 <div>
@@ -108,7 +124,7 @@ export function IdPwSearch(){
                         <AuthInputButton buttonType = "Pw" Clicker={handleselectedTap}/>
                     </div>
                 </div>
-            }//onclick으로 DB확인해서 있으면 다음거 렌더링
+            }
             </div>
             :
             ""}
@@ -125,6 +141,18 @@ export function IdPwSearch(){
             </div>:
             ""
         }
+        {inputLevel.showOrChange?
+            (finalData==="PW"?
+                <>
+                    <ul className="IdPwSearchFormList">
+                        <li>비밀번호 :&nbsp;<AuthInputBox boxType="upass" handleInfo = {handleInfo} value={searchUserinfo.upass||''}/></li>
+                        <li>비밀번호 확인 :&nbsp;<AuthInputBox boxType="upassCheck" handleInfo = {handleInfo} value={searchUserinfo.upassCheck||''}/></li>
+                    </ul>
+                    <button onClick={oncl}>aaaaaa</button>
+                    {/* 비밀번호 확인버튼 , 비밀번호 전송버튼 만들기 */}
+                </>:
+                <h1>아이디 : {finalData}</h1>)
+            :<></>}
         </div>
     )
 }

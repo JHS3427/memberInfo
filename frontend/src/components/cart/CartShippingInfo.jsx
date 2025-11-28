@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../../styles/cart/cartshipping.css'
 import {useDispatch, useSelector} from "react-redux";
 import {setOrderInfo, setReceiverInfo, toggleSameOrderer, userOrderInfo} from "../../feature/cart/cartSlice.js";
+import DaumPost from "../commons/DaumPost.jsx";
 
 export default function CartShippingInfo() {
     const dispatch = useDispatch();
@@ -9,7 +10,8 @@ export default function CartShippingInfo() {
     const {orderInfo, receiverInfo} = useSelector(state => state.cart);
     useEffect(() => {
         if (cartList && cartList.length > 0) {
-            dispatch(userOrderInfo(cartList[0]))
+            dispatch(userOrderInfo(cartList[0]));
+            dispatch(toggleSameOrderer(true));
         }
     }, [cartList, dispatch]);
 
@@ -26,6 +28,11 @@ export default function CartShippingInfo() {
     const handleSameCheck = (isSame) => {
         dispatch(toggleSameOrderer(isSame));
     }
+    const handleAddressComplete = (data) => {
+        dispatch(setReceiverInfo({ name: 'postcode', value: data.postcode }));
+        dispatch(setReceiverInfo({ name: 'address', value: data.address }));
+    }
+
     return (
         <div className="checkout-info-container">
             <div className="form-section">
@@ -131,6 +138,17 @@ export default function CartShippingInfo() {
                     <div className="form-group form-group-address">
                         <label htmlFor="recipient-zipcode">주소 <span className="required">*</span></label>
                         <div className="address-group">
+                            <div style={{display:'flex', alignItems:'center', marginBottom:'8px'}}>
+                                <input
+                                    type="text"
+                                    name="postcode"
+                                    value={receiverInfo.postcode}
+                                    placeholder="우편번호"
+                                    readOnly
+                                    style={{width:'100px', marginRight:'10px'}}
+                                />
+                                <DaumPost onComplete={handleAddressComplete}/>
+                            </div>
                             <input
                                 type="text"
                                 id="recipient-address1"
@@ -138,6 +156,7 @@ export default function CartShippingInfo() {
                                 value={receiverInfo.address}
                                 onChange={handleReceiverChange}
                                 className="input-address"
+                                placeholder="기본 주소 검색 후 상세 주소를 입력해주세요"
                             />
                         </div>
                     </div>
@@ -147,4 +166,3 @@ export default function CartShippingInfo() {
         </div>
     );
 }
-

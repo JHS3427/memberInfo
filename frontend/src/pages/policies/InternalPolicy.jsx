@@ -1,3 +1,11 @@
+/**
+ * InternalPolicy 컴포넌트
+ *
+ * 역할:
+ * - "내부정보 관리규정" 문서를 출력하는 페이지
+ * - Footer의 "내부정보 관리규정" 링크와 연결됨
+ */
+
 export function InternalPolicy() {
   return (
     <div className="policy-page">

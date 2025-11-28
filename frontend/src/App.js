@@ -9,11 +9,10 @@ import { Auth } from './pages/Auth.jsx';
 import { SignUp } from './pages/SignUp.jsx';
 import { MyPage } from './pages/MyPage.jsx';
 import { IdPwSearch } from './pages/IdPwSearch.jsx';
-
 import { Terms } from './pages/policies/Terms.jsx';
 import { Privacy } from './pages/policies/Privacy.jsx';
 import { InternalPolicy } from './pages/policies/InternalPolicy.jsx';
-import ScrollToTop from "./components/ScrollToTop.jsx";
+import { ScrollToTop } from "./components/commons/ScrollToTop.jsx";
 import { Products } from "./pages/Products.jsx";
 import { ProductDetail } from "./pages/ProductDetail.jsx";
 import { Board } from "./pages/Board.jsx";
@@ -34,6 +33,8 @@ import { useEffect } from 'react';
 import { createCsrfToken } from './feature/csrf/manageCsrfToken.js';
 import { SuccessPage } from "./pages/SuccessPage.jsx";
 import { FailPage } from "./pages/FailPage.jsx";
+import {RentalPaymentResults} from "./components/rental/RentalPaymentResult.jsx";
+import {OrderList} from "./pages/OrderList.jsx";
 
 export default function App() {
 
@@ -57,6 +58,9 @@ export default function App() {
                         <Route path="rental" element={<Rental />} />
                         <Route path="travel" element={<Travel />} />
 
+                        {/* 대여(rental)결제 결과 */}
+                        <Route path="/payment/complete" element={<RentalPaymentResults />} />
+
                         {/* Support (고객센터) */}
                         <Route path="support">
                             <Route index element={<Navigate to="faq" />} />
@@ -70,7 +74,7 @@ export default function App() {
                         <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />
                         <Route path="mypage" element={<MyPage />} />
                         <Route path="IdPwSearch" element={<IdPwSearch />} />
-                        
+
                         {/* Policy */}
                         <Route path="policies/terms" element={<Terms />} />
                         <Route path="policies/privacy" element={<Privacy />} />
@@ -85,6 +89,7 @@ export default function App() {
                         <Route path="checkout" element={<CheckoutInfo/>}/>
                         <Route path="checkout/success" element={<SuccessPage/>}/>
                         <Route path="checkout/fail" element={<FailPage/>}/>
+                        <Route path="payment/order" element={<OrderList/>}/>
 
                         {/* Board (게시판) */}
                         <Route path="board">

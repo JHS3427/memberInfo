@@ -28,3 +28,7 @@ export const AuthInputButton = ({buttonType,Clicker}) =>{
         </>
     )
 }
+
+export const PasscheckButton = () =>{
+    
+}

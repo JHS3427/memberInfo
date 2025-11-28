@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import '../../styles/cart/cartshipping.css'
 import {useDispatch, useSelector} from "react-redux";
 import {setOrderInfo, setReceiverInfo, toggleSameOrderer, userOrderInfo} from "../../feature/cart/cartSlice.js";
+import DaumPost from "../commons/DaumPost.jsx";
 
 export function CheckoutForm() {
     const dispatch = useDispatch();
@@ -100,6 +101,16 @@ export function CheckoutForm() {
                     </div>
                     <div className="form-group form-group-address">
                         <label htmlFor="recipient-zipcode">주소 <span className="required">*</span></label>
+                        <div style={{display:'flex', alignItems:'center', marginBottom:'8px'}}>
+                            <input
+                                type="text"
+                                name="postcode"
+                                value={receiverInfo.postcode}
+                                placeholder="우편번호"
+                                readOnly
+                                className="input-address-postcode"
+                            />
+                        </div>
                         <div className="address-group">
                             <input
                                 type="text"

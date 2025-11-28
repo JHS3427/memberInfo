@@ -84,6 +84,7 @@ export function TravelFoodList({ handleListDetail, selectedRegion }) {
                 {filteredList && filteredList.length > 0 ? (
                   filteredList.map((travelFood, idx) => (
                     <TravelFood
+                      idx={idx+1}
                       fid={travelFood.fid}
                       fname={travelFood.fname}
                       flike={travelFood.flike}

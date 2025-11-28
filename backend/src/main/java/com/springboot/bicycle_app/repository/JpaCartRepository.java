@@ -2,6 +2,7 @@ package com.springboot.bicycle_app.repository;
 
 import com.springboot.bicycle_app.dto.purchase.CartItemDto;
 import com.springboot.bicycle_app.entity.purchase.CartItem;
+import com.springboot.bicycle_app.entity.userinfo.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -43,5 +44,5 @@ public interface JpaCartRepository extends JpaRepository<CartItem, Long> {
     @Query("SELECT c FROM CartItem c WHERE c.user.uid = :unum AND c.product.product_id = :productId")
     Optional<CartItem> findByUidAndProductId(@Param("unum") String uid, @Param("productId") long productId);
 
-
+    void deleteByUser(UserInfo user);
 }

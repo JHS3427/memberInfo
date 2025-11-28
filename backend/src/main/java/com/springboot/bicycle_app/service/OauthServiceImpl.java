@@ -7,6 +7,8 @@ import com.google.gson.JsonPrimitive;
 import com.springboot.bicycle_app.dto.Token;
 import com.springboot.bicycle_app.entity.userinfo.UserInfo;
 import com.springboot.bicycle_app.dto.UserInfoDto;
+import com.springboot.bicycle_app.entity.userinfo.UserInfoAuthSearch;
+import com.springboot.bicycle_app.repository.JpaUserInfoAuthSearchRepository;
 import com.springboot.bicycle_app.repository.UserInfoRepository;
 import com.springboot.bicycle_app.repository.JpaUserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,16 @@ public class OauthServiceImpl implements OauthService{
     private final UserInfoRepository userInfoRepository;
     private final JpaUserInfoRepository jpaUserInfoRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final JpaUserInfoAuthSearchRepository jpaUserInfoAuthSearchRepository;
     @Autowired
     public OauthServiceImpl(UserInfoRepository userInfoRepository,
                             JpaUserInfoRepository jpaUserInfoRepository,
-                            PasswordEncoder passwordEncoder){
+                            PasswordEncoder passwordEncoder,
+                            JpaUserInfoAuthSearchRepository jpaUserInfoAuthSearchRepository){
         this.userInfoRepository = userInfoRepository;
         this.jpaUserInfoRepository = jpaUserInfoRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jpaUserInfoAuthSearchRepository = jpaUserInfoAuthSearchRepository;
     }
 
     @Override
@@ -337,6 +341,37 @@ public class OauthServiceImpl implements OauthService{
 
         }
         result = userInfoData.isPresent();
+        return result;
+    }
+    @Override
+    public String compareauthcode(UserInfoDto userInfoDto)
+    {
+        String result="";
+        //auth코드 확인 후 데이터 가져오고 받은 데이터의 uid 여부 확인해서 ID/PW 갈라야함
+        //auth코드 확인했으면 지워버리기
+        Optional<UserInfoAuthSearch> userInfoAuthSearch;
+        userInfoAuthSearch = jpaUserInfoAuthSearchRepository.findByAuthcode(userInfoDto.getAuthCodeIdPw());
+        if(userInfoAuthSearch.isPresent()) {
+            Optional<UserInfo> userInfoData = null;
+            userInfoData = jpaUserInfoRepository
+                    .findByUemailAndUname(userInfoAuthSearch.get().getUemail(),
+                        userInfoAuthSearch.get().getUname());
+            //나중에 활성화 시키기.
+//            jpaUserInfoAuthSearchRepository.deleteByAuthcode(userInfoDto.getAuthCodeIdPw());
+            if(userInfoDto.getUid()==null)
+            {
+                result = userInfoData.get().getUid();
+            }
+            else
+            {
+                result = "PW";
+            }
+        }
+        else{
+            System.out.println("no auth");
+        }
+        //pw는 auth코드 확인후에 일반 문자열 리턴?
+
         return result;
     }
 }

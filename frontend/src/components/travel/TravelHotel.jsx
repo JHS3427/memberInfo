@@ -1,4 +1,6 @@
-export function TravelHotel({hid,
+export function TravelHotel({
+                            idx,
+                            hid,
                             hname,
                             hlike,
                             score,
@@ -17,7 +19,7 @@ export function TravelHotel({hid,
         <div className='food-list-item' onClick={() => {handleDetail(type, hid)}}>
           <ul className="food-title-box">
             <li className="food-title">
-              <span className="food-title-fid">{hid}. </span>
+              <span className="food-title-fid">{idx}. </span>
               <span className="food-title-fname">{hname}</span>
             </li>
             <li>
