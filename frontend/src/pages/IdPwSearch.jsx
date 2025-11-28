@@ -55,6 +55,7 @@ export function IdPwSearch(){
   const sendingAuth = async() =>{
     setFinalData(await sendingAuthCode(searchUserinfo))
     console.log("finaldata : " + finalData )
+    //시간초를 설정하고, 시간초 지나서 입력이 들어오거나 맞으면 아래 실행해서 틀렸는지 맞았는지 알려주기?
     setInputLevel(prev=>({...prev,["searchingInfo"]:null}))
     setInputLevel(prev=>({...prev,["authcodeInput"]:null}))
     setInputLevel(prev=>({...prev,["showOrChange"]:true}))
