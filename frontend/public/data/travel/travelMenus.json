@@ -16,11 +16,5 @@
     "type": "repair",
     "name": "수리",
     "icon": "fa-solid fa-screwdriver-wrench"
-  },
-  {
-    "mid" : "4",
-    "type": "store",
-    "name": "편의점",
-    "icon": "fa-solid fa-store"
   }
 ]

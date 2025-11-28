@@ -17,7 +17,6 @@ export function Travel() {
     const [showFoods, setShowFoods] = useState(false);
     const [showHotels, setShowHotels] = useState(false);
     const [showRepairs, setShowRepairs] = useState(false);
-//     const [showStores, setShowStores] = useState(false);
     const [selectedDid, setSelectedDid] = useState(null); // 클릭된 did 저장
     const [selectedType, setSelectedType] = useState(null); // 클릭된 type 저장
     const [selectedRegion, setSelectedRegion] = useState(null);
@@ -41,14 +40,12 @@ export function Travel() {
           setShowFoods(true);
           setShowHotels(false);
           setShowRepairs(false);
-//           setShowStores(false);
           setSelectedType(type);
           travel_left_detail.style.left = "0";
         }else if(type === "hotel"){
           setShowFoods(false);
           setShowHotels(true);
           setShowRepairs(false);
-//           setShowStores(false);
           setSelectedType(type);
           travel_left_detail.style.left = "0";
         }
@@ -56,18 +53,9 @@ export function Travel() {
           setShowFoods(false);
           setShowHotels(false);
           setShowRepairs(true);
-//           setShowStores(false);
           setSelectedType(type);
           travel_left_detail.style.left = "0";
         }
-//         else if(type === "store"){
-//           setShowFoods(false);
-//           setShowHotels(false);
-//           setShowRepairs(false);
-//           setShowStores(true);
-//           setSelectedType(type);
-//           travel_left_detail.style.left = "-40rem";
-//         }
 
     }
 

@@ -6,7 +6,7 @@ export function Products() {
     const { category } = useParams();
 
     return (
-        <div className='content'>
+        <div className='content' style={{paddingTop:'35px'}}>
             <div style={{marginTop:'20px'}}>
                 <h2 className='all-products-title' style={{textAlign:'center'}}>{category || 'All Products'}</h2>
             </div>

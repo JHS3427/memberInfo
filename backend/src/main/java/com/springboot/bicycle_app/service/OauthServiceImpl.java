@@ -363,21 +363,25 @@ public class OauthServiceImpl implements OauthService{
         Optional<UserInfoAuthSearch> userInfoAuthSearch;
         userInfoAuthSearch = jpaUserInfoAuthSearchRepository.findByAuthcode(userInfoDto.getAuthCodeIdPw());
         LocalDateTime timer;
-        timer = userInfoAuthSearch.get().getDeadtime();
-        if(userInfoAuthSearch.isPresent() && timer.isAfter(LocalDateTime.now())) {
-            Optional<UserInfo> userInfoData = null;
-            userInfoData = jpaUserInfoRepository
-                    .findByUemailAndUname(userInfoAuthSearch.get().getUemail(),
-                        userInfoAuthSearch.get().getUname());
-            //나중에 활성화 시키기.
-//            jpaUserInfoAuthSearchRepository.deleteByAuthcode(userInfoDto.getAuthCodeIdPw());
-            if(userInfoDto.getUid()==null)
+        
+        if(userInfoAuthSearch.isPresent()) {
+            timer = userInfoAuthSearch.get().getDeadtime();
+            if(timer.isAfter(LocalDateTime.now()))
             {
-                result = userInfoData.get().getUid();
-            }
-            else
-            {
-                result = "PW";
+                Optional<UserInfo> userInfoData = null;
+                userInfoData = jpaUserInfoRepository
+                        .findByUemailAndUname(userInfoAuthSearch.get().getUemail(),
+                            userInfoAuthSearch.get().getUname());
+                //나중에 활성화 시키기. ->재시도하게 하려면 비활성화, 재시도 없으면 활성화
+    //            jpaUserInfoAuthSearchRepository.deleteByAuthcode(userInfoDto.getAuthCodeIdPw());
+                if(userInfoDto.getUid()==null)
+                {
+                    result = userInfoData.get().getUid();
+                }
+                else
+                {
+                    result = "PW";
+                }
             }
         }
         else{

@@ -3,8 +3,6 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     travelFoodList: [], //원본 - 1차원 배열
     travelFood: {}, //객체 하나
-//    travelFoodDetailList: [],
-//    travelFoodDetail: {},
 }
 
 export const travelFoodSlice = createSlice({
@@ -17,13 +15,6 @@ export const travelFoodSlice = createSlice({
         state.travelFoodList = travelFoodList;
         state.travelFood = travelFood;
     },
-
-//    createFoodDetail(state, action){
-//        const { travelFoodDetailList, travelFoodDetail } = action.payload;
-//
-//        state.travelFoodDetailList = travelFoodDetailList;
-//        state.travelFoodDetail = travelFoodDetail;
-//    }
   },
 })
 

@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface JpaOrderServiceRepository extends JpaRepository<Order, Long> {
     Optional<Order> findByOrderId(String orderId);
-    List<Order> findByUserUid(String userId);
+    List<Order> findByUserUidOrderByOdateDesc(String userId);
 }

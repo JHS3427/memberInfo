@@ -96,7 +96,7 @@ public class OrderServiceImpl implements OrderService {
     }
     @Override
     public List<OrderResponseDto> findList(OrderRequestDto dto){
-        List<Order> orders = jpaOrderServiceRepository.findByUserUid(dto.getUserId());
+        List<Order> orders = jpaOrderServiceRepository.findByUserUidOrderByOdateDesc(dto.getUserId());
         List<OrderResponseDto> orderList = new ArrayList<>();
         for(Order order : orders) {
             orderList.add(new OrderResponseDto(order));

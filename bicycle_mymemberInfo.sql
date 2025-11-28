@@ -700,6 +700,9 @@ UPDATE userinfo SET uid = "test111" where uid="test112";
 ALTER TABLE userinfo ADD COLUMN postcode varchar(100) DEFAULT "00000" AFTER uaddress;
 
 
+/***********************************************************
+		251127 - 아이디 검색 및 비밀번호 변경 - 확인용 인증 코드 및 유효시간 받는 용도의 테이블 추가
+***********************************************************/
 
 create table userinfoauthsearch(
     authcode varchar(100) primary key,
@@ -713,11 +716,13 @@ select * from userinfoauthsearch;
 drop table userinfoauthsearch;
 
 
+
 /***************************************************
 		대여 자전거 : rental_history 테이블 (시작)
 ****************************************************/
-
+use bicycle;
 drop table rental_history;
+select * from rental_history;
 
 create table rental_history(
 	bid bigint auto_increment primary key,
@@ -728,10 +733,27 @@ create table rental_history(
     method VARCHAR(50) NOT NULL,
     start_time DATETIME NOT NULL,
     end_time DATETIME NULL,
-    FOREIGN KEY (user_id) REFERENCES userinfo(uid) on update cascade
+    FOREIGN KEY (user_id) REFERENCES userinfo(uid)
 );
-select * from rental_history;
-desc rental_history;
+ALTER TABLE rental_history ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT '대기';
+
+drop table kakaopay_history;
+select * from kakaopay_history;
+CREATE TABLE kakaopay_history (
+    id				  BIGINT	   AUTO_INCREMENT PRIMARY KEY,
+    tid				  VARCHAR(50)  NOT NULL UNIQUE, 
+    partner_order_id  BIGINT       NOT NULL UNIQUE, 
+    partner_user_id   VARCHAR(100) NOT NULL, 
+    amount            BIGINT       NOT NULL, 
+    status            VARCHAR(20)  NOT NULL, 
+    created_at        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+    updated_at        DATETIME     NULL, 
+    FOREIGN KEY (partner_user_id) REFERENCES userinfo(uid)
+);
+
+/***************************************************
+		대여 자전거 : rental_history 테이블 (끝)
+****************************************************/
 
 /******************************************************
 	251124 - 조 해성 -- 개인정보 수정을 위해 ID와 FK로 연결된 컬럼에 on Update Cascade 부여
@@ -774,8 +796,6 @@ value ("1","$2a$10$FWC6QTGIGaCgx5tlrhvocOrAQdP0o8bcVE28UwG7qXNiKVN8FcyNy","1","1
 -- 1. 기존 테이블이 있다면 제거 (안전용)
 -- DROP TABLE IF EXISTS board_post;
 -- DROP TABLE IF EXISTS board_category;
-
-
 
 -- 2. 게시판 종류 테이블
 CREATE TABLE board_category (
@@ -980,8 +1000,13 @@ create table orders(
     foreign key(uid) references userinfo(uid)
 );
 desc orders;
-drop table orders;
 select * from orders;
+desc userinfo;
+/******************************************************
+	251127 -- 주문내역에 우편번호 주소 추가
+******************************************************/
+ALTER TABLE orders ADD COLUMN uaddress varchar(100) AFTER payment_key;
+ALTER TABLE orders ADD COLUMN postcode varchar(100) AFTER uaddress;
 /******************************************************
 	251124 - 조 해성 -- 개인정보 수정을 위해 ID와 FK로 연결된 컬럼에 on Update Cascade 부여
 ******************************************************/
@@ -1012,3 +1037,4 @@ create table orders_items(
     foreign key(product_id) references product(product_id)
 );
 desc orders_items;
+select * from orders_items;

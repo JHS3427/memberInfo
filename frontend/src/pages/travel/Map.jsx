@@ -7,7 +7,6 @@ function Map({ handleMenuClick, handleMapGoBack, handleListDetail, type, selecte
   const travelFoodList = useSelector((state) => state.travelFood.travelFoodList);
   const travelHotelList = useSelector((state) => state.travelHotel.travelHotelList);
   const travelRepairList = useSelector((state) => state.travelRepair.travelRepairList);
-//   const travelStoreList = useSelector((state) => state.travelStore.travelStoreList);
 
   const [number, setNumber] = useState(3);
   const mapRef = useRef(null); // 지도 객체 저장용
@@ -250,7 +249,7 @@ const routeLineRef = useRef(null);
                     activeOverlay = customOverlay;
 
                     const currentLevel = map.getLevel();
-                    map.setLevel(Math.max(currentLevel - 7, 5));
+                    map.setLevel(Math.max(currentLevel - 7, 7));
 
                     // 마커 중심으로 이동
                     const moveLatLon = new window.kakao.maps.LatLng(
@@ -286,8 +285,6 @@ const routeLineRef = useRef(null);
       food: travelFoodList,
       hotel: travelHotelList,
       repair: travelRepairList
-//       ,
-//       store: travelStoreList    // ⭐ 새로운 타입 추가
     };
 
     // 선택할 리스트
@@ -312,11 +309,6 @@ const routeLineRef = useRef(null);
         routeLineRef.current = null;
       }
 
-      const currentLevel = map.getLevel();
-      if (currentLevel > 5) {
-          map.setLevel(Math.max(currentLevel - 1, 5));
-      }
-
       // 현재 접속한 도메인 가져오기
       const host = window.location.hostname;
 
@@ -339,10 +331,6 @@ const routeLineRef = useRef(null);
         orangeMarkerSrc = `${BASE_URL}/images/travel_markers/marker_repair.png`;
         selectMarkerSrc = `${BASE_URL}/images/travel_markers/marker_repair_select.png`;
       }
-//       else { // store
-//           orangeMarkerSrc = `${BASE_URL}/images/travel_markers/marker_store.png`;
-//           selectMarkerSrc = `${BASE_URL}/images/travel_markers/marker_store_select.png`;
-//       }
 
 
       const imageSize = new window.kakao.maps.Size(20, 20);

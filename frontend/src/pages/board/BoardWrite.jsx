@@ -5,6 +5,7 @@ import { getCurrentUser, getLoginUser } from "../../feature/auth/session";
 import { getApiBase } from "../../feature/auth/getApiBase.js";
 import "../../styles/board.css";
 import "../../styles/board/board_write.css";
+import Swal from 'sweetalert2'
 
 /**
  * BoardWrite 컴포넌트
@@ -40,14 +41,22 @@ export function BoardWrite() {
 
     // 1) 로그인된 사용자 없음 → 로그인 페이지로 이동
     if (!local) {
-      alert("로그인이 필요한 서비스입니다.");
+      Swal.fire({
+                icon: "info",
+                title: "로그인 해주세요.",
+                text: "로그인이 필요한 서비스입니다.",
+            });
       navigate("/login");
       return;
     }
 
     // 2) URL 직접 접근 차단
     if (!location.state?.fromBoard) {
-      alert("잘못된 접근입니다.");
+      Swal.fire({
+                icon: "warning",
+                title: "접근 제한!",
+                text: "잘못된 접근입니다.",
+      });
       navigate("/board/news");
       return;
     }
@@ -55,7 +64,11 @@ export function BoardWrite() {
     // 3) 백엔드 세션 상태 확인
     getCurrentUser().then((sessionUser) => {
       if (!sessionUser?.isLogin) {
-        alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+        Swal.fire({
+                icon: "warning",
+                title: "세션 만료",
+                text: "세션이 만료되었습니다. 다시 로그인해주세요.",
+        });
         navigate("/login");
         return;
       }
@@ -131,7 +144,11 @@ export function BoardWrite() {
       }));
     } catch (error) {
       console.error("이미지 업로드 실패:", error);
-      alert("이미지 업로드 중 오류가 발생했습니다.");
+      Swal.fire({
+                icon: "error",
+                title: "오류!",
+                text: "이미지 업로드 중 오류가 발생했습니다.",
+      });
     }
   };
 
@@ -186,8 +203,12 @@ export function BoardWrite() {
             withCredentials: true,
           }
         );
-
-        alert("수정되었습니다.");
+        
+        Swal.fire({
+                icon: "success",
+                title: "게시글 수정",
+                text: "수정되었습니다.",
+        });
         navigate(`/board/detail/${pid}`);
 
       } else {
@@ -206,13 +227,21 @@ export function BoardWrite() {
           }
         );
 
-        alert("게시글이 등록되었습니다.");
+        Swal.fire({
+                icon: "success",
+                title: "게시글 등록",
+                text: "게시글이 등록되었습니다.",
+        });
         navigate(`/board/${form.categoryTag}`);
       }
 
     } catch (err) {
       console.error(err);
-      alert("처리 중 오류가 발생했습니다.");
+      Swal.fire({
+                icon: "error",
+                title: "오류!",
+                text: "처리 중 오류가 발생했습니다.",
+      });
     }
   };
 

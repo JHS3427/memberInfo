@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 export function TravelFoodDetail({did,
                                   uid,
@@ -109,7 +110,11 @@ export function TravelFoodDetail({did,
       const limitedFiles = files.slice(0, availableSlots);
 
       if (limitedFiles.length === 0) {
-          alert("이미지는 최대 3개까지 업로드 가능합니다.");
+          Swal.fire({
+              icon: "info",
+              title: "이미지 제한",
+              text: "이미지는 최대 3개까지 업로드 가능합니다.",
+          });
           return;
       }
 
@@ -134,17 +139,26 @@ export function TravelFoodDetail({did,
 
   const handleSubmitReview = () => {
       if (reviewStar === 0) {
-          alert("별점을 선택해주세요.");
+          Swal.fire({
+              icon: "info",
+              title: "별점 선택",
+              text: "별점을 선택해주세요.",
+          });
           return;
       }
       if (reviewText.trim() === "") {
-          alert("리뷰 내용을 입력해주세요.");
+          Swal.fire({
+              icon: "info",
+              title: "리뷰 작성",
+              text: "리뷰 내용을 입력해주세요.",
+          });
           return;
       }
 
       const reviewData = {
           fid: did,
           uid: uid,           // 로그인한 유저 아이디
+          userImage: "/images/travel_review/godosic/godosic_review_1.jpg",
           star: reviewStar,
           content: reviewText,
           imageList: JSON.stringify(reviewImages)  // base64 또는 파일 그대로 서버 전송 가능
@@ -157,16 +171,6 @@ export function TravelFoodDetail({did,
       setReviewText("");
       setReviewImages([]);
   };
-
-//   const handleEditReview = (reviewDetail) => {
-//       // 수정할 리뷰의 내용, 별점, 이미지 등을 상태에 세팅
-//       setReviewStar(reviewDetail.star);
-//       setReviewText(reviewDetail.content);
-//       setReviewImages(JSON.parse(reviewDetail.imageList));
-//
-//       // 필요하면 수정 모드 플래그
-//       setEditingReviewId(reviewDetail.rid); // rid: 리뷰 고유 ID
-//   };
 
   return(
       <>
@@ -500,13 +504,6 @@ export function TravelFoodDetail({did,
                               <span className="detail-review-user-stats">
                                   평가 {reviewDetail.userTotalReview} 팔로워 {reviewDetail.userFllowers}
                               </span>
-
-{/*                               <button */}
-{/*                                   className="detail-review-edit-button" */}
-{/*                                   onClick={() => handleEditReview(reviewDetail)} */}
-{/*                               > */}
-{/*                                   수정 */}
-{/*                               </button> */}
                           </li>
                       </li>
                       <li className="detail-review-image-box">
@@ -545,7 +542,7 @@ export function TravelFoodDetail({did,
                     <span> {reviewStar}.0 / 5.0</span>
                   </li>
 
-                  {/* 📷 이미지 업로드 */}
+                  {/* 이미지 업로드 */}
                   <li>
                     {/* 숨겨진 파일 input */}
                     <input
@@ -570,7 +567,7 @@ export function TravelFoodDetail({did,
                   </li>
               </div>
 
-              {/* ✏ 리뷰 텍스트 입력 */}
+              {/* 리뷰 텍스트 입력 */}
               <li>
                   <textarea
                       className="detail-review-textarea"

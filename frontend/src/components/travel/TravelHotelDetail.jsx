@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 export function TravelHotelDetail({did,
                                    uid,
@@ -109,7 +110,11 @@ export function TravelHotelDetail({did,
       const limitedFiles = files.slice(0, availableSlots);
 
       if (limitedFiles.length === 0) {
-          alert("이미지는 최대 3개까지 업로드 가능합니다.");
+          Swal.fire({
+              icon: "info",
+              title: "이미지 제한",
+              text: "이미지는 최대 3개까지 업로드 가능합니다.",
+          });
           return;
       }
 
@@ -134,11 +139,19 @@ export function TravelHotelDetail({did,
 
   const handleSubmitReview = () => {
       if (reviewStar === 0) {
-          alert("별점을 선택해주세요.");
+          Swal.fire({
+              icon: "info",
+              title: "별점 선택",
+              text: "별점을 선택해주세요.",
+          });
           return;
       }
       if (reviewText.trim() === "") {
-          alert("리뷰 내용을 입력해주세요.");
+          Swal.fire({
+              icon: "info",
+              title: "리뷰 작성",
+              text: "리뷰 내용을 입력해주세요.",
+          });
           return;
       }
 
@@ -510,7 +523,7 @@ export function TravelHotelDetail({did,
           <ul className="detail-review-write">
               <li className="detail-review-write-title">리뷰 작성</li>
               <div className="detail-review-star-image-box">
-                  {/* ⭐ 별점 선택(이미지/아이콘 클릭) */}
+                  {/* 별점 선택(이미지/아이콘 클릭) */}
                   <li className="detail-review-write-stars">
                     {[1,2,3,4,5].map((starValue) => (
                       <i
@@ -527,7 +540,7 @@ export function TravelHotelDetail({did,
                     <span> {reviewStar}.0 / 5.0</span>
                   </li>
 
-                  {/* 📷 이미지 업로드 */}
+                  {/* 이미지 업로드 */}
                   <li>
                     {/* 숨겨진 파일 input */}
                     <input
@@ -552,7 +565,7 @@ export function TravelHotelDetail({did,
                   </li>
               </div>
 
-              {/* ✏ 리뷰 텍스트 입력 */}
+              {/* 리뷰 텍스트 입력 */}
               <li>
                   <textarea
                       className="detail-review-textarea"

@@ -51,6 +51,7 @@
 
 .sideBarList a{
     text-decoration-line: none;
+    color: inherit;
 }
 .sideBarList a:visited{
     color: inherit;

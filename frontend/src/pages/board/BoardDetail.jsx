@@ -5,6 +5,7 @@ import { getCurrentUser, isAdmin, isOwner, getCsrfToken } from "../../feature/au
 import { getApiBase } from "../../feature/auth/getApiBase.js";
 import "../../styles/board.css";
 import "../../styles/board/board_detail.css";
+import Swal from 'sweetalert2'
 
 /**
  * BoardDetail
@@ -66,14 +67,22 @@ export function BoardDetail() {
         withCredentials: true, // 세션 쿠키 포함
       });
 
-      alert("삭제되었습니다.");
+      Swal.fire({
+                icon: "success",
+                title: "게시글 삭제",
+                text: "삭제되었습니다.",
+      });
 
       // 원래 게시판 탭으로 이동
       const backTab = post?.categoryTag || "news";
       navigate(`/board/${backTab}`);
     } catch (e) {
       console.error(e);
-      alert("삭제 중 오류가 발생했습니다.");
+      Swal.fire({
+                icon: "error",
+                title: "오류!",
+                text: "삭제 중 오류가 발생했습니다.",
+      });
     }
   };
 

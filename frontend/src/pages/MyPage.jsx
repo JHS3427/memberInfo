@@ -252,7 +252,11 @@ export function MyPage(){
                                 자전거 장바구니
                             </li>
                         </Link>
-                        <li>대여 상태 및 기록</li>
+                        <Link to={`/payment/order`}>
+                            <li>
+                                자전거 구매내역
+                            </li>
+                        </Link>
                         <li>여행지 찜목록</li>
                     </ul>
                 </div>

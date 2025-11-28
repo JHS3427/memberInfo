@@ -26,7 +26,7 @@ export function CheckoutPayment({ totalPrice, cartList }) {
                     value: totalPrice,
                 });
 
-                if (isCancelled) return; // await 후에도 체크
+                if (isCancelled) return; 
 
                 widgetRef.current = widgets;
 

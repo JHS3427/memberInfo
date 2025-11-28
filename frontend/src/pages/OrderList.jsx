@@ -1,23 +1,65 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {findOrderList} from "../feature/payment/PaymentAPI.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { findOrderList } from "../feature/payment/PaymentAPI.js";
+import "../styles/orderList.css";
+import Swal from "sweetalert2";
+import {useNavigate} from "react-router-dom";
 
-export function OrderList(){
+export function OrderList() {
     const dispatch = useDispatch();
-    const orderList = useSelector((state)=>state.payment.orderList);
+    const navigate = useNavigate();
+    const orderList = useSelector((state) => state.payment.orderList);
+    const isLogin = useSelector((state) => state.auth.isLogin);
+
     useEffect(() => {
+        if (!isLogin) {
+            Swal.fire({
+                icon: "warning",
+                title: "로그인 필요",
+                text: "로그인이 필요합니다.",
+            });
+            navigate("/login");
+        }
         dispatch(findOrderList());
     }, [dispatch]);
-    console.log(orderList);
-    return(
-        <div>
-            <h2>주문내역</h2>
-            {orderList && orderList.map(item=>
-                <div>
-                    <p>주문번호: {item.orderId}</p>
-                    <p>주문상품: {item.orderName}</p>
-                    <p>결제금액: {item.totalPrice ? item.totalPrice.toLocaleString() : 0}원</p>
-                    <p>주문날짜: {item.odate}</p>
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        return `${date.getFullYear()}. ${String(date.getMonth() + 1).padStart(2, '0')}. ${String(date.getDate()).padStart(2, '0')}`;
+    };
+
+    return (
+        <div className="order-container">
+            <h2 className="page-title">주문 내역</h2>
+
+            {(!orderList || orderList.length === 0) ? (
+                <div className="empty-list">
+                    <p>아직 주문한 내역이 없습니다.</p>
+                </div>
+            ) : (
+                <div className="order-list-wrapper">
+                    {orderList.map((item) => (
+                        <div key={item.orderId} className="order-card">
+                            <div className="card-header">
+                                <span className="order-date">{formatDate(item.odate)} 주문</span>
+                                <span className="order-id">NO. {item.orderId}</span>
+                            </div>
+
+                            {/* 카드 바디: 상품명과 가격 */}
+                            <div className="card-body">
+                                <div className="product-info">
+                                    <h3>{item.orderName}</h3>
+                                </div>
+                                <div className="price-info">
+                                    <span className="price-label">결제금액</span>
+                                    <span className="total-price">
+                                        {item.totalPrice ? item.totalPrice.toLocaleString() : 0}원
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>

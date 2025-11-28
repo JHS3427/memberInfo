@@ -4,6 +4,7 @@ import { TravelHotelDetail } from "./TravelHotelDetail.jsx";
 
 import { getTravelHotelDetailList, getTravelHotelReviewList, insertTravelHotelReviewList } from '../../feature/travel/travelHotelAPI.js';
 import { getTravelSaveList, updateTravelSaveList } from '../../feature/travel/travelSaveAPI.js';
+import Swal from 'sweetalert2';
 
 export function TravelHotelDetailList({ selectedDid }) {
     const [travelHotelDetailList, setTravelHotelDetailList] = useState([]);
@@ -55,7 +56,11 @@ export function TravelHotelDetailList({ selectedDid }) {
 
     const handleLikeUpdate = async (uid, newHid) => {
         if (!uid) {
-            alert("로그인이 필요합니다!");
+           Swal.fire({
+               icon: "info",
+               title: "회원 제한",
+               text: "로그인이 필요합니다!",
+           });
             return;
         }
 
@@ -66,13 +71,21 @@ export function TravelHotelDetailList({ selectedDid }) {
 
     const handleReviewUpload = async (reviewData) => {
         if (!uid) {
-            alert("로그인이 필요합니다!");
+            Swal.fire({
+                icon: "info",
+                title: "회원 제한",
+                text: "로그인이 필요합니다!",
+            });
             return;
         }
 
         const result = await insertTravelHotelReviewList(reviewData);
         if (result) {
-            alert("리뷰등록 성공하였습니다.");
+            Swal.fire({
+                icon: "success",
+                title: "등록 성공",
+                text: "리뷰등록 성공하였습니다.",
+            });
             await reFetchReviewData();
         }
     }

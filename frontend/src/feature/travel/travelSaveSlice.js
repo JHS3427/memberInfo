@@ -3,8 +3,6 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     travelSaveList: [], //원본 - 1차원 배열
     travelSave: {}, //객체 하나
-//    travelFoodDetailList: [],
-//    travelFoodDetail: {},
 }
 
 export const travelSaveSlice = createSlice({
