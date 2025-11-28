@@ -188,9 +188,13 @@ export const randomString8to16 = () =>{
 export const updateUser = async (newUserData) =>{
     
     const url = "/auth/updateUser";
-    newUserData["postcode"]=newUserData["uaddress_main"].split(" *** ")[1]
-    newUserData["uaddress_main"]=newUserData["uaddress_main"].split(" *** ")[0]
-    newUserData["uaddress"] = newUserData.uaddress_main + " " + newUserData.uaddress_sub;
+    console.log(newUserData)
+    if(newUserData["uaddress_main"]!="" && newUserData["uaddress_main"]!=null)
+    {
+        newUserData["postcode"]=newUserData["uaddress_main"].split(" *** ")[1]
+        newUserData["uaddress_main"]=newUserData["uaddress_main"].split(" *** ")[0]
+        newUserData["uaddress"] = newUserData.uaddress_main + " " + newUserData.uaddress_sub;
+    }
     console.log("update newUserData:>>>>>",newUserData);    
     for( const [key, value] of Object.entries(newUserData))
         {
@@ -199,6 +203,9 @@ export const updateUser = async (newUserData) =>{
                 newUserData[key]=null;
             }
         }
+    console.log("newUserDatanewUserDatanewUserDatanewUserData")
+    
+    console.log(newUserData)
     const signUpResult = await axiosPost(url,newUserData)
     if(signUpResult){
         console.log("newUserData.includedId >>>>",newUserData.uid)
@@ -220,10 +227,10 @@ export const IdDrop = async(dropUserData)=>{
 export const SearchingUserInfo = async(searchUserInfo) =>{
     console.log("SearchingUserInfo : >>", searchUserInfo);
     const url = "/auth/searchuserinfo";
-    // const result = await axiosPost(url,searchUserInfo);
+    const result = await axiosPost(url,searchUserInfo);
     
-    return true;
-    // return result;   
+    // return true;
+    return result;   
 }
 
 export const sendingAuthCode = async(searchUserInfo)=>{

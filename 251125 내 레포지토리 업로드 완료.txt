@@ -1,0 +1,9 @@
+backend/src/main/java/com/springboot/bicycle_app/controller/OauthController.java
+        modified:   backend/src/main/java/com/springboot/bicycle_app/repository/JpaUserInfoAuthSearchRepository.java
+ modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthService.java
+        modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthServiceImpl.java
+	mailsenderRunner
+
+frontend/src/components/auth/AuthInput.jsx
+        modified:   frontend/src/pages/IdPwSearch.jsx
+        modified:   frontend/src/feature/auth/authAPI.js

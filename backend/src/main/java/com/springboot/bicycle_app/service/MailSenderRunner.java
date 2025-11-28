@@ -77,7 +77,7 @@ public class MailSenderRunner { // ApplicationRunner 구현 제거
         jpaUserInfoAuthSearchRepository.save(authData);
 
         //송신
-//        mailSender.send(m);
+        mailSender.send(m);
         System.out.println("메일 전송 완료!");
     }
 }

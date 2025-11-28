@@ -775,6 +775,8 @@ value ("1","$2a$10$FWC6QTGIGaCgx5tlrhvocOrAQdP0o8bcVE28UwG7qXNiKVN8FcyNy","1","1
 -- DROP TABLE IF EXISTS board_post;
 -- DROP TABLE IF EXISTS board_category;
 
+
+
 -- 2. 게시판 종류 테이블
 CREATE TABLE board_category (
   bid INT AUTO_INCREMENT PRIMARY KEY,

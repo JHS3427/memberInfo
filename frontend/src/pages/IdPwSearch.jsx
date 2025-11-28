@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { AuthInputBox , AuthInputButton} from "../components/auth/AuthInput";
 import '../styles/IdPwSearch.css';
-import { SearchingUserInfo , sendingAuthCode} from "../feature/auth/authAPI";
+import { SearchingUserInfo , sendingAuthCode, updateUser} from "../feature/auth/authAPI";
 
 export function IdPwSearch(){
 
@@ -73,6 +73,23 @@ export function IdPwSearch(){
     else if(searchUserinfo.selectedTap === "Auth")
     {
         sendingAuth();
+        setSearchUserinfo(prev=>({...prev,["selectedTap"]:null}))//여러번 누를수도 있으니까 초기화
+    }
+    else if(searchUserinfo.selectedTap === "passCheck")
+    {
+        console.log("aaaaaaaaaaa")
+        console.log(searchUserinfo)
+        if(searchUserinfo.upass!=searchUserinfo.upassCheck)
+        {
+            console.log("주거잇")
+            setSearchUserinfo(prev=>({...prev,["upass"]:null}))
+            setSearchUserinfo(prev=>({...prev,["upassCheck"]:null}))
+        }
+        else
+        {
+            console.log("살아잇")
+            updateUser(searchUserinfo);
+        }
         setSearchUserinfo(prev=>({...prev,["selectedTap"]:null}))//여러번 누를수도 있으니까 초기화
     }
     else
@@ -148,9 +165,12 @@ export function IdPwSearch(){
                         <li>비밀번호 :&nbsp;<AuthInputBox boxType="upass" handleInfo = {handleInfo} value={searchUserinfo.upass||''}/></li>
                         <li>비밀번호 확인 :&nbsp;<AuthInputBox boxType="upassCheck" handleInfo = {handleInfo} value={searchUserinfo.upassCheck||''}/></li>
                     </ul>
-                    <button onClick={oncl}>aaaaaa</button>
+                    <AuthInputButton buttonType = "passCheck" Clicker={handleselectedTap}/>
+                    {/* <button buttonType = "" onClick={oncl}>aaaaaa</button> */}
                     {/* 비밀번호 확인버튼 , 비밀번호 전송버튼 만들기 */}
                 </>:
+                finalData==="wrong or late"?
+                <h1>인증코드가 틀렸거나 인증시간을 초과하였습니다. <br/> 처음부터 다시 시도해주세요.</h1>:
                 <h1>아이디 : {finalData}</h1>)
             :<></>}
         </div>
