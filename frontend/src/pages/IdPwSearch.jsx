@@ -1,8 +1,16 @@
-import { useLocation } from "react-router-dom"
+
+import Swal from 'sweetalert2';
+import { useLocation,useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
-import { AuthInputBox , AuthInputButton} from "../components/auth/AuthInput";
+import {IdPwSearch_selectTab } from "../components/auth/IdPwSearch/IdPwSearch_selectTab"
 import '../styles/IdPwSearch.css';
 import { SearchingUserInfo , sendingAuthCode, updateUser} from "../feature/auth/authAPI";
+import { IdPwSearch_findId } from "../components/auth/IdPwSearch/IdPwSearch_findId";
+import { IdPwSearch_AuthcodeInput } from "../components/auth/IdPwSearch/IdPwSearch_AuthcodeInput";
+import { IdPwSearch_passChange } from "../components/auth/IdPwSearch/IdPwSearch_passChange";
+
+
+
 
 export function IdPwSearch(){
 
@@ -15,6 +23,7 @@ export function IdPwSearch(){
   const [searchUserinfo,setSearchUserinfo] = useState(searchUserinfoInit);
   const [inputLevel,setInputLevel] = useState({"searchingInfo":true,"authcodeInput":null,"showOrChange":null})
   const [finalData,setFinalData] = useState(null)
+  const navigate = useNavigate();
 
   const pageTypeChange = (newPageType) => {
     setPageType(newPageType);
@@ -43,11 +52,12 @@ export function IdPwSearch(){
             //여기에 백에서 메일 쏘는거 입력
             console.log("sendingUserInfo : ??");
             console.log(searchUserinfo)
-            alert("메세지 보냈습니다. 확인해보세요.")
+            
+            Swal.fire({icon: 'info',text :"메일을 보냈습니다. 확인 후 입력해보세요."});
         }
     }
     else{
-        alert("없다.")
+        Swal.fire({icon: 'error',text :"해당 정보와 일치하는 계정이 없습니다. 다시 한번 입력값을 확인 후 입력하세요."});
         setSearchUserinfo(prev=>({...prev,["selectedTap"]:null}))
     }
   }
@@ -78,31 +88,29 @@ export function IdPwSearch(){
     }
     else if(searchUserinfo.selectedTap === "passCheck")
     {
-        console.log("aaaaaaaaaaa")
-        console.log(searchUserinfo)
         if(searchUserinfo.upass!=searchUserinfo.upassCheck)
         {
-            console.log("주거잇")
             setSearchUserinfo(prev=>({...prev,["upass"]:null}))
             setSearchUserinfo(prev=>({...prev,["upassCheck"]:null}))
         }
         else
         {
-            console.log("살아잇")
             updateUser(searchUserinfo);
+            Swal.fire({icon: 'info',text :"비밀번호가 변경되었습니다. 메인화면으로 돌아갑니다."});
+            navigate("/");
         }
         setSearchUserinfo(prev=>({...prev,["selectedTap"]:null}))//여러번 누를수도 있으니까 초기화
     }
-    else
-    {
-        console.log("으악 이게 뭐야")
-        console.log("searchUserinfo.selectedTap : " + searchUserinfo.selectedTap)
-    }
+    // else
+    // {
+    //     console.log("으악 이게 뭐야")
+    //     console.log("searchUserinfo.selectedTap : " + searchUserinfo.selectedTap)
+    // }
   },[searchUserinfo.selectedTap])
 
     return(
         <div className="IdPwSearchContainer"> 
-            <div>
+            {/* <div>
                 <ul className="IdPwSearchTabNav">
                     <li 
                         onClick={()=>{pageTypeChange("findId")}}
@@ -117,11 +125,13 @@ export function IdPwSearch(){
                         계정 비밀번호 변경하기
                     </li>
                 </ul>
-            </div>
+            </div> */}
+            <IdPwSearch_selectTab PTC={pageTypeChange} Ptype={pageType}/>
             {inputLevel.searchingInfo?
             <div className="IdPwSearchContent"> 
             {pageType==="findId"?
-                <div>
+                <>
+                {/* <div>
                     <h1>아이디 찾기를 위한 인증 칸</h1>
                     <ul className="IdPwSearchFormList">
                         <li>이메일 주소 :&nbsp;<AuthInputBox boxType="uemail" handleInfo = {handleInfo} value={searchUserinfo.uemail||''}/></li>
@@ -130,17 +140,25 @@ export function IdPwSearch(){
                     <div className="IdPwSearchAuthButton">
                         <AuthInputButton buttonType = "Id" Clicker={handleselectedTap}/>
                     </div>
-                </div>:
+                </div> */}
                 <div>
-                    <h1>비밀번호 변경을 위한 인증 칸</h1>
-                    <ul className="IdPwSearchFormList">                            
-                        <li>이메일 주소 :&nbsp;<AuthInputBox boxType="uemail" handleInfo = {handleInfo} value={searchUserinfo.uemail||''}/></li>
-                        <li>본인 이름 :&nbsp;<AuthInputBox boxType="uname" handleInfo = {handleInfo} value={searchUserinfo.uname||''}/></li>
-                        <li>아이디 :&nbsp;<AuthInputBox boxType="uid" handleInfo = {handleInfo} value={searchUserinfo.uid||''}/></li>
-                    </ul>
-                    <div className="IdPwSearchAuthButton">
-                        <AuthInputButton buttonType = "Pw" Clicker={handleselectedTap}/>
-                    </div>
+                    <IdPwSearch_findId buttonType={"Id"} handleInfo={handleInfo} searchUserinfo={searchUserinfo} Clicker={handleselectedTap}/>
+                </div>
+                </>
+                :
+                // <div>
+                //     <h1>비밀번호 변경을 위한 인증 칸</h1>
+                //     <ul className="IdPwSearchFormList">                            
+                //         <li>이메일 주소 :&nbsp;<AuthInputBox boxType="uemail" handleInfo = {handleInfo} value={searchUserinfo.uemail||''}/></li>
+                //         <li>본인 이름 :&nbsp;<AuthInputBox boxType="uname" handleInfo = {handleInfo} value={searchUserinfo.uname||''}/></li>
+                //         <li>아이디 :&nbsp;<AuthInputBox boxType="uid" handleInfo = {handleInfo} value={searchUserinfo.uid||''}/></li>
+                //     </ul>
+                //     <div className="IdPwSearchAuthButton">
+                //         <AuthInputButton buttonType = "Pw" Clicker={handleselectedTap}/>
+                //     </div>
+                // </div>
+                <div>
+                    <IdPwSearch_findId buttonType={"Pw"} handleInfo={handleInfo} searchUserinfo={searchUserinfo} Clicker={handleselectedTap}/>
                 </div>
             }
             </div>
@@ -148,28 +166,32 @@ export function IdPwSearch(){
             ""}
             
         {inputLevel.authcodeInput?
-            <div className="IdPwSearchContent">
-                <h1>인증 코드 입력</h1>
-                <ul className="IdPwSearchFormList">
-                    <li>인증 코드 :&nbsp;<AuthInputBox boxType="authCodeIdPw" handleInfo = {handleInfo}/></li>
-                </ul>
-                <div className="IdPwSearchAuthButton">
-                    <AuthInputButton buttonType = "Auth" Clicker={handleselectedTap}/>
-                </div>
-            </div>:
+            // <div className="IdPwSearchContent">
+            //     <h1>인증 코드 입력</h1>
+            //     <ul className="IdPwSearchFormList">
+            //         <li>인증 코드 :&nbsp;<AuthInputBox boxType="authCodeIdPw" handleInfo = {handleInfo}/></li>
+            //     </ul>
+            //     <div className="IdPwSearchAuthButton">
+            //         <AuthInputButton buttonType = "Auth" Clicker={handleselectedTap}/>
+            //     </div>
+            // </div>
+            <IdPwSearch_AuthcodeInput handleInfo={handleInfo} Clicker={handleselectedTap}/>
+            :
             ""
         }
         {inputLevel.showOrChange?
             (finalData==="PW"?
                 <>
-                    <ul className="IdPwSearchFormList">
+                    {/* <ul className="IdPwSearchFormList">
                         <li>비밀번호 :&nbsp;<AuthInputBox boxType="upass" handleInfo = {handleInfo} value={searchUserinfo.upass||''}/></li>
                         <li>비밀번호 확인 :&nbsp;<AuthInputBox boxType="upassCheck" handleInfo = {handleInfo} value={searchUserinfo.upassCheck||''}/></li>
                     </ul>
                     <AuthInputButton buttonType = "passCheck" Clicker={handleselectedTap}/>
-                    {/* <button buttonType = "" onClick={oncl}>aaaaaa</button> */}
-                    {/* 비밀번호 확인버튼 , 비밀번호 전송버튼 만들기 */}
-                </>:
+                    <button buttonType = "" onClick={oncl}>aaaaaa</button>
+                    비밀번호 확인버튼 , 비밀번호 전송버튼 만들기 */}
+                    <IdPwSearch_passChange handleInfo={handleInfo} searchUserinfo={searchUserinfo} Clicker={handleselectedTap}/>
+                </>
+                :
                 finalData==="wrong or late"?
                 <h1>인증코드가 틀렸거나 인증시간을 초과하였습니다. <br/> 처음부터 다시 시도해주세요.</h1>:
                 <h1>아이디 : {finalData}</h1>)

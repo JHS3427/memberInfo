@@ -3,6 +3,8 @@
     소셜 로그인의 경우 현재 백엔드로 가는 길을 막기 위해 무력화시켜둔 상태입니다.
     일반 로그인의 경우 아이디(test), 비밀번호(1234)를 입력하면 islogin=true로 바뀌고, 이에따라 페이지 하단이 변경됩니다. 
 */
+
+import Swal from 'sweetalert2';
 import '../styles/loginpage.css';
 import {useState,useRef,useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
@@ -36,7 +38,7 @@ export function Login() {
                     }
                     else {
                         console.log("attemptfail");
-                        alert("소셜로그인 실패. 재시도 부탁드립니다.")
+                        Swal.fire({icon: 'error',text :"소셜로그인 실패. 재시도 부탁드립니다."})
                         navigate('/login');
                     }
                 }
@@ -123,7 +125,7 @@ export function Login() {
             navigate('/');
         }
         else{
-            alert("로그인에 실패, 확인후 다시 진행해주세요.");
+            Swal.fire({icon: 'error',text : "로그인에 실패. 확인후 다시 진행해주세요."});
             setFormData({uid:"", upass:""});
             idRef.current.focus();
         }
@@ -131,13 +133,13 @@ export function Login() {
     }
     const handleLogOut= async () =>{
         if(sessionStorage.getItem("social")){
-            alert("소셜상태에서 로그아웃 하셨습니다.");
+            Swal.fire({icon: 'info',text :"소셜상태에서 로그아웃 하셨습니다."});
         }
         else{
 
         }
         dispatch(getLogout());
-        alert("로그아웃 하셨습니다.");
+        Swal.fire({icon: 'info',text :"로그아웃 하셨습니다."});
         await logout();
         sessionStorage.removeItem("social");
         navigate('/');

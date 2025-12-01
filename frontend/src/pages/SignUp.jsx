@@ -3,7 +3,7 @@
     설명 : 회원가입 페이지이지만 현재 틀만 만들어 둔 상태.
     후일 개선 사항 : 해당 내용을 작성 중 에러 처리, 저장 기능 등 기능 추가 예정.
 */
-
+import Swal from 'sweetalert2';
 import '../styles/signup.css';
 import React, {useState,useMemo, useRef} from 'react'
 import { usePostCode, idDuplCheck, sendSignUpData, randomString8to16} from '../feature/auth/authAPI';
@@ -29,18 +29,18 @@ const ConsoleBox = ({
     const refToConnect = inputRefs[`${id}Ref`];
 
   return(
-    <>
+    <div className='ConsoleBoxWrapper'> {/* <--- 이 Wrapper를 추가합니다. */}
         {/*입력 후 마우스를 다른곳으로 옮겼을 때, 빈칸이면 경고식으로 빨간색 테두리 생김*/}
       {placeholderJudge[id]==="aftertrue" && formData[id]===""?
-      <input id={id} type={type} name ={name} // id 사용이유 : 하단의 label에서 htmlfor쓰려고. name : 폼 데이터에 쓰려고. 나눠둔 이유 : 같이쓰면 헤깔려서.
+      <input id={id} type={type} name ={name} 
         ref={refToConnect}
         value = {formData[id]}
         onFocus={focusIn}
         onBlur={focusOut}
         onChange={handleChange}
-        style={{border : "2px solid red"}}
+        style={{borderBottom : "2px solid red"}} // <--- border: "2px solid red" 대신 borderBottom으로 변경
         />:
-      <input id={id} type={type} name ={name} // id 사용이유 : 하단의 label에서 htmlfor쓰려고. name : 폼 데이터에 쓰려고. 나눠둔 이유 : 같이쓰면 헤깔려서.
+      <input id={id} type={type} name ={name} 
         ref={refToConnect}
         value = {formData[id]}
         onFocus={focusIn}
@@ -64,7 +64,7 @@ const ConsoleBox = ({
                 <label id={id} className="NamePlaceholderOut">{stringPlacer[id][2]}</label>
               )
       }
-      </>
+      </div>
   );
 }
 
@@ -172,7 +172,7 @@ export const SignUp = ({excludeItems=[]}) => {
     }
     else{
       formData.id="";
-      alert("아이디 중복! 다시 입력해주세요");
+      Swal.fire({icon: 'error', text:"아이디 중복! 다시 입력해주세요"});
       inputRefs.idRef.current.focus();
     }
   }
@@ -215,11 +215,11 @@ export const SignUp = ({excludeItems=[]}) => {
     // console.log("newEmptyCheck : ",newEmptyCheck);
     //경보 메세지가 비어있지 않을 경우(필수 입력 항목이 비었거나 비밀번호가 다른 경우) 경보 메세지 출력
     if(mainAlertMessage!=""){
-      alert(mainAlertMessage);
+      Swal.fire({icon: 'error', html:mainAlertMessage.replace(/\n/g,'<br/>')});
     }
     else{
       sendSignUpData(formData);
-      alert("가입 완료. 홈페이지로 돌아갑니다")
+      Swal.fire({icon: 'info', text:"가입 완료. 홈페이지로 돌아갑니다"})
       navigate('/')
     }
   }
@@ -307,7 +307,6 @@ export const SignUp = ({excludeItems=[]}) => {
               </div>
               <div className = "EmailAddressBack">
                 {formData.emailList==="default"?<p></p>:<span>@</span>}
-
                 <select id="emailList" name="emailList" value={formData.emailList} onChange={handleChange}>
                   <option value="default">직접 입력</option>
                   <option value="naver.com">naver.com</option>

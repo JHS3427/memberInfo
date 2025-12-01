@@ -60,6 +60,13 @@
 /* ------------------------------------------- */
 /* 3. 인증/폼 영역 (.IdPwSearchContent) */
 /* ------------------------------------------- */
+.underline_inputBox{border: none;
+    border-bottom: 2px solid #333; /* 예시 */
+    outline: none;
+    background-color: transparent;
+    padding: 2px 0;
+}
+
 .IdPwSearchContent h1 {
     font-size: 1.6rem;
     color: #007bff;
@@ -113,5 +120,32 @@
 }
 
 .IdPwSearchAuthButton button:hover {
+    background-color: #1e7e34;
+}
+
+.IdPwChangeButton {
+    /* 기존 .IdPwSearchAuthButton과 동일 */
+    text-align: right; 
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef; 
+}
+
+/* 비밀번호 변경 버튼 자체의 스타일 */
+.IdPwChangeButton button {
+    /* 기존 .IdPwSearchAuthButton button과 동일한 패딩, 폰트, 디자인 */
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    color: white;
+    /* 비밀번호 변경 완료는 '성공'의 느낌으로 초록색 계열 사용 */
+    background-color: #28a745; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+
+.IdPwChangeButton button:hover {
     background-color: #1e7e34;
 }

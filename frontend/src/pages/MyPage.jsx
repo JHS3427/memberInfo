@@ -1,9 +1,9 @@
 
+import Swal from 'sweetalert2';
 import { useEffect,useState } from "react";
-import { getInfo,idDuplCheck,updateUser,IdDrop,getLogout} from '../feature/auth/authAPI';
+import { getInfo,idDuplCheck,updateUser,IdDrop,getLogout,usePostCode} from '../feature/auth/authAPI';
 import { useNavigate,Link } from 'react-router-dom';
 import '../styles/myPage.css'; // ✨ 새로운 CSS 파일 import
-import { usePostCode} from '../feature/auth/authAPI';
 import { useDispatch} from 'react-redux';
 
 export function InfoBox({info,name,handleDataChange,idDuplCheck,idChecker,updateResult}){
@@ -203,7 +203,7 @@ export function MyPage(){
     const dataFixer = async() =>{//원본데이터, 변경데이터 넘겨서 해당 내용 바꾸기
         //아이디 중복확인 후 중복 없으면 전달하기
         if(editer["uid"]===1 && !idChecker){
-            alert("아이디 중복체크 하세요")
+            Swal.fire({icon:"error", text:"아이디 중복체크 하세요"})
         }
         else
         {
@@ -221,10 +221,18 @@ export function MyPage(){
 
     const idDrop = async() =>{
         const idIncludehandleData = {...info}
+        const userResponse = window.confirm("회원 탈퇴 하시겠습니까?");
+        if(userResponse)
+        {
             console.log(idIncludehandleData);
             const result = await IdDrop(idIncludehandleData)
             dispatch(getLogout());
             navigate('/');
+        }
+        else
+        {
+            Swal.fire({icon : "info", text:"회원 탈퇴를 취소하였습니다."})
+        }
     }
 
     const IdDupleCheck = async() => {
@@ -237,7 +245,7 @@ export function MyPage(){
         }
         else{
             handleData.uid="";
-            alert("아이디 중복! 다시 입력해주세요");
+            Swal.fire({icon : "error", text:"아이디 중복! 다시 입력해주세요"});
             // inputRefs.idRef.current.focus();
         }
     }

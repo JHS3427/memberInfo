@@ -108,7 +108,7 @@ export const usePostCode= (formData,setFormData)=>{
         if (data.buildingName !== '') {
             extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
         }
-        fullAddress = fullAddress.replace(localAddress, '');
+        // fullAddress = fullAddress.replace(localAddress, '');
         fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
     }
 

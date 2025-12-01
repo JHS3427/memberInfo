@@ -355,9 +355,10 @@ public class OauthServiceImpl implements OauthService{
         return result;
     }
     @Override
+    @Transactional
     public String compareauthcode(UserInfoDto userInfoDto)
     {
-        String result="";
+        String result="wrong or late";
         //auth코드 확인 후 데이터 가져오고 받은 데이터의 uid 여부 확인해서 ID/PW 갈라야함
         //auth코드 확인했으면 지워버리기
         Optional<UserInfoAuthSearch> userInfoAuthSearch;
@@ -373,15 +374,26 @@ public class OauthServiceImpl implements OauthService{
                         .findByUemailAndUname(userInfoAuthSearch.get().getUemail(),
                             userInfoAuthSearch.get().getUname());
                 //나중에 활성화 시키기. ->재시도하게 하려면 비활성화, 재시도 없으면 활성화
-    //            jpaUserInfoAuthSearchRepository.deleteByAuthcode(userInfoDto.getAuthCodeIdPw());
+                jpaUserInfoAuthSearchRepository.deleteByAuthcode(userInfoDto.getAuthCodeIdPw());
                 if(userInfoDto.getUid()==null)
                 {
-                    result = userInfoData.get().getUid();
+                    if(userInfoData.isPresent())
+                    {
+                        result = userInfoData.get().getUid();
+                    }
+                    else
+                    {
+                        result = "wrong or late";
+                    }
                 }
                 else
                 {
                     result = "PW";
                 }
+            }
+            else
+            {
+                jpaUserInfoAuthSearchRepository.deleteByAuthcode(userInfoDto.getAuthCodeIdPw());
             }
         }
         else{
