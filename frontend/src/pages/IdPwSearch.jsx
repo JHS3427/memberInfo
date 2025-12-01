@@ -22,7 +22,9 @@ export function IdPwSearch(){
   const [pageType, setPageType] = useState(type);
   const [searchUserinfo,setSearchUserinfo] = useState(searchUserinfoInit);
   const [inputLevel,setInputLevel] = useState({"searchingInfo":true,"authcodeInput":null,"showOrChange":null})
-  const [finalData,setFinalData] = useState(null)
+  const [finalData,setFinalData] = useState(null);
+  const [startTime, setStartTime] = useState(null);//인가코드 발급받고 5분재서 넘으면 되돌려보낼 예정.
+  const DURATION_LIMIT = 5 * 60 * 1000; // 5(분단위) * 60(초단위) * 1000(밀리초)
   const navigate = useNavigate();
 
   const pageTypeChange = (newPageType) => {
@@ -53,6 +55,8 @@ export function IdPwSearch(){
             console.log("sendingUserInfo : ??");
             console.log(searchUserinfo)
             
+            setStartTime(Date.now());//인증코드 유효시간 측정용
+            
             Swal.fire({icon: 'info',text :"메일을 보냈습니다. 확인 후 입력해보세요."});
         }
     }
@@ -63,16 +67,33 @@ export function IdPwSearch(){
   }
 
   const sendingAuth = async() =>{
-    setFinalData(await sendingAuthCode(searchUserinfo))
-    console.log("finaldata : " + finalData )
-    //시간초를 설정하고, 시간초 지나서 입력이 들어오거나 맞으면 아래 실행해서 틀렸는지 맞았는지 알려주기?
-    setInputLevel(prev=>({...prev,["searchingInfo"]:null}))
-    setInputLevel(prev=>({...prev,["authcodeInput"]:null}))
-    setInputLevel(prev=>({...prev,["showOrChange"]:true}))
-  }
-
-  const oncl=()=>{
-    console.log(searchUserinfo);
+    const result = await sendingAuthCode(searchUserinfo);
+    const current = Date.now();
+    if(current-startTime<=DURATION_LIMIT)
+    {
+        if(result != "wrong or late")
+        {
+            setFinalData(result)
+            console.log("finaldata : " + finalData )
+            //시간초를 설정하고, 시간초 지나서 입력이 들어오거나 맞으면 아래 실행해서 틀렸는지 맞았는지 알려주기?
+            setInputLevel(prev=>({...prev,["searchingInfo"]:null}))
+            setInputLevel(prev=>({...prev,["authcodeInput"]:null}))
+            setInputLevel(prev=>({...prev,["showOrChange"]:true}))
+        }
+        else
+        {
+            const lefttime = DURATION_LIMIT-(current-startTime);
+            const totalleftsec = Math.floor(lefttime/1000);
+            const leftmin = Math.floor(totalleftsec/60);
+            const leftsec = totalleftsec - (60* Math.floor(totalleftsec/60));
+            Swal.fire({icon:"warning",text:`인증코드가 틀렸습니다. 제한시간은 ${leftmin}분 ${leftsec}초 남았습니다.`})
+        }
+    }
+    else
+    {
+        //바깥에 새로고침을 두니 비동기 문제가 생겨서 .then으로 작동시킴
+        Swal.fire({icon:"error",text:`시간초과, 처음부터 다시 부탁드립니다.`}).then(()=>{window.location.reload();})        
+    }
   }
 
   useEffect(()=>{
@@ -101,13 +122,20 @@ export function IdPwSearch(){
         }
         setSearchUserinfo(prev=>({...prev,["selectedTap"]:null}))//여러번 누를수도 있으니까 초기화
     }
-    // else
-    // {
-    //     console.log("으악 이게 뭐야")
-    //     console.log("searchUserinfo.selectedTap : " + searchUserinfo.selectedTap)
-    // }
   },[searchUserinfo.selectedTap])
 
+    // useEffect(() => {//startTime 잘 찍히나 확인용
+    //     if (startTime) {
+    //         const dateObject = new Date(startTime);
+
+    //         // 시, 분, 초를 가져옵니다. (한국 시간대 기준)
+    //         const hours = dateObject.getHours();       // 시
+    //         const minutes = dateObject.getMinutes();   // 분
+    //         const seconds = dateObject.getSeconds();   // 초
+
+    //         console.log(`${hours}시 ${minutes}분 ${seconds}초`);
+    //     }
+    // }, [startTime]);
     return(
         <div className="IdPwSearchContainer"> 
             {/* <div>

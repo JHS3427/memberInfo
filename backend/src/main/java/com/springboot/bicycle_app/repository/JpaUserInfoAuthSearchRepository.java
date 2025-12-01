@@ -10,7 +10,9 @@ import java.util.Optional;
 @Repository
 public interface JpaUserInfoAuthSearchRepository extends JpaRepository<UserInfoAuthSearch, String>{
 
-    Optional<UserInfoAuthSearch> findByAuthcode(@Param("authcode") String authcode);
+    Optional<UserInfoAuthSearch> findByAuthcodeAndUnameAndUemail(@Param("authcode") String authcode,
+                                                @Param("uname") String uname,
+                                                @Param("uemail") String uemail);
 
     void deleteByAuthcode(@Param("authcode") String authcode);
 }

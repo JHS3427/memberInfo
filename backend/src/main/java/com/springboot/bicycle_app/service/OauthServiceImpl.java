@@ -362,7 +362,10 @@ public class OauthServiceImpl implements OauthService{
         //auth코드 확인 후 데이터 가져오고 받은 데이터의 uid 여부 확인해서 ID/PW 갈라야함
         //auth코드 확인했으면 지워버리기
         Optional<UserInfoAuthSearch> userInfoAuthSearch;
-        userInfoAuthSearch = jpaUserInfoAuthSearchRepository.findByAuthcode(userInfoDto.getAuthCodeIdPw());
+        userInfoAuthSearch = jpaUserInfoAuthSearchRepository
+                .findByAuthcodeAndUnameAndUemail(userInfoDto.getAuthCodeIdPw(),
+                        userInfoDto.getUname(),
+                        userInfoDto.getUemail());
         LocalDateTime timer;
         
         if(userInfoAuthSearch.isPresent()) {
