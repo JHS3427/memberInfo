@@ -1,4 +1,5 @@
 modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthServiceImpl.java
+	 ‎backend/src/main/java/com/springboot/bicycle_app/repository/JpaUserInfoAuthSearchRepository.java
         modified:   backend/src/main/resources/application.properties
         new file:   frontend/src/components/auth/IdPwSearch/IdPwSearch_AuthcodeInput.jsx
         renamed:    frontend/src/components/auth/AuthInput.jsx -> frontend/src/components/auth/IdPwSearch/IdPwSearch_InputAndButton.jsx
