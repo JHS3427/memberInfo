@@ -12,6 +12,7 @@ import com.springboot.bicycle_app.repository.JpaUserInfoAuthSearchRepository;
 import com.springboot.bicycle_app.repository.UserInfoRepository;
 import com.springboot.bicycle_app.repository.JpaUserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -406,5 +407,13 @@ public class OauthServiceImpl implements OauthService{
         //pw는 auth코드 확인후에 일반 문자열 리턴?
 
         return result;
+    }
+    
+    //인증코드를 일정시간마다 확인하고 만료시간이 지났으면 지우는 함수
+    @Override
+    @Scheduled(fixedRate = 1000*60*60*24)//밀리초로 1초 * 60초 * 60분 * 24시간
+    public void printInTime(){
+        int result = jpaUserInfoAuthSearchRepository.deleteBydeadTime(LocalDateTime.now());
+        System.out.println("Deleted Data Row : " + result);
     }
 }

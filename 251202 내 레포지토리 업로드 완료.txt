@@ -1,0 +1,29 @@
+        modified:   backend/src/main/java/com/springboot/bicycle_app/BicycleAppApplication.java
+	‎backend/src/main/java/com/springboot/bicycle_app/repository/JpaUserInfoAuthSearchRepository.java
+        modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthService.java
+        modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthServiceImpl.java
+
+        modified:   backend/src/main/resources/application.properties
+
+ modified:   frontend/src/App.js
+        new file:   frontend/src/components/auth/SignUp/Email/SignUp_EmailSection.jsx
+        new file:   frontend/src/components/auth/SignUp/Email/SignUp_EmailSelect.jsx
+        new file:   frontend/src/components/auth/SignUp/Gender/SignUp_GenderSelect.jsx
+        new file:   frontend/src/components/auth/SignUp/InputBox/SignUp_InputBox.jsx
+        new file:   frontend/src/components/auth/SignUp/InputBox/SignUp_Lable.jsx
+        new file:   frontend/src/components/auth/SignUp/Postcode/SignUp_PostCodeBox.jsx
+        new file:   frontend/src/pages/SignUp2.jsx
+
+        new file:   frontend/src/components/auth/IdPwSearch/IdPwSearch_AuthcodeInput.jsx
+        renamed:    frontend/src/components/auth/AuthInput.jsx -> frontend/src/components/auth/IdPwSearch/IdPwSearch_InputAndButton.jsx
+        new file:   frontend/src/components/auth/IdPwSearch/IdPwSearch_findId.jsx
+        new file:   frontend/src/components/auth/IdPwSearch/IdPwSearch_passChange.jsx
+        new file:   frontend/src/components/auth/IdPwSearch/IdPwSearch_selectTab.jsx
+        modified:   frontend/src/feature/auth/authAPI.js
+        modified:   frontend/src/pages/IdPwSearch.jsx
+        modified:   frontend/src/pages/Layout.jsx
+        modified:   frontend/src/pages/Login.jsx
+        modified:   frontend/src/pages/MyPage.jsx
+        modified:   frontend/src/pages/SignUp.jsx
+        modified:   frontend/src/styles/IdPwSearch.css
+        modified:   frontend/src/styles/signup.css

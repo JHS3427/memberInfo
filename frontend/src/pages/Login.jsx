@@ -152,7 +152,6 @@ export function Login() {
                         <h1 className = "LoginPage">로그인 페이지</h1>
                         <form onSubmit={handleLoginSubmit}>
                             <li>
-                                {/* 아이디와 비밀번호를 네이버처럼 floating label을 해보려 시도했지만, 상당한 시간이 걸렸음에도 진행되지 아니하여 다른거 먼저함 */}
                                 <div className='loginDataBox'>아이디 : <input type="text" 
                                         name="uid"
                                         onChange={handleformchange}

@@ -17,4 +17,5 @@ public interface OauthService {
     int deleteuserId(UserInfoDto userInfoDto);
     boolean searchuserinfo(UserInfoDto userInfoDto);
     String compareauthcode(UserInfoDto userInfoDto);
+    void printInTime();
 }
