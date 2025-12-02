@@ -9,7 +9,7 @@ import { SignUp_GenderSelect } from '../components/auth/SignUp/Gender/SignUp_Gen
 import {SignUp_PostCodeBox} from '../components/auth/SignUp/Postcode/SignUp_PostCodeBox'
 import { SignUp_EmailSelect } from '../components/auth/SignUp/Email/SignUp_EmailSelect';
 import { SignUp_EmailSection } from '../components/auth/SignUp/Email/SignUp_EmailSection';
-
+import {SignUp_Label} from '../components/auth/SignUp/InputBox/SignUp_Lable'
 
 export const SignUp2 = ({excludeItems=[]}) => {
     // 소셜로그인인 경우 아이디 비번 제거를 위해 선언
@@ -205,16 +205,25 @@ export const SignUp2 = ({excludeItems=[]}) => {
             <div className = "IdPassSection">
             <h3>반드시 입력해주세요</h3>
             <h1 className="IdPassTitle">접속 정보란입니다</h1>
-            <div className="IdBox">          
+            <div className="IdBox">
+              <div className='ConsoleBoxWrapper'>
                 <SignUp_InputBox id="id" type="text" name="id" {...sharedData}/>
+                <SignUp_Label id="id" {...sharedData}/>
+              </div>
                 {idDupl?
                 <button type='button' className = 'IdDuplCheck'>중복확인 성공</button>:
                 <button type='button' className = 'IdDuplCheck' onClick={IdDupleCheck}>중복확인</button>}
             </div>
             <div className="PassBox">
                 {/* passLook의 값에따라 비밀번호 형식 또는 문자열 형식 표시 */}
-                <SignUp_InputBox id="pass" type={passInputType} name="pass" {...sharedData}/>
-                <SignUp_InputBox id="passcheck" type={passInputType} name="passcheck" {...sharedData}/>
+                <div className='ConsoleBoxWrapper'>
+                  <SignUp_InputBox id="pass" type={passInputType} name="pass" {...sharedData}/>
+                  <SignUp_Label id="pass" {...sharedData}/>
+                </div>
+                <div className='ConsoleBoxWrapper'>
+                  <SignUp_InputBox id="passcheck" type={passInputType} name="passcheck" {...sharedData}/>
+                  <SignUp_Label id="passcheck" {...sharedData}/>
+                </div>
                 {passLook?
                 <button 
                 type='button'
@@ -231,18 +240,30 @@ export const SignUp2 = ({excludeItems=[]}) => {
           <h3>반드시 입력 및 선택해주세요</h3>
           <h1>개인 정보란 입니다</h1>
           <div className = "PrivateInfoBox">
-            <SignUp_InputBox id="name" type="text" name="name" {...sharedData}/>
-            <SignUp_InputBox id="age" type="text" name="age" {...sharedData}/>
+            <div className='ConsoleBoxWrapper'>
+              <SignUp_InputBox id="name" type="text" name="name" {...sharedData}/>
+              <SignUp_Label id="name" {...sharedData}/>
+            </div>
+            <div className='ConsoleBoxWrapper'>
+              <SignUp_InputBox id="age" type="text" name="age" {...sharedData}/>
+              <SignUp_Label id="age" {...sharedData}/>
+            </div>
             <SignUp_GenderSelect formData={formData} handleChange={handleChange}/>
             <SignUp_PostCodeBox formData={formData} setFormData={setFormData}/>
-            <SignUp_InputBox id="detailAddress" type="text" name="detailAddress" {...sharedData}/>
+            <div className='ConsoleBoxWrapper'>
+              <SignUp_InputBox id="detailAddress" type="text" name="detailAddress" {...sharedData}/>
+              <SignUp_Label id="detailAddress" {...sharedData}/>
+            </div>
           </div>
         </div>
         <div className = "PrivateConnInfoSection">
           <h1>연락처를 작성해주세요</h1>
           <div className = "PrivateConnInfoBox">
             <SignUp_EmailSection formData ={formData} handleChange={handleChange} sharedData={sharedData}/>
-            <SignUp_InputBox id="phone" type="text" name="phone" {...sharedData}/>
+            <div className='ConsoleBoxWrapper'>
+              <SignUp_InputBox id="phone" type="text" name="phone" {...sharedData}/>
+              <SignUp_Label id="phone" {...sharedData}/>
+            </div>
           </div>
         </div>
       </div>

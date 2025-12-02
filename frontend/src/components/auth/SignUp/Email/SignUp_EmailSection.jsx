@@ -1,13 +1,16 @@
 import { SignUp_InputBox } from "../InputBox/SignUp_InputBox";
+import { SignUp_Label } from "../InputBox/SignUp_Lable";
 import { SignUp_EmailSelect } from "./SignUp_EmailSelect";
 
 export function SignUp_EmailSection({formData,handleChange,sharedData}){
-    console.log(sharedData)
     return(
         <>
         <div className = "EmailAddressBox">
             <div className = "EmailAddressFront">
-                <SignUp_InputBox id="emailAddress" type="text" name="emailAddress" {...sharedData}/>
+                <div className='ConsoleBoxWrapper'>
+                    <SignUp_InputBox id="emailAddress" type="text" name="emailAddress" {...sharedData}/>
+                    <SignUp_Label id="emailAddress" {...sharedData}/>
+                </div>
             </div>
             <div className = "EmailAddressBack">
                 {formData.emailList==="default"?<p></p>:<span>@</span>}

@@ -9,8 +9,9 @@ import { Auth } from './pages/Auth.jsx';
 
 import { SignUp } from './pages/SignUp.jsx';
 import { SignUp2 } from './pages/SignUp2.jsx';
-
 import { MyPage } from './pages/MyPage.jsx';
+import { MyPage2 } from './pages/MyPage2.jsx';
+
 import { IdPwSearch } from './pages/IdPwSearch.jsx';
 import { Terms } from './pages/policies/Terms.jsx';
 import { Privacy } from './pages/policies/Privacy.jsx';
@@ -73,10 +74,12 @@ export default function App() {
                         {/* Auth */}
                         <Route path="login" element={<Login />} />
                         <Route path="auth" element={<Auth />} />
-                        <Route path="signUp" element={<SignUp />} />
-                        <Route path="signUp2" element={<SignUp2 />} />
+                        {/* <Route path="signUp" element={<SignUp />} /> */}
+                        <Route path="signUp" element={<SignUp2 />} />
                         <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />
                         <Route path="mypage" element={<MyPage />} />
+                        <Route path="mypage2" element={<MyPage2 />} />
+
                         <Route path="IdPwSearch" element={<IdPwSearch />} />
 
                         {/* Policy */}

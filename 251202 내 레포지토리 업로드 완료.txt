@@ -1,18 +1,24 @@
-        modified:   backend/src/main/java/com/springboot/bicycle_app/BicycleAppApplication.java
+        modified:   backend/src/main/java/com/springboot/bicycle_app/BicycleAppApplication.java -공용
 	‎backend/src/main/java/com/springboot/bicycle_app/repository/JpaUserInfoAuthSearchRepository.java
         modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthService.java
         modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthServiceImpl.java
 
-        modified:   backend/src/main/resources/application.properties
+        modified:   backend/src/main/resources/application.properties -공용
 
- modified:   frontend/src/App.js
+ modified:   frontend/src/App.js-공용
+
+new file:   frontend/src/components/auth/MyPage/MyPage_InputSection.jsx
+        new file:   frontend/src/components/auth/MyPage/MyPage_SideBar.jsx
+
         new file:   frontend/src/components/auth/SignUp/Email/SignUp_EmailSection.jsx
         new file:   frontend/src/components/auth/SignUp/Email/SignUp_EmailSelect.jsx
         new file:   frontend/src/components/auth/SignUp/Gender/SignUp_GenderSelect.jsx
         new file:   frontend/src/components/auth/SignUp/InputBox/SignUp_InputBox.jsx
         new file:   frontend/src/components/auth/SignUp/InputBox/SignUp_Lable.jsx
         new file:   frontend/src/components/auth/SignUp/Postcode/SignUp_PostCodeBox.jsx
+
         new file:   frontend/src/pages/SignUp2.jsx
+new file:   frontend/src/pages/MyPage2.jsx
 
         new file:   frontend/src/components/auth/IdPwSearch/IdPwSearch_AuthcodeInput.jsx
         renamed:    frontend/src/components/auth/AuthInput.jsx -> frontend/src/components/auth/IdPwSearch/IdPwSearch_InputAndButton.jsx
