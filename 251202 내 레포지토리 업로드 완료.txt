@@ -1,5 +1,5 @@
         modified:   backend/src/main/java/com/springboot/bicycle_app/BicycleAppApplication.java -공용
-	‎backend/src/main/java/com/springboot/bicycle_app/repository/JpaUserInfoAuthSearchRepository.java
+		‎backend/src/main/java/com/springboot/bicycle_app/repository/JpaUserInfoAuthSearchRepository.java
         modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthService.java
         modified:   backend/src/main/java/com/springboot/bicycle_app/service/OauthServiceImpl.java
 
@@ -33,3 +33,4 @@ new file:   frontend/src/pages/MyPage2.jsx
         modified:   frontend/src/pages/SignUp.jsx
         modified:   frontend/src/styles/IdPwSearch.css
         modified:   frontend/src/styles/signup.css
+        new file:   frontend/src/styles/mypage2.css

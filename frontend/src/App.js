@@ -74,11 +74,9 @@ export default function App() {
                         {/* Auth */}
                         <Route path="login" element={<Login />} />
                         <Route path="auth" element={<Auth />} />
-                        {/* <Route path="signUp" element={<SignUp />} /> */}
                         <Route path="signUp" element={<SignUp2 />} />
-                        <Route path="socialsignUp" element={<SignUp excludeItems={['social']} />} />
-                        <Route path="mypage" element={<MyPage />} />
-                        <Route path="mypage2" element={<MyPage2 />} />
+                        <Route path="socialsignUp" element={<SignUp2 excludeItems={['social']} />} />
+                        <Route path="mypage" element={<MyPage2 />} />
 
                         <Route path="IdPwSearch" element={<IdPwSearch />} />
 

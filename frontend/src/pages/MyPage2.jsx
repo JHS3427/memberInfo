@@ -1,13 +1,12 @@
 import Swal from 'sweetalert2';
 import { useEffect,useState } from "react";
-import { getInfo,idDuplCheck,updateUser,IdDrop,getLogout,usePostCode} from '../feature/auth/authAPI';
-import { useNavigate,Link } from 'react-router-dom';
+import { getInfo,idDuplCheck,updateUser,IdDrop,getLogout} from '../feature/auth/authAPI';
+import { useNavigate } from 'react-router-dom';
 import '../styles/myPage.css'; // ✨ 새로운 CSS 파일 import
 import { useDispatch} from 'react-redux';
 import { MyPage_SideBar } from '../components/auth/MyPage/MyPage_SideBar';
-import { SignUp_InputBox } from '../components/auth/SignUp/InputBox/SignUp_InputBox';
 import { MyPage_InputSection } from '../components/auth/MyPage/MyPage_InputSection';
-
+import '../styles/mypage2.css'; // ✨ 새로운 CSS 파일 import
 
 export function MyPage2(){
 
@@ -49,19 +48,72 @@ export function MyPage2(){
 
     const handleChange=(e)=>{
         const {name,value} = e.target
-        setHandleData({...handleData,[name]:value})
+        // setHandleData({...handleData,[name]:value})
         console.log(handleData)
         if(name ==="uid")
         {
             setIdChecker(false);//ID값 변경되면 다시 체크하게 만들기
         }
-        if(value==="")
+        if(name ==="uphone")
         {
-            setEditer({...editer,[name]:0})//입력창 열고 변화가 없으면 데이터 변화 없는 취급
+        // 1. 입력된 값에서 숫자만 추출
+            const onlyNumbers = value.replace(/[^0-9]/g, '');
+            let formattedValue = onlyNumbers;
+
+            // 2. 최대 11자리까지만 처리 (ex: 01012345678)
+            const maxLength = 11;
+            const slicedNumbers = onlyNumbers.slice(0, maxLength);
+
+            // 3. 추출된 숫자의 길이에 따라 하이픈 자동 삽입 (3-4-4 패턴)
+            if (slicedNumbers.length > 3 && slicedNumbers.length <= 7) {
+                // 4자리 ~ 7자리: 000-0000 패턴
+                formattedValue = `${slicedNumbers.slice(0, 3)}-${slicedNumbers.slice(3)}`;
+            } else if (slicedNumbers.length > 7) {
+                // 8자리 ~ 11자리: 000-0000-0000 패턴
+                formattedValue = `${slicedNumbers.slice(0, 3)}-${slicedNumbers.slice(3, 7)}-${slicedNumbers.slice(7)}`;
+            }
+            setHandleData({...handleData,[name]:formattedValue})
+
+            if(onlyNumbers.length===0)
+            {
+                setEditer({...editer,[name]:0})
+            }
+            else
+            {
+                setEditer({...editer,[name]:1})
+            }
+        }
+        else if(name === "uage")//나이는 숫자만 입력받음
+        {
+            const onlyNumbers = e.target.value.replace(/[^0-9]/g, '');
+            setHandleData({...handleData,[name]:onlyNumbers})
+            if(onlyNumbers.length===0)
+            {
+                setEditer({...editer,[name]:0})
+            }
+            else
+            {
+                setEditer({...editer,[name]:1})
+            }
         }
         else
         {
-            setEditer({...editer,[name]:1})
+            if(name ==="uaddress")
+            {
+                setHandleData({...handleData,[name+"_sub"]:value})
+            }
+            else
+            {
+                setHandleData({...handleData,[name]:value})
+            }
+            if(value==="")
+            {
+                setEditer({...editer,[name]:0})//입력창 열고 변화가 없으면 데이터 변화 없는 취급
+            }
+            else
+            {
+                setEditer({...editer,[name]:1})
+            }
         }
     }
 
@@ -95,17 +147,42 @@ export function MyPage2(){
     //회원탈퇴 문의 후 탈퇴시키는 함수
     const idDrop = async() =>{
         const idIncludehandleData = {...info}
-        const userResponse = window.confirm("회원 탈퇴 하시겠습니까?");
-        if(userResponse)
-        {
+            // const userResponse = window.confirm("회원 탈퇴 하시겠습니까?");
+            // 1. Swal.fire를 await하여 사용자의 응답을 직접 받음
+        const result = await Swal.fire({
+            title: '회원 탈퇴 하시겠습니까?',
+            text: '다시 되돌릴 수 없습니다.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33', // 탈퇴는 빨간색으로 변경 (권장)
+            cancelButtonColor: '#3085d6', // 취소는 파란색으로 변경 (권장)
+            confirmButtonText: '탈퇴',
+            cancelButtonText: '취소',
+            reverseButtons: true,
+        });
+
+        // 2. 응답 결과에 따라 로직 처리
+        if (result.isConfirmed) {
+            // 탈퇴(Confirm) 버튼을 눌렀을 때의 로직
+            
+            // 2-1. API 호출 및 처리
             console.log(idIncludehandleData);
-            const result = await IdDrop(idIncludehandleData)
-            dispatch(getLogout());
-            navigate('/');
-        }
-        else
-        {
-            Swal.fire({icon : "info", text:"회원 탈퇴를 취소하였습니다."})
+            try {
+                const deleteResult = await IdDrop(idIncludehandleData); // API 호출
+                
+                // 2-2. 성공 알림 및 후속 조치
+                await Swal.fire({ icon: "success", text: "회원 탈퇴를 완료하였습니다." });
+                dispatch(getLogout());
+                navigate('/');
+                
+            } catch (error) {
+                // API 호출 실패 시 에러 처리
+                Swal.fire({ icon: "error", title: "오류", text: "탈퇴 처리 중 오류가 발생했습니다." });
+            }
+
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // 취소(Cancel) 버튼을 눌렀을 때의 로직
+            Swal.fire({ icon: "info", text: "회원 탈퇴를 취소하였습니다." });
         }
     }
 
@@ -179,6 +256,8 @@ export function MyPage2(){
 
     //여기도 변경 필요할듯?
     useEffect(() => {
+        console.log(mainAddressVar.mainAddress)
+        console.log(mainAddressVar.postcode)
         if (mainAddressVar.mainAddress && dataChangeButtonOnOff['uaddress']) {
             handleChange({
                 target: {
@@ -200,13 +279,10 @@ export function MyPage2(){
     }, [mainAddressVar.mainAddress, postCodeChanger]);
 
     //이거 나중에 풀어야함
-    // useEffect(()=>{
-    //     setDataChangeButtonOnOff({...dataChangeButtonOnOff,[name] : false})
-    //     if(name === "uaddress")
-    //     {
-    //         setMainAddressVar({"mainAddress":"","postcode":""});
-    //     }
-    // },[updateResult])
+    useEffect(()=>{
+        setDataChangeButtonOnOff(dataChangeButtonOnOffInit)
+        setMainAddressVar({"mainAddress":"","postcode":""});
+    },[updateResult])
 
 
     if (!info) {
@@ -223,27 +299,13 @@ export function MyPage2(){
         "DataChangeOpen":DataChangeOpen,
         "IdDupleCheck":IdDupleCheck,
         "idChecker":idChecker,
-        "info":info}
+        "info":info,
+        "mainAddressVar":mainAddressVar,
+        "setMainAddressVar":setMainAddressVar}
 
     return(
         <>
         <div className="myPageContainer">
-            {/* <div className="sideBar">
-                <h1 className="sideBarTitle">사이드 탭</h1>
-                <ul className="sideBarList">
-                    <Link to={`/cart`}>
-                        <li>
-                            자전거 장바구니
-                        </li>
-                    </Link>
-                    <Link to={`/payment/order`}>
-                        <li>
-                            자전거 구매내역
-                        </li>
-                    </Link>
-                    <li>여행지 찜목록</li>
-                </ul>
-            </div> */}
             <MyPage_SideBar/>
             <div className="infoSection">
                 <h1 className="infoSectionTitle">개인정보 기록 및 수정</h1>
@@ -254,18 +316,15 @@ export function MyPage2(){
                         <li>소셜 로그인은 패스워드를 공개하지 않습니다</li>
                     </>:
                     <>
-                    <MyPage_InputSection {...VariableSetting} name="uid"/>
-                    <MyPage_InputSection {...VariableSetting} name="upass"/>
-
-                        {/*<InfoBox info={info} name = "upass" handleDataChange={handleChange} updateResult={updateResult}/> */}
-                    </>}                       
-                    
-                    {/* <InfoBox info={info} name = "uname" handleDataChange={handleChange} updateResult={updateResult}/>
-                    <InfoBox info={info} name = "uage" handleDataChange={handleChange} updateResult={updateResult}/>
-                    <InfoBox info={info} name = "ugender" handleDataChange={handleChange} updateResult={updateResult}/>
-                    <InfoBox info={info} name = "uaddress" handleDataChange={handleChange} updateResult={updateResult}/>
-                    <InfoBox info={info} name = "uemail" handleDataChange={handleChange} updateResult={updateResult}/>
-                    <InfoBox info={info} name = "uphone" handleDataChange={handleChange} updateResult={updateResult}/> */}
+                    <li><MyPage_InputSection {...VariableSetting} name="uid"/></li>
+                    <li><MyPage_InputSection {...VariableSetting} name="upass"/></li>
+                    </>}
+                    <li><MyPage_InputSection {...VariableSetting} name="uname"/></li>
+                    <li><MyPage_InputSection {...VariableSetting} name="uage" values={handleData}/></li>
+                    <li><MyPage_InputSection {...VariableSetting} name="ugender"/></li>
+                    <li><MyPage_InputSection {...VariableSetting} name="uaddress"/></li>
+                    <li><MyPage_InputSection {...VariableSetting} name="uemail"/></li>
+                    <li><MyPage_InputSection {...VariableSetting} name="uphone" values={handleData}/></li>
                 </ul>
                 {editerOnOff>0?<button className="withdrawButton" onClick={dataFixer}>수정 내용 저장</button>:""}
                 
