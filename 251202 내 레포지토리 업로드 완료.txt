@@ -27,7 +27,7 @@ new file:   frontend/src/pages/MyPage2.jsx
         new file:   frontend/src/components/auth/IdPwSearch/IdPwSearch_selectTab.jsx
         modified:   frontend/src/feature/auth/authAPI.js
         modified:   frontend/src/pages/IdPwSearch.jsx
-        modified:   frontend/src/pages/Layout.jsx
+        modified:   frontend/src/pages/Layout.jsx - 공용
         modified:   frontend/src/pages/Login.jsx
         modified:   frontend/src/pages/MyPage.jsx
         modified:   frontend/src/pages/SignUp.jsx

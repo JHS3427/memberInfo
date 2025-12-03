@@ -140,7 +140,7 @@ public class OauthController {
             Authentication authenticationRequest =
                     UsernamePasswordAuthenticationToken.unauthenticated(userInfo.getUid(), userInfo.getUpass());
 
-            //2. 인증 처리
+            //2. 인증 처리 : 여기서 security 쪽으로 갔다가 서비스의 customUserDetailsService로 가고 거기서 DB 지정됨
             Authentication authenticationResponse =
                     this.authenticationManager.authenticate(authenticationRequest);
 
