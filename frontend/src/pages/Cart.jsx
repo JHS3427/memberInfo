@@ -9,19 +9,40 @@ import '../styles/cart/cart.css';
 import Swal from "sweetalert2";
 
 export function Cart(){
-    const totalPrice = useSelector(state => state.cart.totalPrice);
+    const {totalPrice,orderInfo, receiverInfo} = useSelector(state => state.cart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const goToCheckout = () => {
-        if(totalPrice > 0){
-            navigate("/checkout")
-        } else {
+        if(totalPrice <= 0){
             Swal.fire({
                 icon: "warning",
-                title: "",
                 text: "주문 상품이 없습니다!",
             });
+            return;
         }
+        const validateForm = () => {
+            if (!orderInfo.name || !orderInfo.mobile || !orderInfo.email) {
+                return "주문자 정보를 모두 입력해주세요.";
+            }
+            if (!receiverInfo.name || !receiverInfo.mobile || !receiverInfo.postcode || !receiverInfo.address) {
+                return "배송지(수령인) 정보를 모두 입력해주세요.";
+            }
+
+            return null;
+        };
+
+        const errorMessage = validateForm();
+
+        if (errorMessage) {
+            Swal.fire({
+                icon: "warning",
+                title: "필수정보누락",
+                text: errorMessage,
+            });
+            return;
+        }
+
+        navigate("/checkout");
     }
     useEffect(() => {
         const userInfo = localStorage.getItem('loginInfo');

@@ -26,7 +26,7 @@ export function CheckoutPayment({ totalPrice, cartList }) {
                     value: totalPrice,
                 });
 
-                if (isCancelled) return; 
+                if (isCancelled) return;
 
                 widgetRef.current = widgets;
 

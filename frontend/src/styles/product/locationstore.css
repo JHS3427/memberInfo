@@ -8,10 +8,6 @@
     box-sizing: border-box;
 }
 
-/* 1. (수정) 제목을 숨깁니다. (jsx에서 h1을 지웠다면 필요 X) */
-.store-locator-title {
-    display: none;
-}
 
 .store-locator-content {
     display: flex;

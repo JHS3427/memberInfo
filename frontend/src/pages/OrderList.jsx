@@ -30,7 +30,7 @@ export function OrderList() {
     };
 
     return (
-        <div className="order-container">
+        <div className="order-container" style={{paddingTop:'35px'}}>
             <h2 className="page-title">주문 내역</h2>
 
             {(!orderList || orderList.length === 0) ? (
@@ -46,13 +46,12 @@ export function OrderList() {
                                 <span className="order-id">NO. {item.orderId}</span>
                             </div>
 
-                            {/* 카드 바디: 상품명과 가격 */}
                             <div className="card-body">
                                 <div className="product-info">
                                     <h3>{item.orderName}</h3>
                                 </div>
                                 <div className="price-info">
-                                    <span className="price-label">결제금액</span>
+                                    <span className="price-label">총 결제금액   </span>
                                     <span className="total-price">
                                         {item.totalPrice ? item.totalPrice.toLocaleString() : 0}원
                                     </span>

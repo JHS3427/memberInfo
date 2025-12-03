@@ -224,6 +224,7 @@ export function MyPage2(){
     
     //변화가 생겨서 editer의 값이 한개라도 바뀌면 그걸 editerOnOFF에 추가.
     useEffect(()=>{
+        console.log(editer)
         let editerOnOff_changer = 0
         for( const [key, value] of Object.entries(editer))
         {
@@ -244,6 +245,7 @@ export function MyPage2(){
         if(name==="uaddress")
         {
             handleChange({target:{name:"uaddress_sub",value:""}})
+            handleChange({target:{name:"uaddress",value:""}})
             setPostCodeChanger(1);//uaddress_main 초기화 작업을 위해 세팅
             setMainAddressVar({"mainAddress":"","postcode":""})
         }

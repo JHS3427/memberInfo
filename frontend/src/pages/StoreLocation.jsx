@@ -23,9 +23,8 @@ export function StoreLocation() {
         ) : [];
 
     return (
-        <div className="store-locator-container">
+        <div className="store-locator-container" style={{paddingTop:'65px'}}>
             <h1 className="store-locator-title">대리점 찾기</h1>
-
             <div className="store-locator-content">
 
                 <div className="store-list-panel">
@@ -38,11 +37,26 @@ export function StoreLocation() {
                             <li
                                 key={store.sid}
                                 className={`store-list-item ${selectedStore?.sid === store.sid ? 'active' : ''}`}
-                                onClick={() => handleClick(store)}
-                            >
-                                <strong>{store.name}</strong>
-                                <p>{store.address}</p>
-                                <p>전화: {store.phone}</p>
+                                onClick={() => handleClick(store)}>
+                                <div className="store-info">
+                                    <strong>{store.name}</strong>
+                                    <p>{store.address}</p>
+                                    <p className="phone-text">전화: {store.phone}</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    className="find-path-btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        if (store.url) {
+                                            window.open(store.url, '_blank', 'noopener,noreferrer');
+                                        } else {
+                                            alert("주소 정보가 없습니다.");
+                                        }
+                                    }}
+                                >
+                                    길찾기
+                                </button>
                             </li>
                         ))}
                     </ul>

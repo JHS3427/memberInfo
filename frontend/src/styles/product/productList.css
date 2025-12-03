@@ -76,3 +76,61 @@
     font-weight: bold;
     color: #E40046; /* 첼로 레드 (예시) */
 }
+/* 리스트 아이템을 Flex 컨테이너로 만듭니다 */
+.store-list-item {
+    display: flex;             /* 옆으로 나란히 배치 */
+    justify-content: space-between; /* 양 끝 정렬 (왼쪽 텍스트, 오른쪽 버튼) */
+    align-items: center;       /* 수직 중앙 정렬 */
+    padding: 15px 20px;        /* 내부 여백 좀 더 넉넉하게 */
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* 텍스트 영역 스타일 */
+.store-info {
+    display: flex;
+    flex-direction: column;    /* 텍스트는 위아래로 쌓이게 */
+    gap: 4px;                  /* 줄 간격 살짝 띄우기 */
+    max-width: 75%;            /* 버튼 공간 확보를 위해 너비 제한 */
+}
+
+.store-info strong {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.store-info p {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* 길찾기 버튼 예쁘게 꾸미기 */
+.find-path-btn {
+    background-color: #03c75a; /* 네이버 지도 느낌의 초록색 (또는 원하시는 색상) */
+    color: white;
+    border: none;
+    border-radius: 20px;       /* 둥근 알약 모양 */
+    padding: 8px 16px;         /* 버튼 크기 조절 */
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;       /* 글자가 줄바꿈되지 않도록 고정 */
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 살짝 그림자 */
+}
+
+.find-path-btn:hover {
+    background-color: #02b150; /* 호버 시 색상 진하게 */
+    transform: translateY(-1px); /* 살짝 떠오르는 효과 */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+/* 클릭(활성) 상태일 때 스타일 유지 */
+.store-list-item.active {
+    background-color: #f0f7ff; /* 활성화 배경색 */
+    border-left: 4px solid #03c75a; /* 왼쪽 강조 선 */
+}

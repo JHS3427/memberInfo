@@ -25,7 +25,7 @@ export function ProductList({category}) {
                                 <img src={product.image} alt={product.name} />
                             </div>
                             <div className="product-card-info">
-                                <h4 className="product-name">{product.name}</h4>
+                                <h4 className="product-name" >{product.name}</h4>
                                 <p className="product-price">{parseInt(product.price).toLocaleString()}원</p>
                             </div>
                         </div>

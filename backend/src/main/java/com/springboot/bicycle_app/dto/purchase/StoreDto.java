@@ -14,6 +14,7 @@ public class StoreDto {
     private String phone;
     private BigDecimal lat;
     private BigDecimal lng;
+    private String url;
 
     public StoreDto(){}
     public StoreDto(Store entity){
@@ -23,5 +24,6 @@ public class StoreDto {
         this.phone = entity.getPhone();
         this.lat = entity.getLat();
         this.lng = entity.getLng();
+        this.url = entity.getUrl();
     }
 }

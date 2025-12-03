@@ -63,7 +63,7 @@ export function ProductDetail() {
     }
 
     return (
-        <div className="product-detail-container">
+        <div className="product-detail-container" style={{paddingTop:'65px'}}>
             <div className='product-detail-top'>
                 <div className='product-detail-image-top'>
                     <img src={product.image} alt={product.name} className="main-image"/>

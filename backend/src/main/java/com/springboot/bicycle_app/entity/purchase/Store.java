@@ -26,4 +26,6 @@ public class Store {
 
     @Column(precision = 11, scale = 8)
     private BigDecimal lng;
+
+    private String url;
 }

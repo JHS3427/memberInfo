@@ -21,7 +21,7 @@ function StoreMap({ storeList,selectedStore,onMarkerClick }) {
         // const redMarkerSrc = 'http://172.16.250.24:3000/images/travel_markers/marker_main_select.png';
         let imageSize = new window.kakao.maps.Size(15, 15);
         let imageOption = {offset: new window.kakao.maps.Point(0, 0)};
-        
+
         const greenMarkerImage = new window.kakao.maps.MarkerImage(greenMarkerSrc, imageSize, imageOption);
         const redMarkerImage = new window.kakao.maps.MarkerImage(redMarkerSrc, imageSize, imageOption);
 
@@ -42,6 +42,7 @@ function StoreMap({ storeList,selectedStore,onMarkerClick }) {
             <div class="map-marker-overlay-box" >
                 <ul class="map-marker-overlay">
                   <li class="map-marker-title" ><span>${store.name}</span></li>
+             
                 </ul>
             </div>
           `;

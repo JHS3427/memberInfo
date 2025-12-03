@@ -6,12 +6,8 @@ import Rental from './pages/Rental.jsx';
 import { Support } from './pages/Support.jsx';
 import { Login } from './pages/Login.jsx';
 import { Auth } from './pages/Auth.jsx';
-
-import { SignUp } from './pages/SignUp.jsx';
 import { SignUp2 } from './pages/SignUp2.jsx';
-import { MyPage } from './pages/MyPage.jsx';
 import { MyPage2 } from './pages/MyPage2.jsx';
-
 import { IdPwSearch } from './pages/IdPwSearch.jsx';
 import { Terms } from './pages/policies/Terms.jsx';
 import { Privacy } from './pages/policies/Privacy.jsx';
@@ -39,6 +35,7 @@ import { SuccessPage } from "./pages/SuccessPage.jsx";
 import { FailPage } from "./pages/FailPage.jsx";
 import {RentalPaymentResults} from "./components/rental/RentalPaymentResult.jsx";
 import {OrderList} from "./pages/OrderList.jsx";
+import ProtectedRoute from "./utils/ProtectedRoute.js";
 
 export default function App() {
 
@@ -76,8 +73,10 @@ export default function App() {
                         <Route path="auth" element={<Auth />} />
                         <Route path="signUp" element={<SignUp2 />} />
                         <Route path="socialsignUp" element={<SignUp2 excludeItems={['social']} />} />
-                        <Route path="mypage" element={<MyPage2 />} />
-
+                        <Route path="mypage" element={
+                            <ProtectedRoute>
+                                <MyPage2 />
+                            </ProtectedRoute>} />
                         <Route path="IdPwSearch" element={<IdPwSearch />} />
 
                         {/* Policy */}
@@ -89,12 +88,27 @@ export default function App() {
                         <Route path="products/:category" element={<Products />} />
                         <Route path="products/:category/:pid" element={<ProductDetail />} />
                         <Route path="location" element={<StoreLocation/>}/>
-                        <Route path="cart" element={<Cart/>}/>
+                        <Route path="cart" element={
+                            <ProtectedRoute>
+                                <Cart/>
+                            </ProtectedRoute>}/>
                         <Route path="compare" element={<ComparedProduct/>}/>
-                        <Route path="checkout" element={<CheckoutInfo/>}/>
-                        <Route path="checkout/success" element={<SuccessPage/>}/>
-                        <Route path="checkout/fail" element={<FailPage/>}/>
-                        <Route path="payment/order" element={<OrderList/>}/>
+                        <Route path="checkout" element={
+                            <ProtectedRoute>
+                                <CheckoutInfo/>
+                            </ProtectedRoute>}/>
+                        <Route path="checkout/success" element={
+                            <ProtectedRoute>
+                                <SuccessPage/>
+                            </ProtectedRoute>}/>
+                        <Route path="checkout/fail" element={
+                            <ProtectedRoute>
+                                <FailPage/>
+                            </ProtectedRoute>}/>
+                        <Route path="payment/order" element={
+                            <ProtectedRoute>
+                                <OrderList/>
+                            </ProtectedRoute>}/>
 
                         {/* Board (게시판) */}
                         <Route path="board">
