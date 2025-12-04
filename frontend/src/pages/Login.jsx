@@ -108,7 +108,7 @@ export function Login() {
         // console.log(formData.pass);
     }
 
-    //제출버튼을 누르면 변화 발생. - 미완성(에러는 없음)
+    //제출버튼을 누르면 변화 발생.
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         const param = {

@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 //     return false;
 // }
 
+//Login.jsx에서 사용
 export const getLogin = (formData,param) => async(dispatch) => {
     if(param==null)//소셜로그인을 이용한 자동 로그인인 경우
     {
