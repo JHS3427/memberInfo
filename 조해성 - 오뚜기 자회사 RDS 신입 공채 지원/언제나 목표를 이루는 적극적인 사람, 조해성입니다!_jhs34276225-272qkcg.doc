@@ -147,7 +147,7 @@
                                     </td>
                                                                         <td style="padding-left:12px;width:150px;vertical-align:top;border-left:1px solid #eaedf4;">
                                         <strong style="font-size:10px;color:#67738e;font-weight:bold;margin-bottom:4px;">포트폴리오</strong>
-                                        <p style="color:#292e41;font-size:10px;"><a href="https://pds3.saramin.co.kr/webfile/download_memberfile_security.php?appmode=slide_webview&amp;file=person%2Fresume_filebox%2F202512%2F24%2Ft7reii12_92yj-1evs69f_resume_filebox.pptx&amp;name2=Bicycle-App_%EC%B5%9C%EC%A2%85_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C_%ED%86%B5%ED%95%A9%EB%B3%B8.pptx" class="portfolio ico_pdf03  sri_attch_file" target="_blank"><span>Bicycle-App 최종 발표자료_···</span><span>.pptx</span></a></p>
+                                        <p style="color:#292e41;font-size:10px;"><a href="https://pds3.saramin.co.kr/webfile/download_memberfile_security.php?appmode=slide_webview&amp;file=person%2Fresume_filebox%2F202512%2F24%2Ft7riw31_ivhq-1evs69f_resume_filebox.zip&amp;name2=%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4_%EC%82%B0%EC%B6%9C%EB%AC%BC.zip" class="portfolio ico_pdf05  sri_attch_file" target="_blank"><span>포트폴리오 산출물</span><span>.zip</span></a></p>
                                     </td>
                                                                 </tr>
                         </table>
@@ -585,7 +585,7 @@
                                                                                     <tr>
                                                 <td>
                                                                                                             <p style="margin:4px 0 12px 0;font-size:10px;color:#292e41;word-break: break-all">
-                                                            <a  href="https://pds3.saramin.co.kr/webfile/download_memberfile_security.php?appmode=slide_webview&amp;file=person%2Fresume_filebox%2F202512%2F24%2Ft7reii12_92yj-1evs69f_resume_filebox.pptx&amp;name2=Bicycle-App_%EC%B5%9C%EC%A2%85_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C_%ED%86%B5%ED%95%A9%EB%B3%B8.pptx" title="Bicycle-App 최종 발표자료_통합본.pptx" style="" class="file_link" ><span>Bicycle-App 최종 발표자료_통합본.pptx</span></a>                                                        </p>
+                                                            <a  href="https://pds3.saramin.co.kr/webfile/download_memberfile_security.php?appmode=slide_webview&amp;file=person%2Fresume_filebox%2F202512%2F24%2Ft7riw31_ivhq-1evs69f_resume_filebox.zip&amp;name2=%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4_%EC%82%B0%EC%B6%9C%EB%AC%BC.zip" title="포트폴리오 산출물.zip" style="" class="file_link" ><span>포트폴리오 산출물.zip</span></a>                                                        </p>
                                                                                                                 <table>
                                                                                                                             <tr>
                                                                     <td style="width:100px;font-size:10px;vertical-align:top;word-break: normal">작업기간</td>
@@ -605,7 +605,7 @@
                                                                                                                                 <tr>
                                                                     <td style="width:100px;font-size:10px;vertical-align:top;word-break: normal">작업내용</td>
                                                                     <td style="width:10px;font-size:10px;color:#d7dce5;vertical-align:top;word-break: normal">|</td>
-                                                                    <td style="width:350px;font-size:10px;vertical-align:top;word-break: break-all;word-wrap:break-word;white-space:pre-wrap"> React redux toolkit &gt; NextJS(마이그레이션) ,Spring boot, MySQL로 구성. 그 중에서 회원관리/보안 파트를 담당함. 회원 관리의 경우 로그인(플랫폼 로그인 포함)/회원가입/아이디찾기, 비밀번호 바꾸기/내정보 을 구현함. 백엔드에서는 회원 관리 구현과 더불어 Security config를 이용, JWT, JSESSION ID로 보안 구현.</td>
+                                                                    <td style="width:350px;font-size:10px;vertical-align:top;word-break: break-all;word-wrap:break-word;white-space:pre-wrap">React redux toolkit &gt; NextJS(마이그레이션) ,Spring boot, MySQL로 구성. 그 중에서 회원관리/보안 파트를 담당함. 회원 관리의 경우 로그인(플랫폼 로그인 포함)/회원가입/아이디찾기, 비밀번호 바꾸기/내정보 을 구현함. 백엔드에서는 회원 관리 구현과 더불어 Security config를 이용, JWT, JSESSION ID로 보안 구현.</td>
                                                                 </tr>
                                                                                                                         </table>
                                                                                                         </td>
