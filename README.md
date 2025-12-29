@@ -1,79 +1,96 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-조해성이 테스트중 입니다.
->>>>>>> df9afbc9340bb5d34102ab61cb2839344b0b9035
-=======
-조해성이 테스트중 입니다.
-권용빈 테스트중 입니다.
->>>>>>> 78818bc3a084c200d66023274f0d9be85eb5e56c
+![Slide1](./readmeImage/Slide1.jpg)
+![Slide2](./readmeImage/Slide2.jpg)
+![Slide3](./readmeImage/Slide3.jpg)
+![Slide4](./readmeImage/Slide4.jpg)
+![Slide5](./readmeImage/Slide5.jpg)
+![Slide6](./readmeImage/Slide6.jpg)
+![Slide7](./readmeImage/Slide7.jpg)
+![Slide8](./readmeImage/Slide8.jpg)
+![Slide9](./readmeImage/Slide9.jpg)
+#[참고자료] 📎 [Bycicle-App_WBS.xlsx](./readmeFile/Bycicle-App_WBS.xlsx)
+![Slide10](./readmeImage/Slide10.jpg)
+#[참고자료] 📎 [Bycicle-App_기능명세서.xlsx](./readmeFile/Bycicle-App_기능명세서.xlsx)
+![Slide11](./readmeImage/Slide11.jpg)
+#[참고자료] 📎 [Bycicle-App_테이블명세서.docx](./readmeFile/Bycicle-App_테이블명세서.docx)
+![Slide12](./readmeImage/Slide12.jpg)
+![Slide13](./readmeImage/Slide13.jpg)
+![Slide14](./readmeImage/Slide14.jpg)
+![Slide15](./readmeImage/Slide15.jpg)
+![Slide16](./readmeImage/Slide16.jpg)
+![Slide17](./readmeImage/Slide17.jpg)
+![Slide18](./readmeImage/Slide18.jpg)
+![Slide19](./readmeImage/Slide19.jpg)
+![Slide20](./readmeImage/Slide20.jpg)
+![Slide21](./readmeImage/Slide21.jpg)
+![Slide22](./readmeImage/Slide22.jpg)
+![Slide23](./readmeImage/Slide23.jpg)
+![Slide24](./readmeImage/Slide24.jpg)
+![Slide25](./readmeImage/Slide25.jpg)
+![Slide26](./readmeImage/Slide26.jpg)
+![Slide27](./readmeImage/Slide27.jpg)
+![Slide28](./readmeImage/Slide28.jpg)
+![Slide29](./readmeImage/Slide29.jpg)
+![Slide30](./readmeImage/Slide30.jpg)
+![Slide31](./readmeImage/Slide31.jpg)
+![Slide32](./readmeImage/Slide32.jpg)
+![Slide33](./readmeImage/Slide33.jpg)
+![Slide34](./readmeImage/Slide34.jpg)
+![Slide35](./readmeImage/Slide35.jpg)
+![Slide36](./readmeImage/Slide36.jpg)
+![Slide37](./readmeImage/Slide37.jpg)
+![Slide38](./readmeImage/Slide38.jpg)
+![Slide39](./readmeImage/Slide39.jpg)
+![Slide40](./readmeImage/Slide40.jpg)
+![Slide41](./readmeImage/Slide41.jpg)
+![Slide42](./readmeImage/Slide42.jpg)
+![Slide43](./readmeImage/Slide43.jpg)
+![Slide44](./readmeImage/Slide44.jpg)
+![Slide45](./readmeImage/Slide45.jpg)
+![Slide46](./readmeImage/Slide46.jpg)
+![Slide47](./readmeImage/Slide47.jpg)
+![Slide48](./readmeImage/Slide48.jpg)
+![Slide49](./readmeImage/Slide49.jpg)
+![Slide50](./readmeImage/Slide50.jpg)
+![Slide51](./readmeImage/Slide51.jpg)
+![Slide52](./readmeImage/Slide52.jpg)
+![Slide53](./readmeImage/Slide53.jpg)
+![Slide54](./readmeImage/Slide54.jpg)
+![Slide55](./readmeImage/Slide55.jpg)
+![Slide56](./readmeImage/Slide56.jpg)
+![Slide57](./readmeImage/Slide57.jpg)
+![Slide58](./readmeImage/Slide58.jpg)
+![Slide59](./readmeImage/Slide59.jpg)
+![Slide60](./readmeImage/Slide60.jpg)
+![Slide61](./readmeImage/Slide61.jpg)
+![Slide62](./readmeImage/Slide62.jpg)
+![Slide63](./readmeImage/Slide63.jpg)
+![Slide64](./readmeImage/Slide64.jpg)
+![Slide65](./readmeImage/Slide65.jpg)
+![Slide66](./readmeImage/Slide66.jpg)
+![Slide67](./readmeImage/Slide67.jpg)
+![Slide68](./readmeImage/Slide68.jpg)
+![Slide69](./readmeImage/Slide69.jpg)
+![Slide70](./readmeImage/Slide70.jpg)
+![Slide71](./readmeImage/Slide71.jpg)
+![Slide72](./readmeImage/Slide72.jpg)
+![Slide73](./readmeImage/Slide73.jpg)
+![Slide74](./readmeImage/Slide74.jpg)
+![Slide75](./readmeImage/Slide75.jpg)
+![Slide76](./readmeImage/Slide76.jpg)
+![Slide77](./readmeImage/Slide77.jpg)
+![Slide78](./readmeImage/Slide78.jpg)
+![Slide79](./readmeImage/Slide79.jpg)
+![Slide80](./readmeImage/Slide80.jpg)
+![Slide81](./readmeImage/Slide81.jpg)
+![Slide82](./readmeImage/Slide82.jpg)
+![Slide83](./readmeImage/Slide83.jpg)
+![Slide84](./readmeImage/Slide84.jpg)
+![Slide85](./readmeImage/Slide85.jpg)
+![Slide86](./readmeImage/Slide86.jpg)
+![Slide87](./readmeImage/Slide87.jpg)
+![Slide88](./readmeImage/Slide88.jpg)
+<!--
+![Slide89](./readmeImage/Slide89.jpg)
+![Slide90](./readmeImage/Slide90.jpg)
+-->
+![Slide91](./readmeImage/Slide91.jpg)
